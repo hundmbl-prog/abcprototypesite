@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
-import { Tag } from '@/components/ui/Tag'
 import { cn } from '@/lib/cn'
 import type { NewsItem } from '@/content'
 
@@ -100,7 +99,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
     >
       <div
         ref={viewportRef}
-        className="overflow-hidden rounded-2xl border border-line shadow-(--shadow-float)"
+        className="overflow-hidden rounded-2xl border border-red-100 shadow-(--shadow-float)"
       >
         <div className="flex" aria-live={playing ? 'off' : 'polite'}>
           {items.map((item, i) => (
@@ -125,12 +124,14 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
               </div>
               <div className="flex flex-col justify-center gap-4 p-6 md:p-10 lg:col-span-5 lg:p-12">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Tag>{item.category}</Tag>
-                  <time dateTime={item.date} className="text-small text-ink-muted">
+                  <span className="rounded-pill bg-red-100 px-3 py-1 text-caption font-semibold tracking-wide text-red-700 uppercase">
+                    {item.category}
+                  </span>
+                  <time dateTime={item.date} className="text-small font-semibold text-red-700">
                     {dateFormat.format(new Date(item.date))}
                   </time>
                 </div>
-                <h3 className="text-h3 text-navy">
+                <h3 className="text-h3 text-red-800">
                   <Link href={`/news/${item.slug}`} className="stretched-link">
                     {item.title}
                   </Link>
@@ -138,7 +139,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
                 <p className="line-clamp-3 text-ink-muted">{item.excerpt}</p>
                 <span
                   aria-hidden
-                  className="inline-flex items-center gap-2 text-small font-semibold text-blue"
+                  className="inline-flex items-center gap-2 text-small font-semibold text-red-600"
                 >
                   Weiterlesen
                   <Icon
@@ -156,7 +157,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
         <button
           type="button"
           onClick={onToggle}
-          className="grid size-11 shrink-0 place-items-center rounded-pill border border-control text-navy hov:bg-navy hov:text-on-dark"
+          className="grid size-11 shrink-0 place-items-center rounded-pill border border-red-200 bg-surface text-red-700 hov:border-red-600 hov:bg-red-600 hov:text-on-dark"
         >
           {playing ? (
             <svg viewBox="0 0 24 24" className="size-4" aria-hidden fill="currentColor">
@@ -172,10 +173,10 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
             {playing ? 'Automatisches Abspielen pausieren' : 'Automatisch abspielen'}
           </span>
         </button>
-        <div className="relative h-1 flex-1 overflow-hidden rounded-pill bg-line" aria-hidden>
+        <div className="relative h-1.5 flex-1 overflow-hidden rounded-pill bg-red-100" aria-hidden>
           <span
             ref={progressRef}
-            className="absolute inset-0 origin-left scale-x-0 rounded-pill bg-blue"
+            className="absolute inset-0 origin-left scale-x-0 rounded-pill bg-linear-to-r from-red-400 to-red-600"
           />
         </div>
         <p className="shrink-0 font-mono text-small text-ink-muted">
@@ -186,14 +187,14 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
           <button
             type="button"
             onClick={() => api?.scrollPrev()}
-            className="grid size-11 place-items-center rounded-pill border border-control text-navy hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill border border-red-200 bg-surface text-red-700 hov:border-red-600 hov:bg-red-600 hov:text-on-dark"
           >
             <Icon name="arrow-left" label="Vorherige News" />
           </button>
           <button
             type="button"
             onClick={() => api?.scrollNext()}
-            className="grid size-11 place-items-center rounded-pill border border-control text-navy hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill border border-red-200 bg-surface text-red-700 hov:border-red-600 hov:bg-red-600 hov:text-on-dark"
           >
             <Icon name="arrow-right" label="Nächste News" />
           </button>
@@ -210,7 +211,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
               className={cn(
                 'relative flex w-full flex-col gap-2 rounded-lg p-1.5 text-left transition-colors duration-(--dur-base)',
                 i === index
-                  ? 'ring-2 glass-strong ring-navy'
+                  ? 'bg-surface shadow-md ring-2 ring-red-500'
                   : 'opacity-70 hov:bg-surface hov:opacity-100',
               )}
             >
@@ -224,7 +225,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
                   className="size-full object-cover"
                 />
               </span>
-              <span className="line-clamp-2 px-1 text-caption font-semibold text-navy">
+              <span className="line-clamp-2 px-1 text-caption font-semibold text-red-800">
                 <span className="sr-only">Zu News: </span>
                 {item.title}
               </span>

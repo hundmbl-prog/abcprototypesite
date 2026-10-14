@@ -112,7 +112,7 @@ export type HomePage = {
   offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
   projects: SectionIntro & { items: Project[]; cta: NavLink }
-  why: SectionIntro & { stats: Stat[]; points: string[] }
+  why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }
   people: SectionIntro & { items: Person[] }
   partners: SectionIntro & { items: Partner[] }
   locations: SectionIntro

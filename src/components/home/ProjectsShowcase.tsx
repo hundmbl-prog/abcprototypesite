@@ -12,7 +12,20 @@ function reducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-/** Cinematic project slideshow: drag/swipe, arrow keys, large image with title, partners and link. */
+/** Each project gets its own accent shade (AA as text on white, and as chips with white text). */
+const accents = [
+  { chip: 'bg-blue-600', text: 'text-blue-700', bar: 'bg-blue-600' },
+  { chip: 'bg-red-500', text: 'text-red-600', bar: 'bg-red-500' },
+  { chip: 'bg-blue-800', text: 'text-blue-800', bar: 'bg-blue-800' },
+  { chip: 'bg-blue-500', text: 'text-blue-700', bar: 'bg-blue-500' },
+  { chip: 'bg-red-600', text: 'text-red-700', bar: 'bg-red-600' },
+  { chip: 'bg-blue-700', text: 'text-blue-700', bar: 'bg-blue-700' },
+] as const
+
+/**
+ * Project slideshow: photo and text side by side – text never sits on the photo.
+ * Drag/swipe, arrow keys, buttons and one coloured progress line per project.
+ */
 export function ProjectsShowcase({ items }: { items: Project[] }) {
   const [viewportRef, api] = useEmblaCarousel({ loop: true, align: 'center', duration: 32 })
   const [index, setIndex] = useState(0)
@@ -45,84 +58,104 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
       aria-label="Projekte – mit den Pfeiltasten blättern"
       tabIndex={0}
       onKeyDown={onKeyDown}
-      className="flex flex-col gap-8 rounded-2xl"
+      className="flex flex-col gap-6 rounded-2xl"
     >
-      <div ref={viewportRef} className="overflow-hidden">
+      <div ref={viewportRef} className="overflow-hidden py-6">
         <div className="flex">
           {items.map((project, i) => {
             const active = i === index
+            const accent = accents[i % accents.length] ?? accents[0]
             return (
               <article
                 key={project.id}
                 role="group"
                 aria-roledescription="Folie"
                 aria-label={`${i + 1} von ${items.length}: ${project.title}`}
-                className="min-w-0 shrink-0 grow-0 basis-[88%] px-2 md:basis-[80%] md:px-3"
+                className="min-w-0 shrink-0 grow-0 basis-[90%] px-2 md:basis-[82%] md:px-3"
               >
                 <div
                   className={cn(
-                    'sheen relative isolate flex aspect-4/5 flex-col justify-end overflow-hidden rounded-2xl shadow-(--shadow-float) transition-transform duration-(--dur-slower) ease-out-expo sm:aspect-16/10 lg:aspect-21/9',
+                    'grid gap-4 transition-transform duration-(--dur-slower) ease-out-expo lg:grid-cols-12 lg:gap-6',
                     !active && 'scale-95',
                   )}
                 >
-                  <Image
-                    src={project.image.src}
-                    alt={project.image.alt}
-                    width={project.image.width}
-                    height={project.image.height}
-                    sizes="(min-width: 768px) 80vw, 88vw"
-                    placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
-                    blurDataURL={project.image.blurDataURL}
-                    className={cn(
-                      'ease-out absolute inset-0 -z-10 size-full object-cover transition-transform duration-(--dur-kenburns)',
-                      active && 'motion-safe:scale-110',
-                    )}
-                  />
-                  <div
-                    aria-hidden
-                    className={cn(
-                      'absolute inset-0 -z-10 bg-surface transition-opacity duration-(--dur-slower)',
-                      active ? 'opacity-0' : 'opacity-50',
-                    )}
-                  />
-                  <div
-                    className={cn(
-                      'm-3 flex max-w-prose flex-col gap-3 rounded-2xl p-5 text-ink glass-strong transition-[opacity,transform] duration-(--dur-slow) ease-out-expo md:m-6 md:p-8',
-                      active ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
-                    )}
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="rounded-pill bg-blue-soft px-3 py-1 text-caption font-semibold tracking-wide text-navy uppercase">
-                        Projekt
-                      </span>
-                      <span className="font-mono text-small text-ink-muted">
-                        {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <h3 className="text-h3 text-navy">{project.title}</h3>
-                    <p className="line-clamp-3 text-ink-muted">{project.description}</p>
-                    {project.partners.length > 0 ? (
-                      <p className="flex flex-wrap items-center gap-2 text-small">
-                        <span className="text-ink-muted">In Kooperation mit</span>
-                        {project.partners.map((partner) => (
-                          <span
-                            key={partner}
-                            className="rounded-pill border border-line bg-surface px-3 py-1 font-semibold text-navy"
-                          >
-                            {partner}
-                          </span>
-                        ))}
-                      </p>
-                    ) : null}
-                    <div className="pt-1">
-                      <Button
-                        href={`/projekte/${project.slug}`}
-                        variant="pill"
-                        tabIndex={active ? undefined : -1}
-                      >
-                        Projekt ansehen
-                        <span className="sr-only">: {project.title}</span>
-                      </Button>
+                  <div className="sheen relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float) lg:col-span-7 lg:aspect-auto lg:min-h-112">
+                    <Image
+                      src={project.image.src}
+                      alt={project.image.alt}
+                      width={project.image.width}
+                      height={project.image.height}
+                      sizes="(min-width: 1024px) 50vw, 90vw"
+                      placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
+                      blurDataURL={project.image.blurDataURL}
+                      className={cn(
+                        'ease-out absolute inset-0 size-full object-cover transition-transform duration-(--dur-kenburns)',
+                        active && 'motion-safe:scale-110',
+                      )}
+                    />
+                    <span
+                      aria-hidden
+                      className={cn(
+                        'absolute inset-0 bg-blue-50 transition-opacity duration-(--dur-slower)',
+                        active ? 'opacity-0' : 'opacity-60',
+                      )}
+                    />
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl bg-surface shadow-(--shadow-float) lg:col-span-5">
+                    <span
+                      aria-hidden
+                      className={cn('absolute inset-x-0 top-0 h-1.5', accent.bar)}
+                    />
+                    <div
+                      className={cn(
+                        'flex h-full flex-col gap-4 p-6 transition-opacity duration-(--dur-slow) md:p-10',
+                        active ? 'opacity-100' : 'opacity-0',
+                      )}
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <span
+                          className={cn(
+                            'rounded-pill px-3 py-1 text-caption font-semibold tracking-wide text-on-dark uppercase',
+                            accent.chip,
+                          )}
+                        >
+                          Projekt
+                        </span>
+                        <span
+                          aria-hidden
+                          className={cn('font-display text-h2 font-semibold', accent.text)}
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                      <h3 className="text-h3 text-navy">{project.title}</h3>
+                      <p className="text-ink-muted">{project.description}</p>
+                      {project.partners.length > 0 ? (
+                        <p className="flex flex-wrap items-center gap-2 text-small">
+                          <span className="text-ink-muted">In Kooperation mit</span>
+                          {project.partners.map((partner) => (
+                            <span
+                              key={partner}
+                              className={cn(
+                                'rounded-pill bg-surface-2 px-3 py-1 font-semibold',
+                                accent.text,
+                              )}
+                            >
+                              {partner}
+                            </span>
+                          ))}
+                        </p>
+                      ) : null}
+                      <div className="mt-auto pt-2">
+                        <Button
+                          href={`/projekte/${project.slug}`}
+                          variant="pill"
+                          tabIndex={active ? undefined : -1}
+                        >
+                          Projekt ansehen
+                          <span className="sr-only">: {project.title}</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -132,26 +165,29 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
         </div>
       </div>
 
-      <div className="container-wide flex items-center justify-between gap-6">
+      <div className="container-page flex items-center justify-between gap-6">
         <ul className="flex flex-1 gap-2" aria-label="Projekt auswählen">
-          {items.map((project, i) => (
-            <li key={project.id} className="flex-1">
-              <button
-                type="button"
-                onClick={() => api?.scrollTo(i, reducedMotion())}
-                aria-current={i === index ? 'true' : undefined}
-                className="group/dot flex h-11 w-full items-center"
-              >
-                <span
-                  className={cn(
-                    'h-1 w-full rounded-pill transition-colors duration-(--dur-base)',
-                    i === index ? 'bg-navy' : 'bg-line-strong group-hover/dot:bg-ink-muted',
-                  )}
-                />
-                <span className="sr-only">Projekt {project.title}</span>
-              </button>
-            </li>
-          ))}
+          {items.map((project, i) => {
+            const accent = accents[i % accents.length] ?? accents[0]
+            return (
+              <li key={project.id} className="flex-1">
+                <button
+                  type="button"
+                  onClick={() => api?.scrollTo(i, reducedMotion())}
+                  aria-current={i === index ? 'true' : undefined}
+                  className="group/dot flex h-11 w-full items-center"
+                >
+                  <span
+                    className={cn(
+                      'h-1.5 w-full rounded-pill transition-colors duration-(--dur-base)',
+                      i === index ? accent.bar : 'bg-blue-200 group-hover/dot:bg-blue-300',
+                    )}
+                  />
+                  <span className="sr-only">Projekt {project.title}</span>
+                </button>
+              </li>
+            )
+          })}
         </ul>
         <p className="sr-only" aria-live="polite">
           {current ? `Projekt ${index + 1} von ${items.length}: ${current.title}` : null}
@@ -160,14 +196,14 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
           <button
             type="button"
             onClick={() => api?.scrollPrev(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill border border-control bg-surface text-navy shadow-sm hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill bg-surface text-navy shadow-md hov:bg-navy hov:text-on-dark"
           >
             <Icon name="arrow-left" label="Vorheriges Projekt" />
           </button>
           <button
             type="button"
             onClick={() => api?.scrollNext(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill border border-control bg-surface text-navy shadow-sm hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill bg-navy text-on-dark shadow-md hov:bg-blue-700"
           >
             <Icon name="arrow-right" label="Nächstes Projekt" />
           </button>

@@ -261,6 +261,7 @@ export const homePage: HomePage = {
         placeholder: true,
       },
     ],
+    caption: 'Gemeinsam lernen – in Mainz und Bad Kreuznach.',
     points: [
       'Kleine Gruppen mit erfahrenen Lehrkräften',
       'Offizielles telc Prüfungs- und Hochschulkompetenzzentrum',

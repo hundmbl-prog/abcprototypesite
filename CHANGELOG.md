@@ -1,5 +1,22 @@
 # Changelog
 
+## Step 3c – Colour worlds per section, no text on photos (2026-10-14)
+
+Feedback: use different shades of the brand colours with cards matching their section; text boxes on photos are hard to read. The hero stays unchanged.
+
+- **New shade scales:** `blue-50…950` and `red-50…800`, built from the brand colours. Rule: white text only on 500 and darker, navy text on 50–200. Every pairing was checked for AA, and axe passes at all 4 widths.
+- **Each section has its own colour world, with cards in matching shades:**
+  - Angebote (cool blue): 6 cards whose text areas run from `blue-500` to `blue-900` and end on red, with photos fading into each card colour.
+  - News (warm red): red chips, dates, progress bar and active thumbnail.
+  - Warum ABC (deep blue band): glowing colour fields; four stat cards in different blue/red gradients; the photo moves into its own frame.
+  - Projekte (sky blue): text sits beside the photo on a white card, with an accent shade per project.
+  - Ansprechpartner (blush): photo on top, text below; coloured frame per person; names are never hyphenated.
+  - Partner (dark navy band): bright white partner cards.
+  - Standorte (light blue).
+  - Footer (`blue-950`).
+- **No more text over photos:** projects, people and stats were changed; the hero is unchanged, as requested.
+- **Components:** `CardClassic` gets an optional `shade`; `OfferCards` gets `shades` to cycle; `SectionHeader` gets `accent` (blue/red); new `Aurora` presets and a `DotGrid` texture.
+
 ## Step 3b – Home page redesign after feedback (2026-10-14)
 
 Feedback: the page was too blue, too uniform, mixed card styles within a section, and didn't feel like bruedergrimm.net.

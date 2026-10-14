@@ -13,7 +13,10 @@ export async function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden tone-ink" aria-labelledby="footer-titel">
+    <footer
+      className="relative overflow-hidden bg-blue-950 text-on-dark [--focus-ring:var(--color-on-dark)]"
+      aria-labelledby="footer-titel"
+    >
       <h2 id="footer-titel" className="sr-only">
         Fußbereich
       </h2>

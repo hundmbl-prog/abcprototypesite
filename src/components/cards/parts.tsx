@@ -62,7 +62,7 @@ export function CardFacts({
     <ul
       className={cn(
         'flex flex-wrap gap-x-4 gap-y-2 text-small',
-        tone === 'light' ? 'text-ink-muted' : 'text-on-dark-muted',
+        tone === 'light' ? 'text-ink-muted' : 'text-on-dark',
         className,
       )}
     >

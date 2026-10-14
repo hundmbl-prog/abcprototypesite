@@ -1,6 +1,7 @@
+import { Aurora, DotGrid } from '@/components/ui/Aurora'
 import type { HomePage } from '@/content'
 
-/** Endless row of partner "logo" cards. Pauses on hover; static and wrapped with reduced motion. */
+/** Dark navy band with bright white partner cards. Pauses on hover; static with reduced motion. */
 export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
   const row = (hidden: boolean) => (
     <ul
@@ -10,9 +11,9 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
       {content.items.map((partner) => (
         <li
           key={partner.id}
-          className="sheen relative grid h-24 min-w-56 place-items-center overflow-hidden rounded-xl border border-line bg-surface px-8 text-center shadow-md"
+          className="sheen relative grid h-24 min-w-56 place-items-center overflow-hidden rounded-xl bg-surface px-8 text-center shadow-xl ring-1 ring-blue-200"
         >
-          <span className="font-display text-h4 leading-tight font-semibold text-ink-muted">
+          <span className="font-display text-h4 leading-tight font-semibold text-blue-900">
             {partner.name}
           </span>
         </li>
@@ -20,12 +21,17 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
     </ul>
   )
   return (
-    <section aria-labelledby="partner-titel" className="overflow-hidden tone-light-2 py-section-sm">
-      <div className="container-page mb-10 flex flex-col items-center gap-2 text-center">
-        <p className="text-small font-semibold tracking-widest text-blue uppercase">
+    <section
+      aria-labelledby="partner-titel"
+      className="relative isolate overflow-hidden bg-blue-950 py-section text-on-dark [--focus-ring:var(--color-on-dark)]"
+    >
+      <Aurora preset="partners" strength="glow" />
+      <DotGrid tone="dark" />
+      <div className="container-page mb-12 flex flex-col items-center gap-3 text-center">
+        <p className="rounded-pill bg-on-dark/10 px-4 py-2 text-small font-semibold tracking-widest uppercase">
           {content.eyebrow}
         </p>
-        <h2 id="partner-titel" className="text-h2 text-navy">
+        <h2 id="partner-titel" className="text-h2">
           {content.title}
         </h2>
       </div>

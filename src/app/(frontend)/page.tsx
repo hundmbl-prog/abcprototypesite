@@ -7,9 +7,8 @@ import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { PeopleSection } from '@/components/home/PeopleSection'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
-import { Section } from '@/components/sections/Section'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { Aurora } from '@/components/ui/Aurora'
+import { Aurora, DotGrid } from '@/components/ui/Aurora'
 import { Button } from '@/components/ui/Button'
 import { getHomePage, getSiteSettings } from '@/content'
 import { images } from '@/content/images'
@@ -28,36 +27,54 @@ export default async function HomePage() {
       {/* 1 · Photo hero with glass quick access */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* 2 · Light grey: six identical photo cards */}
-      <Section tone="light-2" id="angebote" labelledBy="angebote-titel">
-        <SectionHeader
-          id="angebote-titel"
-          eyebrow={home.offers.eyebrow}
-          title={home.offers.title}
-          intro={home.offers.intro}
-          action={
-            <Button href={home.offers.cta.href} variant="pill">
-              {home.offers.cta.label}
-            </Button>
-          }
-        />
-        <OfferCards cards={home.offers.cards} variant="classic" label={home.offers.title} />
-      </Section>
+      {/* 2 · Cool blue world: six cards, text areas in a run of blue shades ending in red */}
+      <section
+        id="angebote"
+        aria-labelledby="angebote-titel"
+        className="relative isolate overflow-hidden bg-linear-to-b from-blue-50 via-surface to-blue-50 py-section"
+      >
+        <Aurora preset="offers" />
+        <DotGrid />
+        <div className="container-page">
+          <SectionHeader
+            id="angebote-titel"
+            eyebrow={home.offers.eyebrow}
+            title={home.offers.title}
+            intro={home.offers.intro}
+            action={
+              <Button href={home.offers.cta.href} variant="pill">
+                {home.offers.cta.label}
+              </Button>
+            }
+          />
+          <OfferCards
+            cards={home.offers.cards}
+            variant="classic"
+            label={home.offers.title}
+            shades={['blue-500', 'blue-600', 'blue-700', 'blue-800', 'blue-900', 'red-500']}
+          />
+        </div>
+      </section>
 
-      {/* 3 · White with soft colour fields: floating news slideshow */}
+      {/* 3 · Warm red world: news slideshow */}
       <section
         id="news"
         aria-labelledby="news-titel"
-        className="relative isolate overflow-hidden py-section"
+        className="relative isolate overflow-hidden bg-linear-to-br from-red-50 via-surface to-red-100 py-section"
       >
         <Aurora preset="news" />
         <div className="container-page">
           <SectionHeader
             id="news-titel"
+            accent="red"
             eyebrow={home.news.eyebrow}
             title={home.news.title}
             action={
-              <Button href={home.news.cta.href} variant="pill">
+              <Button
+                href={home.news.cta.href}
+                variant="pill"
+                className="bg-red-600! hov:bg-red-700!"
+              >
                 {home.news.cta.label}
               </Button>
             }
@@ -66,16 +83,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 · Photo band with glass stats */}
+      {/* 4 · Deep blue band with shaded stat cards */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
-      {/* 5 · Light gradient: cinematic projects with glass panels */}
+      {/* 5 · Sky blue world: projects, text beside the photo */}
       <section
         id="projekte"
         aria-labelledby="projekte-titel"
-        className="relative isolate overflow-hidden bg-linear-to-b from-surface-3 to-surface py-section"
+        className="relative isolate overflow-hidden bg-linear-to-b from-blue-100 via-blue-50 to-surface py-section"
       >
         <Aurora preset="projects" />
+        <DotGrid />
         <div className="container-page">
           <SectionHeader
             id="projekte-titel"
@@ -92,17 +110,17 @@ export default async function HomePage() {
         <ProjectsShowcase items={home.projects.items} />
       </section>
 
-      {/* 6 · White: contact people */}
+      {/* 6 · Blush world: contact people */}
       <PeopleSection content={home.people} />
 
-      {/* 7 · Light grey: partner logo cards */}
+      {/* 7 · Deep navy band: partner cards */}
       <PartnerMarquee content={home.partners} />
 
-      {/* 8 · White with colour field: locations */}
+      {/* 8 · Light blue world: locations */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden py-section"
+        className="relative isolate overflow-hidden bg-linear-to-b from-surface to-blue-50 py-section"
       >
         <Aurora preset="locations" />
         <div className="container-page">

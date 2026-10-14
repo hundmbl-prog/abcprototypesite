@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn'
 import { BentoGrid } from './BentoGrid'
-import { CardClassic } from './CardClassic'
+import { CardClassic, type CardShade } from './CardClassic'
 import { CardHorizontal } from './CardHorizontal'
 import { CardOverlay } from './CardOverlay'
 import { CardRail } from './CardRail'
@@ -12,8 +12,11 @@ export function OfferCards({
   variant,
   label,
   headingLevel = 'h3',
+  shades,
   className,
 }: {
+  /** Classic variant only: solid text-area colours, used in turn for each card. */
+  shades?: CardShade[]
   cards: OfferCardData[]
   variant: CardVariant
   /** Accessible name, used by the carousel variant. */
@@ -39,17 +42,28 @@ export function OfferCards({
         </ul>
       )
     case 'overlay':
-    case 'classic': {
-      const Card = variant === 'overlay' ? CardOverlay : CardClassic
       return (
         <ul className={cn('grid gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
           {cards.map((card) => (
             <li key={card.id} className="min-w-0">
-              <Card card={card} headingLevel={headingLevel} />
+              <CardOverlay card={card} headingLevel={headingLevel} />
             </li>
           ))}
         </ul>
       )
-    }
+    case 'classic':
+      return (
+        <ul className={cn('grid gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
+          {cards.map((card, i) => (
+            <li key={card.id} data-reveal className="min-w-0">
+              <CardClassic
+                card={card}
+                headingLevel={headingLevel}
+                shade={shades?.[i % shades.length]}
+              />
+            </li>
+          ))}
+        </ul>
+      )
   }
 }

@@ -32,6 +32,31 @@
   --color-red-strong: #b01e2e;
   --color-red-soft: #fde8ea;
 
+  /*
+   * Shade scales derived from the brand blue (#1D4ED8 = 600, navy #0B2A5B = 900) and red (#D62839 = 500).
+   * Contrast rule: white text only on 500 and darker; navy (900) text on 50–200.
+   */
+  --color-blue-50: #f0f5ff;
+  --color-blue-100: #dce7ff;
+  --color-blue-200: #bcd0ff;
+  --color-blue-300: #8fb0ff;
+  --color-blue-400: #5b87f5;
+  --color-blue-500: #3466e8;
+  --color-blue-600: #1d4ed8;
+  --color-blue-700: #1a3fb0;
+  --color-blue-800: #173489;
+  --color-blue-900: #0b2a5b;
+  --color-blue-950: #071b3d;
+  --color-red-50: #fff3f4;
+  --color-red-100: #fde8ea;
+  --color-red-200: #f9c9ce;
+  --color-red-300: #f29da6;
+  --color-red-400: #e8616f;
+  --color-red-500: #d62839;
+  --color-red-600: #b01e2e;
+  --color-red-700: #8e1825;
+  --color-red-800: #6b121c;
+
   /* Text */
   --color-ink: #0f172a;
   /* Neutral (not blue) dark for shading photos, so their natural colours stay intact */

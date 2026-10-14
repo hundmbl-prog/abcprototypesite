@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { Section } from '@/components/sections/Section'
+import { Aurora } from '@/components/ui/Aurora'
+import { cn } from '@/lib/cn'
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import type { HomePage, Person } from '@/content'
 
@@ -38,32 +39,45 @@ function MailIcon() {
   )
 }
 
-/** Portrait card with a glass name plate laid over the photo. All cards in the row are identical. */
-function PersonCard({ person }: { person: Person }) {
+/** Accent per person – warm reds with one blue, matching the blush section background. */
+const accents = [
+  { ring: 'from-red-400 to-red-600', role: 'text-red-700' },
+  { ring: 'from-blue-500 to-blue-700', role: 'text-blue-700' },
+  { ring: 'from-red-500 to-red-700', role: 'text-red-700' },
+  { ring: 'from-red-300 to-red-500', role: 'text-red-700' },
+] as const
+
+/** Portrait on top, text below on a solid card – the name is never laid over the photo. */
+function PersonCard({ person, index }: { person: Person; index: number }) {
+  const accent = accents[index % accents.length] ?? accents[0]
   return (
-    <article className="group sheen relative isolate flex aspect-4/5 flex-col justify-end overflow-hidden rounded-2xl bg-surface-3 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo sm:aspect-2/3 hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
-      <Image
-        src={person.image.src}
-        alt={person.image.alt}
-        width={person.image.width}
-        height={person.image.height}
-        sizes="(min-width: 1280px) 300px, (min-width: 640px) 50vw, 100vw"
-        placeholder={person.image.blurDataURL ? 'blur' : 'empty'}
-        blurDataURL={person.image.blurDataURL}
-        className="absolute inset-0 -z-10 size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hov:scale-105"
-      />
-      <span className="absolute top-3 left-3 rounded-pill px-3 py-1 text-caption font-semibold text-navy glass">
-        {person.location}
-      </span>
-      <div className="m-3 flex flex-col gap-3 rounded-xl p-4 glass-strong">
-        <div>
-          <h3 className="text-h4 text-navy">{person.name}</h3>
-          <p className="text-small text-ink-muted">{person.role}</p>
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-red-100 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
+      <div className={cn('relative bg-linear-to-br p-1.5 pb-0', accent.ring)}>
+        <div className="sheen relative aspect-4/5 overflow-hidden rounded-t-xl">
+          <Image
+            src={person.image.src}
+            alt={person.image.alt}
+            width={person.image.width}
+            height={person.image.height}
+            sizes="(min-width: 1280px) 300px, (min-width: 640px) 50vw, 100vw"
+            placeholder={person.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={person.image.blurDataURL}
+            className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hov:scale-105"
+          />
         </div>
-        <div className="flex gap-2">
+      </div>
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        <div className="flex flex-col gap-2">
+          <span className="self-start rounded-pill bg-red-50 px-3 py-1 text-caption font-semibold text-red-700 ring-1 ring-red-200">
+            {person.location}
+          </span>
+          <h3 className="text-h4 [hyphens:manual] text-navy">{person.name}</h3>
+          <p className={cn('text-small font-semibold', accent.role)}>{person.role}</p>
+        </div>
+        <div className="mt-auto flex gap-2">
           <a
             href={telHref(person.phone)}
-            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-navy px-3 text-small font-semibold text-on-dark hov:bg-navy-2"
+            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-navy px-3 text-small font-semibold text-on-dark hov:bg-blue-700"
           >
             <PhoneIcon />
             Anrufen
@@ -73,7 +87,7 @@ function PersonCard({ person }: { person: Person }) {
           </a>
           <a
             href={`mailto:${person.email}`}
-            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill border border-control bg-surface px-3 text-small font-semibold text-navy hov:border-navy"
+            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-red-50 px-3 text-small font-semibold text-red-700 ring-1 ring-red-200 hov:bg-red-100"
           >
             <MailIcon />
             E-Mail
@@ -87,20 +101,28 @@ function PersonCard({ person }: { person: Person }) {
 
 export function PeopleSection({ content }: { content: HomePage['people'] }) {
   return (
-    <Section id="ansprechpartner" labelledBy="ansprechpartner-titel">
-      <SectionHeader
-        id="ansprechpartner-titel"
-        eyebrow={content.eyebrow}
-        title={content.title}
-        intro={content.intro}
-      />
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {content.items.map((person) => (
-          <li key={person.id} data-reveal className="min-w-0">
-            <PersonCard person={person} />
-          </li>
-        ))}
-      </ul>
-    </Section>
+    <section
+      id="ansprechpartner"
+      aria-labelledby="ansprechpartner-titel"
+      className="relative isolate overflow-hidden bg-linear-to-b from-red-50 to-surface py-section"
+    >
+      <Aurora preset="people" />
+      <div className="container-page">
+        <SectionHeader
+          id="ansprechpartner-titel"
+          eyebrow={content.eyebrow}
+          title={content.title}
+          intro={content.intro}
+          accent="red"
+        />
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {content.items.map((person, i) => (
+            <li key={person.id} data-reveal className="min-w-0">
+              <PersonCard person={person} index={i} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
