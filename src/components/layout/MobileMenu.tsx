@@ -8,6 +8,7 @@ import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 import type { Location, NavSection } from '@/content'
 import type { NavLink } from '@/content/types'
+import { Logo } from './Logo'
 
 /** Full-screen menu for phones and tablets. Traps focus, closes with Escape. */
 export function MobileMenu({
@@ -74,22 +75,22 @@ export function MobileMenu({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: reduce ? 0 : 0.2 } }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain tone-ink xl:hidden"
+          className="fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain bg-surface text-ink [--focus-ring:var(--color-blue)] xl:hidden"
           data-lenis-prevent
         >
           <div className="container-page flex h-20 shrink-0 items-center justify-between">
-            <span className="font-display text-h4 font-semibold">Menü</span>
+            <Logo />
             <button
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="grid size-11 place-items-center rounded-pill border border-on-dark/40 hov:bg-on-dark/10"
+              className="grid size-11 place-items-center rounded-pill border border-line text-blue-900 hov:bg-surface-3"
             >
               <Icon name="close" label="Menü schließen" />
             </button>
           </div>
           <nav aria-label="Hauptnavigation" className="container-page flex-1 py-6">
-            <ul className="flex flex-col divide-y divide-on-dark/15">
+            <ul className="flex flex-col divide-y divide-line">
               {sections.map((section, index) => {
                 const isOpen = expanded === index
                 const panelId = `${baseId}-panel-${index}`
@@ -109,7 +110,7 @@ export function MobileMenu({
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       onClick={() => setExpanded(isOpen ? null : index)}
-                      className="flex w-full items-center justify-between gap-4 py-4 text-left font-display text-h3 font-semibold"
+                      className="flex w-full items-center justify-between gap-4 py-4 text-left font-display text-h3 font-semibold text-blue-900"
                     >
                       {section.label}
                       <Icon
@@ -136,7 +137,7 @@ export function MobileMenu({
                             <Link
                               href={link.href}
                               onClick={onClose}
-                              className="block rounded-md py-2 text-on-dark-muted hov:text-on-dark"
+                              className="block rounded-md py-2 text-ink-muted hov:text-blue-700"
                             >
                               {link.label}
                             </Link>
@@ -149,16 +150,16 @@ export function MobileMenu({
               })}
             </ul>
           </nav>
-          <div className="container-page flex flex-col gap-4 border-t border-on-dark/15 py-8">
+          <div className="container-page flex flex-col gap-4 border-t border-line bg-surface-2 py-8">
             <Button href={cta.href} variant="cta" icon="arrow-right" onClick={onClose}>
               {cta.label}
             </Button>
             {location ? (
-              <p className="text-small text-on-dark-muted">
+              <p className="text-small text-ink-muted">
                 {location.street}, {location.postalCode} {location.city} ·{' '}
                 <a
                   href={`tel:${location.phone.replace(/\s/g, '')}`}
-                  className="font-semibold text-on-dark underline"
+                  className="font-semibold text-blue-700 underline"
                 >
                   {location.phone}
                 </a>

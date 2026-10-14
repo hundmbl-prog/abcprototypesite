@@ -40,7 +40,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-surface py-section"
+      className="relative isolate overflow-hidden bg-linear-to-br from-blue-50 via-surface to-red-50 py-section"
     >
       <DotGrid />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">

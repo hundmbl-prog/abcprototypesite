@@ -13,49 +13,50 @@
 
   /* Light surfaces (60–70 % of every page) */
   --color-surface: #ffffff;
-  --color-surface-2: #f7f9fc;
-  --color-surface-3: #eef3fa;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
+  --color-surface-2: #f7f8fb;
+  --color-surface-3: #eef1f6;
+  --color-line: #e2e7ef;
+  --color-line-strong: #c9d2df;
   /* Form-control borders: ≥ 3:1 on all light surfaces (WCAG 1.4.11) */
   --color-control: #7c8aa0;
 
   /* Blue (20–30 %) */
-  --color-navy: #0b2a5b;
-  --color-navy-2: #12376f;
-  --color-blue: #1d4ed8;
-  --color-blue-strong: #1e40af;
-  --color-blue-soft: #dbeafe;
+  --color-navy: #132e54;
+  --color-navy-2: #173765;
+  --color-blue: #1e4b87;
+  --color-blue-strong: #1a4176;
+  --color-blue-soft: #e6ebf2;
 
   /* Red (5–10 %, urgency + the single main CTA) */
-  --color-red: #d62839;
-  --color-red-strong: #b01e2e;
-  --color-red-soft: #fde8ea;
+  --color-red: #a51111;
+  --color-red-strong: #8f1113;
+  --color-red-soft: #f7eaea;
 
   /*
-   * Shade scales derived from the brand blue (#1D4ED8 = 600, navy #0B2A5B = 900) and red (#D62839 = 500).
+   * Shade scales derived from the ABC logo: blue #1E4B87 (= 600) and red #A51111 (= 500).
+   * Tints are mixed with white, deeper shades with a blue-black.
    * Contrast rule: white text only on 500 and darker; navy (900) text on 50–200.
    */
-  --color-blue-50: #f0f5ff;
-  --color-blue-100: #dce7ff;
-  --color-blue-200: #bcd0ff;
-  --color-blue-300: #8fb0ff;
-  --color-blue-400: #5b87f5;
-  --color-blue-500: #3466e8;
-  --color-blue-600: #1d4ed8;
-  --color-blue-700: #1a3fb0;
-  --color-blue-800: #173489;
-  --color-blue-900: #0b2a5b;
-  --color-blue-950: #071b3d;
-  --color-red-50: #fff3f4;
-  --color-red-100: #fde8ea;
-  --color-red-200: #f9c9ce;
-  --color-red-300: #f29da6;
-  --color-red-400: #e8616f;
-  --color-red-500: #d62839;
-  --color-red-600: #b01e2e;
-  --color-red-700: #8e1825;
-  --color-red-800: #6b121c;
+  --color-blue-50: #f4f6f9;
+  --color-blue-100: #e6ebf2;
+  --color-blue-200: #ced7e5;
+  --color-blue-300: #a5b7cf;
+  --color-blue-400: #748fb5;
+  --color-blue-500: #42689a;
+  --color-blue-600: #1e4b87;
+  --color-blue-700: #1a4176;
+  --color-blue-800: #173765;
+  --color-blue-900: #132e54;
+  --color-blue-950: #102443;
+  --color-red-50: #fbf5f5;
+  --color-red-100: #f7eaea;
+  --color-red-200: #edcfcf;
+  --color-red-300: #dda5a5;
+  --color-red-400: #c46464;
+  --color-red-500: #a51111;
+  --color-red-600: #8f1113;
+  --color-red-700: #761014;
+  --color-red-800: #5d1016;
 
   /* Text */
   --color-ink: #0f172a;
@@ -126,17 +127,17 @@
 
   /* ---------- Shadows (navy-tinted) ---------- */
   --shadow-*: initial;
-  --shadow-xs: 0 1px 2px rgb(11 42 91 / 0.06);
-  --shadow-sm: 0 1px 3px rgb(11 42 91 / 0.08), 0 1px 2px rgb(11 42 91 / 0.04);
-  --shadow-md: 0 4px 12px -2px rgb(11 42 91 / 0.1), 0 2px 4px -2px rgb(11 42 91 / 0.06);
-  --shadow-lg: 0 12px 32px -8px rgb(11 42 91 / 0.16), 0 4px 8px -4px rgb(11 42 91 / 0.06);
-  --shadow-xl: 0 24px 56px -12px rgb(11 42 91 / 0.22), 0 8px 16px -8px rgb(11 42 91 / 0.08);
+  --shadow-xs: 0 1px 2px rgb(19 46 84 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(19 46 84 / 0.08), 0 1px 2px rgb(19 46 84 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(19 46 84 / 0.1), 0 2px 4px -2px rgb(19 46 84 / 0.06);
+  --shadow-lg: 0 12px 32px -8px rgb(19 46 84 / 0.16), 0 4px 8px -4px rgb(19 46 84 / 0.06);
+  --shadow-xl: 0 24px 56px -12px rgb(19 46 84 / 0.22), 0 8px 16px -8px rgb(19 46 84 / 0.08);
   /* Layered floating shadow for glass panels and lifted cards */
   --shadow-float:
     0 1px 1px rgb(15 23 42 / 0.04), 0 4px 8px -2px rgb(15 23 42 / 0.06),
     0 16px 32px -8px rgb(15 23 42 / 0.12), 0 40px 80px -24px rgb(15 23 42 / 0.18);
   /* Soft coloured glow under the main CTA */
-  --shadow-glow-red: 0 10px 30px -8px rgb(214 40 57 / 0.55);
+  --shadow-glow-red: 0 10px 30px -8px rgb(165 17 17 / 0.45);
 
   /* ---------- Motion ---------- */
   --ease-*: initial;

@@ -1,5 +1,19 @@
 # Changelog
 
+## Step 3e – Official logo, logo-based palette, compact locations (2026-10-15)
+
+- **Official logo** (supplied as WebP, transparent background):
+  - One-line wordmark in the header.
+  - Full logo with the house in the footer.
+  - Wordmark in the light mobile menu.
+  - Favicon and Apple touch icon made from the house mark.
+  - The original file is kept in `src/assets/brand/`.
+- **Palette rebuilt from the logo:** blue `#1E4B87` (= `blue-600`) and red `#A51111` (= `red-500`). All tints and shades are mixed from these two, so every background is a tint or gradient of the logo colours. Neutrals (`surface-2/3`, `line`) are slightly logo-blue tinted, and shadows and the red glow use the logo colours. All text pairings were rechecked for AA: white only on 500 and darker, navy on 50–300.
+- **More professional and calmer:** decorative colour fields toned down; stats background is a soft logo-blue to logo-red gradient; light mobile menu; footer watermark removed.
+- **Compact locations:** each card shows name, live status, address with copy button, a one-line hours summary, and Anrufen / E-Mail / Route. The week table, branches and opt-in map sit behind an "Öffnungszeiten & Karte" toggle that expands smoothly.
+- **Fix:** the header CTA could push the menu button off-screen at 375 px; it is now hidden reliably on phones.
+- **Lighthouse:** mobile 99 (LCP 2.0 s), desktop 96; accessibility, best practices and SEO 100.
+
 ## Step 3d – Light, formal and more interactive (2026-10-14)
 
 Feedback: too much dark blue for a corporate site, the locations section didn't work, and it should be subtle, stylish and formal, not bold, but more interactive.

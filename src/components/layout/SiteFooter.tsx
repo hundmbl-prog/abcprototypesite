@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { getNavigation, getSiteSettings } from '@/content'
 import { Icon } from '@/components/ui/Icon'
-import { Watermark } from '@/components/ui/Watermark'
 import { Logo } from './Logo'
 
 function telHref(phone: string) {
@@ -27,7 +26,7 @@ export async function SiteFooter() {
       </h2>
       <div className="container-wide grid gap-12 pt-section-sm pb-12 lg:grid-cols-12">
         <div className="flex flex-col gap-5 lg:col-span-4">
-          <Logo />
+          <Logo variant="full" className="self-start" />
           <p className="max-w-prose text-small text-ink-muted">{settings.footerAbout}</p>
           <Link
             href={navigation.cta.href}
@@ -105,10 +104,6 @@ export async function SiteFooter() {
           </ul>
         </div>
       </div>
-      <Watermark
-        text="ABC"
-        className="-right-8 -bottom-6 -z-10 w-[min(60vw,34rem)] text-blue-900/4"
-      />
     </footer>
   )
 }

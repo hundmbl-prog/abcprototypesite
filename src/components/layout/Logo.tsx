@@ -1,39 +1,32 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/cn'
+import logoFull from '@/assets/brand/logo-full.png'
+import logoWordmark from '@/assets/brand/logo-wordmark.png'
 
-/** Wordmark placeholder until the official logo files (SVG) are delivered. */
+/**
+ * Official ABC logo. "wordmark" (ABC + name, one line) for the header,
+ * "full" (with the house) for the footer and menus.
+ */
 export function Logo({
-  tone = 'light',
+  variant = 'wordmark',
   className,
 }: {
-  tone?: 'light' | 'dark'
+  variant?: 'wordmark' | 'full'
   className?: string
 }) {
+  const src = variant === 'full' ? logoFull : logoWordmark
   return (
-    <Link
-      href="/"
-      aria-label="ABC Mainz – zur Startseite"
-      className={cn('group/logo inline-flex items-center gap-3 rounded-md', className)}
-    >
-      <span
-        aria-hidden
-        className={cn(
-          'grid h-10 place-items-center rounded-sm px-2 font-display text-h4 leading-none font-bold tracking-tight transition-colors duration-(--dur-base)',
-          tone === 'light' ? 'bg-ink text-on-dark' : 'bg-on-dark text-ink',
-        )}
-      >
-        ABC
-      </span>
-      <span
-        aria-hidden
-        className={cn(
-          'hidden flex-col text-caption leading-tight font-semibold sm:flex',
-          tone === 'light' ? 'text-ink' : 'text-on-dark',
-        )}
-      >
-        <span>Akademisches</span>
-        <span>Bildungs-Center e.V.</span>
-      </span>
+    <Link href="/" className={cn('inline-flex shrink-0 items-center rounded-md', className)}>
+      <Image
+        src={src}
+        alt="ABC – Akademisches Bildungs-Center e.V., zur Startseite"
+        width={src.width}
+        height={src.height}
+        sizes={variant === 'full' ? '240px' : '220px'}
+        priority={variant === 'wordmark'}
+        className={cn('w-auto', variant === 'full' ? 'h-24' : 'h-8 md:h-10')}
+      />
     </Link>
   )
 }

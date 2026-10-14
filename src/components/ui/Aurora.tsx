@@ -42,7 +42,7 @@ export function Aurora({
           key={blob}
           className={cn(
             'absolute rounded-pill blur-3xl',
-            strength === 'glow' ? 'opacity-40' : 'opacity-70',
+            strength === 'glow' ? 'opacity-30' : 'opacity-50',
             blob,
           )}
         />

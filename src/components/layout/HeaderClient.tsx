@@ -154,14 +154,16 @@ export function HeaderClient({
             </nav>
 
             <div className="flex items-center gap-2">
-              <Button
-                href={cta.href}
-                variant="cta"
-                size="sm"
-                className="hidden rounded-pill! shadow-(--shadow-glow-red) sm:inline-flex"
-              >
-                {cta.label}
-              </Button>
+              <span className="hidden sm:block">
+                <Button
+                  href={cta.href}
+                  variant="cta"
+                  size="sm"
+                  className="rounded-pill! shadow-(--shadow-glow-red)"
+                >
+                  {cta.label}
+                </Button>
+              </span>
               <button
                 ref={menuButtonRef}
                 type="button"

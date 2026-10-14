@@ -107,19 +107,18 @@ export default async function HomePage() {
       {/* 7 · Light: partner cards */}
       <PartnerMarquee content={home.partners} />
 
-      {/* 8 · Light blue: two location cards with live status */}
+      {/* 8 · Compact locations on a soft logo-blue tint */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-linear-to-b from-surface to-blue-50 py-section"
+        className="relative isolate overflow-hidden bg-linear-to-b from-surface to-blue-50 py-section-sm"
       >
-        <Aurora preset="locations" />
         <div className="container-page">
           <SectionHeader
             id="standorte-titel"
             eyebrow={home.locations.eyebrow}
             title={home.locations.title}
-            intro={home.locations.intro}
+            className="mb-8! md:mb-10!"
           />
           <LocationCards locations={settings.locations} orgName={settings.name} />
         </div>

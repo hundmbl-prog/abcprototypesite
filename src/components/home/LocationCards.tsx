@@ -146,100 +146,131 @@ function LocationCard({
     }
   }
 
+  const [open, setOpen] = useState(false)
+  const panelId = `standort-${location.id}-details`
+  const summary = location.hours.map((h) => `${h.days} ${h.hours}`).join(' · ')
+
   return (
     <article
       data-reveal
-      className="flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-line transition-shadow duration-(--dur-slow) hov:shadow-(--shadow-float)"
+      className="flex flex-col rounded-2xl bg-surface p-5 shadow-sm ring-1 ring-line transition-shadow duration-(--dur-slow) md:p-6 hov:shadow-md"
     >
-      <div className="flex flex-col gap-6 p-6 md:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-caption font-semibold tracking-widest text-blue-700 uppercase">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-caption font-semibold tracking-widest text-blue-600 uppercase">
             {location.kind}
           </span>
-          <StatusPill status={status} />
+          <h3 className="text-h3 text-blue-900">{location.name}</h3>
         </div>
-
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex flex-col gap-1">
-            <h3 className="text-h2 text-blue-900">{location.name}</h3>
-            <address className="text-ink-muted not-italic">{address}</address>
-          </div>
-          <button
-            type="button"
-            onClick={copyAddress}
-            className="grid size-11 shrink-0 place-items-center rounded-pill text-blue-700 ring-1 ring-blue-200 transition-colors hov:bg-blue-50"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="size-4"
-              aria-hidden
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.75}
-            >
-              <rect x="8" y="8" width="12" height="12" rx="2" />
-              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
-            </svg>
-            <span className="sr-only">Adresse {location.name} kopieren</span>
-          </button>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <a
-            href={telHref(location.phone)}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-blue-600 px-4 text-small font-semibold text-on-dark hov:bg-blue-700"
-          >
-            <PhoneIcon />
-            {location.phone}
-          </a>
-          <a
-            href={`mailto:${location.email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill px-4 text-small font-semibold text-blue-800 ring-1 ring-blue-200 hov:bg-blue-50"
-          >
-            <Icon name="arrow-up-right" className="size-4" />
-            E-Mail
-            <span className="sr-only">: {location.email}</span>
-          </a>
-          <a
-            href={route}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill px-4 text-small font-semibold text-blue-800 ring-1 ring-blue-200 hov:bg-blue-50"
-          >
-            <Icon name="location" className="size-4" />
-            Route planen
-            <span className="sr-only">(öffnet OpenStreetMap in neuem Tab)</span>
-          </a>
-        </div>
-
-        <div className="rounded-xl bg-surface-2 p-2 ring-1 ring-line">
-          {location.schedule.length ? (
-            <WeekTable location={location} today={today} />
-          ) : (
-            <p className="px-3 py-2 text-small text-ink-muted">
-              Beratung und Anmeldung nach telefonischer Vereinbarung.
-            </p>
-          )}
-        </div>
-
-        {location.branches?.length ? (
-          <div className="flex flex-col gap-2">
-            <p className="text-small font-semibold text-blue-900">Zweigstellen</p>
-            <ul className="flex flex-wrap gap-2">
-              {location.branches.map((branch) => (
-                <li
-                  key={branch}
-                  className="rounded-pill bg-blue-50 px-3 py-1 text-caption font-medium text-blue-800"
-                >
-                  {branch}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        <StatusPill status={status} />
       </div>
-      <div className="mt-auto border-t border-line">
-        <ConsentMap location={location} compact />
+
+      <div className="mt-3 flex items-center gap-2 text-small text-ink-muted">
+        <Icon name="location" className="size-4 text-blue-600" />
+        <address className="not-italic">{address}</address>
+        <button
+          type="button"
+          onClick={copyAddress}
+          className="ml-1 grid size-8 shrink-0 place-items-center rounded-pill text-blue-700 transition-colors hov:bg-blue-50"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className="size-4"
+            aria-hidden
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.75}
+          >
+            <rect x="8" y="8" width="12" height="12" rx="2" />
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+          </svg>
+          <span className="sr-only">Adresse {location.name} kopieren</span>
+        </button>
+      </div>
+      <p className="mt-1 flex items-center gap-2 text-small text-ink-muted">
+        <Icon name="clock" className="size-4 text-blue-600" />
+        {summary}
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
+        <a
+          href={telHref(location.phone)}
+          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-blue-600 px-4 text-small font-semibold text-on-dark hov:bg-blue-700"
+        >
+          <PhoneIcon />
+          Anrufen
+          <span className="sr-only">: {location.phone}</span>
+        </a>
+        <a
+          href={`mailto:${location.email}`}
+          className="inline-flex min-h-11 items-center gap-2 rounded-pill px-3 text-small font-semibold text-blue-800 hov:bg-blue-50"
+        >
+          <Icon name="arrow-up-right" className="size-4" />
+          E-Mail
+          <span className="sr-only">: {location.email}</span>
+        </a>
+        <a
+          href={route}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 items-center gap-2 rounded-pill px-3 text-small font-semibold text-blue-800 hov:bg-blue-50"
+        >
+          <Icon name="location" className="size-4" />
+          Route
+          <span className="sr-only">planen (öffnet OpenStreetMap in neuem Tab)</span>
+        </a>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((v) => !v)}
+          className="ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-small font-semibold text-blue-800 hov:bg-blue-50"
+        >
+          Öffnungszeiten &amp; Karte
+          <Icon
+            name="chevron-down"
+            className={cn(
+              'size-4 transition-transform duration-(--dur-base)',
+              open && 'rotate-180',
+            )}
+          />
+        </button>
+      </div>
+
+      <div
+        id={panelId}
+        className={cn(
+          'grid transition-[grid-template-rows,opacity] duration-(--dur-slow) ease-out-expo',
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+        )}
+        inert={!open}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="grid gap-4 pt-4 sm:grid-cols-2">
+            <div className="rounded-xl bg-surface-2 p-2 ring-1 ring-line">
+              {location.schedule.length ? (
+                <WeekTable location={location} today={today} />
+              ) : (
+                <p className="px-3 py-2 text-small text-ink-muted">
+                  Beratung und Anmeldung nach telefonischer Vereinbarung.
+                </p>
+              )}
+              {location.branches?.length ? (
+                <div className="mt-2 border-t border-line px-3 pt-3 pb-1">
+                  <p className="text-caption font-semibold text-blue-900">Zweigstellen</p>
+                  <ul className="mt-1 flex flex-col gap-0.5 text-caption text-ink-muted">
+                    {location.branches.map((branch) => (
+                      <li key={branch}>{branch}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+            <div className="overflow-hidden rounded-xl ring-1 ring-line">
+              <ConsentMap location={location} compact />
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   )

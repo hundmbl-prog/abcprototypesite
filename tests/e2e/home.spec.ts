@@ -159,6 +159,10 @@ test.describe('Counters, locations, map', () => {
     await expect(cards).toHaveCount(2)
     await page.waitForTimeout(500)
     expect(osm).toEqual([])
+    const toggle = cards.first().getByRole('button', { name: 'Öffnungszeiten & Karte' })
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await toggle.click()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true')
     await cards.first().getByRole('button', { name: 'Karte laden' }).click()
     await expect(page.locator('iframe[title^="Karte: Mainz"]')).toBeVisible()
   })
@@ -170,6 +174,7 @@ test.describe('Locations live status', () => {
     await page.goto('/#standorte')
     const mainz = page.locator('#standorte article').first()
     await expect(mainz).toContainText('Jetzt geöffnet · bis 16:00 Uhr')
+    await mainz.getByRole('button', { name: 'Öffnungszeiten & Karte' }).click()
     await expect(mainz.getByRole('row', { name: /Montag/ })).toContainText('Heute')
   })
 
