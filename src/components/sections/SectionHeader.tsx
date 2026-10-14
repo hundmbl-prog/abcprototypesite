@@ -28,6 +28,7 @@ export function SectionHeader({
 }) {
   return (
     <header
+      data-reveal
       className={cn(
         'mb-10 flex flex-col gap-6 md:mb-14',
         align === 'center'

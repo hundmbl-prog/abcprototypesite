@@ -26,7 +26,10 @@ test.describe('Home page', () => {
     ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1)
     }
-    await expect(page.getByRole('heading', { name: 'Gemeinsam mehr erreichen' })).toBeVisible()
+    const partners = page.getByRole('heading', { name: 'Gemeinsam mehr erreichen' })
+    await page.locator('#partner-titel').evaluate((el) => el.scrollIntoView({ block: 'center' }))
+    await expect(partners).toBeVisible()
+    await expect(page.getByRole('img', { name: 'Logo Aktion Mensch' })).toHaveCount(1)
     await expect(page.locator('footer')).toBeVisible()
     await expectHeadingOrder(page)
   })

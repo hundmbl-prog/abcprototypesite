@@ -153,7 +153,7 @@ function LocationCard({
   return (
     <article
       data-reveal
-      className="flex flex-col rounded-2xl bg-surface p-5 shadow-sm ring-1 ring-line transition-shadow duration-(--dur-slow) md:p-6 hov:shadow-md"
+      className="flex flex-col rounded-2xl bg-linear-to-br from-surface via-surface to-blue-100 p-5 shadow-sm ring-1 ring-line transition-shadow duration-(--dur-slow) md:p-6 hov:shadow-md"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-col gap-0.5">

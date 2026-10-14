@@ -1,7 +1,8 @@
-import { DotGrid } from '@/components/ui/Aurora'
+import Image from 'next/image'
+import { SectionHeader } from '@/components/sections/SectionHeader'
 import type { HomePage } from '@/content'
 
-/** Dark navy band with bright white partner cards. Pauses on hover; static with reduced motion. */
+/** Partner logos on white cards, moving slowly. Pauses on hover; static grid with reduced motion. */
 export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
   const row = (hidden: boolean) => (
     <ul
@@ -11,30 +12,35 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
       {content.items.map((partner) => (
         <li
           key={partner.id}
-          className="sheen relative grid h-24 min-w-56 place-items-center overflow-hidden rounded-xl bg-surface px-8 text-center shadow-md ring-1 ring-line"
+          className="group/logo grid h-32 w-64 shrink-0 place-items-center rounded-2xl bg-surface px-7 shadow-sm ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hover:-translate-y-1 hover:shadow-md"
         >
-          <span className="font-display text-h4 leading-tight font-semibold text-ink-muted">
-            {partner.name}
-          </span>
+          {partner.logo ? (
+            <Image
+              src={partner.logo.src}
+              alt={hidden ? '' : partner.logo.alt}
+              width={partner.logo.width}
+              height={partner.logo.height}
+              sizes="224px"
+              className="max-h-20 w-auto max-w-full object-contain opacity-90 transition-[opacity,transform] duration-(--dur-slow) group-hover/logo:scale-105 group-hover/logo:opacity-100"
+            />
+          ) : (
+            <span className="text-center font-semibold text-ink-muted">{partner.name}</span>
+          )}
         </li>
       ))}
     </ul>
   )
   return (
-    <section
-      aria-labelledby="partner-titel"
-      className="relative isolate overflow-hidden bg-linear-to-b from-blue-50 to-surface py-section-sm"
-    >
-      <DotGrid />
-      <div className="container-page mb-12 flex flex-col items-center gap-3 text-center">
-        <p className="rounded-pill bg-blue-100 px-4 py-2 text-small font-semibold tracking-widest text-blue-800 uppercase">
-          {content.eyebrow}
-        </p>
-        <h2 id="partner-titel" className="text-h2 text-blue-900">
-          {content.title}
-        </h2>
+    <section aria-labelledby="partner-titel" className="overflow-hidden bg-surface py-section-sm">
+      <div className="container-page">
+        <SectionHeader
+          id="partner-titel"
+          eyebrow={content.eyebrow}
+          title={content.title}
+          align="center"
+        />
       </div>
-      <div className="group flex [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] py-4 motion-reduce:[mask-image:none]">
+      <div className="group flex [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] py-3 motion-reduce:[mask-image:none]">
         <div className="flex animate-marquee group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none motion-reduce:justify-center">
           {row(false)}
           <div className="contents motion-reduce:hidden">{row(true)}</div>

@@ -1,5 +1,15 @@
 # Changelog
 
+## Step 3f – Partner logos, joined project cards, calm backgrounds (2026-10-15)
+
+- **Partner section:** real logos instead of names. 11 logos from the current site's media, trimmed and optimised: telc, BAMF, Bundesagentur für Arbeit, Aktion Mensch, BMAS/ESF, Deutsche Fernsehlotterie, Der Paritätische, CERTQUA, InSL, SWL, rückenwind³. Shown on white cards in a slow marquee that pauses on hover, with a gentle lift and zoom; each logo has a descriptive alt text.
+- **Projects:** photo and text are now one attached card (no gap); a thin accent line runs along the join, and the text lines slide in one after another when a slide becomes active.
+- **Backgrounds:** sections alternate between a soft logo-blue tint (`blue-50`) and white. All dots, colour fields and section gradients are removed, and the `Aurora`/`DotGrid` decoration is deleted.
+- **Cards carry the gradients:** offers (tint into white), news slide, stats, people and locations.
+- **Animation:** section headings rise in as they scroll into view; the photo in "Warum ABC" reveals with a soft wipe.
+- **Accessibility fix:** the scroll reveal now uses opacity only. Before, `visibility: hidden` removed headings below the fold from screen readers until they were scrolled to.
+- **Tests:** 112 at 4 widths; the partner check now looks for the logo images.
+
 ## Step 3e – Official logo, logo-based palette, compact locations (2026-10-15)
 
 - **Official logo** (supplied as WebP, transparent background):

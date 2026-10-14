@@ -75,7 +75,7 @@ export function CardClassic({
             : light && shade
               ? cn(
                   shadeVar[shade],
-                  'bg-(--shade) text-ink ring-1 ring-blue-900/5 [--spot-color:color-mix(in_srgb,var(--color-blue)_10%,transparent)]',
+                  'bg-linear-to-b from-(--shade) to-surface text-ink ring-1 ring-blue-900/5 [--spot-color:color-mix(in_srgb,var(--color-blue)_10%,transparent)]',
                 )
               : 'border border-line bg-surface [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
           cardFocus,

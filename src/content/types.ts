@@ -110,7 +110,7 @@ export type Person = {
   placeholder?: boolean
 }
 
-export type Partner = { id: string; name: string; url?: string }
+export type Partner = { id: string; name: string; url?: string; logo?: ContentImage }
 
 export type OfferFilter = {
   id: string

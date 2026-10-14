@@ -8,7 +8,7 @@ import { cn } from '@/lib/cn'
 import type { OfferFilter } from '@/content/types'
 
 /** Soft tints only: navy text on all of them (AA). A card keeps its tint while filtering. */
-const tints: CardShade[] = ['blue-50', 'red-50', 'blue-100', 'blue-50', 'red-50', 'blue-100']
+const tints: CardShade[] = ['blue-100', 'red-100', 'blue-100', 'red-100', 'blue-100', 'red-100']
 
 /** Offer grid with filter chips; cards glide into their new place (off with reduced motion). */
 export function OffersFilter({

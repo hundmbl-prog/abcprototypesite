@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { DotGrid } from '@/components/ui/Aurora'
 import { Icon, type IconName } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 import type { HomePage } from '@/content'
@@ -8,30 +7,40 @@ import type { ContentImage } from '@/content/types'
 import { Counter } from './Counter'
 
 /** Light, corporate stat cards – colour only in numbers, icons and a thin top line. */
-const statStyles: Array<{ icon: IconName; number: string; badge: string; line: string }> = [
+const statStyles: Array<{
+  icon: IconName
+  number: string
+  badge: string
+  line: string
+  bg: string
+}> = [
   {
     icon: 'calendar',
     number: 'text-blue-700',
     badge: 'bg-blue-100 text-blue-700',
     line: 'bg-blue-500',
+    bg: 'from-surface to-blue-100',
   },
   {
     icon: 'location',
     number: 'text-red-600',
     badge: 'bg-red-100 text-red-700',
     line: 'bg-red-500',
+    bg: 'from-surface to-red-100',
   },
   {
     icon: 'users',
     number: 'text-blue-800',
     badge: 'bg-blue-100 text-blue-800',
     line: 'bg-blue-700',
+    bg: 'from-surface to-blue-100',
   },
   {
     icon: 'level',
     number: 'text-blue-600',
     badge: 'bg-blue-50 text-blue-700',
     line: 'bg-blue-400',
+    bg: 'from-surface to-red-50',
   },
 ]
 
@@ -40,9 +49,8 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-linear-to-br from-blue-50 via-surface to-red-50 py-section"
+      className="relative isolate overflow-hidden bg-blue-50 py-section"
     >
-      <DotGrid />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeader
@@ -53,7 +61,10 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
             className="mb-0! md:mb-0!"
           />
           <figure className="relative">
-            <div className="sheen relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float)">
+            <div
+              data-reveal="image"
+              className="sheen relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float)"
+            >
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -77,7 +88,10 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
                 <div
                   key={stat.id}
                   data-reveal
-                  className="sheen relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)"
+                  className={cn(
+                    'sheen relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
+                    style?.bg,
+                  )}
                 >
                   <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', style?.line)} />
                   <dt className="text-small font-medium text-ink-muted md:text-body">

@@ -8,7 +8,6 @@ import { PeopleSection } from '@/components/home/PeopleSection'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { Aurora, DotGrid } from '@/components/ui/Aurora'
 import { Button } from '@/components/ui/Button'
 import { getHomePage, getSiteSettings } from '@/content'
 import { images } from '@/content/images'
@@ -31,10 +30,8 @@ export default async function HomePage() {
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
-        className="relative isolate overflow-hidden bg-linear-to-b from-blue-50 via-surface to-blue-50 py-section"
+        className="relative isolate overflow-hidden bg-blue-50 py-section"
       >
-        <Aurora preset="offers" />
-        <DotGrid />
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
@@ -55,9 +52,8 @@ export default async function HomePage() {
       <section
         id="news"
         aria-labelledby="news-titel"
-        className="relative isolate overflow-hidden bg-linear-to-br from-red-50 via-surface to-red-100 py-section"
+        className="relative isolate overflow-hidden bg-surface py-section"
       >
-        <Aurora preset="news" />
         <div className="container-page">
           <SectionHeader
             id="news-titel"
@@ -81,10 +77,8 @@ export default async function HomePage() {
       <section
         id="projekte"
         aria-labelledby="projekte-titel"
-        className="relative isolate overflow-hidden bg-linear-to-b from-blue-100 via-blue-50 to-surface py-section"
+        className="relative isolate overflow-hidden bg-surface py-section"
       >
-        <Aurora preset="projects" />
-        <DotGrid />
         <div className="container-page">
           <SectionHeader
             id="projekte-titel"
@@ -111,7 +105,7 @@ export default async function HomePage() {
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-linear-to-b from-surface to-blue-50 py-section-sm"
+        className="relative isolate overflow-hidden bg-blue-50 py-section-sm"
       >
         <div className="container-page">
           <SectionHeader

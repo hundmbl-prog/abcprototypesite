@@ -75,11 +75,11 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
               >
                 <div
                   className={cn(
-                    'grid gap-4 transition-transform duration-(--dur-slower) ease-out-expo lg:grid-cols-12 lg:gap-6',
+                    'grid overflow-hidden rounded-2xl bg-surface shadow-(--shadow-float) ring-1 ring-line transition-transform duration-(--dur-slower) ease-out-expo lg:grid-cols-12',
                     !active && 'scale-95',
                   )}
                 >
-                  <div className="sheen relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float) lg:col-span-7 lg:aspect-auto lg:min-h-112">
+                  <div className="sheen relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}
@@ -101,15 +101,20 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                       )}
                     />
                   </div>
-                  <div className="relative overflow-hidden rounded-2xl bg-surface shadow-(--shadow-float) lg:col-span-5">
+                  <div className="relative overflow-hidden bg-linear-to-br from-surface via-surface to-blue-50 lg:col-span-5">
                     <span
                       aria-hidden
-                      className={cn('absolute inset-x-0 top-0 h-1.5', accent.bar)}
+                      className={cn(
+                        'absolute inset-x-0 top-0 h-1 lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-1',
+                        accent.bar,
+                      )}
                     />
                     <div
                       className={cn(
-                        'flex h-full flex-col gap-4 p-6 transition-opacity duration-(--dur-slow) md:p-10',
-                        active ? 'opacity-100' : 'opacity-0',
+                        'flex h-full flex-col gap-4 p-6 md:p-10 [&>*]:transition-[opacity,transform] [&>*]:duration-(--dur-slower) [&>*]:ease-out-expo',
+                        active
+                          ? '[&>*]:translate-y-0 [&>*]:opacity-100 [&>*:nth-child(2)]:delay-75 [&>*:nth-child(3)]:delay-150 [&>*:nth-child(4)]:delay-200 [&>*:nth-child(5)]:delay-300'
+                          : '[&>*]:translate-y-3 [&>*]:opacity-0',
                       )}
                     >
                       <div className="flex items-center justify-between gap-4">

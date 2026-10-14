@@ -4,6 +4,7 @@
  * Entries marked `placeholder: true` are invented and MUST be replaced before launch.
  */
 import { images } from './images'
+import { partners } from './partners'
 import { siteSettings } from './site'
 import type { HomePage } from './types'
 
@@ -331,16 +332,7 @@ export const homePage: HomePage = {
   partners: {
     eyebrow: 'Partner & Förderer',
     title: 'Gemeinsam mehr erreichen',
-    items: [
-      { id: 'telc', name: 'telc' },
-      { id: 'bamf', name: 'Bundesamt für Migration und Flüchtlinge' },
-      { id: 'aktion-mensch', name: 'Aktion Mensch' },
-      { id: 'stadt-mainz', name: 'Stadt Mainz – Amt für Jugend und Familie' },
-      { id: 'esf', name: 'ESF Plus' },
-      { id: 'bgz', name: 'BGZ' },
-      { id: 'swl', name: 'SWL' },
-      { id: 'aufholen', name: 'Aufholen nach Corona' },
-    ],
+    items: partners,
   },
 
   locations: {

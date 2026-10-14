@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { Aurora } from '@/components/ui/Aurora'
 import { cn } from '@/lib/cn'
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import type { HomePage, Person } from '@/content'
@@ -51,7 +50,7 @@ const accents = [
 function PersonCard({ person, index }: { person: Person; index: number }) {
   const accent = accents[index % accents.length] ?? accents[0]
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-linear-to-b from-surface to-red-50 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
       <div className="sheen relative aspect-4/5 overflow-hidden">
         <Image
           src={person.image.src}
@@ -106,9 +105,8 @@ export function PeopleSection({ content }: { content: HomePage['people'] }) {
     <section
       id="ansprechpartner"
       aria-labelledby="ansprechpartner-titel"
-      className="relative isolate overflow-hidden bg-linear-to-b from-red-50 to-surface py-section"
+      className="relative isolate overflow-hidden bg-blue-50 py-section"
     >
-      <Aurora preset="people" />
       <div className="container-page">
         <SectionHeader
           id="ansprechpartner-titel"
