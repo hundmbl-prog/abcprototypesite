@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/*
+ * State variants that also react to data-preview="…".
+ * Real users trigger them with mouse/keyboard; the /styleguide uses data-preview
+ * to show every state side by side without duplicating component styles.
+ */
+@custom-variant hov {
+  @media (hover: hover) {
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      @slot;
+    }
+  }
+  &[data-preview='hover'] {
+    @slot;
+  }
+}
+@custom-variant act {
+  &:active:not(:disabled, [aria-disabled='true']) {
+    @slot;
+  }
+  &[data-preview='active'] {
+    @slot;
+  }
+}
+@custom-variant foc {
+  &:focus-visible {
+    @slot;
+  }
+  &[data-preview='focus'] {
+    @slot;
+  }
+}
+@custom-variant group-hov {
+  @media (hover: hover) {
+    &:is(:where(.group):hover *) {
+      @slot;
+    }
+  }
+  &:is(:where(.group)[data-preview='hover'] *) {
+    @slot;
+  }
+}
+@custom-variant fine-pointer (@media (hover: hover) and (pointer: fine));
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface font-sans text-body text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold text-balance;
+    /* Long German compounds (e.g. "Jugendintegrationskurs") must never overflow on 375 px */
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-blue-soft text-navy;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Section tones: background + text colour + matching focus ring */
+@utility tone-light {
+  @apply bg-surface text-ink;
+  --focus-ring: var(--color-blue);
+}
+@utility tone-light-2 {
+  @apply bg-surface-2 text-ink;
+  --focus-ring: var(--color-blue);
+}
+@utility tone-light-3 {
+  @apply bg-surface-3 text-ink;
+  --focus-ring: var(--color-blue);
+}
+@utility tone-soft {
+  @apply bg-blue-soft text-navy;
+  --focus-ring: var(--color-navy);
+}
+@utility tone-navy {
+  @apply bg-navy text-on-dark;
+  --focus-ring: var(--color-on-dark);
+}
+@utility tone-red {
+  @apply bg-red text-on-dark;
+  --focus-ring: var(--color-on-dark);
+}
+
+/* Visible focus ring that uses the current section tone */
+@utility focus-ring {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Makes a whole card clickable through one accessible link */
+@utility stretched-link {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+/* Container with fluid side gutter */
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-content);
+  padding-inline: var(--spacing-gutter);
+}
+@utility container-wide {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-wide);
+  padding-inline: var(--spacing-gutter);
+}
+
+/* Hide scrollbar but keep scrolling (rails/carousels) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
