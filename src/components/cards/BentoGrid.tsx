@@ -4,8 +4,8 @@ import { CardOverlay } from './CardOverlay'
 import type { HeadingLevel, OfferCardData } from './types'
 
 /**
- * Variant 4 – bento layout: the first card is featured large, the rest are smaller tiles
- * that alternate between overlay and image-top styles. Works best with 3–5 cards.
+ * Variant 4 – bento layout: the first card is featured large, the rest are smaller tiles.
+ * Works with 3–6 cards. With 6 cards the last three tiles become wide tiles, so the grid stays closed.
  */
 export function BentoGrid({
   cards,
@@ -16,8 +16,10 @@ export function BentoGrid({
   headingLevel?: HeadingLevel
   className?: string
 }) {
-  const [featured, ...rest] = cards
+  const [featured, ...others] = cards
   if (!featured) return null
+  const rest = others.slice(0, 5)
+  const wide = (index: number) => rest.length === 5 && index >= 2
   return (
     <ul
       className={cn(
@@ -25,7 +27,7 @@ export function BentoGrid({
         className,
       )}
     >
-      <li className="min-w-0 md:col-span-2 lg:row-span-2">
+      <li data-reveal className="min-w-0 md:col-span-2 lg:row-span-2">
         <CardOverlay
           card={featured}
           size="featured"
@@ -33,14 +35,18 @@ export function BentoGrid({
           sizes="(min-width: 1024px) 50vw, 100vw"
         />
       </li>
-      {rest.slice(0, 4).map((card, index) => (
-        <li key={card.id} className="min-w-0">
-          {index % 3 === 0 ? (
+      {rest.map((card, index) => (
+        <li key={card.id} data-reveal className={cn('min-w-0', wide(index) && 'md:col-span-2')}>
+          {wide(index) || index % 3 === 0 ? (
             <CardOverlay
               card={card}
               size="tile"
               headingLevel={headingLevel}
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+              sizes={
+                wide(index)
+                  ? '(min-width: 768px) 50vw, 100vw'
+                  : '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw'
+              }
             />
           ) : (
             <CardClassic

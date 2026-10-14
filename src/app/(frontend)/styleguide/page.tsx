@@ -29,13 +29,7 @@ export default function StyleguidePage() {
   const colors = readColorTokens()
   return (
     <>
-      <a
-        href="#inhalt"
-        className="sr-only z-50 rounded-md bg-navy px-4 py-3 text-on-dark focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
-      >
-        Zum Inhalt springen
-      </a>
-      <header className="tone-navy py-section-sm">
+      <div className="tone-navy pt-32 pb-section-sm">
         <div className="container-page flex flex-col gap-8">
           <p className="inline-flex items-center gap-3 text-small font-semibold tracking-widest text-on-dark-muted uppercase">
             <span aria-hidden className="h-0.5 w-8 bg-red" />
@@ -61,18 +55,16 @@ export default function StyleguidePage() {
             </ul>
           </nav>
         </div>
-      </header>
-      <main id="inhalt" tabIndex={-1} className="outline-none">
-        <ColorSection colors={colors} />
-        <PairingSection colors={colors} />
-        <TypeSection />
-        <SpacingSection />
-        <ButtonSection />
-        <TagSection />
-        <FormSection />
-        <CardSection />
-        <LayoutSection />
-      </main>
+      </div>
+      <ColorSection colors={colors} />
+      <PairingSection colors={colors} />
+      <TypeSection />
+      <SpacingSection />
+      <ButtonSection />
+      <TagSection />
+      <FormSection />
+      <CardSection />
+      <LayoutSection />
     </>
   )
 }

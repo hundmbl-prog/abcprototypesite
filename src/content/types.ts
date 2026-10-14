@@ -1,0 +1,114 @@
+/**
+ * Content shapes used by the frontend. They mirror the Payload collections planned for Step 5,
+ * so swapping the data source later does not change any component.
+ */
+import type { CardImageData, OfferCardData } from '@/components/cards/types'
+
+export type ContentImage = CardImageData
+
+export type NavLink = {
+  label: string
+  href: string
+  description?: string
+  image?: ContentImage
+}
+
+export type NavSection = {
+  label: string
+  href: string
+  intro: string
+  image: ContentImage
+  links: NavLink[]
+}
+
+export type OpeningHours = { days: string; hours: string }
+
+export type Location = {
+  id: string
+  name: string
+  street: string
+  postalCode: string
+  city: string
+  phone: string
+  email: string
+  hours: OpeningHours[]
+  /** Further addresses that belong to this location (branches). */
+  branches?: string[]
+  lat: number
+  lon: number
+  /** true = details not confirmed yet, must be checked before launch */
+  placeholder?: boolean
+}
+
+export type SiteSettings = {
+  name: string
+  shortName: string
+  claim: string
+  foundingYear: number
+  locations: Location[]
+  footerAbout: string
+  legalLinks: NavLink[]
+}
+
+export type HeroContent = {
+  eyebrow: string
+  title: string
+  text: string
+  image: ContentImage
+  primaryCta: NavLink
+  secondaryCta: NavLink
+}
+
+export type NewsItem = {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  date: string
+  category: string
+  image: ContentImage
+}
+
+export type Project = {
+  id: string
+  slug: string
+  title: string
+  description: string
+  partners: string[]
+  image: ContentImage
+}
+
+export type Stat = {
+  id: string
+  value: number
+  prefix?: string
+  suffix?: string
+  label: string
+  placeholder?: boolean
+}
+
+export type Person = {
+  id: string
+  name: string
+  role: string
+  location: string
+  phone: string
+  email: string
+  image: ContentImage
+  placeholder?: boolean
+}
+
+export type Partner = { id: string; name: string; url?: string }
+
+export type SectionIntro = { eyebrow: string; title: string; intro?: string }
+
+export type HomePage = {
+  hero: HeroContent
+  offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink }
+  news: SectionIntro & { items: NewsItem[]; cta: NavLink }
+  projects: SectionIntro & { items: Project[]; cta: NavLink }
+  why: SectionIntro & { stats: Stat[]; points: string[] }
+  people: SectionIntro & { items: Person[] }
+  partners: SectionIntro & { items: Partner[] }
+  locations: SectionIntro
+}

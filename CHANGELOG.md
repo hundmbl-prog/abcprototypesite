@@ -1,5 +1,27 @@
 # Changelog
 
+## Step 3 – Layout and home page (2026-10-14)
+
+- **Header:** sticky; transparent over the hero, then solid and shorter after scrolling. Desktop mega-menu (from 1280 px) with link descriptions and a preview image that follows the hovered link; keyboard support (Enter/Escape, focus return, click outside closes). Full-screen mobile menu with accordion, focus trap, Escape and scroll lock.
+- **Footer:** about text, three link columns, both locations with opening hours, legal links, and a decorative SVG watermark.
+- **Motion:** Lenis smooth scrolling synced with GSAP ScrollTrigger; batched scroll reveals (`data-reveal`, content stays visible without JS); page transitions on client navigation only (first load is not animated, so LCP isn't delayed). Everything is off with reduced motion.
+- **Home page, 9 sections:**
+  1. Zoom hero: Ken Burns, CSS word-by-word headline, scroll-linked zoom-out.
+  2. Offers bento with 6 photo cards; BentoGrid now supports 6.
+  3. News slideshow: autoplay with progress bar, pause on hover/focus, pause button, swipe, thumbnails.
+  4. Cinematic projects slideshow: drag, arrow keys, partners.
+  5. Counters and "Warum ABC".
+  6. Contact people.
+  7. Partner marquee.
+  8. Locations with tabs and a consent-based OpenStreetMap.
+  9. Footer.
+- **Content layer:** `src/content/` is typed like the planned Payload collections. News, projects, addresses and opening hours come from abc-mainz.de. Invented entries are marked `placeholder: true`.
+- **Images:** 23 placeholder photos from the current site's own media, optimised and stored locally.
+- **Error pages:** styled 404 (via a catch-all route that becomes the CMS page route in Step 5) and a 500 error page.
+- **Packages added (pinned):** framer-motion 13.4.6, gsap 3.15.0, lenis 1.3.26, embla-carousel-autoplay 8.6.0.
+- **Tests:** Playwright suite for home, navigation, sliders, tabs, map consent and 404; 88 tests at 4 widths.
+- **Fixes:** German long words no longer overflow; sr-only labels in the scroll strip no longer widen the page; Inter is limited to the latin subset (removes the preload warning).
+
 ## Step 2 – Design system, card variants and /styleguide (2026-10-14)
 
 - Next.js 15.4.11 project with TypeScript (strict), Tailwind CSS 4.3.3, ESLint 9, Prettier, Playwright + axe. All versions pinned exactly.

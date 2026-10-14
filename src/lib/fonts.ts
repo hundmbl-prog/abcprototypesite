@@ -10,7 +10,7 @@ export const clashDisplay = localFont({
 })
 
 export const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
+  subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 })
