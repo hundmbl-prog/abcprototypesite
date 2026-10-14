@@ -3,12 +3,19 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { cn } from '@/lib/cn'
 import type { Location } from '@/content'
 
 /**
  * Map that only loads after the visitor agrees (GDPR): no request to OpenStreetMap before the click.
  */
-export function ConsentMap({ location }: { location: Location }) {
+export function ConsentMap({
+  location,
+  compact = false,
+}: {
+  location: Location
+  compact?: boolean
+}) {
   const [loaded, setLoaded] = useState(false)
   const d = 0.006
   const bbox = [
@@ -21,13 +28,20 @@ export function ConsentMap({ location }: { location: Location }) {
   const external = `https://www.openstreetmap.org/?mlat=${location.lat}&mlon=${location.lon}#map=17/${location.lat}/${location.lon}`
 
   return (
-    <div className="relative flex h-full min-h-96 flex-col overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-(--shadow-float)">
+    <div
+      className={cn(
+        'relative flex h-full flex-col overflow-hidden',
+        compact
+          ? 'min-h-64 bg-surface-2'
+          : 'min-h-96 rounded-2xl border border-line bg-surface-2 shadow-(--shadow-float)',
+      )}
+    >
       {loaded ? (
         <iframe
           title={`Karte: ${location.name}, ${location.street}`}
           src={embed}
           loading="lazy"
-          className="size-full min-h-96 flex-1 border-0"
+          className={cn('size-full flex-1 border-0', compact ? 'min-h-64' : 'min-h-96')}
           referrerPolicy="no-referrer"
         />
       ) : (
@@ -39,7 +53,7 @@ export function ConsentMap({ location }: { location: Location }) {
             Zum Schutz Ihrer Daten wird die Karte erst nach Ihrer Zustimmung geladen. Dabei werden
             Daten an OpenStreetMap übertragen.
           </p>
-          <Button variant="navy" size="sm" onClick={() => setLoaded(true)}>
+          <Button variant="primary" size="sm" onClick={() => setLoaded(true)}>
             Karte laden
           </Button>
         </div>

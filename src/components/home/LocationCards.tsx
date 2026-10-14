@@ -1,0 +1,267 @@
+'use client'
+
+import { useCallback, useEffect, useState } from 'react'
+import { Icon } from '@/components/ui/Icon'
+import { Toast } from '@/components/ui/Toast'
+import { cn } from '@/lib/cn'
+import { nowInBerlin, openStatus, weekdayNames, type OpenStatus } from '@/lib/opening-hours'
+import type { Location } from '@/content'
+import { ConsentMap } from './ConsentMap'
+
+function telHref(phone: string) {
+  return `tel:${phone.replace(/[^\d+]/g, '')}`
+}
+
+function PhoneIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+    >
+      <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+    </svg>
+  )
+}
+
+function StatusPill({ status }: { status: OpenStatus | null }) {
+  if (!status)
+    return <span className="h-8 w-40 animate-pulse rounded-pill bg-surface-3" aria-hidden />
+  if (status.state === 'appointment') {
+    return (
+      <span className="inline-flex items-center gap-2 rounded-pill bg-blue-50 px-3 py-1.5 text-small font-semibold text-blue-800 ring-1 ring-blue-100">
+        <Icon name="calendar" className="size-4" />
+        Termine nach Vereinbarung
+      </span>
+    )
+  }
+  const open = status.state === 'open'
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-2 rounded-pill px-3 py-1.5 text-small font-semibold ring-1',
+        open
+          ? 'bg-success-soft text-success ring-success/20'
+          : 'bg-surface-2 text-ink-muted ring-line',
+      )}
+    >
+      <span className="relative flex size-2">
+        {open ? (
+          <span className="absolute inline-flex size-full rounded-pill bg-success opacity-60 motion-safe:animate-ping" />
+        ) : null}
+        <span
+          className={cn(
+            'relative inline-flex size-2 rounded-pill',
+            open ? 'bg-success' : 'bg-ink-muted',
+          )}
+        />
+      </span>
+      {open
+        ? `Jetzt geöffnet · bis ${status.until} Uhr`
+        : status.next
+          ? `Geschlossen · öffnet ${status.next.label} ${status.next.time} Uhr`
+          : 'Geschlossen'}
+    </span>
+  )
+}
+
+function WeekTable({ location, today }: { location: Location; today: number | null }) {
+  return (
+    <table className="w-full text-small">
+      <caption className="sr-only">Öffnungszeiten {location.name}</caption>
+      <tbody>
+        {weekdayNames.map((name, i) => {
+          const day = i + 1
+          const slots = location.schedule.filter((s) => s.day === day)
+          const isToday = today === day
+          return (
+            <tr key={name} className={cn('transition-colors', isToday && 'bg-blue-50')}>
+              <th
+                scope="row"
+                className={cn(
+                  'rounded-l-md py-1.5 pl-3 text-left font-medium',
+                  isToday ? 'text-blue-900' : 'text-ink',
+                )}
+              >
+                {name}
+                {isToday ? (
+                  <span className="ml-2 rounded-pill bg-blue-600 px-2 py-0.5 text-caption font-semibold text-on-dark">
+                    Heute
+                  </span>
+                ) : null}
+              </th>
+              <td
+                className={cn(
+                  'rounded-r-md py-1.5 pr-3 text-right',
+                  slots.length ? 'text-ink' : 'text-ink-muted',
+                )}
+              >
+                {slots.length
+                  ? slots.map((s) => `${s.open.replace(/^0/, '')}–${s.close} Uhr`).join(', ')
+                  : 'geschlossen'}
+              </td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
+}
+
+function LocationCard({
+  location,
+  orgName,
+  onCopied,
+}: {
+  location: Location
+  orgName: string
+  onCopied: (message: string) => void
+}) {
+  const [status, setStatus] = useState<OpenStatus | null>(null)
+  const [today, setToday] = useState<number | null>(null)
+
+  // Computed in the browser only (time-dependent), refreshed every minute.
+  useEffect(() => {
+    const update = () => {
+      setStatus(openStatus(location.schedule))
+      setToday(nowInBerlin().day)
+    }
+    update()
+    const timer = window.setInterval(update, 60_000)
+    return () => window.clearInterval(timer)
+  }, [location.schedule])
+
+  const address = `${location.street}, ${location.postalCode} ${location.city}`
+  const route = `https://www.openstreetmap.org/directions?to=${location.lat}%2C${location.lon}`
+
+  async function copyAddress() {
+    try {
+      await navigator.clipboard.writeText(`${orgName} ${location.name}, ${address}`)
+      onCopied('Adresse kopiert')
+    } catch {
+      onCopied('Kopieren nicht möglich – bitte Adresse markieren')
+    }
+  }
+
+  return (
+    <article
+      data-reveal
+      className="flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-line transition-shadow duration-(--dur-slow) hov:shadow-(--shadow-float)"
+    >
+      <div className="flex flex-col gap-6 p-6 md:p-8">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="text-caption font-semibold tracking-widest text-blue-700 uppercase">
+            {location.kind}
+          </span>
+          <StatusPill status={status} />
+        </div>
+
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <h3 className="text-h2 text-blue-900">{location.name}</h3>
+            <address className="text-ink-muted not-italic">{address}</address>
+          </div>
+          <button
+            type="button"
+            onClick={copyAddress}
+            className="grid size-11 shrink-0 place-items-center rounded-pill text-blue-700 ring-1 ring-blue-200 transition-colors hov:bg-blue-50"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="size-4"
+              aria-hidden
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.75}
+            >
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+            </svg>
+            <span className="sr-only">Adresse {location.name} kopieren</span>
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <a
+            href={telHref(location.phone)}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-blue-600 px-4 text-small font-semibold text-on-dark hov:bg-blue-700"
+          >
+            <PhoneIcon />
+            {location.phone}
+          </a>
+          <a
+            href={`mailto:${location.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill px-4 text-small font-semibold text-blue-800 ring-1 ring-blue-200 hov:bg-blue-50"
+          >
+            <Icon name="arrow-up-right" className="size-4" />
+            E-Mail
+            <span className="sr-only">: {location.email}</span>
+          </a>
+          <a
+            href={route}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill px-4 text-small font-semibold text-blue-800 ring-1 ring-blue-200 hov:bg-blue-50"
+          >
+            <Icon name="location" className="size-4" />
+            Route planen
+            <span className="sr-only">(öffnet OpenStreetMap in neuem Tab)</span>
+          </a>
+        </div>
+
+        <div className="rounded-xl bg-surface-2 p-2 ring-1 ring-line">
+          {location.schedule.length ? (
+            <WeekTable location={location} today={today} />
+          ) : (
+            <p className="px-3 py-2 text-small text-ink-muted">
+              Beratung und Anmeldung nach telefonischer Vereinbarung.
+            </p>
+          )}
+        </div>
+
+        {location.branches?.length ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-small font-semibold text-blue-900">Zweigstellen</p>
+            <ul className="flex flex-wrap gap-2">
+              {location.branches.map((branch) => (
+                <li
+                  key={branch}
+                  className="rounded-pill bg-blue-50 px-3 py-1 text-caption font-medium text-blue-800"
+                >
+                  {branch}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+      <div className="mt-auto border-t border-line">
+        <ConsentMap location={location} compact />
+      </div>
+    </article>
+  )
+}
+
+/** Both locations side by side, each with live status, week table, actions and an opt-in map. */
+export function LocationCards({ locations, orgName }: { locations: Location[]; orgName: string }) {
+  const [toast, setToast] = useState<string | null>(null)
+  const clear = useCallback(() => setToast(null), [])
+  return (
+    <>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {locations.map((location) => (
+          <LocationCard
+            key={location.id}
+            location={location}
+            orgName={orgName}
+            onCopied={setToast}
+          />
+        ))}
+      </div>
+      <Toast message={toast} onDone={clear} />
+    </>
+  )
+}

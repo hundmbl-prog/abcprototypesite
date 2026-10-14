@@ -45,6 +45,16 @@ export const homePage: HomePage = {
     intro:
       'Vom ersten Deutschkurs bis zur Weiterbildung – wir beraten Sie gerne, welches Angebot zu Ihnen passt.',
     cta: { label: 'Alle Angebote', href: '/sprachkurse' },
+    filters: [
+      { id: 'alle', label: 'Alle', tags: [] },
+      { id: 'sprache', label: 'Sprache & Prüfungen', tags: ['Kurse', 'Prüfung'] },
+      {
+        id: 'lernen',
+        label: 'Lernen & Familie',
+        tags: ['Lernförderung', 'Weiterbildung', 'Familie'],
+      },
+      { id: 'engagement', label: 'Engagement', tags: ['Projekt'] },
+    ],
     cards: [
       {
         id: 'sprach-integrationskurse',

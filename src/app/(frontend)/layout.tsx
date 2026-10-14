@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { SkipLink } from '@/components/layout/SkipLink'
+import { ScrollExtras } from '@/components/motion/ScrollExtras'
 import { ScrollReveal } from '@/components/motion/ScrollReveal'
 import { SmoothScroll } from '@/components/motion/SmoothScroll'
 import { clashDisplay, inter } from '@/lib/fonts'
@@ -36,6 +37,7 @@ export default function FrontendLayout({ children }: { children: ReactNode }) {
           </main>
           <SiteFooter />
           <ScrollReveal />
+          <ScrollExtras />
         </SmoothScroll>
       </body>
     </html>

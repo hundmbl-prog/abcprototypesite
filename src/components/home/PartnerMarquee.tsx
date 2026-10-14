@@ -1,4 +1,4 @@
-import { Aurora, DotGrid } from '@/components/ui/Aurora'
+import { DotGrid } from '@/components/ui/Aurora'
 import type { HomePage } from '@/content'
 
 /** Dark navy band with bright white partner cards. Pauses on hover; static with reduced motion. */
@@ -11,9 +11,9 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
       {content.items.map((partner) => (
         <li
           key={partner.id}
-          className="sheen relative grid h-24 min-w-56 place-items-center overflow-hidden rounded-xl bg-surface px-8 text-center shadow-xl ring-1 ring-blue-200"
+          className="sheen relative grid h-24 min-w-56 place-items-center overflow-hidden rounded-xl bg-surface px-8 text-center shadow-md ring-1 ring-line"
         >
-          <span className="font-display text-h4 leading-tight font-semibold text-blue-900">
+          <span className="font-display text-h4 leading-tight font-semibold text-ink-muted">
             {partner.name}
           </span>
         </li>
@@ -23,15 +23,14 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
   return (
     <section
       aria-labelledby="partner-titel"
-      className="relative isolate overflow-hidden bg-blue-950 py-section text-on-dark [--focus-ring:var(--color-on-dark)]"
+      className="relative isolate overflow-hidden bg-linear-to-b from-blue-50 to-surface py-section-sm"
     >
-      <Aurora preset="partners" strength="glow" />
-      <DotGrid tone="dark" />
+      <DotGrid />
       <div className="container-page mb-12 flex flex-col items-center gap-3 text-center">
-        <p className="rounded-pill bg-on-dark/10 px-4 py-2 text-small font-semibold tracking-widest uppercase">
+        <p className="rounded-pill bg-blue-100 px-4 py-2 text-small font-semibold tracking-widest text-blue-800 uppercase">
           {content.eyebrow}
         </p>
-        <h2 id="partner-titel" className="text-h2">
+        <h2 id="partner-titel" className="text-h2 text-blue-900">
           {content.title}
         </h2>
       </div>

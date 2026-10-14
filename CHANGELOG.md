@@ -1,5 +1,25 @@
 # Changelog
 
+## Step 3d – Light, formal and more interactive (2026-10-14)
+
+Feedback: too much dark blue for a corporate site, the locations section didn't work, and it should be subtle, stylish and formal, not bold, but more interactive.
+
+- **No dark sections:** only the hero photo is dark (unchanged). Stats, partners and footer are now light; section titles are calm navy everywhere, and accent colours appear only in eyebrows, chips and thin lines.
+- **Offer cards:** soft tints (`blue-50/100`, `red-50`) with navy text instead of saturated blocks. New light pill button (`pill-light`: white with a blue arrow) for section actions.
+- **New interactions:**
+  - Animated offer filter: shared sliding pill, cards glide into place, count announced to screen readers.
+  - Live opening status per location in Europe/Berlin time ("Jetzt geöffnet · bis 16:00 Uhr" / "Geschlossen · öffnet …"), refreshed every minute.
+  - Weekly hours table with today highlighted.
+  - Copy-address button with a toast.
+  - Route-planning link.
+  - Thin reading-progress line and a back-to-top button.
+  - All of it respects reduced motion.
+- **Locations redesigned:** the tabs are replaced by two location cards side by side, each with status, actions, hours, branches and an opt-in map.
+- **Contact cards:** thick colour frames replaced by a thin accent line.
+- **Footer:** light, with a brand gradient line, navigation, a compact contact block and the legal row.
+- **New code:** `lib/opening-hours.ts`, `ui/Toast`, `motion/ScrollExtras`, `home/OffersFilter`, `home/LocationCards`; `schedule` and `kind` added to locations; filters added to the offers content.
+- **Tests:** 112 at 4 widths, including fixed-clock tests for open/closed status, filter, toast and back-to-top.
+
 ## Step 3c – Colour worlds per section, no text on photos (2026-10-14)
 
 Feedback: use different shades of the brand colours with cards matching their section; text boxes on photos are hard to read. The hero stays unchanged.

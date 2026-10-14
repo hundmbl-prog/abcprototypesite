@@ -51,20 +51,22 @@ const accents = [
 function PersonCard({ person, index }: { person: Person; index: number }) {
   const accent = accents[index % accents.length] ?? accents[0]
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-red-100 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
-      <div className={cn('relative bg-linear-to-br p-1.5 pb-0', accent.ring)}>
-        <div className="sheen relative aspect-4/5 overflow-hidden rounded-t-xl">
-          <Image
-            src={person.image.src}
-            alt={person.image.alt}
-            width={person.image.width}
-            height={person.image.height}
-            sizes="(min-width: 1280px) 300px, (min-width: 640px) 50vw, 100vw"
-            placeholder={person.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={person.image.blurDataURL}
-            className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hov:scale-105"
-          />
-        </div>
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
+      <div className="sheen relative aspect-4/5 overflow-hidden">
+        <Image
+          src={person.image.src}
+          alt={person.image.alt}
+          width={person.image.width}
+          height={person.image.height}
+          sizes="(min-width: 1280px) 300px, (min-width: 640px) 50vw, 100vw"
+          placeholder={person.image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={person.image.blurDataURL}
+          className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hov:scale-105"
+        />
+        <span
+          aria-hidden
+          className={cn('absolute inset-x-0 bottom-0 h-1 bg-linear-to-r', accent.ring)}
+        />
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex flex-col gap-2">
@@ -77,7 +79,7 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
         <div className="mt-auto flex gap-2">
           <a
             href={telHref(person.phone)}
-            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-navy px-3 text-small font-semibold text-on-dark hov:bg-blue-700"
+            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-blue-600 px-3 text-small font-semibold text-on-dark hov:bg-blue-700"
           >
             <PhoneIcon />
             Anrufen

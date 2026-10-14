@@ -3,8 +3,13 @@ import { SpotlightTilt } from '@/components/motion/SpotlightTilt'
 import { CardCta, CardFacts, CardImage, CardMeta, CardTitle, cardFocus } from './parts'
 import type { HeadingLevel, OfferCardData } from './types'
 
-/** Solid colour for the text area. All shades are dark enough for white text (≥ 4.5:1). */
+/**
+ * Colour of the text area. Light tints (50–100) get navy text, strong shades (500+) white text –
+ * both combinations meet WCAG AA.
+ */
+export type LightShade = 'blue-50' | 'blue-100' | 'red-50' | 'red-100'
 export type CardShade =
+  | LightShade
   | 'blue-500'
   | 'blue-600'
   | 'blue-700'
@@ -14,7 +19,13 @@ export type CardShade =
   | 'red-500'
   | 'red-600'
 
+const lightShades = new Set<CardShade>(['blue-50', 'blue-100', 'red-50', 'red-100'])
+
 const shadeVar: Record<CardShade, string> = {
+  'blue-50': '[--shade:var(--color-blue-50)]',
+  'blue-100': '[--shade:var(--color-blue-100)]',
+  'red-50': '[--shade:var(--color-red-50)]',
+  'red-100': '[--shade:var(--color-red-100)]',
   'blue-500': '[--shade:var(--color-blue-500)]',
   'blue-600': '[--shade:var(--color-blue-600)]',
   'blue-700': '[--shade:var(--color-blue-700)]',
@@ -47,6 +58,8 @@ export function CardClassic({
   preview,
   className,
 }: CardClassicProps) {
+  const dark = shade !== undefined && !lightShades.has(shade)
+  const light = shade !== undefined && !dark
   return (
     <SpotlightTilt maxTilt={3} className={cn('rounded-xl', className)}>
       <article
@@ -54,12 +67,17 @@ export function CardClassic({
         className={cn(
           'group sheen relative flex h-full flex-col overflow-hidden rounded-xl shadow-md',
           'transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)',
-          shade
+          dark && shade
             ? cn(
                 shadeVar[shade],
                 'bg-(--shade) text-on-dark [--focus-ring:var(--shade)] [--spot-color:color-mix(in_srgb,var(--color-surface)_14%,transparent)]',
               )
-            : 'border border-line bg-surface [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
+            : light && shade
+              ? cn(
+                  shadeVar[shade],
+                  'bg-(--shade) text-ink ring-1 ring-blue-900/5 [--spot-color:color-mix(in_srgb,var(--color-blue)_10%,transparent)]',
+                )
+              : 'border border-line bg-surface [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
           cardFocus,
         )}
       >
@@ -73,20 +91,24 @@ export function CardClassic({
           ) : null}
         </div>
         <div className={cn('flex flex-1 flex-col gap-3', compact ? 'p-5' : 'p-6')}>
-          <CardMeta card={card} tagTone={shade ? 'dark' : 'light'} />
-          <CardTitle card={card} as={headingLevel} className={compact ? 'text-h4' : 'text-h3'} />
-          <p className={cn('line-clamp-2', shade ? 'text-on-dark' : 'text-ink-muted')}>
+          <CardMeta card={card} tagTone={dark ? 'dark' : light ? 'image' : 'light'} />
+          <CardTitle
+            card={card}
+            as={headingLevel}
+            className={cn(compact ? 'text-h4' : 'text-h3', !dark && 'text-blue-900')}
+          />
+          <p className={cn('line-clamp-2', dark ? 'text-on-dark' : 'text-ink-muted')}>
             {card.description}
           </p>
           <CardFacts
             facts={card.facts}
             max={compact ? 2 : 4}
-            tone={shade ? 'dark' : 'light'}
+            tone={dark ? 'dark' : 'light'}
             className="mt-auto pt-2"
           />
           <CardCta
             label={card.ctaLabel ?? 'Mehr erfahren'}
-            tone={shade ? 'dark' : 'light'}
+            tone={dark ? 'dark' : 'light'}
             className="pt-2"
           />
         </div>

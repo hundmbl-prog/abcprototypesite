@@ -131,7 +131,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
                     {dateFormat.format(new Date(item.date))}
                   </time>
                 </div>
-                <h3 className="text-h3 text-red-800">
+                <h3 className="text-h3 text-blue-900">
                   <Link href={`/news/${item.slug}`} className="stretched-link">
                     {item.title}
                   </Link>
@@ -225,7 +225,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
                   className="size-full object-cover"
                 />
               </span>
-              <span className="line-clamp-2 px-1 text-caption font-semibold text-red-800">
+              <span className="line-clamp-2 px-1 text-caption font-semibold text-blue-900">
                 <span className="sr-only">Zu News: </span>
                 {item.title}
               </span>

@@ -23,6 +23,9 @@ export type NavSection = {
 
 export type OpeningHours = { days: string; hours: string }
 
+/** Machine-readable opening time. day: 1 = Monday … 7 = Sunday, times as "HH:MM" (Europe/Berlin). */
+export type OpeningSlot = { day: number; open: string; close: string }
+
 export type Location = {
   id: string
   name: string
@@ -32,6 +35,10 @@ export type Location = {
   phone: string
   email: string
   hours: OpeningHours[]
+  /** Used for the live open/closed status. Empty = appointments only. */
+  schedule: OpeningSlot[]
+  /** Short label, e.g. Hauptsitz */
+  kind: string
   /** Further addresses that belong to this location (branches). */
   branches?: string[]
   lat: number
@@ -105,11 +112,17 @@ export type Person = {
 
 export type Partner = { id: string; name: string; url?: string }
 
+export type OfferFilter = {
+  id: string
+  label: string
+  /** card tags in this group; empty = all */ tags: string[]
+}
+
 export type SectionIntro = { eyebrow: string; title: string; intro?: string }
 
 export type HomePage = {
   hero: HeroContent
-  offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink }
+  offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink; filters: OfferFilter[] }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
   projects: SectionIntro & { items: Project[]; cta: NavLink }
   why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }

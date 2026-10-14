@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { OfferCards } from '@/components/cards/OfferCards'
 import { HomeHero } from '@/components/home/HomeHero'
-import { LocationsTabs } from '@/components/home/LocationsTabs'
+import { LocationCards } from '@/components/home/LocationCards'
 import { NewsSlider } from '@/components/home/NewsSlider'
+import { OffersFilter } from '@/components/home/OffersFilter'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { PeopleSection } from '@/components/home/PeopleSection'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
@@ -27,7 +27,7 @@ export default async function HomePage() {
       {/* 1 · Photo hero with glass quick access */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* 2 · Cool blue world: six cards, text areas in a run of blue shades ending in red */}
+      {/* 2 · Soft blue: offers with animated filter, cards in light tints */}
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
@@ -42,17 +42,12 @@ export default async function HomePage() {
             title={home.offers.title}
             intro={home.offers.intro}
             action={
-              <Button href={home.offers.cta.href} variant="pill">
+              <Button href={home.offers.cta.href} variant="pill-light">
                 {home.offers.cta.label}
               </Button>
             }
           />
-          <OfferCards
-            cards={home.offers.cards}
-            variant="classic"
-            label={home.offers.title}
-            shades={['blue-500', 'blue-600', 'blue-700', 'blue-800', 'blue-900', 'red-500']}
-          />
+          <OffersFilter cards={home.offers.cards} filters={home.offers.filters} />
         </div>
       </section>
 
@@ -70,11 +65,7 @@ export default async function HomePage() {
             eyebrow={home.news.eyebrow}
             title={home.news.title}
             action={
-              <Button
-                href={home.news.cta.href}
-                variant="pill"
-                className="bg-red-600! hov:bg-red-700!"
-              >
+              <Button href={home.news.cta.href} variant="pill-light">
                 {home.news.cta.label}
               </Button>
             }
@@ -83,7 +74,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 · Deep blue band with shaded stat cards */}
+      {/* 4 · White: stats and reasons */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
       {/* 5 · Sky blue world: projects, text beside the photo */}
@@ -101,7 +92,7 @@ export default async function HomePage() {
             title={home.projects.title}
             intro={home.projects.intro}
             action={
-              <Button href={home.projects.cta.href} variant="pill">
+              <Button href={home.projects.cta.href} variant="pill-light">
                 {home.projects.cta.label}
               </Button>
             }
@@ -113,10 +104,10 @@ export default async function HomePage() {
       {/* 6 · Blush world: contact people */}
       <PeopleSection content={home.people} />
 
-      {/* 7 · Deep navy band: partner cards */}
+      {/* 7 · Light: partner cards */}
       <PartnerMarquee content={home.partners} />
 
-      {/* 8 · Light blue world: locations */}
+      {/* 8 · Light blue: two location cards with live status */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
@@ -130,7 +121,7 @@ export default async function HomePage() {
             title={home.locations.title}
             intro={home.locations.intro}
           />
-          <LocationsTabs locations={settings.locations} />
+          <LocationCards locations={settings.locations} orgName={settings.name} />
         </div>
       </section>
     </>

@@ -149,22 +149,78 @@ test.describe('Counters, locations, map', () => {
     await expect(stats.nth(1)).toHaveText('5', { timeout: 5000 })
   })
 
-  test('location tabs switch with arrow keys; map loads only after consent', async ({ page }) => {
+  test('map loads only after consent', async ({ page }) => {
     const osm: string[] = []
     page.on('request', (req) => {
       if (req.url().includes('openstreetmap.org')) osm.push(req.url())
     })
     await page.goto('/#standorte')
-    const tabs = page.getByRole('tablist', { name: 'Standort wählen' })
-    const mainz = tabs.getByRole('tab', { name: 'Mainz' })
-    await mainz.focus()
-    await page.keyboard.press('ArrowRight')
-    const bk = tabs.getByRole('tab', { name: 'Bad Kreuznach' })
-    await expect(bk).toHaveAttribute('aria-selected', 'true')
-    await expect(page.getByRole('tabpanel')).toContainText('Mathildenstr.')
+    const cards = page.locator('#standorte article')
+    await expect(cards).toHaveCount(2)
+    await page.waitForTimeout(500)
     expect(osm).toEqual([])
-    await page.getByRole('button', { name: 'Karte laden' }).click()
-    await expect(page.locator('iframe[title^="Karte: Bad Kreuznach"]')).toBeVisible()
+    await cards.first().getByRole('button', { name: 'Karte laden' }).click()
+    await expect(page.locator('iframe[title^="Karte: Mainz"]')).toBeVisible()
+  })
+})
+
+test.describe('Locations live status', () => {
+  test('Mainz shows open on Monday 10:00 (Berlin time)', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-10-12T08:00:00Z'))
+    await page.goto('/#standorte')
+    const mainz = page.locator('#standorte article').first()
+    await expect(mainz).toContainText('Jetzt geöffnet · bis 16:00 Uhr')
+    await expect(mainz.getByRole('row', { name: /Montag/ })).toContainText('Heute')
+  })
+
+  test('Mainz shows closed on Thursday with next opening', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-10-15T08:00:00Z'))
+    await page.goto('/#standorte')
+    await expect(page.locator('#standorte article').first()).toContainText(
+      'Geschlossen · öffnet morgen 9:00 Uhr',
+    )
+  })
+
+  test('Bad Kreuznach shows appointments only', async ({ page }) => {
+    await page.goto('/#standorte')
+    await expect(page.locator('#standorte article').nth(1)).toContainText(
+      'Termine nach Vereinbarung',
+    )
+  })
+
+  test('copy address shows a confirmation toast', async ({ page, context, browserName }) => {
+    test.skip(browserName !== 'chromium', 'clipboard permission is chromium-only')
+    await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+    await page.goto('/#standorte')
+    await page.getByRole('button', { name: 'Adresse Mainz kopieren' }).click()
+    await expect(page.getByRole('status').filter({ hasText: 'Adresse kopiert' })).toBeVisible()
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Rhabanusstr. 5')
+  })
+})
+
+test.describe('Offers filter', () => {
+  test('filter chips show matching cards and announce the count', async ({ page }) => {
+    await page.goto('/#angebote')
+    const group = page.getByRole('group', { name: 'Angebote filtern' })
+    const cards = page.locator('#angebote article')
+    await expect(cards).toHaveCount(6)
+    await group.getByRole('button', { name: /Engagement/ }).click()
+    await expect(cards).toHaveCount(1)
+    await expect(page.locator('#angebote [aria-live="polite"]')).toHaveText('1 Angebote angezeigt')
+    await group.getByRole('button', { name: /^Alle/ }).click()
+    await expect(cards).toHaveCount(6)
+  })
+})
+
+test.describe('Scroll extras', () => {
+  test('back-to-top button appears after scrolling and returns to top', async ({ page }) => {
+    await page.goto('/')
+    const button = page.getByRole('button', { name: 'Nach oben' })
+    await expect(button).toHaveCount(0)
+    await page.evaluate(() => window.scrollTo(0, window.innerHeight * 2))
+    await expect(button).toBeVisible()
+    await button.click()
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 5000 }).toBeLessThan(10)
   })
 })
 

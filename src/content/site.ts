@@ -21,10 +21,12 @@ export const siteSettings: SiteSettings = {
       city: 'Mainz',
       phone: '+49 6131 385147',
       email: 'kontakt@abc-mainz.de',
+      kind: 'Hauptsitz',
       hours: [
         { days: 'Mo, Di, Mi, Fr', hours: '9:00–16:00 Uhr' },
         { days: 'Do', hours: 'keine Sprechstunde' },
       ],
+      schedule: [1, 2, 3, 5].map((day) => ({ day, open: '09:00', close: '16:00' })),
       branches: [
         'Saarstraße 52, 55122 Mainz',
         'Bonifaziusplatz 1A, 55118 Mainz',
@@ -41,7 +43,9 @@ export const siteSettings: SiteSettings = {
       city: 'Bad Kreuznach',
       phone: '+49 671 92067094',
       email: 'badkreuznach@abc-mainz.de',
+      kind: 'Standort',
       hours: [{ days: 'Sprechzeiten', hours: 'nach Vereinbarung' }],
+      schedule: [],
       lat: 49.8447785,
       lon: 7.8649269,
       placeholder: true,

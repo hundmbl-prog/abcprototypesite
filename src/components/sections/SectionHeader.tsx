@@ -56,7 +56,7 @@ export function SectionHeader({
           id={id}
           className={cn(
             Heading === 'h1' ? 'text-h1' : 'text-h2',
-            tone === 'light' && (accent === 'red' ? 'text-red-800' : 'text-blue-900'),
+            tone === 'light' && 'text-blue-900',
           )}
         >
           {title}
