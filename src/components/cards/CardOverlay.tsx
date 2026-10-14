@@ -30,7 +30,7 @@ export function CardOverlay({
       <article
         data-preview={preview}
         className={cn(
-          'group relative isolate flex h-full flex-col justify-end overflow-hidden rounded-2xl bg-navy text-on-dark',
+          'group sheen relative isolate flex h-full flex-col justify-end overflow-hidden rounded-2xl bg-shade text-on-dark shadow-md',
           size === 'default' && 'aspect-4/5',
           size === 'featured' && 'min-h-120 lg:min-h-full',
           size === 'tile' && 'min-h-72',
@@ -42,7 +42,7 @@ export function CardOverlay({
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-linear-to-t from-navy via-navy/70 to-navy/0 transition-opacity duration-(--dur-slow) group-hov:via-navy/80"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-shade/90 via-shade/50 to-shade/0 transition-opacity duration-(--dur-slow) group-hov:via-shade/60"
         />
         <div className={cn('flex flex-col gap-3', size === 'featured' ? 'p-8 lg:p-10' : 'p-6')}>
           <CardMeta card={card} tagTone="image" />

@@ -98,7 +98,10 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
       aria-label="Aktuelle News"
       className="flex flex-col gap-6"
     >
-      <div ref={viewportRef} className="overflow-hidden rounded-2xl">
+      <div
+        ref={viewportRef}
+        className="overflow-hidden rounded-2xl border border-line shadow-(--shadow-float)"
+      >
         <div className="flex" aria-live={playing ? 'off' : 'polite'}>
           {items.map((item, i) => (
             <article
@@ -108,7 +111,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
               aria-label={`${i + 1} von ${items.length}`}
               className="group relative grid min-w-0 shrink-0 grow-0 basis-full overflow-hidden rounded-2xl bg-surface lg:grid-cols-12"
             >
-              <div className="relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
+              <div className="sheen relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
                 <Image
                   src={item.image.src}
                   alt={item.image.alt}
@@ -206,7 +209,9 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
               aria-current={i === index ? 'true' : undefined}
               className={cn(
                 'relative flex w-full flex-col gap-2 rounded-lg p-1.5 text-left transition-colors duration-(--dur-base)',
-                i === index ? 'bg-surface shadow-md' : 'opacity-70 hov:bg-surface hov:opacity-100',
+                i === index
+                  ? 'ring-2 glass-strong ring-navy'
+                  : 'opacity-70 hov:bg-surface hov:opacity-100',
               )}
             >
               <span className="relative block aspect-16/10 overflow-hidden rounded-md">

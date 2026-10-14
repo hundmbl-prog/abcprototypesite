@@ -1,5 +1,24 @@
 # Changelog
 
+## Step 3b – Home page redesign after feedback (2026-10-14)
+
+Feedback: the page was too blue, too uniform, mixed card styles within a section, and didn't feel like bruedergrimm.net.
+
+- **Floating glass header:** a rounded, frosted bar inset from the edges, the same over the hero and while scrolling; it shrinks on scroll; the active section gets a red underline. The mega-menu is now a glass panel below the bar.
+- **Hero:** the photo keeps its natural colours, with a new neutral `shade` colour instead of navy and shading only where the text sits. Glass "Willkommen" badge, red CTA with a glow plus a glass button. On desktop: a frosted "Schnellzugriff" panel with a mirror sheen and glass highlight chips.
+- **Each section has its own look, with uniform elements inside:**
+  1. Angebote: light grey with 6 identical photo cards.
+  2. News: white with soft colour fields; floating slideshow and glass thumbnails.
+  3. Warum ABC: full-width photo band with glass stat cards.
+  4. Projekte: light gradient; large photos with frosted info panels.
+  5. Ansprechpartner: portraits with glass name plates and Anrufen / E-Mail buttons.
+  6. Partner: white logo cards in the marquee.
+  7. Standorte: floating cards.
+  8. Footer: neutral dark slate instead of navy.
+- **Section buttons:** every section's main action uses the same pill-with-arrow button.
+- **New tokens and utilities:** `glass`, `glass-strong`, `glass-dark`, `sheen` (mirror reflection on hover), `shadow-float`, `shadow-glow-red`, `tone-ink`, colour `shade`.
+- **Tests:** the header test now checks the floating bar shrinking instead of the old transparent-to-solid behaviour.
+
 ## Step 3 – Layout and home page (2026-10-14)
 
 - **Header:** sticky; transparent over the hero, then solid and shorter after scrolling. Desktop mega-menu (from 1280 px) with link descriptions and a preview image that follows the hovered link; keyboard support (Enter/Escape, focus return, click outside closes). Full-screen mobile menu with accordion, focus trap, Escape and scroll lock.

@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
@@ -12,9 +11,6 @@ import type { NavLink } from '@/content/types'
 import { Logo } from './Logo'
 import { MegaMenu } from './MegaMenu'
 import { MobileMenu } from './MobileMenu'
-
-/** Pages whose first section is a dark full-screen hero: the header starts transparent there. */
-const OVERLAY_PATHS = new Set(['/'])
 
 export function HeaderClient({
   sections,
@@ -92,9 +88,6 @@ export function HeaderClient({
     closeTimer.current = window.setTimeout(() => setOpenIndex(null), 160)
   }
 
-  const overlay = OVERLAY_PATHS.has(pathname) && !scrolled && openIndex === null
-  const tone = overlay ? 'dark' : 'light'
-
   return (
     <>
       <header
@@ -104,98 +97,97 @@ export function HeaderClient({
           if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpenIndex(null)
         }}
         className={cn(
-          'fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,color] duration-(--dur-slow) ease-out-expo',
-          overlay
-            ? 'bg-transparent text-on-dark [--focus-ring:var(--color-on-dark)]'
-            : 'bg-surface/95 text-ink shadow-sm backdrop-blur-md [--focus-ring:var(--color-blue)]',
+          'fixed inset-x-0 top-0 z-40 text-ink transition-[padding] duration-(--dur-slow) ease-out-expo [--focus-ring:var(--color-blue)]',
+          scrolled ? 'pt-2' : 'pt-3 md:pt-4',
         )}
       >
-        <div
-          className={cn(
-            'container-wide flex items-center justify-between gap-6 transition-[height] duration-(--dur-slow) ease-out-expo',
-            scrolled ? 'h-16' : 'h-20',
-          )}
-        >
-          <Logo tone={tone} />
+        <div className="relative container-wide">
+          <div
+            className={cn(
+              'flex items-center justify-between gap-4 rounded-2xl pr-2 pl-3 glass-strong transition-[height,border-radius] duration-(--dur-slow) ease-out-expo md:pl-4',
+              scrolled ? 'h-14' : 'h-16',
+            )}
+          >
+            <Logo />
 
-          <nav aria-label="Hauptnavigation" className="hidden xl:block">
-            <ul className="flex items-center gap-1">
-              {sections.map((section, index) => {
-                const isOpen = openIndex === index
-                const panelId = `mega-${index}`
-                return (
-                  <li key={section.href} onMouseEnter={() => openWithDelay(index)}>
-                    <button
-                      ref={(el) => {
-                        triggerRefs.current[index] = el
-                      }}
-                      type="button"
-                      aria-expanded={isOpen}
-                      aria-controls={panelId}
-                      onClick={() => setOpenIndex(isOpen ? null : index)}
-                      className={cn(
-                        'inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-fast)',
-                        overlay ? 'hov:bg-on-dark/10' : 'hov:bg-surface-3',
-                        isOpen && 'bg-surface-3 text-navy',
-                      )}
-                    >
-                      {section.label}
-                      <Icon
-                        name="chevron-down"
+            <nav aria-label="Hauptnavigation" className="hidden xl:block">
+              <ul className="flex items-center gap-0.5">
+                {sections.map((section, index) => {
+                  const isOpen = openIndex === index
+                  const isCurrent =
+                    pathname === section.href || pathname.startsWith(`${section.href}/`)
+                  const panelId = `mega-${index}`
+                  return (
+                    <li key={section.href} onMouseEnter={() => openWithDelay(index)}>
+                      <button
+                        ref={(el) => {
+                          triggerRefs.current[index] = el
+                        }}
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
                         className={cn(
-                          'size-4 transition-transform duration-(--dur-base)',
-                          isOpen && 'rotate-180',
+                          'relative inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-semibold whitespace-nowrap text-ink transition-colors duration-(--dur-fast) hov:bg-surface-3',
+                          (isOpen || isCurrent) && 'bg-surface-3 text-navy',
                         )}
-                      />
-                    </button>
-                    <MegaMenu
-                      section={section}
-                      id={panelId}
-                      open={isOpen}
-                      onNavigate={closeMenus}
-                    />
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
+                      >
+                        {section.label}
+                        <Icon
+                          name="chevron-down"
+                          className={cn(
+                            'size-4 transition-transform duration-(--dur-base)',
+                            isOpen && 'rotate-180',
+                          )}
+                        />
+                        {isCurrent ? (
+                          <span
+                            aria-hidden
+                            className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-pill bg-red"
+                          />
+                        ) : null}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/news"
-              className={cn(
-                'hidden min-h-11 items-center rounded-pill px-3 text-small font-semibold 3xl:inline-flex',
-                overlay ? 'hov:bg-on-dark/10' : 'hov:bg-surface-3',
-              )}
-            >
-              News
-            </Link>
-            <Button
-              href={cta.href}
-              variant={overlay ? 'white' : 'cta'}
-              size="sm"
-              className="hidden sm:inline-flex"
-            >
-              {cta.label}
-            </Button>
-            <button
-              ref={menuButtonRef}
-              type="button"
-              aria-expanded={mobileOpen}
-              aria-haspopup="dialog"
-              onClick={() => setMobileOpen(true)}
-              className={cn(
-                'inline-flex min-h-11 items-center gap-2 rounded-pill border px-4 text-small font-semibold xl:hidden',
-                overlay ? 'border-on-dark/50 hov:bg-on-dark/10' : 'border-control hov:bg-surface-3',
-              )}
-            >
-              <span aria-hidden className="flex w-4 flex-col gap-1">
-                <span className="h-0.5 w-full rounded-pill bg-current" />
-                <span className="h-0.5 w-3/4 rounded-pill bg-current" />
-              </span>
-              Menü
-            </button>
+            <div className="flex items-center gap-2">
+              <Button
+                href={cta.href}
+                variant="cta"
+                size="sm"
+                className="hidden rounded-pill! shadow-(--shadow-glow-red) sm:inline-flex"
+              >
+                {cta.label}
+              </Button>
+              <button
+                ref={menuButtonRef}
+                type="button"
+                aria-expanded={mobileOpen}
+                aria-haspopup="dialog"
+                onClick={() => setMobileOpen(true)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-4 text-small font-semibold text-on-dark xl:hidden hov:bg-navy"
+              >
+                <span aria-hidden className="flex w-4 flex-col gap-1">
+                  <span className="h-0.5 w-full rounded-pill bg-current" />
+                  <span className="h-0.5 w-3/4 rounded-pill bg-current" />
+                </span>
+                Menü
+              </button>
+            </div>
           </div>
+
+          {sections.map((section, index) => (
+            <MegaMenu
+              key={section.href}
+              section={section}
+              id={`mega-${index}`}
+              open={openIndex === index}
+              onNavigate={closeMenus}
+            />
+          ))}
         </div>
       </header>
       <MobileMenu

@@ -33,7 +33,7 @@ export function LocationsTabs({ locations }: { locations: Location[] }) {
       <div
         role="tablist"
         aria-label="Standort wählen"
-        className="flex gap-2 self-start rounded-pill bg-surface-3 p-1"
+        className="flex gap-1 self-start rounded-pill p-1 glass-strong"
       >
         {locations.map((loc, i) => (
           <button
@@ -65,7 +65,7 @@ export function LocationsTabs({ locations }: { locations: Location[] }) {
         aria-labelledby={`${baseId}-tab-${active}`}
         className="grid gap-6 lg:grid-cols-12"
       >
-        <div className="flex flex-col gap-6 rounded-2xl bg-surface-2 p-6 md:p-10 lg:col-span-5">
+        <div className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-float) md:p-10 lg:col-span-5">
           <h3 className="text-h3 text-navy">{location.name}</h3>
           <address className="flex flex-col gap-3 not-italic">
             <p className="flex items-start gap-3">

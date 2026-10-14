@@ -50,8 +50,13 @@ export type SiteSettings = {
   legalLinks: NavLink[]
 }
 
+export type HeroHighlight = { value: string; label: string }
+
 export type HeroContent = {
+  badge: string
   eyebrow: string
+  highlights: HeroHighlight[]
+  quickLinks: NavLink[]
   title: string
   text: string
   image: ContentImage

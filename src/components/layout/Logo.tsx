@@ -19,7 +19,7 @@ export function Logo({
         aria-hidden
         className={cn(
           'grid h-10 place-items-center rounded-sm px-2 font-display text-h4 leading-none font-bold tracking-tight transition-colors duration-(--dur-base)',
-          tone === 'light' ? 'bg-navy text-on-dark' : 'bg-on-dark text-navy',
+          tone === 'light' ? 'bg-ink text-on-dark' : 'bg-on-dark text-ink',
         )}
       >
         ABC
@@ -28,7 +28,7 @@ export function Logo({
         aria-hidden
         className={cn(
           'hidden flex-col text-caption leading-tight font-semibold sm:flex',
-          tone === 'light' ? 'text-navy' : 'text-on-dark',
+          tone === 'light' ? 'text-ink' : 'text-on-dark',
         )}
       >
         <span>Akademisches</span>

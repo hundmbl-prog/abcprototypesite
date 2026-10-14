@@ -56,12 +56,12 @@ test.describe('Home page', () => {
 })
 
 test.describe('Header navigation', () => {
-  test('header becomes solid after scrolling', async ({ page }) => {
+  test('floating glass header shrinks after scrolling', async ({ page }) => {
     await page.goto('/')
-    const header = page.locator('header').first()
-    await expect(header).toHaveClass(/bg-transparent/)
+    const bar = page.locator('header .glass-strong').first()
+    await expect(bar).toHaveClass(/h-16/)
     await page.mouse.wheel(0, 600)
-    await expect(header).not.toHaveClass(/bg-transparent/)
+    await expect(bar).toHaveClass(/h-14/)
   })
 
   test('mega menu opens with keyboard and closes with Escape', async ({ page }, info) => {

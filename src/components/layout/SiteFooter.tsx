@@ -13,7 +13,7 @@ export async function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden tone-navy" aria-labelledby="footer-titel">
+    <footer className="relative overflow-hidden tone-ink" aria-labelledby="footer-titel">
       <h2 id="footer-titel" className="sr-only">
         Fußbereich
       </h2>
@@ -99,7 +99,7 @@ export async function SiteFooter() {
           </ul>
         </div>
       </div>
-      <Watermark text="ABC" className="-right-8 -bottom-6 w-[min(60vw,34rem)] text-on-dark/5" />
+      <Watermark text="ABC" className="-right-8 -bottom-6 w-[min(60vw,34rem)] text-on-dark/4" />
     </footer>
   )
 }

@@ -11,6 +11,26 @@ const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
+    badge: 'Willkommen beim ABC e.V.',
+    highlights: [
+      { value: 'seit 1997', label: 'gemeinnützig in Mainz' },
+      { value: 'telc', label: 'Prüfungszentrum' },
+      { value: '5', label: 'Standorte' },
+    ],
+    quickLinks: [
+      { label: 'Sprachkurse', href: '/sprachkurse', description: 'A1 bis C1, auch online' },
+      {
+        label: 'Integrationskurse',
+        href: '/integrationskurse',
+        description: 'Mit Kinderbeaufsichtigung',
+      },
+      { label: 'telc Prüfungen', href: '/pruefungen/telc', description: 'Termine und Anmeldung' },
+      {
+        label: 'Nachhilfe',
+        href: '/lernfoerderung/nachhilfe',
+        description: 'Alle Fächer, alle Schulformen',
+      },
+    ],
     eyebrow: 'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach',
     title: 'Bildung, die Menschen verbindet',
     text: 'Sprach- und Integrationskurse, Prüfungen, Nachhilfe und soziale Projekte – seit 1997 begleiten wir Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf.',
@@ -36,7 +56,6 @@ export const homePage: HomePage = {
         tag: 'Kurse',
         badge: 'plaetze-frei',
         facts: { level: 'A1–C1', location: 'Mainz & Bad Kreuznach' },
-        ctaLabel: 'Kurse ansehen',
       },
       {
         id: 'pruefungen',
@@ -65,7 +84,6 @@ export const homePage: HomePage = {
         href: '/projekte',
         image: images.sozialeProjekte,
         tag: 'Projekt',
-        ctaLabel: 'Projekte ansehen',
       },
       {
         id: 'weiterbildungen',

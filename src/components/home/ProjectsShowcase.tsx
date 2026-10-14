@@ -61,7 +61,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
               >
                 <div
                   className={cn(
-                    'relative isolate flex aspect-4/5 flex-col justify-end overflow-hidden rounded-2xl transition-[opacity,transform] duration-(--dur-slower) ease-out-expo sm:aspect-16/10 lg:aspect-21/9',
+                    'sheen relative isolate flex aspect-4/5 flex-col justify-end overflow-hidden rounded-2xl shadow-(--shadow-float) transition-transform duration-(--dur-slower) ease-out-expo sm:aspect-16/10 lg:aspect-21/9',
                     !active && 'scale-95',
                   )}
                 >
@@ -80,46 +80,44 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-0 -z-10 bg-linear-to-t from-navy via-navy/60 to-navy/0"
-                  />
-                  <div
-                    aria-hidden
                     className={cn(
-                      'absolute inset-0 -z-10 bg-navy transition-opacity duration-(--dur-slower)',
-                      active ? 'opacity-0' : 'opacity-60',
+                      'absolute inset-0 -z-10 bg-surface transition-opacity duration-(--dur-slower)',
+                      active ? 'opacity-0' : 'opacity-50',
                     )}
                   />
                   <div
                     className={cn(
-                      'flex max-w-narrow flex-col gap-4 p-6 transition-opacity duration-(--dur-slow) md:p-10 lg:p-14',
-                      active ? 'opacity-100' : 'opacity-0',
+                      'm-3 flex max-w-prose flex-col gap-3 rounded-2xl p-5 text-ink glass-strong transition-[opacity,transform] duration-(--dur-slow) ease-out-expo md:m-6 md:p-8',
+                      active ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
                     )}
                   >
-                    <p className="font-mono text-small text-on-dark-muted">
-                      {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
-                    </p>
-                    <h3 className="text-h2">{project.title}</h3>
-                    <p className="line-clamp-3 text-on-dark-muted md:text-lead">
-                      {project.description}
-                    </p>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="rounded-pill bg-blue-soft px-3 py-1 text-caption font-semibold tracking-wide text-navy uppercase">
+                        Projekt
+                      </span>
+                      <span className="font-mono text-small text-ink-muted">
+                        {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <h3 className="text-h3 text-navy">{project.title}</h3>
+                    <p className="line-clamp-3 text-ink-muted">{project.description}</p>
                     {project.partners.length > 0 ? (
                       <p className="flex flex-wrap items-center gap-2 text-small">
-                        <span className="text-on-dark-muted">In Kooperation mit</span>
+                        <span className="text-ink-muted">In Kooperation mit</span>
                         {project.partners.map((partner) => (
                           <span
                             key={partner}
-                            className="rounded-pill border border-on-dark/40 px-3 py-1 font-semibold"
+                            className="rounded-pill border border-line bg-surface px-3 py-1 font-semibold text-navy"
                           >
                             {partner}
                           </span>
                         ))}
                       </p>
                     ) : null}
-                    <div className="pt-2">
+                    <div className="pt-1">
                       <Button
                         href={`/projekte/${project.slug}`}
-                        variant="white"
-                        icon="arrow-right"
+                        variant="pill"
                         tabIndex={active ? undefined : -1}
                       >
                         Projekt ansehen
@@ -147,7 +145,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                 <span
                   className={cn(
                     'h-1 w-full rounded-pill transition-colors duration-(--dur-base)',
-                    i === index ? 'bg-on-dark' : 'bg-on-dark/25 group-hover/dot:bg-on-dark/60',
+                    i === index ? 'bg-navy' : 'bg-line-strong group-hover/dot:bg-ink-muted',
                   )}
                 />
                 <span className="sr-only">Projekt {project.title}</span>
@@ -162,14 +160,14 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
           <button
             type="button"
             onClick={() => api?.scrollPrev(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill border border-on-dark/40 hov:bg-on-dark hov:text-navy"
+            className="grid size-11 place-items-center rounded-pill border border-control bg-surface text-navy shadow-sm hov:bg-navy hov:text-on-dark"
           >
             <Icon name="arrow-left" label="Vorheriges Projekt" />
           </button>
           <button
             type="button"
             onClick={() => api?.scrollNext(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill border border-on-dark/40 hov:bg-on-dark hov:text-navy"
+            className="grid size-11 place-items-center rounded-pill border border-control bg-surface text-navy shadow-sm hov:bg-navy hov:text-on-dark"
           >
             <Icon name="arrow-right" label="Nächstes Projekt" />
           </button>

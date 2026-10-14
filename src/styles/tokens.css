@@ -34,6 +34,8 @@
 
   /* Text */
   --color-ink: #0f172a;
+  /* Neutral (not blue) dark for shading photos, so their natural colours stay intact */
+  --color-shade: #0c0c0e;
   --color-ink-muted: #475569;
   --color-on-dark: #ffffff;
   --color-on-dark-muted: #cbd5e1;
@@ -104,6 +106,12 @@
   --shadow-md: 0 4px 12px -2px rgb(11 42 91 / 0.1), 0 2px 4px -2px rgb(11 42 91 / 0.06);
   --shadow-lg: 0 12px 32px -8px rgb(11 42 91 / 0.16), 0 4px 8px -4px rgb(11 42 91 / 0.06);
   --shadow-xl: 0 24px 56px -12px rgb(11 42 91 / 0.22), 0 8px 16px -8px rgb(11 42 91 / 0.08);
+  /* Layered floating shadow for glass panels and lifted cards */
+  --shadow-float:
+    0 1px 1px rgb(15 23 42 / 0.04), 0 4px 8px -2px rgb(15 23 42 / 0.06),
+    0 16px 32px -8px rgb(15 23 42 / 0.12), 0 40px 80px -24px rgb(15 23 42 / 0.18);
+  /* Soft coloured glow under the main CTA */
+  --shadow-glow-red: 0 10px 30px -8px rgb(214 40 57 / 0.55);
 
   /* ---------- Motion ---------- */
   --ease-*: initial;
@@ -165,6 +173,13 @@
   --dur-slower: 700ms;
   --dur-reveal: 1200ms;
   --dur-kenburns: 20s;
+
+  /* Glass surfaces (mirror look) */
+  --glass-light: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  --glass-light-strong: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  --glass-dark: color-mix(in srgb, var(--color-surface) 12%, transparent);
+  --glass-border: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  --glass-blur: 18px;
 
   /* Focus ring colour adapts to the section tone (see .tone-* below) */
   --focus-ring: var(--color-blue);

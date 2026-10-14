@@ -27,8 +27,8 @@ export function CardClassic({
       <article
         data-preview={preview}
         className={cn(
-          'group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-sm [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
-          'transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-xl',
+          'group sheen relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-md [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
+          'transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)',
           cardFocus,
         )}
       >

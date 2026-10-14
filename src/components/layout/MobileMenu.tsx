@@ -74,7 +74,7 @@ export function MobileMenu({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: reduce ? 0 : 0.2 } }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain tone-navy xl:hidden"
+          className="fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain tone-ink xl:hidden"
           data-lenis-prevent
         >
           <div className="container-page flex h-20 shrink-0 items-center justify-between">

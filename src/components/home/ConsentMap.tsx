@@ -21,7 +21,7 @@ export function ConsentMap({ location }: { location: Location }) {
   const external = `https://www.openstreetmap.org/?mlat=${location.lat}&mlon=${location.lon}#map=17/${location.lat}/${location.lon}`
 
   return (
-    <div className="relative flex h-full min-h-96 flex-col overflow-hidden rounded-2xl border border-line bg-surface-3">
+    <div className="relative flex h-full min-h-96 flex-col overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-(--shadow-float)">
       {loaded ? (
         <iframe
           title={`Karte: ${location.name}, ${location.street}`}

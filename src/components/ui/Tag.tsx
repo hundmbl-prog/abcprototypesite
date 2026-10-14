@@ -5,7 +5,7 @@ export type TagTone = 'light' | 'image' | 'dark'
 
 const tones: Record<TagTone, string> = {
   light: 'bg-blue-soft text-navy',
-  image: 'bg-surface/90 text-navy backdrop-blur-sm',
+  image: 'glass text-navy',
   dark: 'border border-on-dark/40 text-on-dark',
 }
 
