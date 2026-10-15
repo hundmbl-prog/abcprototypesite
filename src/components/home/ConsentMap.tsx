@@ -53,7 +53,7 @@ export function ConsentMap({
             Zum Schutz Ihrer Daten wird die Karte erst nach Ihrer Zustimmung geladen. Dabei werden
             Daten an OpenStreetMap übertragen.
           </p>
-          <Button variant="primary" size="sm" onClick={() => setLoaded(true)}>
+          <Button variant="cta" size="sm" className="rounded-pill!" onClick={() => setLoaded(true)}>
             Karte laden
           </Button>
         </div>

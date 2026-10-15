@@ -1,5 +1,17 @@
 # Changelog
 
+## Step 3k – Final home page polish and new "Über uns" section (2026-10-15)
+
+- **Angebote:** filter chips removed. Cards are now a photo with a solid white info box overlapping its lower edge; on hover the photo zooms and the box lifts. One overlay link covers photo and box. Cards contrast clearly with the blue section, and the gradient is very subtle and fully opaque.
+- **Über uns (new):** founding story from the current site, a team photo with a "1997" badge, three milestones (1997 founding · 2021 telc Hochschulkompetenzzentrum · today 5 locations) and a red "Mehr über uns" button.
+- **News:** thumbnails and progress bar removed. One compact control pill (‹ 01 / 06 ›) with a small pause icon inside, required for auto-advancing content (WCAG 2.2.2). Each new slide's photo zooms out softly and the text lines slide in.
+- **Warum ABC:** all numbers in logo red; card tint, icon and accent line alternate between logo blue and logo red.
+- **Projekte:** large photo with a small, solid info box attached to its corner (below the photo, slightly overlapping, on phones). Red controls and button.
+- **Standorte:** both cards share one distinct look – soft logo-blue tint, red accent line, faint logo-house watermark – on the white section. E-mail, route, toggle and map buttons are red.
+- **Red buttons:** new `pill-red` button for all section actions; the mobile "Menü" button is red. The unused `pill-light` variant is removed.
+- **Order:** Hero · Angebote · Über uns · News · Warum ABC · Projekte · Standorte · Partner, alternating soft blue and white.
+- **Checks:** 128 tests at 4 widths; Lighthouse mobile 91 / desktop 91 (performance), accessibility, best practices and SEO 100.
+
 ## Step 3j – Back to the previous home page, contact people removed (2026-10-15)
 
 - Step 3i (Kursfinder, four-step timeline, contact band) reverted at the user's request (commit `7a6675c`). It is still in the git history and can be restored any time.

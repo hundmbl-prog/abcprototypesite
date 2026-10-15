@@ -50,6 +50,32 @@ test.describe('Home page', () => {
   })
 })
 
+test.describe('Offer cards and about', () => {
+  test('photo and info box form one link per card', async ({ page }) => {
+    await page.goto('/')
+    const card = page.locator('#angebote article').first()
+    await expect(card.locator('a[href]')).toHaveCount(1)
+    await expect(page.locator('#angebote [aria-label="Angebote filtern"]')).toHaveCount(0)
+    const link = card.locator('a[href]')
+    const box = await link.boundingBox()
+    const img = await card.locator('img').boundingBox()
+    expect(box && img && box.y <= img.y && box.y + box.height >= img.y + img.height).toBeTruthy()
+  })
+
+  test('about section shows story, milestones and a red button', async ({ page }) => {
+    await page.goto('/')
+    const about = page.locator('#ueber-uns')
+    await expect(about.getByRole('heading', { level: 2 })).toHaveText(
+      'Aus der Community – für die Community',
+    )
+    await expect(about.locator('li')).toHaveCount(3)
+    await expect(about.getByRole('link', { name: /Mehr über uns/ })).toHaveAttribute(
+      'href',
+      '/ueber-uns',
+    )
+  })
+})
+
 test.describe('Header navigation', () => {
   test('floating glass header shrinks after scrolling', async ({ page }) => {
     await page.goto('/')
@@ -108,8 +134,8 @@ test.describe('Sliders', () => {
     await expect(counter).toContainText('01 / 06')
     await region.getByRole('button', { name: 'Nächste News' }).click()
     await expect(counter).toContainText('02 / 06')
-    await region.getByRole('button', { name: /Zu News: Frauenintegrationskurs/ }).click()
-    await expect(counter).toContainText('05 / 06')
+    await region.getByRole('button', { name: 'Vorherige News' }).click()
+    await expect(counter).toContainText('01 / 06')
     const pause = region.getByRole('button', { name: 'Automatisches Abspielen pausieren' })
     await pause.click()
     await expect(region.getByRole('button', { name: 'Automatisch abspielen' })).toBeVisible()
@@ -230,20 +256,6 @@ test.describe('Locations live status', () => {
     await page.getByRole('button', { name: 'Adresse Mainz kopieren' }).click()
     await expect(page.getByRole('status').filter({ hasText: 'Adresse kopiert' })).toBeVisible()
     expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Rhabanusstr. 5')
-  })
-})
-
-test.describe('Offers filter', () => {
-  test('filter chips show matching cards and announce the count', async ({ page }) => {
-    await page.goto('/#angebote')
-    const group = page.getByRole('group', { name: 'Angebote filtern' })
-    const cards = page.locator('#angebote article')
-    await expect(cards).toHaveCount(6)
-    await group.getByRole('button', { name: /Engagement/ }).click()
-    await expect(cards).toHaveCount(1)
-    await expect(page.locator('#angebote [aria-live="polite"]')).toHaveText('1 Angebote angezeigt')
-    await group.getByRole('button', { name: /^Alle/ }).click()
-    await expect(cards).toHaveCount(6)
   })
 })
 

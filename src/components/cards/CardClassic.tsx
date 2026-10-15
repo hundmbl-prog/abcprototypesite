@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { cn } from '@/lib/cn'
 import { Icon } from '@/components/ui/Icon'
 import { CardCta, CardFacts, CardImage, CardMeta, CardTitle, cardFocus } from './parts'
@@ -37,17 +38,38 @@ const shadeVar: Record<CardShade, string> = {
 }
 
 type CardClassicProps = {
-  /** Optional solid colour for the text area (white text). Default: white card. */
+  /** Optional colour for the text area. Default: white card. */
   shade?: CardShade
   card: OfferCardData
   headingLevel?: HeadingLevel
   /** next/image sizes attribute; default fits a 3-column grid. */
   sizes?: string
   compact?: boolean
-  /** Only category, title, short text and a red button (no facts, no status badge). */
+  /** Photo with an overlapping white info box (category, title, short text, red button). */
   simple?: boolean
   preview?: 'hover'
   className?: string
+}
+
+function RedButton({ label }: { label: string }) {
+  return (
+    <span
+      aria-hidden
+      className="mt-auto inline-flex min-h-10 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1 pl-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow] duration-(--dur-base) group-hov:bg-red-600 group-hov:shadow-(--shadow-glow-red)"
+    >
+      {label}
+      <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark/15">
+        <Icon
+          name="arrow-right"
+          className="size-4 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-8"
+        />
+        <Icon
+          name="arrow-right"
+          className="absolute size-4 -translate-x-8 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-0"
+        />
+      </span>
+    </span>
+  )
 }
 
 /** Variant 1 – image on top, lifts with a deeper shadow on hover. */
@@ -61,6 +83,38 @@ export function CardClassic({
   preview,
   className,
 }: CardClassicProps) {
+  const label = card.ctaLabel ?? 'Mehr erfahren'
+
+  // Simple: the white info box overlaps the photo; on hover the photo zooms and the box lifts.
+  if (simple) {
+    const Heading = headingLevel
+    return (
+      <article
+        data-preview={preview}
+        className={cn('group relative flex h-full flex-col rounded-2xl', cardFocus, className)}
+      >
+        {/* One link for the whole card (photo + box), named by the title */}
+        <Link
+          href={card.href}
+          className="absolute inset-0 z-20 rounded-2xl focus-visible:outline-none"
+        >
+          <span className="sr-only">{card.title}</span>
+        </Link>
+        <div className="aspect-4/3 overflow-hidden rounded-2xl shadow-md">
+          <CardImage image={card.image} sizes={sizes} />
+        </div>
+        <div className="relative z-10 mx-4 -mt-16 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-blue-900/5 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
+          <CardMeta card={{ ...card, badge: undefined }} />
+          <Heading className="font-display text-h4 font-semibold text-blue-900">
+            {card.title}
+          </Heading>
+          <p className="line-clamp-2 text-small text-ink-muted">{card.description}</p>
+          <RedButton label={label} />
+        </div>
+      </article>
+    )
+  }
+
   const dark = shade !== undefined && !lightShades.has(shade)
   const light = shade !== undefined && !dark
   return (
@@ -91,10 +145,7 @@ export function CardClassic({
         ) : null}
       </div>
       <div className={cn('flex flex-1 flex-col gap-3', compact ? 'p-5' : 'p-6')}>
-        <CardMeta
-          card={simple ? { ...card, badge: undefined } : card}
-          tagTone={dark ? 'dark' : light ? 'image' : 'light'}
-        />
+        <CardMeta card={card} tagTone={dark ? 'dark' : light ? 'image' : 'light'} />
         <CardTitle
           card={card}
           as={headingLevel}
@@ -103,38 +154,13 @@ export function CardClassic({
         <p className={cn('line-clamp-2', dark ? 'text-on-dark' : 'text-ink-muted')}>
           {card.description}
         </p>
-        {simple ? (
-          <span
-            aria-hidden
-            className="mt-auto inline-flex min-h-11 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1.5 pl-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) ease-out-expo group-active:scale-95 group-hov:bg-red-600 group-hov:shadow-(--shadow-glow-red)"
-          >
-            {card.ctaLabel ?? 'Mehr erfahren'}
-            <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark/15">
-              <Icon
-                name="arrow-right"
-                className="size-4 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-8"
-              />
-              <Icon
-                name="arrow-right"
-                className="absolute size-4 -translate-x-8 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-0"
-              />
-            </span>
-          </span>
-        ) : (
-          <>
-            <CardFacts
-              facts={card.facts}
-              max={compact ? 2 : 4}
-              tone={dark ? 'dark' : 'light'}
-              className="mt-auto pt-2"
-            />
-            <CardCta
-              label={card.ctaLabel ?? 'Mehr erfahren'}
-              tone={dark ? 'dark' : 'light'}
-              className="pt-2"
-            />
-          </>
-        )}
+        <CardFacts
+          facts={card.facts}
+          max={compact ? 2 : 4}
+          tone={dark ? 'dark' : 'light'}
+          className="mt-auto pt-2"
+        />
+        <CardCta label={label} tone={dark ? 'dark' : 'light'} className="pt-2" />
       </div>
     </article>
   )

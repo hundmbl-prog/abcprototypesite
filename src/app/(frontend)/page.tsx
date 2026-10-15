@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import { OfferCards } from '@/components/cards/OfferCards'
+import { AboutSection } from '@/components/home/AboutSection'
 import { HomeHero } from '@/components/home/HomeHero'
 import { LocationCards } from '@/components/home/LocationCards'
 import { NewsSlider } from '@/components/home/NewsSlider'
-import { OffersFilter } from '@/components/home/OffersFilter'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
@@ -22,16 +23,11 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Sections alternate soft logo-blue (blue-50) and white. */}
-      {/* 1 · Photo hero with glass quick access */}
+      {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* 2 · Blue: offers with animated filter */}
-      <section
-        id="angebote"
-        aria-labelledby="angebote-titel"
-        className="relative isolate overflow-hidden bg-blue-50 py-section"
-      >
+      {/* Blue: offers – photo with overlapping white info box */}
+      <section id="angebote" aria-labelledby="angebote-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
@@ -39,28 +35,33 @@ export default async function HomePage() {
             title={home.offers.title}
             intro={home.offers.intro}
             action={
-              <Button href={home.offers.cta.href} variant="pill-light">
+              <Button href={home.offers.cta.href} variant="pill-red">
                 {home.offers.cta.label}
               </Button>
             }
           />
-          <OffersFilter cards={home.offers.cards} filters={home.offers.filters} />
+          <OfferCards
+            cards={home.offers.cards}
+            variant="classic"
+            label={home.offers.title}
+            simple
+            className="gap-y-10"
+          />
         </div>
       </section>
 
-      {/* 3 · White: news slideshow */}
-      <section
-        id="news"
-        aria-labelledby="news-titel"
-        className="relative isolate overflow-hidden bg-surface py-section"
-      >
+      {/* White: about us */}
+      <AboutSection content={home.about} />
+
+      {/* Blue: news slideshow */}
+      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="news-titel"
             eyebrow={home.news.eyebrow}
             title={home.news.title}
             action={
-              <Button href={home.news.cta.href} variant="pill-light">
+              <Button href={home.news.cta.href} variant="pill-red">
                 {home.news.cta.label}
               </Button>
             }
@@ -69,15 +70,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 · Blue: stats and reasons */}
+      {/* White: stats and reasons */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
-      {/* 5 · White: projects slideshow */}
-      <section
-        id="projekte"
-        aria-labelledby="projekte-titel"
-        className="relative isolate overflow-hidden bg-surface py-section"
-      >
+      {/* Blue: projects slideshow */}
+      <section id="projekte" aria-labelledby="projekte-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="projekte-titel"
@@ -85,7 +82,7 @@ export default async function HomePage() {
             title={home.projects.title}
             intro={home.projects.intro}
             action={
-              <Button href={home.projects.cta.href} variant="pill-light">
+              <Button href={home.projects.cta.href} variant="pill-red">
                 {home.projects.cta.label}
               </Button>
             }
@@ -94,14 +91,11 @@ export default async function HomePage() {
         <ProjectsShowcase items={home.projects.items} />
       </section>
 
-      {/* 6 · Blue: partner logos */}
-      <PartnerMarquee content={home.partners} />
-
-      {/* 7 · White: compact locations */}
+      {/* White: compact locations */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-surface py-section-sm"
+        className="bg-surface py-section-sm"
       >
         <div className="container-page">
           <SectionHeader
@@ -113,6 +107,9 @@ export default async function HomePage() {
           <LocationCards locations={settings.locations} orgName={settings.name} />
         </div>
       </section>
+
+      {/* Blue: partner logos */}
+      <PartnerMarquee content={home.partners} />
     </>
   )
 }

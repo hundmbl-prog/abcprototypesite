@@ -121,7 +121,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
       onKeyDown={onKeyDown}
       className="flex flex-col gap-6 rounded-2xl"
     >
-      <div ref={viewportRef} className="overflow-hidden py-6">
+      <div ref={viewportRef} className="overflow-hidden pt-4 pb-12">
         <div className="flex">
           {items.map((project, i) => {
             const active = i === index
@@ -136,17 +136,17 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
               >
                 <div
                   className={cn(
-                    'grid overflow-hidden rounded-2xl bg-surface shadow-(--shadow-float) ring-1 ring-line transition-transform duration-(--dur-slower) ease-out-expo lg:grid-cols-12',
-                    !active && 'scale-95',
+                    'relative transition-[transform,opacity] duration-(--dur-slower) ease-out-expo',
+                    !active && 'scale-95 opacity-60',
                   )}
                 >
-                  <div className="relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
+                  <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-(--shadow-float) sm:aspect-16/9 lg:aspect-21/9">
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}
                       width={project.image.width}
                       height={project.image.height}
-                      sizes="(min-width: 1024px) 50vw, 90vw"
+                      sizes="(min-width: 768px) 82vw, 90vw"
                       placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
                       blurDataURL={project.image.blurDataURL}
                       className={cn(
@@ -154,74 +154,60 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                         active && 'motion-safe:scale-110',
                       )}
                     />
-                    <span
-                      aria-hidden
-                      className={cn(
-                        'absolute inset-0 bg-blue-50 transition-opacity duration-(--dur-slower)',
-                        active ? 'opacity-0' : 'opacity-60',
-                      )}
-                    />
                   </div>
-                  <div className="relative overflow-hidden bg-linear-to-br from-surface via-surface to-blue-50 lg:col-span-5">
-                    <span
-                      aria-hidden
-                      className={cn(
-                        'absolute inset-x-0 top-0 h-1 lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-1',
-                        accent.bar,
-                      )}
-                    />
-                    <div
-                      className={cn(
-                        'flex h-full flex-col gap-4 p-6 md:p-10 [&>*]:transition-[opacity,transform] [&>*]:duration-(--dur-slower) [&>*]:ease-out-expo',
-                        active
-                          ? '[&>*]:translate-y-0 [&>*]:opacity-100 [&>*:nth-child(2)]:delay-75 [&>*:nth-child(3)]:delay-150 [&>*:nth-child(4)]:delay-200 [&>*:nth-child(5)]:delay-300'
-                          : '[&>*]:translate-y-3 [&>*]:opacity-0',
-                      )}
-                    >
-                      <div className="flex items-center justify-between gap-4">
-                        <span
-                          className={cn(
-                            'rounded-pill px-3 py-1 text-caption font-semibold tracking-wide text-on-dark uppercase',
-                            accent.chip,
-                          )}
-                        >
-                          Projekt
-                        </span>
-                        <span
-                          aria-hidden
-                          className={cn('font-display text-h2 font-semibold', accent.text)}
-                        >
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <h3 className="text-h3 text-navy">{project.title}</h3>
-                      <p className="text-ink-muted">{project.description}</p>
-                      {project.partners.length > 0 ? (
-                        <p className="flex flex-wrap items-center gap-2 text-small">
-                          <span className="text-ink-muted">In Kooperation mit</span>
-                          {project.partners.map((partner) => (
-                            <span
-                              key={partner}
-                              className={cn(
-                                'rounded-pill bg-surface-2 px-3 py-1 font-semibold',
-                                accent.text,
-                              )}
-                            >
-                              {partner}
-                            </span>
-                          ))}
-                        </p>
-                      ) : null}
-                      <div className="mt-auto pt-2">
-                        <Button
-                          href={`/projekte/${project.slug}`}
-                          variant="pill"
-                          tabIndex={active ? undefined : -1}
-                        >
-                          Projekt ansehen
-                          <span className="sr-only">: {project.title}</span>
-                        </Button>
-                      </div>
+                  {/* Small solid info box, attached to the photo's corner */}
+                  <div
+                    className={cn(
+                      'relative mx-4 -mt-12 flex flex-col gap-3 overflow-hidden rounded-xl bg-surface p-5 shadow-(--shadow-float) ring-1 ring-blue-900/5 md:p-6 lg:absolute lg:right-8 lg:-bottom-8 lg:mx-0 lg:mt-0 lg:w-104',
+                      'transition-[opacity,transform] duration-(--dur-slower) ease-out-expo',
+                      active ? 'translate-y-0 opacity-100 delay-150' : 'translate-y-4 opacity-0',
+                    )}
+                  >
+                    <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', accent.bar)} />
+                    <div className="flex items-center justify-between gap-4">
+                      <span
+                        className={cn(
+                          'rounded-pill px-3 py-1 text-caption font-semibold tracking-wide text-on-dark uppercase',
+                          accent.chip,
+                        )}
+                      >
+                        Projekt
+                      </span>
+                      <span
+                        aria-hidden
+                        className={cn('font-display text-h4 font-semibold', accent.text)}
+                      >
+                        {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <h3 className="text-h4 text-blue-900">{project.title}</h3>
+                    <p className="line-clamp-2 text-small text-ink-muted">{project.description}</p>
+                    {project.partners.length > 0 ? (
+                      <p className="flex flex-wrap items-center gap-2 text-caption">
+                        <span className="text-ink-muted">In Kooperation mit</span>
+                        {project.partners.map((partner) => (
+                          <span
+                            key={partner}
+                            className={cn(
+                              'rounded-pill bg-surface-2 px-2.5 py-0.5 font-semibold',
+                              accent.text,
+                            )}
+                          >
+                            {partner}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                    <div className="pt-1">
+                      <Button
+                        href={`/projekte/${project.slug}`}
+                        variant="pill-red"
+                        size="sm"
+                        tabIndex={active ? undefined : -1}
+                      >
+                        Projekt ansehen
+                        <span className="sr-only">: {project.title}</span>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -264,7 +250,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
           <button
             type="button"
             onClick={() => setUserPaused((paused) => !paused)}
-            className="grid size-11 place-items-center rounded-pill bg-surface text-navy shadow-md hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill bg-surface text-red-700 shadow-md ring-1 ring-red-100 transition-[background-color,color,transform] duration-(--dur-base) active:scale-90 hov:bg-red-50"
           >
             {playing ? (
               <svg viewBox="0 0 24 24" className="size-4" aria-hidden fill="currentColor">
@@ -285,14 +271,14 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
           <button
             type="button"
             onClick={() => api?.scrollPrev(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill bg-surface text-navy shadow-md hov:bg-navy hov:text-on-dark"
+            className="grid size-11 place-items-center rounded-pill bg-surface text-red-700 shadow-md ring-1 ring-red-100 transition-[background-color,color,transform] duration-(--dur-base) active:scale-90 hov:bg-red-50"
           >
             <Icon name="arrow-left" label="Vorheriges Projekt" />
           </button>
           <button
             type="button"
             onClick={() => api?.scrollNext(reducedMotion())}
-            className="grid size-11 place-items-center rounded-pill bg-navy text-on-dark shadow-md hov:bg-blue-700"
+            className="grid size-11 place-items-center rounded-pill bg-red-500 text-on-dark shadow-md transition-[background-color,transform] duration-(--dur-base) active:scale-90 hov:bg-red-600"
           >
             <Icon name="arrow-right" label="Nächstes Projekt" />
           </button>

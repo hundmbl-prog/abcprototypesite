@@ -6,13 +6,17 @@ import type { HomePage } from '@/content'
 import type { ContentImage } from '@/content/types'
 import { Counter } from './Counter'
 
-/** All stat cards share one look (logo blue); only the icon differs. */
+/** Numbers always in logo red; card tint, icon and accent line alternate red / blue. */
 const statIcons: IconName[] = ['calendar', 'location', 'users', 'level']
-const statStyle = {
-  number: 'text-blue-700',
-  badge: 'bg-blue-100 text-blue-700',
+const blueStyle = {
+  badge: 'bg-blue-600 text-on-dark',
   line: 'bg-blue-600',
-  bg: 'from-surface to-blue-100',
+  bg: 'from-surface to-blue-50',
+}
+const redStyle = {
+  badge: 'bg-red-500 text-on-dark',
+  line: 'bg-red-500',
+  bg: 'from-surface to-red-50',
 }
 
 export function WhySection({ content, image }: { content: HomePage['why']; image: ContentImage }) {
@@ -20,7 +24,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-blue-50 py-section"
+      className="relative isolate overflow-hidden bg-surface py-section"
     >
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">
@@ -54,7 +58,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
         <div className="flex flex-col gap-5 lg:col-span-7">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {content.stats.map((stat, i) => {
-              const style = statStyle
+              const style = i % 2 === 0 ? blueStyle : redStyle
               const icon = statIcons[i % statIcons.length] ?? 'check'
               return (
                 <div
@@ -70,7 +74,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
                     {stat.label}
                   </dt>
                   <dd className="flex items-center justify-between gap-4">
-                    <span className={cn('font-display text-h1 font-semibold', style.number)}>
+                    <span className="font-display text-h1 font-semibold text-red-600">
                       <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
                     </span>
                     <span
@@ -83,7 +87,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
               )
             })}
           </dl>
-          <ul className="grid gap-3 rounded-2xl bg-surface p-6 shadow-sm ring-1 ring-line sm:grid-cols-2">
+          <ul className="grid gap-3 rounded-2xl bg-blue-50 p-6 ring-1 ring-blue-100 sm:grid-cols-2">
             {content.points.map((point) => (
               <li
                 key={point}

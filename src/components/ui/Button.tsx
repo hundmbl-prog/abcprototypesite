@@ -19,7 +19,7 @@ export type ButtonVariant =
   | 'outline'
   | 'ghost'
   | 'pill'
-  | 'pill-light'
+  | 'pill-red'
   | 'link'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
@@ -72,20 +72,20 @@ const variants: Record<ButtonVariant, string> = {
   ghost:
     'rounded-md border-2 border-on-dark/70 text-on-dark hov:border-on-dark hov:bg-on-dark/10 act:translate-y-px',
   pill: 'rounded-pill bg-navy pr-2 text-on-dark hov:bg-navy-2 act:translate-y-px',
-  'pill-light':
-    'rounded-pill bg-surface pr-2 text-blue-900 shadow-sm ring-1 ring-blue-200 hov:shadow-md hov:ring-blue-300 act:translate-y-px',
+  'pill-red':
+    'rounded-pill bg-red-500 pr-1.5 text-on-dark shadow-sm hov:bg-red-600 hov:shadow-(--shadow-glow-red) act:scale-95',
   link: 'min-h-0! px-0! text-blue after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-(--dur-slow) after:ease-out-expo before:absolute before:inset-x-0 before:-bottom-0.5 before:h-0.5 before:bg-current before:opacity-25 hov:text-blue-strong hov:after:scale-x-100 foc:after:scale-x-100',
 }
 
 function Content({ variant, icon, loading, loadingLabel, children }: CommonProps) {
-  if (variant === 'pill' || variant === 'pill-light') {
+  if (variant === 'pill' || variant === 'pill-red') {
     return (
       <>
         <span className="pl-2">{children}</span>
         <span
           className={cn(
             'relative grid size-9 place-items-center overflow-hidden rounded-pill',
-            variant === 'pill-light' ? 'bg-blue-600 text-on-dark' : 'bg-surface text-navy',
+            variant === 'pill-red' ? 'bg-on-dark/15 text-on-dark' : 'bg-surface text-navy',
           )}
         >
           {loading ? (

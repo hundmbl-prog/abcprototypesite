@@ -101,17 +101,18 @@ export type Stat = {
 
 export type Partner = { id: string; name: string; url?: string; logo?: ContentImage }
 
-export type OfferFilter = {
-  id: string
-  label: string
-  /** card tags in this group; empty = all */ tags: string[]
-}
-
 export type SectionIntro = { eyebrow: string; title: string; intro?: string }
 
 export type HomePage = {
   hero: HeroContent
-  offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink; filters: OfferFilter[] }
+  offers: SectionIntro & { cards: OfferCardData[]; cta: NavLink }
+  about: SectionIntro & {
+    paragraphs: string[]
+    image: ContentImage
+    badge: { value: string; label: string }
+    milestones: Array<{ id: string; year: string; text: string }>
+    cta: NavLink
+  }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
   projects: SectionIntro & { items: Project[]; cta: NavLink }
   why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }

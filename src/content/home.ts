@@ -46,16 +46,6 @@ export const homePage: HomePage = {
     intro:
       'Vom ersten Deutschkurs bis zur Weiterbildung – wir beraten Sie gerne, welches Angebot zu Ihnen passt.',
     cta: { label: 'Alle Angebote', href: '/sprachkurse' },
-    filters: [
-      { id: 'alle', label: 'Alle', tags: [] },
-      { id: 'sprache', label: 'Sprache & Prüfungen', tags: ['Kurse', 'Prüfung'] },
-      {
-        id: 'lernen',
-        label: 'Lernen & Familie',
-        tags: ['Lernförderung', 'Weiterbildung', 'Familie'],
-      },
-      { id: 'engagement', label: 'Engagement', tags: ['Projekt'] },
-    ],
     cards: [
       {
         id: 'sprach-integrationskurse',
@@ -115,6 +105,23 @@ export const homePage: HomePage = {
         tag: 'Familie',
       },
     ],
+  },
+
+  about: {
+    eyebrow: 'Über uns',
+    title: 'Aus der Community – für die Community',
+    paragraphs: [
+      'Im Jahr 1997 gründeten migrantische Eltern, Studierende und Hochschulabsolventen das Akademische Bildungs-Center als gemeinnützigen Verein.',
+      'Sie erkannten den großen Bedarf an Unterstützung für die Bildung in den migrantischen Communitys – und schufen passende Angebote wie Sprachkurse, Nachhilfe und Integrationskurse.',
+    ],
+    image: images.team,
+    badge: { value: '1997', label: 'gegründet in Mainz' },
+    milestones: [
+      { id: 'gruendung', year: '1997', text: 'Gründung als gemeinnütziger Verein' },
+      { id: 'telc', year: '2021', text: 'Offizielles telc Hochschulkompetenzzentrum' },
+      { id: 'heute', year: 'Heute', text: '5 Standorte in Mainz und Bad Kreuznach' },
+    ],
+    cta: { label: 'Mehr über uns', href: '/ueber-uns' },
   },
 
   news: {

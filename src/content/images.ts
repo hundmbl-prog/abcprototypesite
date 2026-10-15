@@ -21,6 +21,7 @@ import pruefungen from '@/assets/placeholder/pruefungen.jpg'
 import qmSchulung from '@/assets/placeholder/qm-schulung.jpg'
 import sozialeProjekte from '@/assets/placeholder/soziale-projekte.jpg'
 import sprachkurse from '@/assets/placeholder/sprachkurse.jpg'
+import team from '@/assets/placeholder/team.jpg'
 import telcHochschule from '@/assets/placeholder/telc-hochschule.jpg'
 import weiterbildung from '@/assets/placeholder/weiterbildung.jpg'
 
@@ -52,6 +53,7 @@ export const images = {
     jugendintegrationskursErfolg,
     'Gruppe von Kursteilnehmenden steht gemeinsam auf einem Platz',
   ),
+  team: img(team, 'Gruppenfoto bei einer Fotoausstellung'),
   gruppe: img(qmSchulung, 'Gesprächsrunde in einem hellen Raum mit Pflanzen'),
   projektStrassenfotografie: img(
     projektStrassenfotografie,
