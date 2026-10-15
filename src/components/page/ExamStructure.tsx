@@ -13,9 +13,6 @@ const shades = ['bg-blue-900', 'bg-blue-600', 'bg-blue-400', 'bg-red-500']
  * then the oral exam and important notes.
  */
 export function ExamStructure({ block }: { block: ExamStructureBlock }) {
-  const [focus, setFocus] = useState<number | null>(null)
-  const writtenTotal = block.written.reduce((sum, part) => sum + part.minutes, 0)
-
   return (
     <>
       <SectionHeader
@@ -24,15 +21,36 @@ export function ExamStructure({ block }: { block: ExamStructureBlock }) {
         title={block.title}
         intro={block.intro}
       />
+      <ExamStructureBody exam={block} />
+    </>
+  )
+}
+
+type ExamBody = Pick<ExamStructureBlock, 'written' | 'breakMinutes' | 'oral' | 'notes'>
+
+/** Written parts with a time bar, the oral part and notes – used by the section and the level tabs. */
+export function ExamStructureBody({
+  exam: block,
+  headingLevel = 'h3',
+}: {
+  exam: ExamBody
+  headingLevel?: 'h3' | 'h4'
+}) {
+  const [focus, setFocus] = useState<number | null>(null)
+  const writtenTotal = block.written.reduce((sum, part) => sum + part.minutes, 0)
+  const Heading = headingLevel
+
+  return (
+    <>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-8 lg:col-span-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="inline-flex items-center gap-3 text-h4 text-blue-900">
+            <Heading className="inline-flex items-center gap-3 text-h4 text-blue-900">
               <span className="grid size-10 place-items-center rounded-pill bg-blue-900 text-on-dark">
                 <Icon name="pen" className="size-4" />
               </span>
               Schriftliche Prüfung
-            </h3>
+            </Heading>
             <span className="rounded-pill bg-blue-900 px-3 py-1 text-small font-semibold text-on-dark">
               ca. {writtenTotal} Minuten
               {block.breakMinutes ? ` + ${block.breakMinutes} Min. Pause` : ''}
@@ -80,12 +98,12 @@ export function ExamStructure({ block }: { block: ExamStructureBlock }) {
           </ul>
         </div>
         <div className="flex flex-col gap-4 rounded-2xl bg-blue-900 p-6 text-on-dark shadow-md md:p-8 lg:col-span-4">
-          <h3 className="inline-flex items-center gap-3 text-h4">
+          <Heading className="inline-flex items-center gap-3 text-h4">
             <span className="grid size-10 place-items-center rounded-pill bg-red-500">
               <Icon name="mic" className="size-4" />
             </span>
             Mündliche Prüfung
-          </h3>
+          </Heading>
           <dl className="grid grid-cols-2 gap-3">
             <div className="rounded-xl bg-on-dark/10 p-3">
               <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">

@@ -12,7 +12,9 @@ import {
   LinksBlock,
   StepsBlock,
 } from './blocks'
+import { CourseTypes, Features, Spotlight } from './catalog'
 import { ExamDates } from './ExamDates'
+import { ExamLevels } from './ExamLevels'
 import { ExamStructure } from './ExamStructure'
 import { TabsBlock } from './TabsBlock'
 import { TelcRegistrationForm } from './TelcRegistrationForm'
@@ -34,6 +36,14 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
       return <TabsBlock block={block} />
     case 'exam-structure':
       return <ExamStructure block={block} />
+    case 'exam-levels':
+      return <ExamLevels block={block} />
+    case 'course-types':
+      return <CourseTypes block={block} />
+    case 'features':
+      return <Features block={block} />
+    case 'spotlight':
+      return <Spotlight block={block} />
     case 'faq':
       return <FaqBlock block={block} />
     case 'links':

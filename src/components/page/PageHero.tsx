@@ -95,7 +95,9 @@ export function PageHero({
                   <Icon name={fact.icon} className="size-4 text-red-300" />
                   {fact.label}
                 </dt>
-                <dd className="pl-6 font-semibold text-pretty">{fact.value}</dd>
+                <dd className="pl-6 font-semibold text-pretty break-words hyphens-auto">
+                  {fact.value}
+                </dd>
               </div>
             ))}
           </dl>

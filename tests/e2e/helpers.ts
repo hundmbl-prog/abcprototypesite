@@ -46,3 +46,12 @@ export async function scrollThrough(page: Page) {
     window.scrollTo(0, 0)
   })
 }
+
+/** Waits until all scroll-reveal animations have finished (elements fully visible). */
+export async function waitForReveals(page: Page) {
+  await page.waitForFunction(() =>
+    Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]')).every(
+      (el) => getComputedStyle(el).opacity === '1',
+    ),
+  )
+}

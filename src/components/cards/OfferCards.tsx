@@ -56,7 +56,14 @@ export function OfferCards({
       )
     case 'classic':
       return (
-        <ul className={cn('grid gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
+        <ul
+          className={cn(
+            'grid gap-6 md:grid-cols-2',
+            // two cards fill two wide columns instead of leaving an empty third one
+            cards.length === 2 ? 'lg:max-w-5xl' : 'lg:grid-cols-3',
+            className,
+          )}
+        >
           {cards.map((card, i) => (
             <li key={card.id} data-reveal className="min-w-0">
               <CardClassic

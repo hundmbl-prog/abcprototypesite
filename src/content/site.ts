@@ -60,77 +60,29 @@ export const siteSettings: SiteSettings = {
 
 export const mainNavigation: NavSection[] = [
   {
-    label: 'Sprachkurse',
-    href: '/sprachkurse',
-    intro: 'Deutsch lernen vom ersten Wort bis zum Hochschulzugang – in Präsenz und online.',
-    image: images.sprachkurse,
+    label: 'Kurse',
+    href: '/kurse',
+    intro:
+      'Deutschkurse mit Ziel: B1/B2-Prüfungsvorbereitung, Berufssprachkurse und Integrationskurse.',
+    image: images.abcKursraum,
     links: [
       {
-        label: 'Deutschkurse A1–A2',
-        href: '/sprachkurse/a1-a2',
-        description: 'Für Anfängerinnen und Anfänger',
-      },
-      {
-        label: 'Deutschkurse B1–B2',
-        href: '/sprachkurse/b1-b2',
-        description: 'Für Fortgeschrittene',
-      },
-      {
-        label: 'Deutschkurse C1–C2',
-        href: '/sprachkurse/c1-c2',
-        description: 'Für Expertinnen und Experten',
-      },
-      {
-        label: 'C1 Hochschule',
-        href: '/sprachkurse/c1-hochschule',
-        description: 'Studienvorbereitender Intensivkurs',
-        image: images.telc,
+        label: 'B1 & B2 – Prüfung und Vorbereitung',
+        href: '/kurse/b1-b2',
+        description: 'Kurs mit telc Prüfung vor Ort',
+        image: images.abcLernen,
       },
       {
         label: 'Berufssprachkurse (BSK)',
-        href: '/sprachkurse/berufssprachkurse',
-        description: 'Deutsch für den Beruf',
+        href: '/kurse/bsk',
+        description: 'Deutsch für Arbeit und Ausbildung',
+        image: images.sprachkurse,
       },
       {
-        label: 'Kostenloser Schnupperkurs',
-        href: '/sprachkurse/kostenloser-schnupperkurs',
-        description: 'Online-Unterricht unverbindlich testen',
-      },
-    ],
-  },
-  {
-    label: 'Integrationskurse',
-    href: '/integrationskurse',
-    intro: 'Sprache und Orientierung für das Leben in Deutschland – mit Kinderbeaufsichtigung.',
-    image: images.integrationskurse,
-    links: [
-      {
-        label: 'Allgemeine Integrationskurse',
-        href: '/integrationskurse/allgemeine',
-        description: '600 UE von A1 bis B1',
-      },
-      {
-        label: 'Jugendintegrationskurse',
-        href: '/integrationskurse/jugendintegrationskurse',
-        description: 'Für 16- bis 26-Jährige',
-        image: images.projektJugendplattform,
-      },
-      {
-        label: 'Alphabetisierungskurse',
-        href: '/integrationskurse/alphabetisierung',
-        description: 'Lesen und Schreiben lernen',
-        image: images.nachhilfeBadKreuznach,
-      },
-      {
-        label: 'Lern- und Sozialbegleitung',
-        href: '/integrationskurse/lern-und-sozialbegleitung',
-        description: 'Unterstützung neben dem Kurs',
-        image: images.paedagogik,
-      },
-      {
-        label: 'Kurstermine',
-        href: '/integrationskurse/termine',
-        description: 'Nächste Kursstarts',
+        label: 'Integrationskurse',
+        href: '/kurse/integrationskurse',
+        description: 'Allgemein, Jugend, Alphabetisierung',
+        image: images.abcUnterricht,
       },
     ],
   },
@@ -138,19 +90,19 @@ export const mainNavigation: NavSection[] = [
     label: 'Prüfungen',
     href: '/pruefungen',
     intro: 'Offizielle Sprachprüfungen und der Einbürgerungstest – direkt bei uns vor Ort.',
-    image: images.pruefungen,
+    image: images.abcTelc,
     links: [
       {
         label: 'telc Prüfungen',
         href: '/pruefungen/telc',
         description: 'A1 bis C1 Hochschule',
-        image: images.telc,
+        image: images.abcTelc,
       },
       {
         label: 'Einbürgerungstest',
         href: '/pruefungen/einbuergerungstest',
         description: '„Leben in Deutschland“',
-        image: images.gruppe,
+        image: images.team,
       },
       {
         label: 'Prüfungstermine',
@@ -162,25 +114,33 @@ export const mainNavigation: NavSection[] = [
   {
     label: 'Bildung & Förderung',
     href: '/bildungsangebote',
-    intro: 'Bildungsangebote, Lernförderung und pädagogische Begleitung für Familien.',
+    intro:
+      'Weiterbildung, politische Bildung, Lernförderung und pädagogische Begleitung für Familien.',
     image: images.nachhilfe,
     links: [
       {
+        label: 'Bildungsangebote',
+        href: '/bildungsangebote',
+        description: 'Viona und politische Bildung',
+        image: images.weiterbildung,
+      },
+      {
         label: 'Viona',
-        href: '/bildungsangebote/viona',
-        description: 'Bildungsangebot',
+        href: '/bildungsangebote#viona',
+        description: 'Online-Weiterbildungen',
         image: images.weiterbildung,
       },
       {
         label: 'Politische Bildungsarbeit',
-        href: '/bildungsangebote/politische-bildungsarbeit',
+        href: '/bildungsangebote#politische-bildungsarbeit',
         description: 'Dialog und Teilhabe',
         image: images.qmSchulung,
       },
       {
-        label: 'Nachhilfe',
-        href: '/lernfoerderung/nachhilfe',
-        description: 'Alle Fächer, alle Schulformen',
+        label: 'Bildungs- & Lernförderung',
+        href: '/lernfoerderung',
+        description: 'Nachhilfe in allen Fächern',
+        image: images.nachhilfe,
       },
       {
         label: 'Sozialpädagogische Familienhilfe',
@@ -204,29 +164,33 @@ export const mainNavigation: NavSection[] = [
     links: [
       {
         label: 'Straßenfotografie Mainz',
-        href: '/projekte/strassenfotografie',
+        href: '/projekte#strassenfotografie',
         description: 'Mit der Kamera die Stadt entdecken',
         image: images.projektStrassenfotografie,
       },
       {
         label: 'Natur erleben',
-        href: '/projekte/natur-erleben',
+        href: '/projekte#natur-erleben',
         description: 'Inklusives Naturprojekt',
         image: images.projektNatur,
       },
       {
         label: 'STARTklar',
-        href: '/projekte/startklar',
+        href: '/projekte#startklar',
         description: 'Stabil in Arbeit',
         image: images.projektStartklar,
       },
       {
         label: 'Wir sind Vielfalt',
-        href: '/projekte/wir-sind-vielfalt',
+        href: '/projekte#wir-sind-vielfalt',
         description: 'Kreativwettbewerb',
         image: images.projektVielfalt,
       },
-      { label: 'Projektarchiv', href: '/projekte/archiv', description: 'Abgeschlossene Projekte' },
+      {
+        label: 'Alle Projekte',
+        href: '/projekte#projekte',
+        description: 'Alle aktuellen Projekte im Überblick',
+      },
     ],
   },
   {
@@ -264,10 +228,10 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
   {
     title: 'Angebote',
     links: [
-      { label: 'Sprachkurse', href: '/sprachkurse' },
-      { label: 'Integrationskurse', href: '/integrationskurse' },
+      { label: 'Kurse', href: '/kurse' },
+      { label: 'Integrationskurse', href: '/kurse/integrationskurse' },
       { label: 'Prüfungen', href: '/pruefungen' },
-      { label: 'Nachhilfe', href: '/lernfoerderung/nachhilfe' },
+      { label: 'Nachhilfe', href: '/lernfoerderung' },
       { label: 'Pädagogische Angebote', href: '/paedagogische-angebote' },
     ],
   },

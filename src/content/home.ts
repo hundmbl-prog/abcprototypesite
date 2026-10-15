@@ -4,6 +4,7 @@
  * Entries marked `placeholder: true` are invented and MUST be replaced before launch.
  */
 import { images } from './images'
+import { projectShowcase } from './pages/projekte'
 import { partners } from './partners'
 import { siteSettings } from './site'
 import type { HomePage } from './types'
@@ -19,16 +20,16 @@ export const homePage: HomePage = {
       { value: '5', label: 'Standorte' },
     ],
     quickLinks: [
-      { label: 'Sprachkurse', href: '/sprachkurse', description: 'A1 bis C1, auch online' },
+      { label: 'Kurse', href: '/kurse', description: 'B1/B2, BSK und Integration' },
       {
         label: 'Integrationskurse',
-        href: '/integrationskurse',
+        href: '/kurse/integrationskurse',
         description: 'Mit Kinderbeaufsichtigung',
       },
       { label: 'telc Prüfungen', href: '/pruefungen/telc', description: 'Termine und Anmeldung' },
       {
         label: 'Nachhilfe',
-        href: '/lernfoerderung/nachhilfe',
+        href: '/lernfoerderung',
         description: 'Alle Fächer, alle Schulformen',
       },
     ],
@@ -36,7 +37,7 @@ export const homePage: HomePage = {
     title: 'Bildung, die Menschen verbindet',
     text: 'Sprach- und Integrationskurse, Prüfungen, Nachhilfe und soziale Projekte – seit 1997 begleiten wir Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf.',
     image: images.hero,
-    primaryCta: { label: 'Kurs finden', href: '/sprachkurse' },
+    primaryCta: { label: 'Kurs finden', href: '/kurse' },
     secondaryCta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
   },
 
@@ -45,14 +46,14 @@ export const homePage: HomePage = {
     title: 'Für jeden Schritt das passende Angebot',
     intro:
       'Vom ersten Deutschkurs bis zur Weiterbildung – wir beraten Sie gerne, welches Angebot zu Ihnen passt.',
-    cta: { label: 'Alle Angebote', href: '/sprachkurse' },
+    cta: { label: 'Alle Angebote', href: '/kurse' },
     cards: [
       {
         id: 'sprach-integrationskurse',
         title: 'Sprach- & Integrationskurse',
         description:
           'Deutsch lernen von A1 bis C1, Integrations-, Jugendintegrations- und Alphabetisierungskurse – mit Orientierungskurs und Kinderbeaufsichtigung.',
-        href: '/integrationskurse',
+        href: '/kurse/integrationskurse',
         image: images.abcUnterricht,
         tag: 'Kurse',
         badge: 'plaetze-frei',
@@ -72,7 +73,7 @@ export const homePage: HomePage = {
         title: 'Nachhilfe',
         description:
           'Alle Fächer, alle Schulformen – mit erfahrenen Lehrkräften und flexiblen Zeiten.',
-        href: '/lernfoerderung/nachhilfe',
+        href: '/lernfoerderung',
         image: images.nachhilfe,
         tag: 'Lernförderung',
         facts: { format: 'Vor Ort' },
@@ -198,62 +199,7 @@ export const homePage: HomePage = {
     intro:
       'Mit unseren Projekten fördern wir Teilhabe, Kreativität und Zusammenhalt – oft gemeinsam mit starken Partnern.',
     cta: { label: 'Alle Projekte', href: '/projekte' },
-    items: [
-      {
-        id: 'strassenfotografie',
-        slug: 'strassenfotografie',
-        title: 'Straßenfotografie Mainz 2026',
-        description:
-          'Mit der Kamera die Mainzer Neu- und Altstadt entdecken: Straßenkunst, Rheinufer, Wochenmarkt und Denkmäler – und die eigene Perspektive auf die Stadt zeigen.',
-        partners: ['BGZ'],
-        image: images.projektStrassenfotografie,
-      },
-      {
-        id: 'natur-erleben',
-        slug: 'natur-erleben',
-        title: 'Natur erleben – Umwelt erfahren',
-        description:
-          'Ein inklusives Naturprojekt am Bonifaziusplatz für alle Kinder und Jugendlichen von 8 bis 16 Jahren – mit und ohne Behinderung.',
-        partners: ['Aktion Mensch'],
-        image: images.projektNatur,
-      },
-      {
-        id: 'startklar',
-        slug: 'startklar',
-        title: 'STARTklar – Stabil in Arbeit',
-        description:
-          'Individuelle, kostenlose Begleitung für Menschen mit Fluchterfahrung auf dem Weg in Arbeit oder Ausbildung – mit Sprachkursen, Bewerbungshilfe und Kontakten zu Betrieben.',
-        partners: [],
-        image: images.projektStartklar,
-      },
-      {
-        id: 'wir-sind-vielfalt',
-        slug: 'wir-sind-vielfalt',
-        title: 'Wir sind Vielfalt 2026',
-        description:
-          'Unser jährlicher Kreativwettbewerb für Kinder und Jugendliche. Das Motto 2026: „Mut hat viele Gesichter“.',
-        partners: [],
-        image: images.projektVielfalt,
-      },
-      {
-        id: 'bruecken-ags',
-        slug: 'bruecken-ags',
-        title: 'Brücken AGs',
-        description:
-          'Wir bauen Brücken in die Mainzer Vereinslandschaft – für mehr gesellschaftliche Teilhabe unserer Kursteilnehmenden.',
-        partners: ['Bundesamt für Migration und Flüchtlinge'],
-        image: images.projektBruecken,
-      },
-      {
-        id: 'mainzer-jugendplattform',
-        slug: 'mainzer-jugendplattform',
-        title: 'Mainzer Jugendplattform',
-        description:
-          'Ein Beitrag zum gesellschaftlichen Zusammenhalt: Jugendliche sollen sich nach ihren Fähigkeiten und Vorstellungen entfalten können.',
-        partners: [],
-        image: images.projektJugendplattform,
-      },
-    ],
+    items: projectShowcase,
   },
 
   why: {

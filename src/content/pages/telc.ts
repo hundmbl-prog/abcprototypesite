@@ -5,8 +5,8 @@
 import type { OfferCardData } from '@/components/cards/types'
 import { images } from '../images'
 import { telcExams } from '../exams'
-import type { ContentImage, ContentPage, ExamPart, ResourceLink } from '../types'
-import { CONTACT_EMAIL_GENERAL, contact, cta, telcLinks } from './shared'
+import type { ContentImage, ContentPage, ExamLevel, ExamPart } from '../types'
+import { CONTACT_EMAIL_GENERAL, contact, telcLinks } from './shared'
 
 type ExamInfo = {
   id: string
@@ -229,7 +229,7 @@ export function telcExamCards(excludeId?: string): OfferCardData[] {
         id: e.id,
         title: exam.name,
         description: e.short,
-        href: `/pruefungen/telc/${exam.slug}`,
+        href: `/pruefungen/telc#pruefung-${e.id}`,
         image: e.image,
         tag: 'Prüfung',
         facts: {
@@ -237,7 +237,7 @@ export function telcExamCards(excludeId?: string): OfferCardData[] {
           duration: `ca. ${writtenMinutes(e) + e.oral.minutes} Min.`,
           location: 'Mainz',
         },
-        ctaLabel: 'Zur Prüfung',
+        ctaLabel: 'Aufbau ansehen',
       }
     })
 }
@@ -326,6 +326,14 @@ export const telcPage: ContentPage = {
       variant: 'rail',
       filterBy: 'level',
       cards: telcExamCards(),
+    },
+    {
+      type: 'exam-levels',
+      id: 'aufbau',
+      eyebrow: 'Aufbau der Prüfungen',
+      title: 'So läuft Ihre Prüfung ab',
+      intro: 'Wählen Sie Ihr Niveau: Aufbau, Dauer und der kostenlose Übungstest der telc gGmbH.',
+      levels: telcLevels(),
     },
     {
       type: 'exam-dates',
@@ -465,113 +473,43 @@ export const telcPage: ContentPage = {
   ],
 }
 
-/* ───────────────────────── /pruefungen/telc/[exam] */
+/* ───────────────────────── Level tabs (all exams on the telc page) */
 
-export const telcExamPages: ContentPage[] = info.map((e) => {
-  const exam = telcExams.find((x) => x.id === e.id)!
-  const links: ResourceLink[] = [
-    {
-      label: `Übungstest ${exam.level}`,
-      href: e.mockUrl,
-      description: 'Kostenloser Modelltest der telc gGmbH mit Lösungen und Audiodateien.',
-      kind: 'ZIP',
-    },
-    {
-      label: 'Prüfung bei telc',
-      href: e.productUrl,
-      description: `Offizielle Informationen zu ${exam.name}.`,
-      kind: 'Website',
-    },
-    telcLinks.rules,
-  ]
-  return {
-    path: `pruefungen/telc/${exam.slug}`,
-    label: exam.level === 'C1 Hochschule' ? 'C1 Hochschule' : `telc ${exam.level}`,
-    seo: {
-      title: `${exam.name} in Mainz – Aufbau, Termine, Anmeldung`,
-      description: `${exam.name} am ABC Mainz: ${e.short} Aufbau der Prüfung, Dauer, kostenloser Übungstest und Anmeldung.`,
-    },
-    schema: 'Exam',
-    hero: {
-      eyebrow: `telc Prüfung · Niveau ${exam.level}`,
-      title: exam.name,
-      intro: e.short,
-      image: e.image,
-      facts: [
-        { icon: 'level', label: 'Niveau', value: exam.level },
-        { icon: 'pen', label: 'Schriftlich', value: `ca. ${writtenMinutes(e)} Min.` },
-        { icon: 'mic', label: 'Mündlich', value: `ca. ${e.oral.minutes} Min.` },
-        { icon: 'monitor', label: 'Format', value: e.formats },
-      ],
-      primaryCta: { label: 'Termin finden', href: '/pruefungen/telc#termine' },
-      secondaryCta: { label: 'Jetzt anmelden', href: '/pruefungen/telc#anmeldung' },
-    },
-    blocks: [
-      {
-        type: 'intro',
-        id: 'fuer-wen',
-        eyebrow: 'Für wen?',
-        title: 'Das bestätigt die Prüfung',
-        paragraphs: e.about,
-        points: [
-          'Offizielles telc Zertifikat',
-          exam.partialRetake
-            ? 'Teilprüfung innerhalb von 12 Monaten möglich'
-            : 'Wiederholung nur als ganze Prüfung',
-          'Prüfung direkt am ABC in Mainz',
-          'Ergebnis nach ca. 4–6 Wochen',
-        ],
-        image: e.image,
-      },
-      {
-        type: 'exam-structure',
-        id: 'aufbau',
-        eyebrow: 'Aufbau',
-        title: 'So läuft die Prüfung ab',
-        intro:
-          'Fahren Sie mit der Maus über einen Prüfungsteil, um ihn in der Zeitleiste hervorzuheben.',
+export function telcLevels(ids?: string[]): ExamLevel[] {
+  return info
+    .filter((e) => !ids || ids.includes(e.id))
+    .map((e) => {
+      const exam = telcExams.find((x) => x.id === e.id)!
+      return {
+        id: e.id,
+        level: exam.level,
+        name: exam.name,
+        about: e.about,
         written: e.written,
         breakMinutes: e.breakMinutes,
         oral: e.oral,
         notes: [
+          `Format: ${e.formats}.`,
           'Bei Bestehen erhalten Sie ein Zertifikat, sonst einen Ergebnisbogen.',
           exam.partialRetake
             ? 'Haben Sie nur einen Teil bestanden, wiederholen Sie innerhalb von 12 Monaten nur den anderen Teil.'
             : 'Eine Teilprüfung ist bei diesem Niveau nicht möglich – Sie wiederholen die ganze Prüfung.',
-          'Einzelne Prüfungsteile (z. B. nur „Hören“) können nicht wiederholt werden.',
           'Sie können die Prüfung beliebig oft ablegen; jedes Ergebnis bleibt gültig.',
         ],
-      },
-      {
-        type: 'columns',
-        id: 'pruefungstag',
-        eyebrow: 'Am Prüfungstag',
-        title: 'Das sollten Sie wissen',
-        columns: examDayColumns,
-      },
-      {
-        type: 'links',
-        id: 'vorbereitung',
-        eyebrow: 'Vorbereitung',
-        title: 'Kostenlos üben mit dem Original',
-        intro: 'Der Übungstest der telc gGmbH entspricht in Aufbau und Dauer der echten Prüfung.',
-        links,
-      },
-      {
-        type: 'cards',
-        id: 'weitere-pruefungen',
-        eyebrow: 'Weitere Prüfungen',
-        title: 'Andere Niveaus',
-        variant: 'classic',
-        cards: telcExamCards(e.id).slice(0, 3),
-        cta: { label: 'Alle telc Prüfungen', href: '/pruefungen/telc' },
-      },
-      cta({
-        title: `Bereit für ${exam.level}?`,
-        text: 'Sehen Sie die nächsten Termine oder melden Sie sich direkt an – wir beraten Sie gerne.',
-        primary: { label: 'Jetzt anmelden', href: '/pruefungen/telc#anmeldung' },
-        secondary: { label: 'Prüfungstermine', href: '/pruefungen/telc#termine' },
-      }),
-    ],
-  }
-})
+        links: [
+          {
+            label: `Übungstest ${exam.level}`,
+            href: e.mockUrl,
+            description: 'Kostenloser Modelltest der telc gGmbH.',
+            kind: 'ZIP',
+          },
+          {
+            label: 'Prüfung bei telc',
+            href: e.productUrl,
+            description: 'Offizielle Informationen der telc gGmbH.',
+            kind: 'Website',
+          },
+        ],
+      }
+    })
+}

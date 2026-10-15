@@ -1,6 +1,6 @@
 import { contentRoute } from '@/components/page/ContentRoute'
 
-const route = contentRoute('integrationskurse')
+const route = contentRoute('kurse')
 
 export const generateStaticParams = route.generateStaticParams
 export const generateMetadata = route.generateMetadata

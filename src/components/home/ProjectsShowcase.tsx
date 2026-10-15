@@ -209,7 +209,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                       ) : null}
                       <div className="mt-auto pt-2">
                         <Button
-                          href={`/projekte/${project.slug}`}
+                          href={`/projekte#${project.slug}`}
                           variant="pill-red"
                           tabIndex={active ? undefined : -1}
                         >

@@ -1,5 +1,78 @@
 # Changelog
 
+## Step 4 (part 1b) – New structure: Kurse, Prüfungen, Projekte, Bildungsangebote, Lernförderung (2026-10-15)
+
+Decisions from 15.10.2026: Kurse gets an overview plus 3 pages; the other course pages are merged in. Prüfungen keeps the ABC format, and telc becomes one page. Projekte becomes one page with all current projects.
+
+**Kurse (new menu item, layout modelled on bruedergrimm.net)**
+
+- `/kurse`: three photo cards with key facts – B1 & B2, BSK, Integrationskurse – plus advantages, requirements and registration, steps, FAQ, contact and a call to action.
+- `/kurse/b1-b2` "Prüfung und Prüfungsvorbereitung":
+  - three feature cards, plus the "Kursinhalte" and "Für wen?" lists
+  - course models (FLEX, SMART, INTENSIV, Einzelunterricht)
+  - telc B1 and B2 shown as level tabs
+- `/kurse/bsk`: the same structure, plus a section on courses for companies and official BAMF information.
+- `/kurse/integrationskurse` uses new course-catalogue blocks:
+  - one block per course type: general integration course with 6 modules + orientation course, youth integration course, integration course with literacy
+  - each block shows hours, target group, level chips, course contents and a module plan
+  - also on the page: Lern- und Sozialbegleitung, child supervision, the DTZ and "Leben in Deutschland" exams, requirements and registration, official links and FAQ
+- Removed pages, now merged: A1–A2, C1–C2, C1 Hochschule, Schnupperkurs, the separate Jugend-/Alpha-/Lern- und Sozialbegleitung pages, and Kurstermine.
+
+**Prüfungen**
+
+- The overview now shows only telc and the Einbürgerungstest.
+- telc is a single page. The six per-level pages are replaced by level tabs (arrow keys, Home/End), and the exam cards jump straight to their level (`#pruefung-<level>`).
+
+**Projekte (one page)**
+
+- Order: intro "Warum Projekte?", nine project cards (photo + short text + "Mehr erfahren"), then one detail section per project, then "Mitmachen" and a call to action.
+- Each detail section has facts, lists, funding, contact and a link back to the overview.
+- Projects: Straßenfotografie, Natur erleben, STARTklar, Wir sind Vielfalt, Medien.Machen.Meinung, Integrationsgeschichten, ABC UPLOADED, Menschen stärken Menschen, Mainzer Jugendplattform.
+- The home slideshow now uses the same data (Brücken AGs was archived on the old site and no longer appears there).
+
+**Bildungsangebote and Lernförderung (one page each)**
+
+- `/bildungsangebote`: Viona and Politische Bildungsarbeit as cards leading to detail sections, plus a Viona FAQ (Bildungsgutschein).
+- `/lernfoerderung`: offer, all subjects as tabs, consultation and trial lesson, Bildung und Teilhabe, and the partner InSL e.V.
+
+**Navigation**
+
+- The menu, footer and home links now point to the new pages and sections.
+- No link to a removed page remains.
+
+**Fixes**
+
+- Same-page section links written with the path (e.g. `/projekte#startklar`, the "Mehr erfahren" buttons, menu links) now scroll exactly to their section.
+  - Before, Lenis undid the jump, or – after scrolling with the scrollbar – started from a stale position and stopped partway.
+  - The scroll now syncs with the real position and scrolls to the section's absolute position.
+- Links from other pages now land on their section; before, every new page started at the top.
+- Two cards in a classic grid now fill two wide columns.
+- Long fact values in the hero now hyphenate on phones.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 272 passed, 4 skipped, 0 failed at 375 / 768 / 1280 / 1920.
+- New tests:
+  - each card leads to an existing section, and a card click scrolls there
+  - links from other pages land on the right section
+  - the home slideshow links point to existing project sections
+  - the course blocks and module plans render
+  - telc level tabs (link, card click, arrow keys) and the Lernförderung subject tabs work
+- Header navigation tests now use the new "Kurse" menu.
+- Lighthouse:
+  - /kurse/integrationskurse: mobile 87, desktop 100.
+  - /projekte: mobile 87, desktop 97.
+  - Accessibility, best practices and SEO 100.
+  - Mobile LCP is about 4 s – open for the performance step.
+
+**Content**
+
+- Taken from the current abc-mainz.de pages.
+- No prices, and no outdated dates or programmes.
+- Coordinators and project e-mail addresses are as published on the old site.
+- External links were checked on 15.10.2026: only reachable pages are linked (esf.de WIR, wirsindvielfalt.de, bpb.de, plus the existing BAMF, telc and g.a.s.t. links).
+
 ## Step 4 (part 1) – Sprachkurse, Integrationskurse, Prüfungen, Einbürgerungstest, telc (2026-10-15)
 
 **22 new pages**, all prerendered as static HTML:

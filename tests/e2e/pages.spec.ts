@@ -1,29 +1,23 @@
 import { expect, test, type Page } from '@playwright/test'
-import { expectHeadingOrder, expectNoAxeViolations, scrollThrough, watchProblems } from './helpers'
+import {
+  expectHeadingOrder,
+  expectNoAxeViolations,
+  scrollThrough,
+  waitForReveals,
+  watchProblems,
+} from './helpers'
 
 const pages = [
-  '/sprachkurse',
-  '/sprachkurse/a1-a2',
-  '/sprachkurse/b1-b2',
-  '/sprachkurse/c1-c2',
-  '/sprachkurse/c1-hochschule',
-  '/sprachkurse/berufssprachkurse',
-  '/sprachkurse/kostenloser-schnupperkurs',
-  '/integrationskurse',
-  '/integrationskurse/allgemeine',
-  '/integrationskurse/jugendintegrationskurse',
-  '/integrationskurse/alphabetisierung',
-  '/integrationskurse/lern-und-sozialbegleitung',
-  '/integrationskurse/termine',
+  '/kurse',
+  '/kurse/b1-b2',
+  '/kurse/bsk',
+  '/kurse/integrationskurse',
   '/pruefungen',
   '/pruefungen/einbuergerungstest',
   '/pruefungen/telc',
-  '/pruefungen/telc/telc-deutsch-a1',
-  '/pruefungen/telc/telc-deutsch-a2',
-  '/pruefungen/telc/telc-deutsch-b1',
-  '/pruefungen/telc/telc-deutsch-b2',
-  '/pruefungen/telc/telc-deutsch-c1',
-  '/pruefungen/telc/telc-deutsch-c1-hochschule',
+  '/projekte',
+  '/bildungsangebote',
+  '/lernfoerderung',
 ]
 
 /** Each form test gets its own client address, so the rate limit never mixes tests. */
@@ -48,12 +42,19 @@ test.describe('Content pages', () => {
       )
       expect(overflow).toBeLessThanOrEqual(0)
       expect(await page.locator('meta[name="description"]').getAttribute('content')).toBeTruthy()
+      await waitForReveals(page)
       await expectNoAxeViolations(page)
     })
   }
 
   test('every menu link of these sections leads to a page', async ({ page }) => {
-    for (const path of ['/sprachkurse', '/integrationskurse', '/pruefungen']) {
+    for (const path of [
+      '/kurse',
+      '/pruefungen',
+      '/projekte',
+      '/bildungsangebote',
+      '/lernfoerderung',
+    ]) {
       await page.goto(path)
       const hrefs = await page
         .locator(`a[href^="${path}"]`)
@@ -68,10 +69,10 @@ test.describe('Content pages', () => {
   })
 
   test('breadcrumbs show the path with the current page marked', async ({ page }) => {
-    await page.goto('/pruefungen/telc/telc-deutsch-b1')
+    await page.goto('/kurse/integrationskurse')
     const crumbs = page.getByRole('navigation', { name: 'Brotkrümelnavigation' })
-    await expect(crumbs.getByRole('link')).toHaveText(['Start', 'Prüfungen', 'telc Prüfungen'])
-    await expect(crumbs.locator('[aria-current="page"]')).toHaveText('telc B1')
+    await expect(crumbs.getByRole('link')).toHaveText(['Start', 'Kurse'])
+    await expect(crumbs.locator('[aria-current="page"]')).toHaveText('Integrationskurse')
   })
 })
 
@@ -119,6 +120,110 @@ test.describe('Interactive elements', () => {
     await page.goto('/pruefungen/telc#termine')
     await expect(page.locator('#termine').getByText('Neue Termine folgen in Kürze')).toBeVisible()
     await expect(page.locator('#termine table')).toHaveCount(0)
+  })
+})
+
+test.describe('Kurse, Projekte, Bildungsangebote', () => {
+  test('the Kurse overview shows the three courses, each linking to its page', async ({ page }) => {
+    await page.goto('/kurse')
+    const cards = page.locator('#kurse article')
+    await expect(cards).toHaveCount(3)
+    const hrefs = await cards
+      .locator('a[href]')
+      .evaluateAll((links) => links.map((a) => a.getAttribute('href')))
+    expect(hrefs).toEqual(['/kurse/b1-b2', '/kurse/bsk', '/kurse/integrationskurse'])
+  })
+
+  test('integration courses are shown as course blocks with module plans', async ({ page }) => {
+    await page.goto('/kurse/integrationskurse')
+    const courses = page.locator('#kursaufbau article')
+    await expect(courses).toHaveCount(3)
+    await expect(courses.first().locator('ol > li')).toHaveCount(7)
+    await expect(courses.first().getByText('Niveaustufen')).toBeVisible()
+    await expect(page.locator('#lern-und-sozialbegleitung')).toBeVisible()
+  })
+
+  for (const [path, list] of [
+    ['/projekte', '#projekte'],
+    ['/bildungsangebote', '#angebote'],
+  ] as const) {
+    test(`${path}: every card jumps to an existing detail section`, async ({ page }) => {
+      await page.goto(path)
+      const targets = await page
+        .locator(`${list} article a[href*="#"]`)
+        .evaluateAll((links) => links.map((a) => a.getAttribute('href')!.split('#')[1]!))
+      expect(targets.length).toBeGreaterThan(1)
+      for (const id of targets) await expect(page.locator(`section#${id}`)).toHaveCount(1)
+    })
+  }
+
+  test('a project card scrolls to its section', async ({ page }) => {
+    await page.goto('/projekte')
+    await page.locator('#projekte article', { hasText: 'STARTklar' }).getByRole('link').click()
+    await expect(page).toHaveURL(/#startklar$/)
+    // the section starts right below the header (on phones the photo comes before the heading)
+    await expect(page.locator('section#startklar')).toBeInViewport()
+    await expect
+      .poll(() =>
+        page.locator('section#startklar').evaluate((el) => el.getBoundingClientRect().top),
+      )
+      .toBeLessThan(200)
+  })
+
+  test('a link from another page lands on the project section', async ({ page }) => {
+    await page.goto('/projekte#natur-erleben')
+    await expect(page.locator('section#natur-erleben')).toBeInViewport()
+    await expect
+      .poll(() =>
+        page.locator('section#natur-erleben').evaluate((el) => el.getBoundingClientRect().top),
+      )
+      .toBeLessThan(200)
+  })
+
+  test('home slideshow links point to existing project sections', async ({ page, request }) => {
+    await page.goto('/')
+    const ids = await page
+      .locator('#projekte a[href^="/projekte#"]')
+      .evaluateAll((links) => [
+        ...new Set(links.map((a) => a.getAttribute('href')!.split('#')[1]!)),
+      ])
+    expect(ids.length).toBeGreaterThan(0)
+    const html = await (await request.get('/projekte')).text()
+    for (const id of ids) expect(html, id).toContain(`id="${id}"`)
+  })
+
+  test('Lernförderung shows all subjects as tabs', async ({ page }) => {
+    await page.goto('/lernfoerderung#faecher')
+    await expect(page.locator('#faecher').getByRole('tab')).toHaveCount(7)
+  })
+})
+
+test.describe('telc level tabs', () => {
+  test('a link to #pruefung-<level> opens that level', async ({ page }) => {
+    await page.goto('/pruefungen/telc#pruefung-b2')
+    const tabs = page.locator('#aufbau').getByRole('tab')
+    await expect(tabs.filter({ hasText: /^B2$/ })).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('#aufbau [role="tabpanel"] h3')).toHaveText('telc Deutsch B2')
+  })
+
+  test('clicking an exam card selects its level', async ({ page }) => {
+    await page.goto('/pruefungen/telc')
+    await page
+      .locator('#pruefungen article', { hasText: 'C1 Hochschule' })
+      .getByRole('link')
+      .click()
+    await expect(page.locator('#aufbau [role="tabpanel"] h3')).toHaveText(
+      'telc Deutsch C1 Hochschule',
+    )
+  })
+
+  test('levels switch with the arrow keys', async ({ page }) => {
+    await page.goto('/pruefungen/telc#aufbau')
+    const tabs = page.locator('#aufbau').getByRole('tab')
+    await tabs.first().focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true')
+    await expect(tabs.nth(1)).toBeFocused()
   })
 })
 
@@ -185,12 +290,17 @@ test.describe('telc registration form', () => {
 
   test('a date picked in the table is taken over by the form', async ({ page }) => {
     await page.goto('/pruefungen/telc#anmeldung')
-    await page.evaluate(() =>
-      window.dispatchEvent(
-        new CustomEvent('telc:select', { detail: { examId: 'c1-hochschule', dateId: '' } }),
-      ),
-    )
-    await expect(page.locator('#examId')).toHaveValue('c1-hochschule')
+    // retry until the form is hydrated and listening
+    await expect
+      .poll(async () => {
+        await page.evaluate(() =>
+          window.dispatchEvent(
+            new CustomEvent('telc:select', { detail: { examId: 'c1-hochschule', dateId: '' } }),
+          ),
+        )
+        return page.locator('#examId').inputValue()
+      })
+      .toBe('c1-hochschule')
   })
 
   test('a valid entry is checked by the server and answered honestly', async ({ page }) => {

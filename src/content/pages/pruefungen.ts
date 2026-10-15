@@ -35,7 +35,7 @@ export const pruefungenPage: ContentPage = {
       id: 'unsere-pruefungen',
       eyebrow: 'Unsere Prüfungen',
       title: 'Prüfungen am ABC',
-      intro: 'Alle Prüfungen finden bei uns in Mainz statt.',
+      intro: 'Beide Prüfungen legen Sie direkt bei uns in Mainz ab.',
       variant: 'horizontal',
       cards: [
         {
@@ -63,28 +63,6 @@ export const pruefungenPage: ContentPage = {
           tag: 'Prüfung',
           facts: { duration: '60 Min.', location: 'Mainz', price: '25 € (BAMF)' },
           ctaLabel: 'Zum Einbürgerungstest',
-        },
-        {
-          id: 'c1-hochschule',
-          title: 'telc Deutsch C1 Hochschule',
-          description:
-            'Die Prüfung für den Hochschulzugang – bei uns als offiziellem telc Hochschulkompetenzzentrum.',
-          href: '/pruefungen/telc/telc-deutsch-c1-hochschule',
-          image: images.qmSchulung,
-          tag: 'Prüfung',
-          facts: { level: 'C1', location: 'Mainz', duration: 'ca. 216 Min.' },
-          ctaLabel: 'Zur Prüfung',
-        },
-        {
-          id: 'dtz',
-          title: 'Deutsch-Test für Zuwanderer (DTZ)',
-          description:
-            'Die Abschlussprüfung des Integrationskurses (Niveau A2 bis B1) – Teil unserer Integrationskurse.',
-          href: '/integrationskurse',
-          image: images.abcKursraum,
-          tag: 'Integrationskurs',
-          facts: { level: 'A2–B1', location: 'Mainz & Bad Kreuznach' },
-          ctaLabel: 'Zu den Integrationskursen',
         },
       ],
     },
@@ -119,7 +97,7 @@ export const pruefungenPage: ContentPage = {
           label: 'Studium',
           heading: 'Deutsch für den Hochschulzugang',
           text: 'Viele Hochschulen erkennen telc Deutsch C1 Hochschule als Sprachnachweis an. Die Anforderungen stehen in den Zulassungsbedingungen Ihrer Hochschule.',
-          items: ['telc Deutsch C1 Hochschule', 'Vorbereitungskurs C1 Hochschule am ABC'],
+          items: ['telc Deutsch C1 Hochschule'],
         },
         {
           id: 'beruf',
@@ -368,7 +346,7 @@ export const einbuergerungstestPage: ContentPage = {
     cta({
       title: 'Auch Deutsch auf B1 gesucht?',
       text: 'Den Sprachnachweis für die Einbürgerung erhalten Sie mit dem Zertifikat Deutsch / telc Deutsch B1 – ebenfalls bei uns.',
-      primary: { label: 'telc Deutsch B1', href: '/pruefungen/telc/telc-deutsch-b1' },
+      primary: { label: 'telc Deutsch B1', href: '/pruefungen/telc#pruefung-b1' },
       secondary: { label: 'Alle Prüfungen', href: '/pruefungen' },
     }),
   ],

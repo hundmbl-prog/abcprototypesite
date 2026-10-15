@@ -158,6 +158,8 @@ export type CardsBlock = BlockBase & {
   variant: CardVariant
   cards: OfferCardData[]
   cta?: NavLink
+  /** Classic variant only: photo with the info box below (no fact icons). */
+  simple?: boolean
   /** Optional filter chips by tag / level. */
   filterBy?: 'level'
 }
@@ -204,6 +206,51 @@ export type FeesBlock = BlockBase & {
 }
 export type RegistrationBlock = BlockBase & { type: 'telc-registration' }
 
+/** One course type in the style of a course catalogue: hours, target group, levels, contents, modules. */
+export type CourseType = {
+  id: string
+  icon: IconName
+  title: string
+  hours: string
+  summary: string
+  audience: string
+  levels: string[]
+  contents: string[]
+  modulesIntro?: string
+  modules: Array<{ badge: string; level: string; text: string }>
+}
+export type CourseTypesBlock = BlockBase & { type: 'course-types'; courses: CourseType[] }
+export type FeaturesBlock = BlockBase & {
+  type: 'features'
+  items: Array<{ icon: IconName; title: string; text: string }>
+}
+/** A detailed section (project or offer) that cards on the same page link to by its id. */
+export type SpotlightBlock = BlockBase & {
+  type: 'spotlight'
+  image: ContentImage
+  paragraphs: string[]
+  facts?: Array<{ label: string; value: string }>
+  lists?: Array<{ title: string; items: string[] }>
+  funding?: string
+  contact?: { label: string; email?: string; phone?: string }
+  link?: ResourceLink
+  /** Small link back to the card overview of the page. */
+  back?: NavLink
+  reverse?: boolean
+}
+export type ExamLevel = {
+  id: string
+  level: string
+  name: string
+  about: string[]
+  written: ExamPart[]
+  breakMinutes?: number
+  oral: { minutes: number; format: string; preparation?: string; text: string }
+  notes: string[]
+  links: ResourceLink[]
+}
+export type ExamLevelsBlock = BlockBase & { type: 'exam-levels'; levels: ExamLevel[] }
+
 export type PageBlock =
   | IntroBlock
   | CardsBlock
@@ -218,6 +265,10 @@ export type PageBlock =
   | ExamDatesBlock
   | FeesBlock
   | RegistrationBlock
+  | CourseTypesBlock
+  | FeaturesBlock
+  | SpotlightBlock
+  | ExamLevelsBlock
 
 export type ContentPage = {
   /** Path without leading slash, e.g. "pruefungen/telc". */
