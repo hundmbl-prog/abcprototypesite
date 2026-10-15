@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { ContactBand } from '@/components/home/ContactBand'
+import { CourseFinder } from '@/components/home/CourseFinder'
 import { HomeHero } from '@/components/home/HomeHero'
 import { LocationCards } from '@/components/home/LocationCards'
 import { NewsSlider } from '@/components/home/NewsSlider'
 import { OffersFilter } from '@/components/home/OffersFilter'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { PeopleSection } from '@/components/home/PeopleSection'
+import { ProcessSteps } from '@/components/home/ProcessSteps'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
@@ -23,10 +26,14 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 1 · Photo hero with glass quick access */}
-      <HomeHero hero={home.hero} nextId="angebote" />
+      {/* Sections alternate white / soft logo-blue (blue-50). */}
+      {/* Photo hero with glass quick access */}
+      <HomeHero hero={home.hero} nextId="kursfinder" />
 
-      {/* 2 · Soft blue: offers with animated filter, cards in light tints */}
+      {/* White: interactive course finder */}
+      <CourseFinder content={home.finder} />
+
+      {/* Blue: offers with animated filter */}
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
@@ -48,11 +55,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3 · Warm red world: news slideshow */}
+      {/* White: four steps with scroll-driven progress */}
+      <ProcessSteps content={home.steps} />
+
+      {/* Blue: news slideshow */}
       <section
         id="news"
         aria-labelledby="news-titel"
-        className="relative isolate overflow-hidden bg-surface py-section"
+        className="relative isolate overflow-hidden bg-blue-50 py-section"
       >
         <div className="container-page">
           <SectionHeader
@@ -69,14 +79,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 · White: stats and reasons */}
+      {/* White: stats and reasons */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
-      {/* 5 · Sky blue world: projects, text beside the photo */}
+      {/* Blue: projects slideshow */}
       <section
         id="projekte"
         aria-labelledby="projekte-titel"
-        className="relative isolate overflow-hidden bg-surface py-section"
+        className="relative isolate overflow-hidden bg-blue-50 py-section"
       >
         <div className="container-page">
           <SectionHeader
@@ -94,17 +104,17 @@ export default async function HomePage() {
         <ProjectsShowcase items={home.projects.items} />
       </section>
 
-      {/* 6 · Blush world: contact people */}
+      {/* White: contact people */}
       <PeopleSection content={home.people} />
 
-      {/* 7 · Light: partner cards */}
+      {/* Blue: partner logos */}
       <PartnerMarquee content={home.partners} />
 
-      {/* 8 · Compact locations on a soft logo-blue tint */}
+      {/* White: compact locations */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-blue-50 py-section-sm"
+        className="relative isolate overflow-hidden bg-surface py-section-sm"
       >
         <div className="container-page">
           <SectionHeader
@@ -116,6 +126,11 @@ export default async function HomePage() {
           <LocationCards locations={settings.locations} orgName={settings.name} />
         </div>
       </section>
+
+      {/* Blue: closing contact band */}
+      {settings.locations[0] ? (
+        <ContactBand content={home.contact} location={settings.locations[0]} />
+      ) : null}
     </>
   )
 }

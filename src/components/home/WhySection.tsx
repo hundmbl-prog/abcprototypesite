@@ -20,7 +20,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-blue-50 py-section"
+      className="relative isolate overflow-hidden bg-surface py-section"
     >
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">

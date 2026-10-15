@@ -118,6 +118,17 @@ export type OfferFilter = {
   /** card tags in this group; empty = all */ tags: string[]
 }
 
+export type FinderResult = { title: string; text: string; href: string }
+export type FinderOption = { id: string; label: string; hint?: string; result: FinderResult }
+export type FinderGoal = {
+  id: string
+  label: string
+  icon: 'book' | 'award' | 'pencil' | 'briefcase'
+  question: string
+  options: FinderOption[]
+}
+export type ProcessStep = { id: string; title: string; text: string }
+
 export type SectionIntro = { eyebrow: string; title: string; intro?: string }
 
 export type HomePage = {
@@ -129,4 +140,11 @@ export type HomePage = {
   people: SectionIntro & { items: Person[] }
   partners: SectionIntro & { items: Partner[] }
   locations: SectionIntro
+  finder: SectionIntro & {
+    goals: FinderGoal[]
+    adviceCta: NavLink
+    labels: { goalQuestion: string; result: string; resultCta: string; emptyHint: string }
+  }
+  steps: SectionIntro & { items: ProcessStep[]; cta: NavLink }
+  contact: SectionIntro & { primary: NavLink; primaryNote: string }
 }

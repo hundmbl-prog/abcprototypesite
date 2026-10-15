@@ -335,6 +335,186 @@ export const homePage: HomePage = {
     items: partners,
   },
 
+  finder: {
+    eyebrow: 'Kursfinder',
+    title: 'Was dürfen wir für Sie tun?',
+    intro: 'Zwei kurze Fragen – und Sie sehen sofort, welches Angebot zu Ihnen passt.',
+    adviceCta: { label: 'Lieber persönlich beraten lassen', href: '/ueber-uns/kontakt' },
+    labels: {
+      goalQuestion: 'Was suchen Sie?',
+      result: 'Unsere Empfehlung',
+      resultCta: 'Zum Angebot',
+      emptyHint: 'Wählen Sie eine Antwort – Ihre Empfehlung erscheint hier.',
+    },
+    goals: [
+      {
+        id: 'deutsch',
+        label: 'Deutsch lernen',
+        icon: 'book',
+        question: 'Wie gut sprechen Sie schon Deutsch?',
+        options: [
+          {
+            id: 'anfaenger',
+            label: 'Noch wenig',
+            hint: 'A1–A2',
+            result: {
+              title: 'Deutschkurse A1–A2',
+              text: 'Der Einstieg in die Sprache – in kleinen Gruppen mit erfahrenen Lehrkräften.',
+              href: '/sprachkurse/a1-a2',
+            },
+          },
+          {
+            id: 'fortgeschritten',
+            label: 'Schon gut',
+            hint: 'B1–B2',
+            result: {
+              title: 'Deutschkurse B1–B2',
+              text: 'Sicherer im Alltag und im Beruf – mit gezielter Prüfungsvorbereitung.',
+              href: '/sprachkurse/b1-b2',
+            },
+          },
+          {
+            id: 'experte',
+            label: 'Sehr gut',
+            hint: 'C1–C2',
+            result: {
+              title: 'C1 Hochschule',
+              text: 'Studienvorbereitender Intensivkurs mit 20 Unterrichtseinheiten pro Woche.',
+              href: '/sprachkurse/c1-hochschule',
+            },
+          },
+          {
+            id: 'integration',
+            label: 'Ich brauche einen Integrationskurs',
+            hint: 'A1–B1',
+            result: {
+              title: 'Allgemeiner Integrationskurs',
+              text: 'Sprachkurs in sechs Modulen und Orientierungskurs – mit Kinderbeaufsichtigung.',
+              href: '/integrationskurse/allgemeine',
+            },
+          },
+        ],
+      },
+      {
+        id: 'pruefung',
+        label: 'Eine Prüfung ablegen',
+        icon: 'award',
+        question: 'Welche Prüfung möchten Sie ablegen?',
+        options: [
+          {
+            id: 'telc',
+            label: 'telc Sprachprüfung',
+            hint: 'A1–C1',
+            result: {
+              title: 'telc Prüfungen',
+              text: 'Offizielle Sprachprüfungen direkt bei uns – Termine und Anmeldung online.',
+              href: '/pruefungen/telc',
+            },
+          },
+          {
+            id: 'einbuergerung',
+            label: 'Einbürgerungstest',
+            hint: 'Leben in Deutschland',
+            result: {
+              title: 'Einbürgerungstest',
+              text: 'Der Test „Leben in Deutschland“ – Ablauf, Termine und Vorbereitung.',
+              href: '/pruefungen/einbuergerungstest',
+            },
+          },
+        ],
+      },
+      {
+        id: 'nachhilfe',
+        label: 'Nachhilfe für mein Kind',
+        icon: 'pencil',
+        question: 'Wo möchten Sie die Nachhilfe besuchen?',
+        options: [
+          {
+            id: 'mainz',
+            label: 'In Mainz',
+            result: {
+              title: 'Nachhilfe in Mainz',
+              text: 'Alle Fächer, alle Schulformen – flexible Zeiten vor Ort.',
+              href: '/lernfoerderung/nachhilfe',
+            },
+          },
+          {
+            id: 'bad-kreuznach',
+            label: 'In Bad Kreuznach',
+            result: {
+              title: 'Nachhilfe in Bad Kreuznach',
+              text: 'Hilfe bei den Hausaufgaben – sprechen Sie uns zu den aktuellen Zeiten an.',
+              href: '/lernfoerderung/nachhilfe',
+            },
+          },
+        ],
+      },
+      {
+        id: 'beruf',
+        label: 'Beruf & Weiterbildung',
+        icon: 'briefcase',
+        question: 'Wobei dürfen wir Sie unterstützen?',
+        options: [
+          {
+            id: 'bsk',
+            label: 'Deutsch für den Beruf',
+            hint: 'BSK',
+            result: {
+              title: 'Berufssprachkurse',
+              text: 'Berufsbezogenes Deutsch für Ihren Weg in Arbeit und Ausbildung.',
+              href: '/sprachkurse/berufssprachkurse',
+            },
+          },
+          {
+            id: 'weiterbildung',
+            label: 'Weiterbildung',
+            result: {
+              title: 'Bildungsangebote',
+              text: 'Qualifizierungen und Schulungen – zum Beispiel für Kindertagespflegepersonen.',
+              href: '/bildungsangebote',
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  steps: {
+    eyebrow: 'So geht es los',
+    title: 'In vier Schritten zu Ihrem Kurs',
+    cta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
+    items: [
+      {
+        id: 'beratung',
+        title: 'Beratung',
+        text: 'Sie rufen an, schreiben uns oder kommen vorbei – wir besprechen Ihre Ziele.',
+      },
+      {
+        id: 'einstufung',
+        title: 'Einstufung',
+        text: 'Ein Einstufungstest – schriftlich und mündlich – zeigt, wo Sie starten.',
+      },
+      {
+        id: 'kursstart',
+        title: 'Kursstart',
+        text: 'Sie lernen in kleinen Gruppen mit erfahrenen Lehrkräften.',
+      },
+      {
+        id: 'abschluss',
+        title: 'Prüfung & Abschluss',
+        text: 'Ihre telc Prüfung legen Sie direkt bei uns vor Ort ab.',
+      },
+    ],
+  },
+
+  contact: {
+    eyebrow: 'Persönliche Beratung',
+    title: 'Wir sind gerne für Sie da',
+    intro: 'Rufen Sie uns an, schreiben Sie uns oder vereinbaren Sie einen Beratungstermin.',
+    primary: { label: 'Beratungstermin anfragen', href: '/ueber-uns/kontakt' },
+    primaryNote: 'Persönlich vor Ort',
+  },
+
   locations: {
     eyebrow: 'Standorte',
     title: 'So finden Sie uns',

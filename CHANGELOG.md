@@ -1,5 +1,15 @@
 # Changelog
 
+## Step 3i – More interactive, more corporate home page (2026-10-15)
+
+- **Kursfinder** (new, right after the hero): choose a goal (Deutsch lernen / Prüfung / Nachhilfe / Beruf), then a level or place, and get one recommended offer with a red "Zum Angebot" button plus a "Lieber persönlich beraten lassen" link. It uses native radio buttons (arrow keys and screen readers work), animated changes, and announces the result politely. All texts live in the content file.
+- **"In vier Schritten zu Ihrem Kurs"** (new): Beratung → Einstufung → Kursstart → Prüfung. A line fills as you scroll through the section and each step lights up when reached (GSAP ScrollTrigger); with reduced motion everything is shown complete. The step texts use facts from the current site (two-part placement test, small groups, telc exam on site).
+- **Contact band** (new, before the footer): three equal tiles – call, e-mail, and appointment request (red main action).
+- **Clean rhythm:** the 11 sections now strictly alternate white / soft logo-blue.
+- **New icons:** book, award, briefcase, pencil, chat, mail, phone.
+- **Tests:** 140 at 4 widths, including finder by mouse and keyboard, steps filling on scroll and contact band links.
+- **Lighthouse:** mobile 92, desktop 97; accessibility, best practices and SEO 100.
+
 ## Step 3h – Red section labels, uniform stats, no dates, autoplay projects (2026-10-15)
 
 - **Section labels:** the small label with the line at the top of every section ("— UNSERE ANGEBOTE" etc.) is now logo-red. The `accent` option on `SectionHeader` is removed.

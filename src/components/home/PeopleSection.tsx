@@ -105,7 +105,7 @@ export function PeopleSection({ content }: { content: HomePage['people'] }) {
     <section
       id="ansprechpartner"
       aria-labelledby="ansprechpartner-titel"
-      className="relative isolate overflow-hidden bg-blue-50 py-section"
+      className="relative isolate overflow-hidden bg-surface py-section"
     >
       <div className="container-page">
         <SectionHeader

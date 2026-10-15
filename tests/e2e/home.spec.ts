@@ -17,12 +17,15 @@ test.describe('Home page', () => {
     await page.goto('/')
     for (const id of [
       'start',
+      'kursfinder',
       'angebote',
+      'ablauf',
       'news',
       'projekte',
       'warum-abc',
       'ansprechpartner',
       'standorte',
+      'kontakt',
     ]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1)
     }
@@ -141,6 +144,57 @@ test.describe('Sliders', () => {
     await expect(live).toContainText('Projekt 1 von 6')
     await region.getByRole('button', { name: 'Nächstes Projekt' }).click()
     await expect(live).toContainText('Projekt 2 von 6')
+  })
+})
+
+test.describe('Course finder', () => {
+  test('goal → option → recommendation with link', async ({ page }) => {
+    await page.goto('/#kursfinder')
+    const finder = page.locator('#kursfinder')
+    await expect(finder.getByText('Ihre Empfehlung erscheint hier')).toBeVisible()
+    await finder.locator('label', { hasText: 'Eine Prüfung ablegen' }).click()
+    await expect(
+      finder.getByRole('group', { name: 'Welche Prüfung möchten Sie ablegen?' }),
+    ).toBeVisible()
+    await finder.locator('label', { hasText: 'Einbürgerungstest' }).click()
+    const link = finder.getByRole('link', { name: 'Zum Angebot' })
+    await expect(link).toHaveAttribute('href', '/pruefungen/einbuergerungstest')
+  })
+
+  test('works with the keyboard (radio arrows)', async ({ page }) => {
+    await page.goto('/#kursfinder')
+    const finder = page.locator('#kursfinder')
+    await finder.getByRole('radio', { name: 'Deutsch lernen' }).focus()
+    await page.keyboard.press('ArrowDown')
+    await expect(finder.getByRole('radio', { name: 'Eine Prüfung ablegen' })).toBeChecked()
+    await finder.getByRole('radio', { name: /telc Sprachprüfung/ }).focus()
+    await page.keyboard.press('Space')
+    await expect(finder.getByRole('link', { name: 'Zum Angebot' })).toHaveAttribute(
+      'href',
+      '/pruefungen/telc',
+    )
+  })
+})
+
+test.describe('Process steps and contact band', () => {
+  test('four steps light up while scrolling', async ({ page }) => {
+    await page.goto('/')
+    const steps = page.locator('#ablauf ol > li')
+    await expect(steps).toHaveCount(4)
+    await page.locator('#ablauf').evaluate((el) => el.scrollIntoView({ block: 'start' }))
+    await page.mouse.wheel(0, 900)
+    await expect(steps.nth(3).locator('span').first()).toHaveClass(/bg-blue-600/, { timeout: 5000 })
+  })
+
+  test('contact band offers phone, e-mail and appointment', async ({ page }) => {
+    await page.goto('/')
+    const band = page.locator('#kontakt')
+    await expect(band.locator('a[href^="tel:"]')).toHaveCount(1)
+    await expect(band.locator('a[href^="mailto:"]')).toHaveCount(1)
+    await expect(band.getByRole('link', { name: /Beratungstermin anfragen/ })).toHaveAttribute(
+      'href',
+      '/ueber-uns/kontakt',
+    )
   })
 })
 
