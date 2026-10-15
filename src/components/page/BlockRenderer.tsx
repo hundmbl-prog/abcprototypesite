@@ -13,13 +13,15 @@ import {
   StepsBlock,
 } from './blocks'
 import { CourseTypes, Features, Spotlight } from './catalog'
+import { Article, Contacts, FormSection, Locations, Press } from './extra'
 import { ExamDates } from './ExamDates'
+import { Gallery } from './Gallery'
 import { ExamLevels } from './ExamLevels'
 import { ExamStructure } from './ExamStructure'
 import { TabsBlock } from './TabsBlock'
 import { TelcRegistrationForm } from './TelcRegistrationForm'
 
-type Data = { locations: Location[]; exams: TelcExam[]; dates: ExamDate[] }
+type Data = { locations: Location[]; orgName: string; exams: TelcExam[]; dates: ExamDate[] }
 
 function Block({ block, data }: { block: PageBlock; data: Data }) {
   const main = data.locations[0]
@@ -44,6 +46,18 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
       return <Features block={block} />
     case 'spotlight':
       return <Spotlight block={block} />
+    case 'form':
+      return <FormSection block={block} phone={main?.phone ?? ''} email={main?.email ?? ''} />
+    case 'contacts':
+      return <Contacts block={block} />
+    case 'locations':
+      return <Locations block={block} locations={data.locations} orgName={data.orgName} />
+    case 'gallery':
+      return <Gallery block={block} />
+    case 'press':
+      return <Press block={block} />
+    case 'article':
+      return <Article block={block} />
     case 'faq':
       return <FaqBlock block={block} />
     case 'links':

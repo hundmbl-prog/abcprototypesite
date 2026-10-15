@@ -18,6 +18,22 @@ const pages = [
   '/projekte',
   '/bildungsangebote',
   '/lernfoerderung',
+  '/paedagogische-angebote',
+  '/ueber-uns',
+  '/ueber-uns/kontakt',
+  '/formulare',
+  '/news',
+  '/news/wir-sind-offizielles-telc-hochschulkompetenzzentrum',
+  '/news/qualifizierung-von-kindertagespflegepersonen',
+  '/news/jugendintegrationskurs-mit-100-prozent-erfolg',
+  '/news/frauenintegrationskurs',
+  '/news/schulung-zum-qualitaets-manager',
+  '/news/jetzt-kostenlose-nachhilfe-in-bad-kreuznach',
+  '/presse',
+  '/fotogalerie',
+  '/impressum',
+  '/datenschutz',
+  '/hausordnung',
 ]
 
 /** Each form test gets its own client address, so the rate limit never mixes tests. */
@@ -54,6 +70,8 @@ test.describe('Content pages', () => {
       '/projekte',
       '/bildungsangebote',
       '/lernfoerderung',
+      '/ueber-uns',
+      '/news',
     ]) {
       await page.goto(path)
       const hrefs = await page
@@ -146,6 +164,9 @@ test.describe('Kurse, Projekte, Bildungsangebote', () => {
   for (const [path, list] of [
     ['/projekte', '#projekte'],
     ['/bildungsangebote', '#angebote'],
+    ['/paedagogische-angebote', '#angebote'],
+    ['/ueber-uns', '#bereiche'],
+    ['/formulare', '#uebersicht'],
   ] as const) {
     test(`${path}: every card jumps to an existing detail section`, async ({ page }) => {
       await page.goto(path)
@@ -339,5 +360,143 @@ test.describe('telc registration form', () => {
     }
     await submit.click()
     await expect(form.getByText(/Zu viele Versuche/)).toBeVisible()
+  })
+})
+
+test.describe('General forms', () => {
+  async function newVisitor(page: Page) {
+    const n = () => Math.floor(Math.random() * 250)
+    await page.setExtraHTTPHeaders({ 'x-forwarded-for': `10.${n()}.${n()}.${n()}` })
+  }
+  const formOf = (page: Page, formId: string) =>
+    page.locator(`form[aria-describedby="${formId}-hinweis"]`)
+
+  for (const [path, formId] of [
+    ['/ueber-uns/kontakt', 'kontakt'],
+    ['/formulare', 'beschwerde'],
+    ['/formulare', 'bildung-und-teilhabe'],
+    ['/ueber-uns', 'mitgliedschaft'],
+    ['/ueber-uns', 'bewerbung'],
+  ] as const) {
+    test(`${formId}: empty submit shows errors, honeypot stays hidden`, async ({ page }) => {
+      await page.goto(path)
+      const form = formOf(page, formId)
+      await form.scrollIntoViewIfNeeded()
+      await expect(form.locator(`#${formId}-website`)).not.toBeInViewport()
+      await form.locator('button[type="submit"]').click()
+      await expect(form.getByText('Bitte stimmen Sie der Datenverarbeitung zu.')).toBeVisible()
+      await expect(form.locator('[aria-invalid="true"]').first()).toBeVisible()
+    })
+  }
+
+  test('contact form: a valid message is checked by the server and answered honestly', async ({
+    page,
+  }) => {
+    await newVisitor(page)
+    await page.goto('/ueber-uns/kontakt')
+    const form = formOf(page, 'kontakt')
+    await form.locator('#kontakt-name').fill('Erika Musterfrau')
+    await form.locator('#kontakt-email').fill('erika@example.org')
+    await form.locator('#kontakt-location').selectOption('Mainz')
+    await form.locator('#kontakt-topic').selectOption('Kurse')
+    await form.locator('#kontakt-message').fill('Ich interessiere mich für einen B1-Kurs.')
+    await form.locator('#kontakt-privacy').check()
+    await form.locator('button[type="submit"]').click()
+    await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
+    await expect(form.getByText(/Ihre Daten wurden nicht gesendet/)).toBeVisible()
+  })
+
+  test('complaint form works anonymously', async ({ page }) => {
+    await newVisitor(page)
+    await page.goto('/formulare#beschwerde')
+    const form = formOf(page, 'beschwerde')
+    await form.locator('#beschwerde-area').selectOption('Kurs')
+    await form.locator('#beschwerde-message').fill('Der Raum war zu kalt.')
+    await form.locator('#beschwerde-privacy').check()
+    await form.locator('button[type="submit"]').click()
+    await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
+  })
+
+  test('application form accepts only a PDF', async ({ page }) => {
+    await newVisitor(page)
+    await page.goto('/ueber-uns#bewerben')
+    const form = formOf(page, 'bewerbung')
+    await form.locator('#bewerbung-firstName').fill('Max')
+    await form.locator('#bewerbung-lastName').fill('Mustermann')
+    await form.locator('#bewerbung-email').fill('max@example.org')
+    await form.locator('#bewerbung-phone').fill('06131 123456')
+    await form.locator('#bewerbung-position').selectOption('Initiativbewerbung')
+    await form.locator('#bewerbung-privacy').check()
+    await form
+      .locator('#bewerbung-cv')
+      .setInputFiles({ name: 'cv.txt', mimeType: 'text/plain', buffer: Buffer.from('Lebenslauf') })
+    await form.locator('button[type="submit"]').click()
+    await expect(form.getByText('Bitte laden Sie eine PDF-Datei hoch.')).toBeVisible()
+    await form
+      .locator('#bewerbung-cv')
+      .setInputFiles({
+        name: 'cv.pdf',
+        mimeType: 'application/pdf',
+        buffer: Buffer.from('%PDF-1.4 test'),
+      })
+    await form.locator('button[type="submit"]').click()
+    await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
+  })
+
+  test('the server rate-limits repeated messages', async ({ page }) => {
+    await newVisitor(page)
+    await page.goto('/formulare#beschwerde')
+    const form = formOf(page, 'beschwerde')
+    await form.locator('#beschwerde-area').selectOption('Sonstiges')
+    await form.locator('#beschwerde-message').fill('Test der Begrenzung.')
+    await form.locator('#beschwerde-privacy').check()
+    const submit = form.locator('button[type="submit"]')
+    for (let i = 0; i < 5; i++) {
+      await submit.click()
+      await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
+    }
+    await submit.click()
+    await expect(form.getByText(/Zu viele Versuche/)).toBeVisible()
+  })
+})
+
+test.describe('Gallery, news and legal pages', () => {
+  test('gallery: album filter and lightbox with arrow keys and Escape', async ({ page }) => {
+    await page.goto('/fotogalerie#fotos')
+    const grid = page.locator('#fotos ul > li')
+    const total = await grid.count()
+    expect(total).toBeGreaterThan(20)
+    const albums = page.getByRole('group', { name: 'Nach Album filtern' })
+    await albums.getByRole('button', { name: /^Projekte/ }).click()
+    await expect(grid).toHaveCount(4)
+    await albums.getByRole('button', { name: /^Alle/ }).click()
+    await expect(grid).toHaveCount(total)
+    await grid.first().getByRole('button').click()
+    const dialog = page.getByRole('dialog', { name: 'Foto-Ansicht' })
+    await expect(dialog).toBeVisible()
+    await expect(dialog.getByText(`1 / ${total}`)).toBeVisible()
+    await page.keyboard.press('ArrowRight')
+    await expect(dialog.getByText(`2 / ${total}`)).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(dialog).toBeHidden()
+  })
+
+  test('news can be filtered by topic', async ({ page }) => {
+    await page.goto('/news#beitraege')
+    const section = page.locator('#beitraege')
+    await expect(section.locator('article')).toHaveCount(6)
+    await section.getByRole('button', { name: /^Integrationskurse/ }).click()
+    await expect(section.locator('article')).toHaveCount(2)
+  })
+
+  test('legal pages: the table of contents links to every section, review note shown', async ({
+    page,
+  }) => {
+    await page.goto('/impressum')
+    const toc = page.getByRole('navigation', { name: 'Inhaltsverzeichnis' }).getByRole('link')
+    const ids = await toc.evaluateAll((links) => links.map((a) => a.getAttribute('href')!.slice(1)))
+    expect(ids.length).toBeGreaterThan(3)
+    for (const id of ids) await expect(page.locator(`section#${id}`)).toHaveCount(1)
+    await expect(page.getByText(/Vor dem Livegang prüfen/)).toBeVisible()
   })
 })

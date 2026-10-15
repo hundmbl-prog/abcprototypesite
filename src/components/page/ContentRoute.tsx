@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BlockRenderer } from '@/components/page/BlockRenderer'
+import { LegalPage } from '@/components/page/LegalPage'
 import { PageHero } from '@/components/page/PageHero'
 import type { Crumb } from '@/components/page/Breadcrumbs'
 import {
@@ -81,12 +82,19 @@ export function contentRoute(section: string) {
           }
         : null
 
+    if (page.legal) return <LegalPage page={page} crumbs={crumbs} siteUrl={SITE_URL} />
+
     return (
       <>
         <PageHero hero={page.hero} crumbs={crumbs} siteUrl={SITE_URL} />
         <BlockRenderer
           blocks={page.blocks}
-          data={{ locations: settings.locations, exams: telc.exams, dates: telc.dates }}
+          data={{
+            locations: settings.locations,
+            orgName: settings.name,
+            exams: telc.exams,
+            dates: telc.dates,
+          }}
         />
         {courseJsonLd ? (
           <script

@@ -144,13 +144,13 @@ export const mainNavigation: NavSection[] = [
       },
       {
         label: 'Sozialpädagogische Familienhilfe',
-        href: '/paedagogische-angebote/familienhilfe',
+        href: '/paedagogische-angebote#familienhilfe',
         description: 'Begleitung im Familienalltag',
         image: images.paedagogik,
       },
       {
         label: 'Erziehungsbeistand',
-        href: '/paedagogische-angebote/erziehungsbeistand',
+        href: '/paedagogische-angebote#erziehungsbeistand',
         description: 'Unterstützung für junge Menschen',
         image: images.paedagogik,
       },
@@ -199,16 +199,16 @@ export const mainNavigation: NavSection[] = [
     intro: 'Seit 1997 ein Ort, an dem Menschen ankommen und sich willkommen fühlen.',
     image: images.jugendErfolg,
     links: [
-      { label: 'Warum ABC?', href: '/ueber-uns/warum-abc', description: 'Was uns ausmacht' },
+      { label: 'Warum ABC?', href: '/ueber-uns#warum-abc', description: 'Was uns ausmacht' },
       {
         label: 'Mitgliedschaft',
-        href: '/ueber-uns/mitgliedschaft',
+        href: '/ueber-uns#mitgliedschaft',
         description: 'Den Verein unterstützen',
       },
-      { label: 'Jobs', href: '/ueber-uns/jobs', description: 'Arbeiten beim ABC e.V.' },
+      { label: 'Jobs', href: '/ueber-uns#jobs', description: 'Arbeiten beim ABC e.V.' },
       {
         label: 'Machen Sie mit!',
-        href: '/ueber-uns/machen-sie-mit',
+        href: '/ueber-uns#machen-sie-mit',
         description: 'Ehrenamt und Engagement',
       },
       {
@@ -243,7 +243,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
       { label: 'News', href: '/news' },
       { label: 'Presse', href: '/presse' },
       { label: 'Fotogalerie', href: '/fotogalerie' },
-      { label: 'Jobs', href: '/ueber-uns/jobs' },
+      { label: 'Jobs', href: '/ueber-uns#jobs' },
     ],
   },
   {
@@ -251,8 +251,8 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
     links: [
       { label: 'Kontakt', href: '/ueber-uns/kontakt' },
       { label: 'Formulare', href: '/formulare' },
-      { label: 'Beschwerdeformular', href: '/formulare/beschwerde' },
-      { label: 'Mitgliedschaft', href: '/ueber-uns/mitgliedschaft' },
+      { label: 'Beschwerdeformular', href: '/formulare#beschwerde' },
+      { label: 'Mitgliedschaft', href: '/ueber-uns#mitgliedschaft' },
     ],
   },
 ]

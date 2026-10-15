@@ -13,36 +13,41 @@ export function FilteredCards({
   cards,
   variant,
   label,
+  by = 'level',
 }: {
   cards: OfferCardData[]
   variant: CardVariant
   label: string
+  by?: 'level' | 'tag'
 }) {
   const reduce = useReducedMotion()
+  const keyOf = (c: OfferCardData) => (by === 'tag' ? c.tag : c.facts?.level)
   const levels = useMemo(
     () => [
       ALL,
-      ...Array.from(new Set(cards.map((c) => c.facts?.level).filter((l): l is string => !!l))),
+      ...Array.from(
+        new Set(
+          cards.map((c) => (by === 'tag' ? c.tag : c.facts?.level)).filter((l): l is string => !!l),
+        ),
+      ),
     ],
-    [cards],
+    [cards, by],
   )
   const [active, setActive] = useState(ALL)
-  const visible = active === ALL ? cards : cards.filter((c) => c.facts?.level === active)
+  const visible = active === ALL ? cards : cards.filter((c) => keyOf(c) === active)
 
   return (
     <div className="flex flex-col gap-8">
       <div
         role="group"
-        aria-label={`${label} nach Niveau filtern`}
+        aria-label={`${label} nach ${by === 'tag' ? 'Kategorie' : 'Niveau'} filtern`}
         className="flex flex-wrap gap-2"
       >
         {levels.map((level) => (
           <FilterChip
             key={level}
             selected={active === level}
-            count={
-              level === ALL ? cards.length : cards.filter((c) => c.facts?.level === level).length
-            }
+            count={level === ALL ? cards.length : cards.filter((c) => keyOf(c) === level).length}
             onClick={() => setActive(level)}
           >
             {level}

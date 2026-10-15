@@ -2,6 +2,24 @@
  * Placeholder photos (taken from the current abc-mainz.de media, stored locally).
  * In Step 5 these come from the Payload media collection instead.
  */
+import g00459 from '@/assets/gallery/dsc00459.jpg'
+import g00460 from '@/assets/gallery/dsc00460.jpg'
+import g00463 from '@/assets/gallery/dsc00463.jpg'
+import g00467 from '@/assets/gallery/dsc00467.jpg'
+import g00468 from '@/assets/gallery/dsc00468.jpg'
+import g00477 from '@/assets/gallery/dsc00477.jpg'
+import g03431 from '@/assets/gallery/dsc03431.jpg'
+import g03432 from '@/assets/gallery/dsc03432.jpg'
+import g03443 from '@/assets/gallery/dsc03443.jpg'
+import g03445 from '@/assets/gallery/dsc03445.jpg'
+import g03461 from '@/assets/gallery/dsc03461.jpg'
+import g03465 from '@/assets/gallery/dsc03465.jpg'
+import g03427 from '@/assets/gallery/dsc03427.jpg'
+import g03438 from '@/assets/gallery/dsc03438.jpg'
+import g03419 from '@/assets/gallery/dsc03419.jpg'
+import g03458 from '@/assets/gallery/dsc03458.jpg'
+import g03447 from '@/assets/gallery/dsc03447.jpg'
+import g03454 from '@/assets/gallery/dsc03454.jpg'
 import abcUnterricht from '@/assets/photos/dsc00475.jpg'
 import abcTelc from '@/assets/photos/dsc03421.jpg'
 import abcTafel from '@/assets/photos/dsc00466.jpg'
@@ -70,6 +88,27 @@ export const images = {
   abcWhiteboard: img(abcWhiteboard, 'Deutsche Beispielsätze an einem Whiteboard im Unterricht'),
   abcLernen: img(abcLernen, 'Junge Erwachsene lösen im Unterricht schriftliche Aufgaben'),
   abcSeminarraum: img(abcSeminarraum, 'Heller Seminarraum im ABC mit digitalen Tafeln'),
+  g00459: img(g00459, 'Lehrerin schreibt an die digitale Tafel, Kursteilnehmende im Vordergrund'),
+  g00460: img(g00460, 'Lehrerin zeigt eine Aufgabe an der digitalen Tafel'),
+  g00463: img(g00463, 'Blick in einen Kursraum mit Teilnehmenden und Lehrerin an der Tafel'),
+  g00467: img(g00467, 'Lehrerin erklärt vor der digitalen Tafel'),
+  g00468: img(g00468, 'Teilnehmende arbeiten an Tischen am Fenster'),
+  g00477: img(g00477, 'Lehrerin schreibt an ein Whiteboard'),
+  g03431: img(g03431, 'Kursraum mit blauen Stühlen und Tischreihen'),
+  g03432: img(g03432, 'Heller Kursraum mit Whiteboard und Tischen'),
+  g03443: img(g03443, 'Großer Seminarraum mit Tischreihen und Bildschirmen'),
+  g03445: img(g03445, 'Seminarraum mit Tischen vor hellen Fenstern'),
+  g03461: img(g03461, 'Beratungsraum mit rundem Tisch und Bildern an der Wand'),
+  g03465: img(g03465, 'Kursraum mit großem Bildschirm und Tischreihen'),
+  g03427: img(g03427, 'Wartebereich mit Stühlen und Pflanzen'),
+  g03438: img(
+    g03438,
+    'Wand mit der Wertewolke des ABC, unter anderem Familie, Solidarität, Menschlichkeit und Vielfalt',
+  ),
+  g03419: img(g03419, 'Schild des Akademischen Bildungs-Centers an einer Wand'),
+  g03458: img(g03458, 'Eingangsschild des Akademischen Bildungs-Centers am Gebäude'),
+  g03447: img(g03447, 'Hochhaus vor blauem Himmel'),
+  g03454: img(g03454, 'Wand mit gemalten Kinderbildern zum Thema Zukunft'),
   team: img(team, 'Gruppenfoto bei einer Fotoausstellung'),
   gruppe: img(qmSchulung, 'Gesprächsrunde in einem hellen Raum mit Pflanzen'),
   projektStrassenfotografie: img(

@@ -1,5 +1,79 @@
 # Changelog
 
+## Step 4 (part 2) – Remaining pages: Pädagogische Angebote, Über uns, Kontakt, Formulare, News, Presse, Fotogalerie, legal pages (2026-10-15)
+
+Decisions from 15.10.2026:
+
+- Über uns is one page plus a separate Kontakt page.
+- Forms are built now and connected in Step 6.
+- Impressum and Datenschutz are carried over unchanged and marked for review.
+- The gallery uses web copies of the Drive photos.
+
+**Pages (all "same style" – cards that jump to detail sections where it fits)**
+
+- `/paedagogische-angebote`: Familienhilfe and Erziehungsbeistand as cards and sections, the way to support in 4 steps, and contact via sozialarbeit@.
+- `/ueber-uns`:
+  - history, then cards leading to the sections Warum ABC, Mitgliedschaft, Machen Sie mit and Jobs
+  - membership form, the three job areas and the application form with PDF upload
+- `/ueber-uns/kontakt`: both locations (live status, opening hours, map only after consent), contacts by topic from the old site (integration@, bsk@, pruefungen@, sprachkurse@, nachhilfe@, viona@, sozialarbeit@, badkreuznach@) and the contact form.
+- `/formulare`: the complaint form (anonymous possible) and the Bildung und Teilhabe enquiry.
+- `/news` and 6 article pages:
+  - a category filter on the overview
+  - older items in the past tense with the year in the text, and no separate dates
+  - the home slider links to the article pages
+- `/presse`: the press review from the old site (outlet, date, headline).
+- `/fotogalerie`:
+  - 28 photos in 4 albums with a filter, a masonry grid and a lightbox (native dialog, arrow keys, Escape)
+  - 18 new photos are 2400 px web copies of the Drive originals, which stay untouched
+- `/impressum`, `/datenschutz`, `/hausordnung`:
+  - a clean legal layout with a sticky table of contents
+  - texts word for word from the old site, with visible review notes
+
+**Forms**
+
+- One definition per form (Kontakt, Beschwerde, Bildung und Teilhabe, Mitgliedschaft, Bewerbung). The browser and the server build the same zod schema from it.
+- Every form has a honeypot, a rate limit, a loading state and honest status messages.
+- The PDF check (at most 5 MB) runs on both sides, and the server-action body limit is 6 MB.
+- Delivery by e-mail and storage in the CMS follow in Step 6.
+
+**Not carried over on purpose**
+
+- The donation bank details: the old site shows two different accounts, so donations are handled via "Schreiben Sie uns".
+- Job salaries and start dates (from 2023), and a Bad Kreuznach address that differs from the current one.
+- The empty or test news posts.
+
+**Review before launch**
+
+- Impressum: DDG instead of TMG; the EU dispute-resolution platform was shut down; postal code; contact details and representatives.
+- Datenschutz:
+  - IONOS hosting and analytics, Facebook/Instagram, Google Fonts and Google Maps are no longer used
+  - map consent, the new hosting and the forms must be added
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 400 tests at 4 widths – 382 passed and 4 skipped in the full run.
+  - 14 timed out at the start of a width, while the image cache (cleared for disk space) resized the 24-megapixel originals for the first time.
+  - Re-run with a warm cache: all 14 passed.
+- New tests:
+  - all 20 pages (structure, console, axe, overflow)
+  - cards → sections, menu links
+  - every form: empty submit, honeypot, valid entry, anonymous complaint, PDF check, rate limit
+  - gallery filter and lightbox, news filter, legal table of contents
+- Lighthouse:
+  - /ueber-uns: mobile 86, desktop 98.
+  - /fotogalerie: mobile 89, desktop 98.
+  - Accessibility, best practices and SEO 100.
+  - Mobile LCP is about 4 s – open for the performance step.
+
+**Other changes**
+
+- Card grids with 2 or 4 cards fill whole rows.
+- The card filter can also filter by category.
+- Long words in legal headings now wrap.
+- Navigation and footer point to the new sections.
+- The telc, BSK and Integrationskurse contact boxes use the department addresses (pruefungen@, bsk@, integration@).
+
 ## Step 4 (part 1b) – New structure: Kurse, Prüfungen, Projekte, Bildungsangebote, Lernförderung (2026-10-15)
 
 Decisions from 15.10.2026: Kurse gets an overview plus 3 pages; the other course pages are merged in. Prüfungen keeps the ABC format, and telc becomes one page. Projekte becomes one page with all current projects.

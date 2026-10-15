@@ -6,7 +6,7 @@ import type { OfferCardData } from '@/components/cards/types'
 import { images } from '../images'
 import { telcExams } from '../exams'
 import type { ContentImage, ContentPage, ExamLevel, ExamPart } from '../types'
-import { CONTACT_EMAIL_GENERAL, contact, telcLinks } from './shared'
+import { contact, telcLinks } from './shared'
 
 type ExamInfo = {
   id: string
@@ -468,7 +468,7 @@ export const telcPage: ContentPage = {
     },
     contact(
       'Sie sind unsicher, welche Prüfung Sie brauchen? Wir beraten Sie gerne persönlich oder am Telefon.',
-      CONTACT_EMAIL_GENERAL,
+      'pruefungen@abc-mainz.de',
     ),
   ],
 }

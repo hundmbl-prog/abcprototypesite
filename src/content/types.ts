@@ -4,6 +4,7 @@
  */
 import type { CardImageData, CardVariant, OfferCardData } from '@/components/cards/types'
 import type { IconName } from '@/components/ui/Icon'
+import type { FormId } from '@/lib/forms/definitions'
 
 export type ContentImage = CardImageData
 
@@ -160,8 +161,8 @@ export type CardsBlock = BlockBase & {
   cta?: NavLink
   /** Classic variant only: photo with the info box below (no fact icons). */
   simple?: boolean
-  /** Optional filter chips by tag / level. */
-  filterBy?: 'level'
+  /** Optional filter chips by level fact or by category tag. */
+  filterBy?: 'level' | 'tag'
 }
 export type ColumnsBlock = BlockBase & {
   type: 'columns'
@@ -251,6 +252,27 @@ export type ExamLevel = {
 }
 export type ExamLevelsBlock = BlockBase & { type: 'exam-levels'; levels: ExamLevel[] }
 
+export type FormBlock = BlockBase & {
+  type: 'form'
+  formId: FormId
+  /** Short points shown beside the form. */
+  points?: string[]
+  /** Address for the "send us an e-mail instead" note. */
+  email?: string
+}
+export type ContactsBlock = BlockBase & {
+  type: 'contacts'
+  items: Array<{ icon: IconName; title: string; text?: string; email?: string; phone?: string }>
+}
+export type LocationsBlock = BlockBase & { type: 'locations' }
+export type GalleryItem = { image: ContentImage; album: string; caption: string }
+export type GalleryBlock = BlockBase & { type: 'gallery'; items: GalleryItem[] }
+export type PressBlock = BlockBase & {
+  type: 'press'
+  items: Array<{ outlet: string; date: string; title: string }>
+}
+export type ArticleBlock = BlockBase & { type: 'article'; paragraphs: string[]; points?: string[] }
+
 export type PageBlock =
   | IntroBlock
   | CardsBlock
@@ -269,6 +291,23 @@ export type PageBlock =
   | FeaturesBlock
   | SpotlightBlock
   | ExamLevelsBlock
+  | FormBlock
+  | ContactsBlock
+  | LocationsBlock
+  | GalleryBlock
+  | PressBlock
+  | ArticleBlock
+
+export type LegalContent = {
+  intro?: string
+  /** Shown as a note at the top, e.g. what must be checked before launch. */
+  reviewNote?: string
+  sections: Array<{
+    id: string
+    title: string
+    content: Array<{ type: 'p' | 'h3'; text: string } | { type: 'ul'; items: string[] }>
+  }>
+}
 
 export type ContentPage = {
   /** Path without leading slash, e.g. "pruefungen/telc". */
@@ -280,6 +319,8 @@ export type ContentPage = {
   blocks: PageBlock[]
   /** Optional structured data type for this page. */
   schema?: 'Course' | 'Exam'
+  /** Legal pages: clean text layout with a sticky table of contents instead of blocks. */
+  legal?: LegalContent
 }
 
 /* ───────────────────────── telc exams and exam dates (Payload collections in Step 5) */

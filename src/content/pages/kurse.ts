@@ -549,7 +549,7 @@ const bskPage: ContentPage = {
     },
     contact(
       'Sie möchten einen Berufssprachkurs besuchen oder haben Fragen zur Förderung? Wir beraten Sie kostenlos.',
-      CONTACT_EMAIL_COURSES,
+      'bsk@abc-mainz.de',
     ),
     cta({
       title: 'Bereit für den nächsten Schritt im Beruf?',
@@ -801,6 +801,7 @@ const integrationPage: ContentPage = {
     },
     contact(
       'Sie suchen einen Integrationskurs oder haben schon eine Berechtigung? Wir beraten Sie kostenlos und finden den passenden Kurs.',
+      'integration@abc-mainz.de',
     ),
     cta({
       title: 'Bereit für Ihren Integrationskurs?',

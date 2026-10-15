@@ -10,6 +10,8 @@ export default function config(phase: string): NextConfig {
     distDir: phase === PHASE_DEVELOPMENT_SERVER ? '.next-dev' : '.next',
     reactStrictMode: true,
     poweredByHeader: false,
+    // job applications may carry a PDF of up to 5 MB
+    experimental: { serverActions: { bodySizeLimit: '6mb' } },
     images: {
       formats: ['image/avif', 'image/webp'],
       deviceSizes: [375, 640, 768, 1024, 1280, 1536, 1920],

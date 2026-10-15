@@ -107,7 +107,12 @@ export function CardsBlock({ block }: { block: CardsData }) {
         }
       />
       {block.filterBy ? (
-        <FilteredCards cards={block.cards} variant={block.variant} label={block.title} />
+        <FilteredCards
+          cards={block.cards}
+          variant={block.variant}
+          label={block.title}
+          by={block.filterBy}
+        />
       ) : (
         <OfferCards
           cards={block.cards}

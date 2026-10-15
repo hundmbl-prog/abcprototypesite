@@ -135,7 +135,7 @@ export const homePage: HomePage = {
         slug: 'jetzt-kostenlose-nachhilfe-in-bad-kreuznach',
         title: 'Kostenlose Nachhilfe in Bad Kreuznach',
         excerpt:
-          'Jeden Mittwoch und Samstag von 17 bis 20 Uhr gibt es bei uns Hilfe bei den Hausaufgaben – ermöglicht durch das Programm „Aufholen nach Corona“.',
+          'Mit dem Programm „Aufholen nach Corona“ boten wir in Bad Kreuznach kostenlose Hausaufgabenhilfe an.',
         date: '2022-05-24',
         category: 'Lernförderung',
         image: images.nachhilfeBadKreuznach,
