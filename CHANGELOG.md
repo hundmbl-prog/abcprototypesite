@@ -1,5 +1,21 @@
 # Changelog
 
+## Step 4 (part 5) – Spotlight photos shown in full (2026-10-16)
+
+Requested on 16.10.2026: no large photo with the text on top; the whole photo should be visible, beside or below the text, and not too big.
+
+- The large-photo layout with the text panel on top was removed on all pages.
+- Every spotlight (projects, Über uns, Bildungsangebote, Pädagogik) now shows its photo uncropped at its natural shape:
+  - on desktop, beside the text in the narrower column
+  - on mobile, above the text
+- The key facts stay as blue tiles under the photo, and the photo side keeps alternating left/right.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 404 tests at 4 widths – 398 passed, 6 skipped (desktop- or mobile-only).
+- Screenshots of /projekte at 1440 and 390 px.
+
 ## Step 4 (part 4) – Blue footer, combined closing card, more varied sections (2026-10-15)
 
 Decisions from 15.10.2026: the footer becomes blue; texts are shortened and repeats merged without losing facts; text boxes get mixed styles per page.

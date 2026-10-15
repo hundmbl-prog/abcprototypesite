@@ -170,14 +170,14 @@ function SpotlightImage({
       placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
       blurDataURL={block.image.blurDataURL}
       className={cn(
-        'size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105',
+        'h-auto w-full transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105',
         className,
       )}
     />
   )
 }
 
-/** Heading, text, lists, funding note and actions – shared by both spotlight layouts. */
+/** Heading, text, lists, funding note and actions of a spotlight. */
 function SpotlightBody({ block }: { block: SpotlightBlock }) {
   return (
     <>
@@ -269,56 +269,15 @@ function SpotlightBody({ block }: { block: SpotlightBlock }) {
 
 /**
  * Detailed section for one project or offer; cards on the same page link here by id.
- * "split": photo with facts beside the text. "photo": the text sits on a white panel
- * over a large photo, facts as a strip – the BlockRenderer alternates both on a page.
+ * The photo is shown whole (no cropping) beside the text, with the key facts below it.
  */
-export function Spotlight({
-  block,
-  variant = 'split',
-}: {
-  block: SpotlightBlock
-  variant?: 'split' | 'photo'
-}) {
-  if (variant === 'photo') {
-    return (
-      <div className="group relative overflow-hidden rounded-2xl shadow-lg lg:flex lg:min-h-[40rem] lg:items-center lg:p-10">
-        <div
-          data-reveal="image"
-          className="relative aspect-4/3 overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto"
-        >
-          <SpotlightImage block={block} sizes="(min-width: 1024px) 90vw, 100vw" />
-        </div>
-        <div
-          className={cn(
-            'relative flex flex-col gap-6 overflow-hidden bg-surface p-6 md:p-10 lg:w-[58%] lg:rounded-2xl lg:shadow-(--shadow-float)',
-            block.reverse ? 'lg:mr-auto' : 'lg:ml-auto',
-          )}
-        >
-          <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
-          <SpotlightBody block={block} />
-          {block.facts?.length ? (
-            <dl className="grid grid-cols-1 gap-3 border-t border-line pt-5 sm:grid-cols-2">
-              {block.facts.map((fact) => (
-                <div key={fact.label} className="flex flex-col gap-0.5">
-                  <dt className="text-caption font-semibold tracking-wide text-red-600 uppercase">
-                    {fact.label}
-                  </dt>
-                  <dd className="font-semibold text-blue-900">{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : null}
-        </div>
-      </div>
-    )
-  }
-
+export function Spotlight({ block }: { block: SpotlightBlock }) {
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
       <div className={cn('flex flex-col gap-6 lg:col-span-5', block.reverse && 'lg:order-2')}>
         <div
           data-reveal="image"
-          className="group aspect-4/3 overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
+          className="group overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
         >
           <SpotlightImage block={block} sizes="(min-width: 1024px) 40vw, 100vw" />
         </div>
