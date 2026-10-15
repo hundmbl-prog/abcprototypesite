@@ -1,5 +1,20 @@
 # Changelog
 
+## Step 4 (part 3) – Compact main navigation (2026-10-15)
+
+Requested on 15.10.2026: no large menu panel; a click on a top item opens its overview page, and hovering shows its sub-pages.
+
+- Each top item (Kurse, Prüfungen, Bildung & Förderung, Projekte, Über uns) is now a link to its overview page.
+- On hover, a small dropdown directly below the item lists its sub-pages with a short description (for example under Kurse: B1 & B2, BSK, Integrationskurse).
+- Keyboard: the small arrow next to each item opens the dropdown; Escape closes it and returns focus to the arrow.
+- The large mega menu with preview image was removed. The mobile menu is unchanged.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: home tests at 4 widths – 106 passed, 6 skipped (desktop- or mobile-only); menu-link and page tests 12 passed.
+- New tests: top item links to its overview, hover opens only its own dropdown, keyboard open and Escape.
+
 ## Step 4 (part 2) – Remaining pages: Pädagogische Angebote, Über uns, Kontakt, Formulare, News, Presse, Fotogalerie, legal pages (2026-10-15)
 
 Decisions from 15.10.2026:

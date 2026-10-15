@@ -85,15 +85,40 @@ test.describe('Header navigation', () => {
     await expect(bar).toHaveClass(/h-14/)
   })
 
-  test('mega menu opens with keyboard and closes with Escape', async ({ page }, info) => {
+  test('main menu items link to their overview, the submenu opens on hover', async ({
+    page,
+  }, info) => {
     test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop navigation only')
     await page.goto('/')
-    const trigger = page.getByRole('button', { name: 'Kurse', exact: true })
+    const nav = page.getByRole('navigation', { name: 'Hauptnavigation' })
+    const kurse = nav.getByRole('link', { name: 'Kurse', exact: true })
+    await kurse.hover()
+    const panel = page.locator('#nav-0')
+    await expect(panel.getByRole('link')).toHaveText([
+      /B1 & B2/,
+      /Berufssprachkurse/,
+      /Integrationskurse/,
+    ])
+    await expect(page.locator('#nav-1')).toHaveCount(0)
+    await nav.getByRole('link', { name: 'Prüfungen', exact: true }).hover()
+    await expect(page.locator('#nav-1').getByRole('link', { name: /telc Prüfungen/ })).toBeVisible()
+    await expect(panel).toHaveCount(0)
+    await nav.getByRole('link', { name: 'Kurse', exact: true }).click()
+    await expect(page).toHaveURL(/\/kurse$/)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  })
+
+  test('submenu opens with keyboard and closes with Escape', async ({ page }, info) => {
+    test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop navigation only')
+    await page.goto('/')
+    const trigger = page.getByRole('button', { name: 'Untermenü Kurse', exact: true })
     await trigger.focus()
     await page.keyboard.press('Enter')
     await expect(trigger).toHaveAttribute('aria-expanded', 'true')
-    const panel = page.locator('#mega-0')
+    const panel = page.locator('#nav-0')
     await expect(panel.getByRole('link', { name: /Berufssprachkurse/ })).toBeVisible()
+    await page.keyboard.press('Tab')
+    await expect(panel.getByRole('link').first()).toBeFocused()
     await page.keyboard.press('Escape')
     await expect(panel).toHaveCount(0)
     await expect(trigger).toBeFocused()

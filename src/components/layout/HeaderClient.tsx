@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
@@ -9,8 +10,8 @@ import { cn } from '@/lib/cn'
 import type { Location, NavSection } from '@/content'
 import type { NavLink } from '@/content/types'
 import { Logo } from './Logo'
-import { MegaMenu } from './MegaMenu'
 import { MobileMenu } from './MobileMenu'
+import { NavDropdown } from './NavDropdown'
 
 export function HeaderClient({
   sections,
@@ -59,7 +60,7 @@ export function HeaderClient({
   const closeMenus = useCallback(() => setOpenIndex(null), [])
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
-  // Escape closes the mega menu and returns focus to its trigger; clicking outside closes it.
+  // Escape closes the dropdown and returns focus to its trigger; clicking outside closes it.
   useEffect(() => {
     if (openIndex === null) return
     function onKey(event: KeyboardEvent) {
@@ -116,37 +117,63 @@ export function HeaderClient({
                   const isOpen = openIndex === index
                   const isCurrent =
                     pathname === section.href || pathname.startsWith(`${section.href}/`)
-                  const panelId = `mega-${index}`
+                  const panelId = `nav-${index}`
                   return (
-                    <li key={section.href} onMouseEnter={() => openWithDelay(index)}>
-                      <button
-                        ref={(el) => {
-                          triggerRefs.current[index] = el
-                        }}
-                        type="button"
-                        aria-expanded={isOpen}
-                        aria-controls={panelId}
-                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                    <li
+                      key={section.href}
+                      className="relative"
+                      onMouseEnter={() => openWithDelay(index)}
+                      onMouseLeave={closeWithDelay}
+                    >
+                      <div
                         className={cn(
-                          'relative inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-semibold whitespace-nowrap text-ink transition-colors duration-(--dur-fast) hov:bg-surface-3',
-                          (isOpen || isCurrent) && 'bg-surface-3 text-navy',
+                          'relative flex min-h-11 items-center rounded-pill text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-fast) hov:bg-surface-3',
+                          (isOpen || isCurrent) && 'bg-surface-3',
                         )}
                       >
-                        {section.label}
-                        <Icon
-                          name="chevron-down"
+                        <Link
+                          href={section.href}
+                          aria-current={pathname === section.href ? 'page' : undefined}
+                          onClick={closeMenus}
                           className={cn(
-                            'size-4 transition-transform duration-(--dur-base)',
-                            isOpen && 'rotate-180',
+                            'inline-flex min-h-11 items-center rounded-l-pill pl-3 text-ink',
+                            (isOpen || isCurrent) && 'text-navy',
                           )}
-                        />
+                        >
+                          {section.label}
+                        </Link>
+                        <button
+                          ref={(el) => {
+                            triggerRefs.current[index] = el
+                          }}
+                          type="button"
+                          aria-expanded={isOpen}
+                          aria-controls={panelId}
+                          aria-label={`Untermenü ${section.label}`}
+                          onClick={() => setOpenIndex(isOpen ? null : index)}
+                          className="inline-flex min-h-11 items-center rounded-r-pill pr-2.5 pl-1 text-ink"
+                        >
+                          <Icon
+                            name="chevron-down"
+                            className={cn(
+                              'size-4 transition-transform duration-(--dur-base)',
+                              isOpen && 'rotate-180',
+                            )}
+                          />
+                        </button>
                         {isCurrent ? (
                           <span
                             aria-hidden
                             className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-pill bg-red"
                           />
                         ) : null}
-                      </button>
+                      </div>
+                      <NavDropdown
+                        section={section}
+                        id={panelId}
+                        open={isOpen}
+                        onNavigate={closeMenus}
+                      />
                     </li>
                   )
                 })}
@@ -180,16 +207,6 @@ export function HeaderClient({
               </button>
             </div>
           </div>
-
-          {sections.map((section, index) => (
-            <MegaMenu
-              key={section.href}
-              section={section}
-              id={`mega-${index}`}
-              open={openIndex === index}
-              onNavigate={closeMenus}
-            />
-          ))}
         </div>
       </header>
       <MobileMenu
