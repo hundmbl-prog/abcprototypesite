@@ -99,17 +99,6 @@ export type Stat = {
   placeholder?: boolean
 }
 
-export type Person = {
-  id: string
-  name: string
-  role: string
-  location: string
-  phone: string
-  email: string
-  image: ContentImage
-  placeholder?: boolean
-}
-
 export type Partner = { id: string; name: string; url?: string; logo?: ContentImage }
 
 export type OfferFilter = {
@@ -126,7 +115,6 @@ export type HomePage = {
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
   projects: SectionIntro & { items: Project[]; cta: NavLink }
   why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }
-  people: SectionIntro & { items: Person[] }
   partners: SectionIntro & { items: Partner[] }
   locations: SectionIntro
 }

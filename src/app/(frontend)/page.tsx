@@ -4,7 +4,6 @@ import { LocationCards } from '@/components/home/LocationCards'
 import { NewsSlider } from '@/components/home/NewsSlider'
 import { OffersFilter } from '@/components/home/OffersFilter'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
-import { PeopleSection } from '@/components/home/PeopleSection'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
@@ -23,10 +22,11 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* Sections alternate soft logo-blue (blue-50) and white. */}
       {/* 1 · Photo hero with glass quick access */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* 2 · Soft blue: offers with animated filter, cards in light tints */}
+      {/* 2 · Blue: offers with animated filter */}
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
@@ -48,7 +48,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3 · Warm red world: news slideshow */}
+      {/* 3 · White: news slideshow */}
       <section
         id="news"
         aria-labelledby="news-titel"
@@ -69,10 +69,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 · White: stats and reasons */}
+      {/* 4 · Blue: stats and reasons */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
-      {/* 5 · Sky blue world: projects, text beside the photo */}
+      {/* 5 · White: projects slideshow */}
       <section
         id="projekte"
         aria-labelledby="projekte-titel"
@@ -94,17 +94,14 @@ export default async function HomePage() {
         <ProjectsShowcase items={home.projects.items} />
       </section>
 
-      {/* 6 · Blush world: contact people */}
-      <PeopleSection content={home.people} />
-
-      {/* 7 · Light: partner cards */}
+      {/* 6 · Blue: partner logos */}
       <PartnerMarquee content={home.partners} />
 
-      {/* 8 · Compact locations on a soft logo-blue tint */}
+      {/* 7 · White: compact locations */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-blue-50 py-section-sm"
+        className="relative isolate overflow-hidden bg-surface py-section-sm"
       >
         <div className="container-page">
           <SectionHeader

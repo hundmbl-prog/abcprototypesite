@@ -11,10 +11,6 @@ import kindertagespflege from '@/assets/placeholder/kindertagespflege.jpg'
 import nachhilfe from '@/assets/placeholder/nachhilfe.jpg'
 import nachhilfeBadKreuznach from '@/assets/placeholder/nachhilfe-bad-kreuznach.jpg'
 import paedagogik from '@/assets/placeholder/paedagogik.jpg'
-import person1 from '@/assets/placeholder/person-1.jpg'
-import person2 from '@/assets/placeholder/person-2.jpg'
-import person3 from '@/assets/placeholder/person-3.jpg'
-import person4 from '@/assets/placeholder/person-4.jpg'
 import projektBruecken from '@/assets/placeholder/projekt-bruecken.jpg'
 import projektJugendplattform from '@/assets/placeholder/projekt-jugendplattform.jpg'
 import projektNatur from '@/assets/placeholder/projekt-natur.jpg'
@@ -69,8 +65,4 @@ export const images = {
     'Viele Hände liegen als Zeichen des Zusammenhalts aufeinander',
   ),
   projektJugendplattform: img(projektJugendplattform, 'Jugendliche lachen gemeinsam im Freien'),
-  person1: img(person1, 'Porträt eines lächelnden Mannes mit Brille'),
-  person2: img(person2, 'Porträt einer lächelnden Frau mit Kopftuch'),
-  person3: img(person3, 'Porträt eines Mannes mit Bart'),
-  person4: img(person4, 'Porträt einer Frau im Blazer'),
 } satisfies Record<string, ContentImage>

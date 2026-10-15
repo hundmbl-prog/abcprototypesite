@@ -15,15 +15,7 @@ test.describe('Home page', () => {
 
   test('has all 9 sections, one h1 and correct heading order', async ({ page }) => {
     await page.goto('/')
-    for (const id of [
-      'start',
-      'angebote',
-      'news',
-      'projekte',
-      'warum-abc',
-      'ansprechpartner',
-      'standorte',
-    ]) {
+    for (const id of ['start', 'angebote', 'news', 'projekte', 'warum-abc', 'standorte']) {
       await expect(page.locator(`#${id}`)).toHaveCount(1)
     }
     const partners = page.getByRole('heading', { name: 'Gemeinsam mehr erreichen' })

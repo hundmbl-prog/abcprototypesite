@@ -17,12 +17,4 @@ export async function getHomePage() {
   return homePage
 }
 
-export type {
-  HomePage,
-  Location,
-  NavSection,
-  NewsItem,
-  Person,
-  Project,
-  SiteSettings,
-} from './types'
+export type { HomePage, Location, NavSection, NewsItem, Project, SiteSettings } from './types'

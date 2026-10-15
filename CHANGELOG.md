@@ -1,5 +1,12 @@
 # Changelog
 
+## Step 3j – Back to the previous home page, contact people removed (2026-10-15)
+
+- Step 3i (Kursfinder, four-step timeline, contact band) reverted at the user's request (commit `7a6675c`). It is still in the git history and can be restored any time.
+- **Section "Ansprechpartner" removed:** the component, its content, the `Person` type and the four placeholder portrait photos are deleted.
+- **Backgrounds:** the sections still alternate soft logo-blue and white (Angebote · News · Warum ABC · Projekte · Partner · Standorte). The checklist box in "Warum ABC" is now white so it stands out from its blue section.
+- **Checks:** 124 tests at 4 widths; Lighthouse mobile 93, desktop 90; accessibility, best practices and SEO 100.
+
 ## Step 3h – Red section labels, uniform stats, no dates, autoplay projects (2026-10-15)
 
 - **Section labels:** the small label with the line at the top of every section ("— UNSERE ANGEBOTE" etc.) is now logo-red. The `accent` option on `SectionHeader` is removed.
