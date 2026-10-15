@@ -1,5 +1,74 @@
 # Changelog
 
+## Step 4 (part 1) – Sprachkurse, Integrationskurse, Prüfungen, Einbürgerungstest, telc (2026-10-15)
+
+**22 new pages**, all prerendered as static HTML:
+
+- Sprachkurse: overview plus A1 & A2, B1 & B2 Prüfungsvorbereitung, C1 & C2, C1 Hochschule, Berufssprachkurse (BSK) and the kostenloser Online-Schnupperkurs.
+- Integrationskurse: overview plus Allgemeine, Jugendintegrationskurse, Alphabetisierung, Lern- und Sozialbegleitung and Kurstermine.
+- Prüfungen: overview plus Einbürgerungstest (taken on site at ABC).
+- telc Prüfungen: main page plus one sub-page per exam – A1, A2, B1, B2, C1 and C1 Hochschule.
+
+**Content**
+
+- Text is carried over from the current abc-mainz.de pages.
+- No prices are shown yet (decision 15.10.2026), and outdated course dates from 2022–2024 were not carried over.
+- Exam facts and durations were checked on 15.10.2026 against the official sources: telc.net (product pages, Prüfungsregularien gültig ab 15.04.2025), bamf.de, g.a.s.t., EinbTestV and StAG.
+- Corrections to the old site:
+  - The DTZ is now run by g.a.s.t. on behalf of the BAMF, not by telc.
+  - "Hartz IV" is now "Bürgergeld".
+- External links (telc, BAMF, g.a.s.t., BMI) were checked on 15.10.2026; all reachable. The mock-exam ZIPs, PDFs and MP3 return 206 to a range request, which is normal. The BMI page answers simple tools with HTTP 400 (cookie check) and was confirmed in a browser.
+
+**telc page**
+
+- Exam levels as photo cards with an animated level filter.
+- A filterable exam-dates table:
+  - filters for exam, location and "nur mit freien Plätzen"
+  - status for few seats, fully booked and registration closed
+  - turns into cards on phones
+  - "Anmelden" hands the exam and date over to the form
+  - no dates exist yet, so it shows an honest empty state ("Neue Termine folgen in Kürze") – no invented dates
+- A fees section: exam fees "auf Anfrage", plus the official telc service fees (40 € each).
+- A six-step registration timeline, the exam-day rules, an FAQ accordion (with FAQPage JSON-LD) and official links.
+- A registration form:
+  - react-hook-form with one shared zod schema, checked in the browser and in a server action
+  - honeypot and rate limit (5 attempts per 10 minutes per address)
+  - loading, error and status messages
+  - e-mail delivery and saving to the CMS follow in Step 6; until then, submitting says honestly that nothing was sent and asks visitors to register by phone or e-mail
+
+**Exam sub-pages**
+
+- Facts in the hero.
+- An interactive exam structure: a time bar sized by minutes, the written parts and the oral part.
+- Exam-day rules, the official free mock exam, related exams and a call to action.
+
+**Page system**
+
+- Content pages are built from blocks (intro, cards, columns, steps, tabs, exam structure, FAQ, links, contact, CTA, exam dates, fees, registration) – the same model the Payload CMS will use in Step 5.
+- Shared parts: a page hero with Ken Burns zoom, word-by-word title and scroll zoom-out; breadcrumbs with BreadcrumbList JSON-LD; Course JSON-LD; unique SEO title, description and Open Graph image per page.
+- Card variants rotate between sections: bento (Sprachkurse), overlay (Integrationskurse), horizontal (Prüfungen), rail with filter (telc), classic (exam sub-pages).
+- Each section has its own `[[...slug]]` route. The global catch-all stays on demand, so links to pages that do not exist yet do not cause prefetch errors.
+
+**Other changes**
+
+- New packages, pinned: react-hook-form 7.88.0 and zod 4.6.5 (both in the approved stack). No resolver package – a small resolver uses the shared schema.
+- Photos: five more Drive originals are linked in unchanged (DSC00462, DSC00466, DSC00473, DSC00474, DSC03442).
+- New icons: download, book, award, pen, mic, ear, mail, phone, id-card and child.
+- Styleguide: a new "Prüfungstermine" section with clearly marked example data (dates relative to today), used to test the exam filter.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 280 tests at 4 widths (new: tests/e2e/pages.spec.ts).
+  - Every new page is checked for console errors, failed requests, one h1 and heading order, breadcrumbs, horizontal overflow, meta description and axe (WCAG 2.1 AA).
+  - Also covered: menu links, tabs (keyboard), FAQ, card filter, the exam-dates filter, the form (validation, retake option, date hand-over, server check, rate limit).
+  - Full run: 266 passed, 4 skipped, 10 timed out. All 10 timeouts were at the start of the run, while the image cache was empty and the 24-megapixel originals were being resized for the first time; re-run with a warm cache, all 10 passed.
+- Lighthouse:
+  - telc: mobile 89, desktop 96.
+  - Sprachkurse: mobile 88, desktop 99.
+  - Accessibility, best practices and SEO 100.
+  - Mobile LCP is 3.8–4.0 s, above the 2.5 s target – to be fixed in the performance step together with the home page.
+
 ## Step 3n – Uniform stat boxes, dark blue badges (2026-10-15)
 
 - **Warum ABC:** all four stat boxes share one background (white into soft logo-blue).

@@ -2,7 +2,8 @@
  * Content shapes used by the frontend. They mirror the Payload collections planned for Step 5,
  * so swapping the data source later does not change any component.
  */
-import type { CardImageData, OfferCardData } from '@/components/cards/types'
+import type { CardImageData, CardVariant, OfferCardData } from '@/components/cards/types'
+import type { IconName } from '@/components/ui/Icon'
 
 export type ContentImage = CardImageData
 
@@ -118,4 +119,139 @@ export type HomePage = {
   why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }
   partners: SectionIntro & { items: Partner[] }
   locations: SectionIntro
+}
+
+/* ───────────────────────── Content pages (Payload "pages" collection with blocks in Step 5) */
+
+export type FactItem = { icon: IconName; label: string; value: string }
+export type FaqItem = { question: string; answer: string }
+export type StepItem = { title: string; text: string }
+export type ResourceLink = {
+  label: string
+  href: string
+  description?: string
+  /** File type shown as a small tag. */
+  kind?: 'Website' | 'PDF' | 'ZIP' | 'MP3' | 'Online-Test'
+}
+
+export type PageHero = {
+  eyebrow: string
+  title: string
+  intro: string
+  image: ContentImage
+  facts?: FactItem[]
+  primaryCta?: NavLink
+  secondaryCta?: NavLink
+}
+
+type BlockBase = { id: string; eyebrow?: string; title: string; intro?: string }
+
+export type IntroBlock = BlockBase & {
+  type: 'intro'
+  paragraphs: string[]
+  points?: string[]
+  image: ContentImage
+  reverse?: boolean
+}
+export type CardsBlock = BlockBase & {
+  type: 'cards'
+  variant: CardVariant
+  cards: OfferCardData[]
+  cta?: NavLink
+  /** Optional filter chips by tag / level. */
+  filterBy?: 'level'
+}
+export type ColumnsBlock = BlockBase & {
+  type: 'columns'
+  columns: Array<{ icon: IconName; title: string; items: string[] }>
+  note?: { title: string; text: string }
+}
+export type StepsBlock = BlockBase & { type: 'steps'; steps: StepItem[]; cta?: NavLink }
+export type TabsBlock = BlockBase & {
+  type: 'tabs'
+  tabs: Array<{ id: string; label: string; heading: string; text: string; items?: string[] }>
+}
+export type ExamPart = { name: string; minutes: number; text: string }
+export type ExamStructureBlock = BlockBase & {
+  type: 'exam-structure'
+  written: ExamPart[]
+  /** Break between written parts in minutes, if any. */
+  breakMinutes?: number
+  oral: { minutes: number; format: string; preparation?: string; text: string }
+  notes: string[]
+}
+export type FaqBlock = BlockBase & { type: 'faq'; items: FaqItem[] }
+export type LinksBlock = BlockBase & { type: 'links'; links: ResourceLink[] }
+export type ContactBlock = BlockBase & {
+  type: 'contact'
+  /** Location id from site settings. */
+  locationId: string
+  email: string
+  text: string
+}
+export type CtaBlock = BlockBase & {
+  type: 'cta'
+  text: string
+  primary: NavLink
+  secondary?: NavLink
+}
+export type ExamDatesBlock = BlockBase & { type: 'exam-dates'; emptyText: string }
+export type FeesBlock = BlockBase & {
+  type: 'fees'
+  rows: Array<{ label: string; value: string; note?: string }>
+  officialFees: Array<{ label: string; value: string }>
+  note: string
+}
+export type RegistrationBlock = BlockBase & { type: 'telc-registration' }
+
+export type PageBlock =
+  | IntroBlock
+  | CardsBlock
+  | ColumnsBlock
+  | StepsBlock
+  | TabsBlock
+  | ExamStructureBlock
+  | FaqBlock
+  | LinksBlock
+  | ContactBlock
+  | CtaBlock
+  | ExamDatesBlock
+  | FeesBlock
+  | RegistrationBlock
+
+export type ContentPage = {
+  /** Path without leading slash, e.g. "pruefungen/telc". */
+  path: string
+  /** Short name for breadcrumbs and menus. */
+  label: string
+  seo: { title: string; description: string }
+  hero: PageHero
+  blocks: PageBlock[]
+  /** Optional structured data type for this page. */
+  schema?: 'Course' | 'Exam'
+}
+
+/* ───────────────────────── telc exams and exam dates (Payload collections in Step 5) */
+
+export type TelcExam = {
+  id: string
+  /** Short level label used in filters, e.g. "B1", "C1 Hochschule". */
+  level: string
+  name: string
+  slug: string
+  /** Allows repeating only the written or oral part (B1, B2, C1). */
+  partialRetake: boolean
+}
+
+export type ExamDate = {
+  id: string
+  examId: string
+  /** ISO date "YYYY-MM-DD" (Europe/Berlin). */
+  date: string
+  time: string
+  location: string
+  /** ISO date "YYYY-MM-DD". */
+  registrationDeadline: string
+  seatsTotal: number
+  seatsFree: number
 }

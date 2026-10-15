@@ -190,3 +190,24 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Exam-dates table: on small screens each cell shows its column name above the value. */
+@utility cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  &::before {
+    content: attr(data-label);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  @media (width >= 48rem) {
+    display: table-cell;
+    &::before {
+      content: none;
+    }
+  }
+}

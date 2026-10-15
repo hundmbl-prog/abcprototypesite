@@ -4,6 +4,11 @@
  */
 import abcUnterricht from '@/assets/photos/dsc00475.jpg'
 import abcTelc from '@/assets/photos/dsc03421.jpg'
+import abcTafel from '@/assets/photos/dsc00466.jpg'
+import abcKursraum from '@/assets/photos/dsc00462.jpg'
+import abcWhiteboard from '@/assets/photos/dsc00474.jpg'
+import abcLernen from '@/assets/photos/dsc00473.jpg'
+import abcSeminarraum from '@/assets/photos/dsc03442.jpg'
 import type { StaticImageData } from 'next/image'
 import type { ContentImage } from './types'
 import frauenintegrationskurs from '@/assets/placeholder/frauenintegrationskurs.jpg'
@@ -60,6 +65,11 @@ export const images = {
     'Lehrerin erklärt einer Gruppe Erwachsener im ABC-Kursraum eine Aufgabe',
   ),
   abcTelc: img(abcTelc, 'Schild „telc – Lizenziertes Prüfungszentrum“ am ABC'),
+  abcTafel: img(abcTafel, 'Lehrerin erklärt eine Aufgabe an der digitalen Tafel im ABC-Kursraum'),
+  abcKursraum: img(abcKursraum, 'Kursraum im ABC mit Teilnehmenden vor der digitalen Tafel'),
+  abcWhiteboard: img(abcWhiteboard, 'Deutsche Beispielsätze an einem Whiteboard im Unterricht'),
+  abcLernen: img(abcLernen, 'Junge Erwachsene lösen im Unterricht schriftliche Aufgaben'),
+  abcSeminarraum: img(abcSeminarraum, 'Heller Seminarraum im ABC mit digitalen Tafeln'),
   team: img(team, 'Gruppenfoto bei einer Fotoausstellung'),
   gruppe: img(qmSchulung, 'Gesprächsrunde in einem hellen Raum mit Pflanzen'),
   projektStrassenfotografie: img(

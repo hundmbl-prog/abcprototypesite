@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { readColorTokens } from '@/lib/design-tokens'
 import { ButtonSection, FormSection, TagSection } from './_components/Controls'
 import { CardSection, LayoutSection } from './_components/Cards'
+import { ExamDatesDemo } from './_components/ExamDatesDemo'
+import { SgSection } from './_components/SgSection'
 import { ColorSection, PairingSection, SpacingSection, TypeSection } from './_components/Tokens'
 
 export const dynamic = 'force-static'
@@ -23,6 +25,7 @@ const toc = [
   ['formulare', 'Formulare'],
   ['karten', 'Karten'],
   ['layouts', 'Layouts'],
+  ['pruefungstermine', 'Prüfungstermine'],
 ] as const
 
 export default function StyleguidePage() {
@@ -65,6 +68,14 @@ export default function StyleguidePage() {
       <FormSection />
       <CardSection />
       <LayoutSection />
+      <SgSection
+        id="pruefungstermine"
+        title="Prüfungstermine"
+        intro="Filterbare Terminliste der telc Seite – hier mit Beispieldaten zum Testen. Auf der öffentlichen Seite stehen nur echte Termine aus dem Admin."
+        tone="light-2"
+      >
+        <ExamDatesDemo />
+      </SgSection>
     </>
   )
 }

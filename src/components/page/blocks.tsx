@@ -1,0 +1,464 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import { OfferCards } from '@/components/cards/OfferCards'
+import { SectionHeader } from '@/components/sections/SectionHeader'
+import { CtaBanner } from '@/components/sections/CtaBanner'
+import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/ui/Icon'
+import { cn } from '@/lib/cn'
+import type {
+  CardsBlock as CardsData,
+  ColumnsBlock as ColumnsData,
+  ContactBlock as ContactData,
+  CtaBlock as CtaData,
+  FaqBlock as FaqData,
+  FeesBlock as FeesData,
+  IntroBlock as IntroData,
+  LinksBlock as LinksData,
+  Location,
+  StepsBlock as StepsData,
+} from '@/content/types'
+import { FilteredCards } from './FilteredCards'
+
+const titleId = (id: string) => `${id}-titel`
+
+/** Steps fill whole rows: 4 → 4 columns, 5 → 5, 6 → 3 × 2. */
+const stepCols: Record<number, string> = {
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+  5: 'lg:grid-cols-5',
+  6: 'lg:grid-cols-3',
+}
+
+/** Text beside a photo with an asymmetric mask; optional check list. */
+export function IntroBlock({ block }: { block: IntroData }) {
+  return (
+    <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className={block.reverse ? 'lg:order-2 lg:col-span-6' : 'lg:col-span-6'}>
+        <div
+          data-reveal="image"
+          className="group aspect-5/4 overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
+        >
+          <Image
+            src={block.image.src}
+            alt={block.image.alt}
+            width={block.image.width}
+            height={block.image.height}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={block.image.blurDataURL}
+            className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
+          />
+        </div>
+      </div>
+      <div
+        className={
+          block.reverse
+            ? 'flex flex-col gap-6 lg:order-1 lg:col-span-6'
+            : 'flex flex-col gap-6 lg:col-span-6'
+        }
+      >
+        <SectionHeader
+          id={titleId(block.id)}
+          eyebrow={block.eyebrow}
+          title={block.title}
+          className="mb-0! md:mb-0!"
+        />
+        {block.paragraphs.map((text) => (
+          <p key={text} className="text-lead text-ink-muted">
+            {text}
+          </p>
+        ))}
+        {block.points?.length ? (
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {block.points.map((point) => (
+              <li
+                key={point}
+                className="flex items-start gap-3 text-small font-medium text-blue-900"
+              >
+                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-pill bg-blue-600 text-on-dark">
+                  <Icon name="check" className="size-3.5" strokeWidth={2.5} />
+                </span>
+                {point}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+/** Photo offer cards in the variant chosen for this section (optionally with level filter). */
+export function CardsBlock({ block }: { block: CardsData }) {
+  return (
+    <>
+      <SectionHeader
+        id={titleId(block.id)}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        intro={block.intro}
+        action={
+          block.cta ? (
+            <Button href={block.cta.href} variant="pill-red">
+              {block.cta.label}
+            </Button>
+          ) : undefined
+        }
+      />
+      {block.filterBy ? (
+        <FilteredCards cards={block.cards} variant={block.variant} label={block.title} />
+      ) : (
+        <OfferCards cards={block.cards} variant={block.variant} label={block.title} />
+      )}
+    </>
+  )
+}
+
+/** Two or three short lists side by side (e.g. target group, requirements, documents). */
+export function ColumnsBlock({ block }: { block: ColumnsData }) {
+  return (
+    <>
+      <SectionHeader
+        id={titleId(block.id)}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        intro={block.intro}
+      />
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {block.columns.map((col) => (
+          <div
+            key={col.title}
+            data-reveal
+            className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br from-surface to-blue-50 p-6 shadow-sm md:p-8"
+          >
+            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+            <span className="grid size-12 place-items-center rounded-pill bg-blue-600 text-on-dark">
+              <Icon name={col.icon} className="size-5" />
+            </span>
+            <h3 className="text-h4 text-blue-900">{col.title}</h3>
+            <ul className="flex flex-col gap-2.5">
+              {col.items.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-small text-ink">
+                  <Icon name="check" className="mt-0.5 size-4 text-blue-600" strokeWidth={2.5} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        {block.note ? (
+          <aside
+            data-reveal
+            className="flex flex-col gap-3 rounded-2xl bg-blue-900 p-6 text-on-dark md:p-8 lg:col-span-1"
+          >
+            <span className="inline-flex items-center gap-2 text-caption font-semibold tracking-widest text-red-300 uppercase">
+              <Icon name="info" className="size-4" />
+              {block.note.title}
+            </span>
+            <p className="text-on-dark-muted">{block.note.text}</p>
+          </aside>
+        ) : null}
+      </div>
+    </>
+  )
+}
+
+/** Numbered steps; a line connects them, each step lifts in as it scrolls into view. */
+export function StepsBlock({ block }: { block: StepsData }) {
+  return (
+    <>
+      <SectionHeader
+        id={titleId(block.id)}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        intro={block.intro}
+        action={
+          block.cta ? (
+            <Button href={block.cta.href} variant="pill-red">
+              {block.cta.label}
+            </Button>
+          ) : undefined
+        }
+      />
+      <ol
+        className={cn(
+          'relative grid gap-6 md:grid-cols-2 md:gap-5',
+          stepCols[block.steps.length] ?? 'lg:grid-cols-3',
+        )}
+      >
+        {block.steps.map((step, i) => (
+          <li
+            key={step.title}
+            data-reveal
+            className="group relative flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
+          >
+            <div className="flex items-center gap-3">
+              <span className="grid size-11 place-items-center rounded-pill bg-blue-900 font-display text-h4 font-semibold text-on-dark transition-colors duration-(--dur-base) group-hover:bg-red-500">
+                {i + 1}
+              </span>
+              <span
+                aria-hidden
+                className="h-0.5 flex-1 bg-linear-to-r from-blue-200 to-transparent"
+              />
+            </div>
+            <h3 className="text-h4 text-blue-900">{step.title}</h3>
+            <p className="text-small text-ink-muted">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
+/** FAQ as an accordion of native <details> elements (keyboard and screen reader friendly). */
+export function FaqBlock({ block }: { block: FaqData }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: block.items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+  return (
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div className="lg:col-span-4">
+        <SectionHeader
+          id={titleId(block.id)}
+          eyebrow={block.eyebrow}
+          title={block.title}
+          intro={block.intro}
+        />
+      </div>
+      <div className="flex flex-col gap-3 lg:col-span-8">
+        {block.items.map((item) => (
+          <details
+            key={item.question}
+            className="group rounded-xl border border-line bg-surface shadow-sm transition-shadow duration-(--dur-base) open:shadow-md"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-5 font-semibold text-blue-900 marker:hidden md:p-6 hov:bg-blue-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue [&::-webkit-details-marker]:hidden">
+              {item.question}
+              <span className="grid size-8 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-[transform,background-color,color] duration-(--dur-base) ease-out-expo group-open:rotate-180 group-open:bg-red-500 group-open:text-on-dark">
+                <Icon name="chevron-down" className="size-4" />
+              </span>
+            </summary>
+            <p className="px-5 pb-6 text-ink-muted md:px-6">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
+    </div>
+  )
+}
+
+/** Official links (practice tests, information pages); external links open in a new tab. */
+export function LinksBlock({ block }: { block: LinksData }) {
+  return (
+    <>
+      <SectionHeader
+        id={titleId(block.id)}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        intro={block.intro}
+      />
+      <ul
+        className={cn(
+          'grid gap-4 md:grid-cols-2',
+          block.links.length % 3 === 0 || block.links.length > 4 ? 'lg:grid-cols-3' : '',
+        )}
+      >
+        {block.links.map((link) => {
+          const external = link.href.startsWith('http')
+          const download = link.kind === 'ZIP' || link.kind === 'PDF' || link.kind === 'MP3'
+          return (
+            <li key={link.href} data-reveal>
+              <a
+                href={link.href}
+                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="group flex h-full items-start gap-4 rounded-xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-300 hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+              >
+                <span className="grid size-11 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-colors duration-(--dur-base) group-hover:bg-blue-600 group-hover:text-on-dark">
+                  <Icon name={download ? 'download' : 'arrow-up-right'} className="size-5" />
+                </span>
+                <span className="flex min-w-0 flex-col gap-1">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold text-blue-900">{link.label}</span>
+                    {link.kind ? (
+                      <span className="rounded-pill bg-blue-900 px-2 py-0.5 text-caption font-semibold text-on-dark">
+                        {link.kind}
+                      </span>
+                    ) : null}
+                  </span>
+                  {link.description ? (
+                    <span className="text-small text-ink-muted">{link.description}</span>
+                  ) : null}
+                  {external ? <span className="sr-only">(öffnet in neuem Tab)</span> : null}
+                </span>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </>
+  )
+}
+
+function telHref(phone: string) {
+  return `tel:${phone.replace(/[^\d+]/g, '')}`
+}
+
+/** Contact card with address, opening hours, phone and e-mail of the responsible location. */
+export function ContactBlock({ block, location }: { block: ContactData; location: Location }) {
+  return (
+    <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-md lg:grid-cols-12">
+      <div className="flex flex-col gap-5 p-6 md:p-10 lg:col-span-7">
+        <SectionHeader
+          id={titleId(block.id)}
+          eyebrow={block.eyebrow}
+          title={block.title}
+          className="mb-0! md:mb-0!"
+        />
+        <p className="text-lead text-ink-muted">{block.text}</p>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={telHref(location.phone)}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+          >
+            <Icon name="phone" className="size-4" />
+            {location.phone}
+          </a>
+          <a
+            href={`mailto:${block.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+          >
+            <Icon name="mail" className="size-4" />
+            {block.email}
+          </a>
+        </div>
+      </div>
+      <div className="flex flex-col justify-center gap-6 bg-blue-900 p-6 text-on-dark md:p-10 lg:col-span-5">
+        <dl className="flex flex-col gap-5">
+          <div className="flex flex-col gap-1">
+            <dt className="flex items-center gap-2 text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+              <Icon name="location" className="size-4 text-red-300" />
+              {location.kind}
+            </dt>
+            <dd className="pl-6 font-semibold">
+              {location.street}, {location.postalCode} {location.city}
+            </dd>
+          </div>
+          <div className="flex flex-col gap-1">
+            <dt className="flex items-center gap-2 text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+              <Icon name="clock" className="size-4 text-red-300" />
+              Sprechzeiten
+            </dt>
+            {location.hours.map((h) => (
+              <dd key={h.days} className="pl-6 font-semibold">
+                {h.days}: {h.hours}
+              </dd>
+            ))}
+          </div>
+        </dl>
+        <Link
+          href="/ueber-uns/kontakt"
+          className="inline-flex items-center gap-2 self-start text-small font-semibold text-on-dark underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-on-dark"
+        >
+          Alle Standorte und Kontaktwege
+          <Icon name="arrow-right" className="size-4" />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export function CtaBlock({ block }: { block: CtaData }) {
+  return (
+    <CtaBanner
+      title={block.title}
+      text={block.text}
+      actions={
+        <>
+          <Button href={block.primary.href} variant="pill-red" size="lg">
+            {block.primary.label}
+          </Button>
+          {block.secondary ? (
+            <Button href={block.secondary.href} variant="ghost" size="lg">
+              {block.secondary.label}
+            </Button>
+          ) : null}
+        </>
+      }
+    />
+  )
+}
+
+/** Fees: exam fees of the centre plus the official telc service fees. */
+export function FeesBlock({ block }: { block: FeesData }) {
+  return (
+    <>
+      <SectionHeader
+        id={titleId(block.id)}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        intro={block.intro}
+      />
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div
+          data-reveal
+          className="overflow-hidden rounded-2xl border border-line bg-surface shadow-md lg:col-span-7"
+        >
+          <table className="w-full text-left">
+            <caption className="sr-only">Prüfungsgebühren am ABC</caption>
+            <thead className="bg-blue-900 text-on-dark">
+              <tr>
+                <th scope="col" className="p-4 text-small font-semibold md:px-6">
+                  Prüfung
+                </th>
+                <th scope="col" className="p-4 text-small font-semibold md:px-6">
+                  Gebühr
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row) => (
+                <tr key={row.label} className="border-t border-line odd:bg-blue-50/50">
+                  <th scope="row" className="p-4 font-semibold text-blue-900 md:px-6">
+                    {row.label}
+                    {row.note ? (
+                      <span className="block text-small font-normal text-ink-muted">
+                        {row.note}
+                      </span>
+                    ) : null}
+                  </th>
+                  <td className="p-4 font-semibold whitespace-nowrap text-ink md:px-6">
+                    {row.value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <aside
+          data-reveal
+          className="flex flex-col gap-4 rounded-2xl bg-blue-900 p-6 text-on-dark md:p-8 lg:col-span-5"
+        >
+          <h3 className="text-h4">Gebühren der telc gGmbH</h3>
+          <dl className="flex flex-col divide-y divide-on-dark/15">
+            {block.officialFees.map((fee) => (
+              <div key={fee.label} className="flex items-baseline justify-between gap-4 py-3">
+                <dt className="text-on-dark-muted">{fee.label}</dt>
+                <dd className="font-semibold whitespace-nowrap">{fee.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="text-small text-on-dark-muted">{block.note}</p>
+        </aside>
+      </div>
+    </>
+  )
+}
