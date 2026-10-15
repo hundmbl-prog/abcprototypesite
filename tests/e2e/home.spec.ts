@@ -133,7 +133,7 @@ test.describe('Sliders', () => {
   test('projects slideshow: arrow keys and buttons', async ({ page }) => {
     await page.goto('/#projekte')
     const region = page.getByRole('region', { name: /Projekte/ })
-    const live = region.locator('[aria-live="polite"]')
+    const live = region.locator('p[aria-live]')
     await region.focus()
     await page.keyboard.press('ArrowRight')
     await expect(live).toContainText('Projekt 2 von 6')
@@ -141,6 +141,41 @@ test.describe('Sliders', () => {
     await expect(live).toContainText('Projekt 1 von 6')
     await region.getByRole('button', { name: 'Nächstes Projekt' }).click()
     await expect(live).toContainText('Projekt 2 von 6')
+  })
+})
+
+test.describe('Projects autoplay', () => {
+  test('advances on its own and can be paused', async ({ page }) => {
+    test.setTimeout(60_000)
+    await page.clock.install()
+    await page.goto('/')
+    const region = page.getByRole('region', { name: /Projekte/ })
+    const live = region.locator('p[aria-live]')
+    await expect(live).toContainText('Projekt 1 von 6')
+    await page.clock.runFor(7000)
+    await expect(live).toContainText('Projekt 2 von 6')
+    await region
+      .getByRole('button', { name: 'Projekte: automatisches Abspielen pausieren' })
+      .click()
+    await page.mouse.move(0, 0)
+    await region.getByRole('button', { name: 'Projekte automatisch abspielen' }).focus()
+    // longer than one autoplay interval (6.5 s): a paused slideshow must not move
+    await page.clock.runFor(8000)
+    await expect(live).toContainText('Projekt 2 von 6')
+  })
+
+  test('does not autoplay with reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('/')
+    const region = page.getByRole('region', { name: /Projekte/ })
+    await expect(
+      region.getByRole('button', { name: 'Projekte automatisch abspielen' }),
+    ).toBeAttached()
+  })
+
+  test('news slides show no dates', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.locator('#news time')).toHaveCount(0)
   })
 })
 

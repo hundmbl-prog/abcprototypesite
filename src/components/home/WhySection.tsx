@@ -6,43 +6,14 @@ import type { HomePage } from '@/content'
 import type { ContentImage } from '@/content/types'
 import { Counter } from './Counter'
 
-/** Light, corporate stat cards – colour only in numbers, icons and a thin top line. */
-const statStyles: Array<{
-  icon: IconName
-  number: string
-  badge: string
-  line: string
-  bg: string
-}> = [
-  {
-    icon: 'calendar',
-    number: 'text-blue-700',
-    badge: 'bg-blue-100 text-blue-700',
-    line: 'bg-blue-500',
-    bg: 'from-surface to-blue-100',
-  },
-  {
-    icon: 'location',
-    number: 'text-red-600',
-    badge: 'bg-red-100 text-red-700',
-    line: 'bg-red-500',
-    bg: 'from-surface to-red-100',
-  },
-  {
-    icon: 'users',
-    number: 'text-blue-800',
-    badge: 'bg-blue-100 text-blue-800',
-    line: 'bg-blue-700',
-    bg: 'from-surface to-blue-100',
-  },
-  {
-    icon: 'level',
-    number: 'text-blue-600',
-    badge: 'bg-blue-50 text-blue-700',
-    line: 'bg-blue-400',
-    bg: 'from-surface to-red-50',
-  },
-]
+/** All stat cards share one look (logo blue); only the icon differs. */
+const statIcons: IconName[] = ['calendar', 'location', 'users', 'level']
+const statStyle = {
+  number: 'text-blue-700',
+  badge: 'bg-blue-100 text-blue-700',
+  line: 'bg-blue-600',
+  bg: 'from-surface to-blue-100',
+}
 
 export function WhySection({ content, image }: { content: HomePage['why']; image: ContentImage }) {
   return (
@@ -83,28 +54,29 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
         <div className="flex flex-col gap-5 lg:col-span-7">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {content.stats.map((stat, i) => {
-              const style = statStyles[i % statStyles.length] ?? statStyles[0]
+              const style = statStyle
+              const icon = statIcons[i % statIcons.length] ?? 'check'
               return (
                 <div
                   key={stat.id}
                   data-reveal
                   className={cn(
                     'relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
-                    style?.bg,
+                    style.bg,
                   )}
                 >
-                  <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', style?.line)} />
+                  <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', style.line)} />
                   <dt className="text-small font-medium text-ink-muted md:text-body">
                     {stat.label}
                   </dt>
                   <dd className="flex items-center justify-between gap-4">
-                    <span className={cn('font-display text-h1 font-semibold', style?.number)}>
+                    <span className={cn('font-display text-h1 font-semibold', style.number)}>
                       <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
                     </span>
                     <span
-                      className={cn('grid size-12 place-items-center rounded-pill', style?.badge)}
+                      className={cn('grid size-12 place-items-center rounded-pill', style.badge)}
                     >
-                      <Icon name={style?.icon ?? 'check'} className="size-5" />
+                      <Icon name={icon} className="size-5" />
                     </span>
                   </dd>
                 </div>

@@ -1,8 +1,9 @@
 'use client'
 
+import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
-import { useEffect, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
@@ -22,22 +23,81 @@ const accents = [
   { chip: 'bg-blue-700', text: 'text-blue-700', bar: 'bg-blue-700' },
 ] as const
 
+const DELAY = 6500
+
 /**
  * Project slideshow: photo and text side by side – text never sits on the photo.
- * Drag/swipe, arrow keys, buttons and one coloured progress line per project.
+ * Plays automatically (progress line, pause button); pauses on hover and keyboard focus.
+ * Drag/swipe, arrow keys and buttons. No autoplay with reduced motion.
  */
 export function ProjectsShowcase({ items }: { items: Project[] }) {
-  const [viewportRef, api] = useEmblaCarousel({ loop: true, align: 'center', duration: 32 })
+  const [autoplay] = useState(() =>
+    Autoplay({
+      delay: DELAY,
+      playOnInit: false,
+      stopOnInteraction: false,
+      stopOnMouseEnter: false,
+      stopOnFocusIn: false,
+    }),
+  )
+  const [viewportRef, api] = useEmblaCarousel({ loop: true, align: 'center', duration: 32 }, [
+    autoplay,
+  ])
   const [index, setIndex] = useState(0)
+  const [userPaused, setUserPaused] = useState(true)
+  const [busy, setBusy] = useState(false)
+  const regionRef = useRef<HTMLDivElement>(null)
+  const progressRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (!api) return
     const onSelect = () => setIndex(api.selectedScrollSnap())
     api.on('select', onSelect)
+    if (!reducedMotion()) setUserPaused(false)
     return () => {
       api.off('select', onSelect)
     }
   }, [api])
+
+  // Play unless paused by the user, or the pointer / keyboard focus is on the slideshow.
+  const sync = useCallback(() => {
+    const plugin = api?.plugins().autoplay
+    const viewport = api?.rootNode()
+    if (!plugin || !viewport) return
+    const isBusy =
+      viewport.matches(':hover') ||
+      viewport.contains(document.activeElement) ||
+      document.activeElement === regionRef.current
+    setBusy(isBusy)
+    if (userPaused || isBusy) plugin.stop()
+    else plugin.play()
+  }, [api, userPaused])
+
+  useEffect(() => {
+    sync()
+    const region = regionRef.current
+    if (!region) return
+    const later = () => window.setTimeout(sync, 0)
+    const events = ['mouseover', 'mouseleave', 'focusin', 'focusout'] as const
+    events.forEach((e) => region.addEventListener(e, later))
+    return () => events.forEach((e) => region.removeEventListener(e, later))
+  }, [sync])
+
+  // The active progress line fills up with the autoplay timer.
+  useEffect(() => {
+    let frame = 0
+    const loop = () => {
+      const bar = progressRef.current
+      const remaining = api?.plugins().autoplay?.timeUntilNext()
+      if (bar)
+        bar.style.transform = `scaleX(${typeof remaining === 'number' ? 1 - remaining / DELAY : 1})`
+      frame = requestAnimationFrame(loop)
+    }
+    frame = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(frame)
+  }, [api, index])
+
+  const playing = !userPaused
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'ArrowRight') {
@@ -53,6 +113,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
 
   return (
     <div
+      ref={regionRef}
       role="region"
       aria-roledescription="Karussell"
       aria-label="Projekte – mit den Pfeiltasten blättern"
@@ -182,22 +243,45 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                   aria-current={i === index ? 'true' : undefined}
                   className="group/dot flex h-11 w-full items-center"
                 >
-                  <span
-                    className={cn(
-                      'h-1.5 w-full rounded-pill transition-colors duration-(--dur-base)',
-                      i === index ? accent.bar : 'bg-blue-200 group-hover/dot:bg-blue-300',
-                    )}
-                  />
+                  <span className="relative h-1.5 w-full overflow-hidden rounded-pill bg-blue-200 transition-colors duration-(--dur-base) group-hover/dot:bg-blue-300">
+                    {i === index ? (
+                      <span
+                        ref={progressRef}
+                        className={cn('absolute inset-0 origin-left rounded-pill', accent.bar)}
+                      />
+                    ) : null}
+                  </span>
                   <span className="sr-only">Projekt {project.title}</span>
                 </button>
               </li>
             )
           })}
         </ul>
-        <p className="sr-only" aria-live="polite">
+        <p className="sr-only" aria-live={playing && !busy ? 'off' : 'polite'}>
           {current ? `Projekt ${index + 1} von ${items.length}: ${current.title}` : null}
         </p>
         <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setUserPaused((paused) => !paused)}
+            className="grid size-11 place-items-center rounded-pill bg-surface text-navy shadow-md hov:bg-navy hov:text-on-dark"
+          >
+            {playing ? (
+              <svg viewBox="0 0 24 24" className="size-4" aria-hidden fill="currentColor">
+                <rect x="6" y="5" width="4" height="14" rx="1" />
+                <rect x="14" y="5" width="4" height="14" rx="1" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="size-4" aria-hidden fill="currentColor">
+                <path d="M7 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L8.5 4.64A1 1 0 0 0 7 5.5Z" />
+              </svg>
+            )}
+            <span className="sr-only">
+              {playing
+                ? 'Projekte: automatisches Abspielen pausieren'
+                : 'Projekte automatisch abspielen'}
+            </span>
+          </button>
           <button
             type="button"
             onClick={() => api?.scrollPrev(reducedMotion())}

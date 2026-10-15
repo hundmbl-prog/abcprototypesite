@@ -57,7 +57,6 @@ export default async function HomePage() {
         <div className="container-page">
           <SectionHeader
             id="news-titel"
-            accent="red"
             eyebrow={home.news.eyebrow}
             title={home.news.title}
             action={

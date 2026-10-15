@@ -11,11 +11,8 @@ export function SectionHeader({
   as: Heading = 'h2',
   align = 'start',
   tone = 'light',
-  accent = 'blue',
   className,
 }: {
-  /** Colour family of the section (eyebrow + heading). */
-  accent?: 'blue' | 'red'
   id?: string
   eyebrow?: string
   title: string
@@ -42,11 +39,7 @@ export function SectionHeader({
           <p
             className={cn(
               'inline-flex items-center gap-3 text-small font-semibold tracking-widest uppercase',
-              tone === 'dark'
-                ? 'text-on-dark-muted'
-                : accent === 'red'
-                  ? 'text-red-600'
-                  : 'text-blue-600',
+              tone === 'dark' ? 'text-on-dark-muted' : 'text-red-600',
             )}
           >
             <span aria-hidden className="h-0.5 w-8 bg-current" />

@@ -1,5 +1,15 @@
 # Changelog
 
+## Step 3h – Red section labels, uniform stats, no dates, autoplay projects (2026-10-15)
+
+- **Section labels:** the small label with the line at the top of every section ("— UNSERE ANGEBOTE" etc.) is now logo-red. The `accent` option on `SectionHeader` is removed.
+- **Stats:** all four stat boxes share the same look, including "5 Standorte"; only the icon differs.
+- **News:** dates are removed from the slides.
+- **Projects:** the slideshow now plays automatically (6.5 s per project). The active line fills with progress; there is a pause/play button, and it pauses while hovered or while keyboard focus is on it. No autoplay with reduced motion. The live announcement is off while it runs and polite while it is paused.
+- **Tooling:** the dev server writes to `.next-dev`, the production build to `.next`, so `pnpm dev` and `pnpm build` can no longer break each other (this caused a false 500 on the 404 page during testing).
+- **Tests:** 124 at 4 widths, including autoplay advance and pause (fake clock), no autoplay with reduced motion, and no news dates.
+- **Lighthouse:** mobile 100 (LCP 1.9 s), desktop 92 (measured while the dev server was running).
+
 ## Step 3g – Uniform offer cards, red buttons, no hover sweep (2026-10-15)
 
 - **Offer cards:** all six use the same soft logo-blue gradient. New `simple` mode on `CardClassic`: only category, title and a two-line description, with no facts or status badges.

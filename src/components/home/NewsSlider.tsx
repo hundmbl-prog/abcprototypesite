@@ -10,11 +10,6 @@ import { cn } from '@/lib/cn'
 import type { NewsItem } from '@/content'
 
 const DELAY = 6000
-const dateFormat = new Intl.DateTimeFormat('de-DE', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-})
 
 /**
  * News slideshow: autoplay with progress bar, pauses on hover and keyboard focus,
@@ -127,9 +122,6 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
                   <span className="rounded-pill bg-red-100 px-3 py-1 text-caption font-semibold tracking-wide text-red-700 uppercase">
                     {item.category}
                   </span>
-                  <time dateTime={item.date} className="text-small font-semibold text-red-700">
-                    {dateFormat.format(new Date(item.date))}
-                  </time>
                 </div>
                 <h3 className="text-h3 text-blue-900">
                   <Link href={`/news/${item.slug}`} className="stretched-link">

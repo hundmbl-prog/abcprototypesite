@@ -13,6 +13,8 @@ pnpm install          # install everything (one time)
 pnpm dev              # start the dev server → http://localhost:3000
 ```
 
+`pnpm dev` uses its own folder (`.next-dev`), so it can keep running while you build or test.
+
 Open **http://localhost:3000** for the home page and **http://localhost:3000/styleguide** for the design system.
 
 ## Checks (run before every commit)
@@ -21,7 +23,7 @@ Open **http://localhost:3000** for the home page and **http://localhost:3000/sty
 pnpm lint             # ESLint, 0 warnings allowed
 pnpm typecheck        # TypeScript
 pnpm build            # production build
-pnpm test:e2e         # Playwright tests (stop pnpm dev first – build and dev share the .next folder) at 375 / 768 / 1280 / 1920 px (first time: pnpm exec playwright install chromium)
+pnpm test:e2e         # Playwright tests at 375 / 768 / 1280 / 1920 px at 375 / 768 / 1280 / 1920 px (first time: pnpm exec playwright install chromium)
 ```
 
 ## Where things are

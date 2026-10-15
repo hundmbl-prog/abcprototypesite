@@ -113,7 +113,6 @@ export function PeopleSection({ content }: { content: HomePage['people'] }) {
           eyebrow={content.eyebrow}
           title={content.title}
           intro={content.intro}
-          accent="red"
         />
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {content.items.map((person, i) => (
