@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
+import { OfferCards } from '@/components/cards/OfferCards'
 import { AboutSection } from '@/components/home/AboutSection'
 import { HomeHero } from '@/components/home/HomeHero'
 import { LocationCards } from '@/components/home/LocationCards'
 import { NewsSlider } from '@/components/home/NewsSlider'
-import { OfferBento } from '@/components/home/OfferBento'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { ProjectsShowcase } from '@/components/home/ProjectsShowcase'
 import { WhySection } from '@/components/home/WhySection'
@@ -23,16 +23,11 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Varied section backgrounds (patterns, one dark stage); cards always contrast with their section. */}
+      {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* White + dot pattern: offers as a bento grid */}
-      <section
-        id="angebote"
-        aria-labelledby="angebote-titel"
-        className="relative isolate overflow-hidden bg-surface py-section"
-      >
-        <span aria-hidden className="bg-pattern-dots" />
+      {/* Blue: offers – photo with overlapping white info box */}
+      <section id="angebote" aria-labelledby="angebote-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
@@ -45,15 +40,21 @@ export default async function HomePage() {
               </Button>
             }
           />
-          <OfferBento cards={home.offers.cards} />
+          <OfferCards
+            cards={home.offers.cards}
+            variant="classic"
+            label={home.offers.title}
+            simple
+            className="gap-y-10"
+          />
         </div>
       </section>
 
-      {/* Blue + fine grid: about us */}
+      {/* White: about us */}
       <AboutSection content={home.about} />
 
-      {/* White: news slideshow */}
-      <section id="news" aria-labelledby="news-titel" className="bg-surface py-section">
+      {/* Blue: news slideshow */}
+      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="news-titel"
@@ -69,20 +70,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Blue + dots: stats and reasons */}
+      {/* White: stats and reasons */}
       <WhySection content={home.why} image={images.jugendErfolg} />
 
-      {/* Dark navy stage: projects slideshow */}
-      <section
-        id="projekte"
-        aria-labelledby="projekte-titel"
-        className="relative isolate overflow-hidden py-section text-on-dark"
-      >
-        <span aria-hidden className="bg-stage-dark" />
+      {/* Blue: projects slideshow */}
+      <section id="projekte" aria-labelledby="projekte-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
             id="projekte-titel"
-            tone="dark"
             eyebrow={home.projects.eyebrow}
             title={home.projects.title}
             intro={home.projects.intro}
@@ -96,13 +91,12 @@ export default async function HomePage() {
         <ProjectsShowcase items={home.projects.items} />
       </section>
 
-      {/* White + fine grid: compact locations */}
+      {/* White: compact locations */}
       <section
         id="standorte"
         aria-labelledby="standorte-titel"
-        className="relative isolate overflow-hidden bg-surface py-section-sm"
+        className="bg-surface py-section-sm"
       >
-        <span aria-hidden className="bg-pattern-grid" />
         <div className="container-page">
           <SectionHeader
             id="standorte-titel"

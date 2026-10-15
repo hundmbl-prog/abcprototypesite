@@ -39,7 +39,7 @@ export function SectionHeader({
           <p
             className={cn(
               'inline-flex items-center gap-3 text-small font-semibold tracking-widest uppercase',
-              tone === 'dark' ? 'text-red-300' : 'text-red-600',
+              tone === 'dark' ? 'text-on-dark-muted' : 'text-red-600',
             )}
           >
             <span aria-hidden className="h-0.5 w-8 bg-current" />

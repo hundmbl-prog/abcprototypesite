@@ -15,9 +15,8 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-blue-50 py-section"
+      className="relative isolate overflow-hidden bg-surface py-section"
     >
-      <span aria-hidden className="bg-pattern-dots" />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeader
@@ -76,7 +75,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
               )
             })}
           </dl>
-          <ul className="grid gap-3 rounded-2xl bg-surface p-6 shadow-sm ring-1 ring-blue-100 sm:grid-cols-2">
+          <ul className="grid gap-3 rounded-2xl bg-blue-50 p-6 ring-1 ring-blue-100 sm:grid-cols-2">
             {content.points.map((point) => (
               <li
                 key={point}

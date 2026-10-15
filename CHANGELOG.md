@@ -1,5 +1,13 @@
 # Changelog
 
+## Step 3m – Final home page: previous design, matching photos (2026-10-15)
+
+- **Back to the approved design (Step 3k):** offer cards are again a photo with a white info box below; the bento grid is removed. Sections alternate plain white and soft logo-blue again; the dot and grid patterns and the dark navy band are removed.
+- **Photos that match the card text:** Sprach- & Integrationskurse – ABC teacher in front of the class (own photo); Prüfungen – the telc examination centre sign (own photo); Nachhilfe – girl learning with a teacher; Soziale Projekte – project group with their street photos; Weiterbildungen – ABC talk in front of an audience; Pädagogische Angebote – counselling conversation. All 70 Drive originals stay unchanged in `../drive-photos-2026/`; the four unused ones were removed from the site.
+- **Kept from Step 3l:** counters can no longer get stuck at 0; "Warum ABC" icons all blue, top lines red.
+- **Projekte:** photo and info box are one light card with rounded corners; the box is tinted very softly by the same photo, with a larger title and text. (Fixes the square corners from Step 3l.)
+- **Tests:** 136 at 4 widths, including the counter regression and photo-topic checks.
+
 ## Step 3l – Modern offer bento with real ABC photos, fixed counters, joined project cards (2026-10-15)
 
 - **Real photos:** all 70 photos from the shared Drive folder "Photos 2026" are downloaded unchanged to `../drive-photos-2026/` (871 MB). Six of them are used at full original size (6000 × 4000) in `src/assets/photos/`; Next.js serves visitors automatically resized AVIF/WebP versions.

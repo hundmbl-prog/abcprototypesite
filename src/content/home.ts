@@ -73,7 +73,7 @@ export const homePage: HomePage = {
         description:
           'Alle Fächer, alle Schulformen – mit erfahrenen Lehrkräften und flexiblen Zeiten.',
         href: '/lernfoerderung/nachhilfe',
-        image: images.abcLernen,
+        image: images.nachhilfe,
         tag: 'Lernförderung',
         facts: { format: 'Vor Ort' },
       },
@@ -83,7 +83,7 @@ export const homePage: HomePage = {
         description:
           'Straßenfotografie, Naturerlebnis, Kreativwettbewerb und mehr – für Zusammenhalt in Mainz.',
         href: '/projekte',
-        image: images.abcZukunft,
+        image: images.sozialeProjekte,
         tag: 'Projekt',
       },
       {
@@ -92,7 +92,7 @@ export const homePage: HomePage = {
         description:
           'Qualifizierungen wie der Kompakt-Kurs für Kindertagespflegepersonen und Schulungen zum Qualitätsmanagement.',
         href: '/bildungsangebote',
-        image: images.abcSeminarraum,
+        image: images.qmSchulung,
         tag: 'Weiterbildung',
       },
       {
@@ -101,7 +101,7 @@ export const homePage: HomePage = {
         description:
           'Sozialpädagogische Familienhilfe und Erziehungsbeistand – Begleitung im Familienalltag.',
         href: '/paedagogische-angebote',
-        image: images.abcBeratung,
+        image: images.paedagogik,
         tag: 'Familie',
       },
     ],

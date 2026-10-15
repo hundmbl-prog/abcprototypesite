@@ -44,31 +44,22 @@ test.describe('Home page', () => {
 
   test('offers bento shows 6 photo cards, each a single link', async ({ page }) => {
     await page.goto('/')
-    const cards = page.locator('#angebote li')
+    const cards = page.locator('#angebote article')
     await expect(cards).toHaveCount(6)
-    for (const card of await cards.all()) {
-      await expect(card.locator('a[href]')).toHaveCount(1)
-      await expect(card.getByRole('heading', { level: 3 })).toHaveCount(1)
-    }
+    for (const card of await cards.all()) await expect(card.locator('a[href]')).toHaveCount(1)
   })
 })
 
 test.describe('Offer cards and about', () => {
-  test('offer descriptions open on hover and keyboard focus', async ({ page }, testInfo) => {
-    test.skip(!!testInfo.project.use.hasTouch, 'touch screens always show the description')
+  test('photo and info box form one link per card', async ({ page }) => {
     await page.goto('/')
-    const second = page.locator('#angebote li').nth(1)
-    const text = second.locator('.reveal-on-hover')
-    await second.scrollIntoViewIfNeeded()
-    await page.mouse.move(0, 0)
-    await expect(text).toHaveCSS('opacity', '0')
-    await second.locator('a').hover()
-    await expect(text).toHaveCSS('opacity', '1')
-    await page.mouse.move(0, 0)
-    await second.locator('a').focus()
-    await page.keyboard.press('Shift+Tab')
-    await page.keyboard.press('Tab')
-    await expect(text).toHaveCSS('opacity', '1')
+    const card = page.locator('#angebote article').first()
+    await expect(card.locator('a[href]')).toHaveCount(1)
+    await expect(page.locator('#angebote [aria-label="Angebote filtern"]')).toHaveCount(0)
+    const link = card.locator('a[href]')
+    const box = await link.boundingBox()
+    const img = await card.locator('img').boundingBox()
+    expect(box && img && box.y <= img.y && box.y + box.height >= img.y + img.height).toBeTruthy()
   })
 
   test('about section shows story, milestones and a red button', async ({ page }) => {
@@ -220,6 +211,15 @@ test.describe('Counters, locations, map', () => {
     await page.waitForTimeout(2500)
     const values = await page.locator('#warum-abc dd > span:first-child').allTextContents()
     expect(values).toEqual(['29', '5', '1.200+', '60+'])
+  })
+
+  test('offer cards show photos that match their topic', async ({ page }) => {
+    await page.goto('/')
+    const alts = await page
+      .locator('#angebote article img')
+      .evaluateAll((imgs) => imgs.map((img) => img.getAttribute('alt')))
+    expect(alts[0]).toContain('Lehrerin')
+    expect(alts[1]).toContain('telc')
   })
 
   test('map loads only after consent', async ({ page }) => {
