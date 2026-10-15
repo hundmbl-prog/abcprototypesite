@@ -6,7 +6,12 @@ import type { HomePage } from '@/content'
 /** About us: photo with a small badge, founding story, three milestones and a red button. */
 export function AboutSection({ content }: { content: HomePage['about'] }) {
   return (
-    <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-surface py-section">
+    <section
+      id="ueber-uns"
+      aria-labelledby="ueber-uns-titel"
+      className="relative isolate overflow-hidden bg-blue-50 py-section"
+    >
+      <span aria-hidden className="bg-pattern-grid" />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="group relative lg:col-span-6">
           <div data-reveal="image" className="aspect-16/10 overflow-hidden rounded-2xl shadow-md">
@@ -46,7 +51,7 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
               <li
                 key={m.id}
                 data-reveal
-                className="min-w-0 rounded-xl bg-blue-50 p-4 ring-1 ring-blue-100 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hover:-translate-y-1 hover:shadow-md"
+                className="min-w-0 rounded-xl bg-surface p-4 shadow-sm ring-1 ring-blue-100 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hover:-translate-y-1 hover:shadow-md"
               >
                 <p className="font-display text-h4 font-semibold text-red-600">{m.year}</p>
                 <p className="text-small break-words hyphens-auto text-blue-900">{m.text}</p>

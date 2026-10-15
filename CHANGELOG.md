@@ -1,5 +1,14 @@
 # Changelog
 
+## Step 3l – Modern offer bento with real ABC photos, fixed counters, joined project cards (2026-10-15)
+
+- **Real photos:** all 70 photos from the shared Drive folder "Photos 2026" are downloaded unchanged to `../drive-photos-2026/` (871 MB). Six of them are used at full original size (6000 × 4000) in `src/assets/photos/`; Next.js serves visitors automatically resized AVIF/WebP versions.
+- **Offers:** new bento grid (one large feature card, two small, three wide). Full-bleed photo, frosted navy info panel, index number, red arrow button. On hover or keyboard focus the photo zooms, the description opens, the arrow turns and a red line runs along the bottom; on touch screens the description is always visible.
+- **Warum ABC:** counters can no longer get stuck at 0 (fast scrolling past them now still finishes the count). All icons are logo blue, all top lines red, numbers red.
+- **Projekte:** photo and info panel are now one card. The panel uses the same photo, heavily blurred and darkened, so its colours always match the image. Bigger title and text; the section is a dark navy "stage".
+- **Backgrounds:** dot pattern (Angebote, Warum ABC), fine grid (Über uns, Standorte), dark stage with soft light (Projekte). On dark sections the section label is a light red.
+- **Tests:** 131 at 4 widths, including hover/focus reveal and a counter regression test. Lighthouse mobile 93, desktop 94–95; accessibility, best practices and SEO 100.
+
 ## Step 3k – Final home page polish and new "Über uns" section (2026-10-15)
 
 - **Angebote:** filter chips removed. Cards are now a photo with a solid white info box overlapping its lower edge; on hover the photo zooms and the box lifts. One overlay link covers photo and box. Cards contrast clearly with the blue section, and the gradient is very subtle and fully opaque.

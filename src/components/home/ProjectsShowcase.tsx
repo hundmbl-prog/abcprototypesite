@@ -13,16 +13,6 @@ function reducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-/** Each project gets its own accent shade (AA as text on white, and as chips with white text). */
-const accents = [
-  { chip: 'bg-blue-600', text: 'text-blue-700', bar: 'bg-blue-600' },
-  { chip: 'bg-red-500', text: 'text-red-600', bar: 'bg-red-500' },
-  { chip: 'bg-blue-800', text: 'text-blue-800', bar: 'bg-blue-800' },
-  { chip: 'bg-blue-500', text: 'text-blue-700', bar: 'bg-blue-500' },
-  { chip: 'bg-red-600', text: 'text-red-700', bar: 'bg-red-600' },
-  { chip: 'bg-blue-700', text: 'text-blue-700', bar: 'bg-blue-700' },
-] as const
-
 const DELAY = 6500
 
 /**
@@ -121,11 +111,10 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
       onKeyDown={onKeyDown}
       className="flex flex-col gap-6 rounded-2xl"
     >
-      <div ref={viewportRef} className="overflow-hidden pt-4 pb-12">
+      <div ref={viewportRef} className="overflow-hidden py-4">
         <div className="flex">
           {items.map((project, i) => {
             const active = i === index
-            const accent = accents[i % accents.length] ?? accents[0]
             return (
               <article
                 key={project.id}
@@ -136,17 +125,18 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
               >
                 <div
                   className={cn(
-                    'relative transition-[transform,opacity] duration-(--dur-slower) ease-out-expo',
-                    !active && 'scale-95 opacity-60',
+                    'rounded-3xl relative grid overflow-hidden bg-blue-950 shadow-(--shadow-float) ring-1 ring-on-dark/10 transition-[transform,opacity] duration-(--dur-slower) ease-out-expo lg:grid-cols-12',
+                    !active && 'scale-95 opacity-50',
                   )}
                 >
-                  <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-(--shadow-float) sm:aspect-16/9 lg:aspect-21/9">
+                  {/* Photo */}
+                  <div className="relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-120">
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}
                       width={project.image.width}
                       height={project.image.height}
-                      sizes="(min-width: 768px) 82vw, 90vw"
+                      sizes="(min-width: 1024px) 50vw, 90vw"
                       placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
                       blurDataURL={project.image.blurDataURL}
                       className={cn(
@@ -154,60 +144,84 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                         active && 'motion-safe:scale-110',
                       )}
                     />
+                    {/* soft seam into the info panel */}
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-blue-950/80 to-transparent lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-1/3 lg:bg-linear-to-l"
+                    />
                   </div>
-                  {/* Small solid info box, attached to the photo's corner */}
-                  <div
-                    className={cn(
-                      'relative mx-4 -mt-12 flex flex-col gap-3 overflow-hidden rounded-xl bg-surface p-5 shadow-(--shadow-float) ring-1 ring-blue-900/5 md:p-6 lg:absolute lg:right-8 lg:-bottom-8 lg:mx-0 lg:mt-0 lg:w-104',
-                      'transition-[opacity,transform] duration-(--dur-slower) ease-out-expo',
-                      active ? 'translate-y-0 opacity-100 delay-150' : 'translate-y-4 opacity-0',
-                    )}
-                  >
-                    <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', accent.bar)} />
-                    <div className="flex items-center justify-between gap-4">
-                      <span
-                        className={cn(
-                          'rounded-pill px-3 py-1 text-caption font-semibold tracking-wide text-on-dark uppercase',
-                          accent.chip,
-                        )}
-                      >
-                        Projekt
-                      </span>
-                      <span
-                        aria-hidden
-                        className={cn('font-display text-h4 font-semibold', accent.text)}
-                      >
-                        {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <h3 className="text-h4 text-blue-900">{project.title}</h3>
-                    <p className="line-clamp-2 text-small text-ink-muted">{project.description}</p>
-                    {project.partners.length > 0 ? (
-                      <p className="flex flex-wrap items-center gap-2 text-caption">
-                        <span className="text-ink-muted">In Kooperation mit</span>
-                        {project.partners.map((partner) => (
-                          <span
-                            key={partner}
-                            className={cn(
-                              'rounded-pill bg-surface-2 px-2.5 py-0.5 font-semibold',
-                              accent.text,
-                            )}
-                          >
-                            {partner}
+
+                  {/* Info panel: the same photo, blurred and darkened, so its colours always match */}
+                  <div className="relative isolate overflow-hidden lg:col-span-5">
+                    <Image
+                      src={project.image.src}
+                      alt=""
+                      width={project.image.width}
+                      height={project.image.height}
+                      sizes="400px"
+                      className="absolute inset-0 -z-20 size-full scale-150 object-cover blur-3xl saturate-150"
+                    />
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 -z-10 bg-linear-to-br from-blue-950/70 to-blue-950/55"
+                    />
+                    <span
+                      aria-hidden
+                      className={cn(
+                        'absolute inset-x-0 top-0 h-1 lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-1',
+                        'bg-red-500',
+                      )}
+                    />
+                    <div
+                      className={cn(
+                        'flex h-full flex-col gap-5 p-6 text-on-dark md:p-10 [&>*]:transition-[opacity,transform] [&>*]:duration-(--dur-slower) [&>*]:ease-out-expo',
+                        active
+                          ? '[&>*]:translate-y-0 [&>*]:opacity-100 [&>*:nth-child(2)]:delay-100 [&>*:nth-child(3)]:delay-150 [&>*:nth-child(4)]:delay-200 [&>*:nth-child(5)]:delay-300'
+                          : '[&>*]:translate-y-4 [&>*]:opacity-0',
+                      )}
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="rounded-pill bg-red-500 px-3 py-1 text-caption font-semibold tracking-wide uppercase">
+                          Projekt
+                        </span>
+                        <span
+                          aria-hidden
+                          className="font-display text-h3 font-semibold text-on-dark/90"
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                          <span className="text-h4 text-on-dark-muted">
+                            {' '}
+                            / {String(items.length).padStart(2, '0')}
                           </span>
-                        ))}
+                        </span>
+                      </div>
+                      <h3 className="text-h3">{project.title}</h3>
+                      <p className="line-clamp-4 text-lead text-on-dark-muted">
+                        {project.description}
                       </p>
-                    ) : null}
-                    <div className="pt-1">
-                      <Button
-                        href={`/projekte/${project.slug}`}
-                        variant="pill-red"
-                        size="sm"
-                        tabIndex={active ? undefined : -1}
-                      >
-                        Projekt ansehen
-                        <span className="sr-only">: {project.title}</span>
-                      </Button>
+                      {project.partners.length > 0 ? (
+                        <p className="flex flex-wrap items-center gap-2 text-small">
+                          <span className="text-on-dark-muted">In Kooperation mit</span>
+                          {project.partners.map((partner) => (
+                            <span
+                              key={partner}
+                              className="rounded-pill bg-on-dark/15 px-3 py-1 font-semibold ring-1 ring-on-dark/20"
+                            >
+                              {partner}
+                            </span>
+                          ))}
+                        </p>
+                      ) : null}
+                      <div className="mt-auto pt-2">
+                        <Button
+                          href={`/projekte/${project.slug}`}
+                          variant="pill-red"
+                          tabIndex={active ? undefined : -1}
+                        >
+                          Projekt ansehen
+                          <span className="sr-only">: {project.title}</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -220,7 +234,6 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
       <div className="container-page flex items-center justify-between gap-6">
         <ul className="flex flex-1 gap-2" aria-label="Projekt auswählen">
           {items.map((project, i) => {
-            const accent = accents[i % accents.length] ?? accents[0]
             return (
               <li key={project.id} className="flex-1">
                 <button
@@ -229,11 +242,11 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                   aria-current={i === index ? 'true' : undefined}
                   className="group/dot flex h-11 w-full items-center"
                 >
-                  <span className="relative h-1.5 w-full overflow-hidden rounded-pill bg-blue-200 transition-colors duration-(--dur-base) group-hover/dot:bg-blue-300">
+                  <span className="relative h-1.5 w-full overflow-hidden rounded-pill bg-on-dark/20 transition-colors duration-(--dur-base) group-hover/dot:bg-on-dark/35">
                     {i === index ? (
                       <span
                         ref={progressRef}
-                        className={cn('absolute inset-0 origin-left rounded-pill', accent.bar)}
+                        className={'absolute inset-0 origin-left rounded-pill bg-red-500'}
                       />
                     ) : null}
                   </span>

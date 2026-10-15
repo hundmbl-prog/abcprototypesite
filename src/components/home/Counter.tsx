@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 const numberFormat = new Intl.NumberFormat('de-DE')
 
 /**
- * Counts up to `value` when it scrolls into view. The final number is server-rendered,
+ * Counts up to `value` when it scrolls into view and always ends on `value`. The final number is server-rendered,
  * so it is correct without JavaScript and with reduced motion.
  */
 export function Counter({
@@ -23,28 +23,34 @@ export function Counter({
   useEffect(() => {
     const el = ref.current
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Already on screen or scrolled past: keep the final number.
     if (el.getBoundingClientRect().top < window.innerHeight) return
+    // Still below the screen (invisible), so it can start from 0.
     setDisplay(0)
     let frame = 0
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return
-        observer.disconnect()
-        const start = performance.now()
-        const duration = 1600
-        const step = (now: number) => {
-          const t = Math.min((now - start) / duration, 1)
-          setDisplay(Math.round(value * (1 - Math.pow(1 - t, 4))))
-          if (t < 1) frame = requestAnimationFrame(step)
-        }
-        frame = requestAnimationFrame(step)
-      },
-      { threshold: 0.6 },
-    )
-    observer.observe(el)
+    let started = false
+    const start = () => {
+      if (started || el.getBoundingClientRect().top > window.innerHeight * 0.9) return
+      started = true
+      window.removeEventListener('scroll', start)
+      window.removeEventListener('resize', start)
+      const begin = performance.now()
+      const duration = 1600
+      const step = (now: number) => {
+        const t = Math.min((now - begin) / duration, 1)
+        setDisplay(Math.round(value * (1 - Math.pow(1 - t, 4))))
+        if (t < 1) frame = requestAnimationFrame(step)
+      }
+      frame = requestAnimationFrame(step)
+    }
+    // A scroll listener (not only IntersectionObserver) so fast scrolling past it still finishes the count.
+    window.addEventListener('scroll', start, { passive: true })
+    window.addEventListener('resize', start)
     return () => {
-      observer.disconnect()
+      window.removeEventListener('scroll', start)
+      window.removeEventListener('resize', start)
       cancelAnimationFrame(frame)
+      setDisplay(value)
     }
   }, [value])
 

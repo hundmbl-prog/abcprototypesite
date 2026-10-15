@@ -6,26 +6,18 @@ import type { HomePage } from '@/content'
 import type { ContentImage } from '@/content/types'
 import { Counter } from './Counter'
 
-/** Numbers always in logo red; card tint, icon and accent line alternate red / blue. */
+/** Red numbers and red top lines; all icons in logo blue; card tints alternate softly. */
 const statIcons: IconName[] = ['calendar', 'location', 'users', 'level']
-const blueStyle = {
-  badge: 'bg-blue-600 text-on-dark',
-  line: 'bg-blue-600',
-  bg: 'from-surface to-blue-50',
-}
-const redStyle = {
-  badge: 'bg-red-500 text-on-dark',
-  line: 'bg-red-500',
-  bg: 'from-surface to-red-50',
-}
+const statTints = ['from-surface to-blue-50', 'from-surface to-red-50']
 
 export function WhySection({ content, image }: { content: HomePage['why']; image: ContentImage }) {
   return (
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="relative isolate overflow-hidden bg-surface py-section"
+      className="relative isolate overflow-hidden bg-blue-50 py-section"
     >
+      <span aria-hidden className="bg-pattern-dots" />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeader
@@ -58,18 +50,17 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
         <div className="flex flex-col gap-5 lg:col-span-7">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {content.stats.map((stat, i) => {
-              const style = i % 2 === 0 ? blueStyle : redStyle
               const icon = statIcons[i % statIcons.length] ?? 'check'
               return (
                 <div
                   key={stat.id}
                   data-reveal
                   className={cn(
-                    'relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
-                    style.bg,
+                    'group relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
+                    statTints[i % statTints.length],
                   )}
                 >
-                  <span aria-hidden className={cn('absolute inset-x-0 top-0 h-1', style.line)} />
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
                   <dt className="text-small font-medium text-ink-muted md:text-body">
                     {stat.label}
                   </dt>
@@ -77,9 +68,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
                     <span className="font-display text-h1 font-semibold text-red-600">
                       <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
                     </span>
-                    <span
-                      className={cn('grid size-12 place-items-center rounded-pill', style.badge)}
-                    >
+                    <span className="grid size-12 place-items-center rounded-pill bg-blue-600 text-on-dark transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110 group-hover:rotate-6">
                       <Icon name={icon} className="size-5" />
                     </span>
                   </dd>
@@ -87,7 +76,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
               )
             })}
           </dl>
-          <ul className="grid gap-3 rounded-2xl bg-blue-50 p-6 ring-1 ring-blue-100 sm:grid-cols-2">
+          <ul className="grid gap-3 rounded-2xl bg-surface p-6 shadow-sm ring-1 ring-blue-100 sm:grid-cols-2">
             {content.points.map((point) => (
               <li
                 key={point}

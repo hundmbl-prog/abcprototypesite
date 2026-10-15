@@ -53,7 +53,7 @@ export const homePage: HomePage = {
         description:
           'Deutsch lernen von A1 bis C1, Integrations-, Jugendintegrations- und Alphabetisierungskurse – mit Orientierungskurs und Kinderbeaufsichtigung.',
         href: '/integrationskurse',
-        image: images.sprachkurse,
+        image: images.abcUnterricht,
         tag: 'Kurse',
         badge: 'plaetze-frei',
         facts: { level: 'A1–C1', location: 'Mainz & Bad Kreuznach' },
@@ -63,7 +63,7 @@ export const homePage: HomePage = {
         title: 'Prüfungen',
         description: 'telc Sprachprüfungen bis C1 Hochschule und der Einbürgerungstest.',
         href: '/pruefungen',
-        image: images.pruefungen,
+        image: images.abcTelc,
         tag: 'Prüfung',
         facts: { level: 'A1–C1' },
       },
@@ -73,7 +73,7 @@ export const homePage: HomePage = {
         description:
           'Alle Fächer, alle Schulformen – mit erfahrenen Lehrkräften und flexiblen Zeiten.',
         href: '/lernfoerderung/nachhilfe',
-        image: images.nachhilfe,
+        image: images.abcLernen,
         tag: 'Lernförderung',
         facts: { format: 'Vor Ort' },
       },
@@ -83,7 +83,7 @@ export const homePage: HomePage = {
         description:
           'Straßenfotografie, Naturerlebnis, Kreativwettbewerb und mehr – für Zusammenhalt in Mainz.',
         href: '/projekte',
-        image: images.sozialeProjekte,
+        image: images.abcZukunft,
         tag: 'Projekt',
       },
       {
@@ -92,7 +92,7 @@ export const homePage: HomePage = {
         description:
           'Qualifizierungen wie der Kompakt-Kurs für Kindertagespflegepersonen und Schulungen zum Qualitätsmanagement.',
         href: '/bildungsangebote',
-        image: images.weiterbildung,
+        image: images.abcSeminarraum,
         tag: 'Weiterbildung',
       },
       {
@@ -101,7 +101,7 @@ export const homePage: HomePage = {
         description:
           'Sozialpädagogische Familienhilfe und Erziehungsbeistand – Begleitung im Familienalltag.',
         href: '/paedagogische-angebote',
-        image: images.paedagogik,
+        image: images.abcBeratung,
         tag: 'Familie',
       },
     ],

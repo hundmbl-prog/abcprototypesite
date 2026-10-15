@@ -44,22 +44,31 @@ test.describe('Home page', () => {
 
   test('offers bento shows 6 photo cards, each a single link', async ({ page }) => {
     await page.goto('/')
-    const cards = page.locator('#angebote article')
+    const cards = page.locator('#angebote li')
     await expect(cards).toHaveCount(6)
-    for (const card of await cards.all()) await expect(card.locator('a[href]')).toHaveCount(1)
+    for (const card of await cards.all()) {
+      await expect(card.locator('a[href]')).toHaveCount(1)
+      await expect(card.getByRole('heading', { level: 3 })).toHaveCount(1)
+    }
   })
 })
 
 test.describe('Offer cards and about', () => {
-  test('photo and info box form one link per card', async ({ page }) => {
+  test('offer descriptions open on hover and keyboard focus', async ({ page }, testInfo) => {
+    test.skip(!!testInfo.project.use.hasTouch, 'touch screens always show the description')
     await page.goto('/')
-    const card = page.locator('#angebote article').first()
-    await expect(card.locator('a[href]')).toHaveCount(1)
-    await expect(page.locator('#angebote [aria-label="Angebote filtern"]')).toHaveCount(0)
-    const link = card.locator('a[href]')
-    const box = await link.boundingBox()
-    const img = await card.locator('img').boundingBox()
-    expect(box && img && box.y <= img.y && box.y + box.height >= img.y + img.height).toBeTruthy()
+    const second = page.locator('#angebote li').nth(1)
+    const text = second.locator('.reveal-on-hover')
+    await second.scrollIntoViewIfNeeded()
+    await page.mouse.move(0, 0)
+    await expect(text).toHaveCSS('opacity', '0')
+    await second.locator('a').hover()
+    await expect(text).toHaveCSS('opacity', '1')
+    await page.mouse.move(0, 0)
+    await second.locator('a').focus()
+    await page.keyboard.press('Shift+Tab')
+    await page.keyboard.press('Tab')
+    await expect(text).toHaveCSS('opacity', '1')
   })
 
   test('about section shows story, milestones and a red button', async ({ page }) => {
@@ -203,6 +212,14 @@ test.describe('Counters, locations, map', () => {
     const stats = page.locator('#warum-abc dd')
     await stats.first().scrollIntoViewIfNeeded()
     await expect(stats.nth(1)).toHaveText('5', { timeout: 5000 })
+  })
+
+  test('counters never stay at 0 after scrolling past quickly', async ({ page }) => {
+    await page.goto('/')
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+    await page.waitForTimeout(2500)
+    const values = await page.locator('#warum-abc dd > span:first-child').allTextContents()
+    expect(values).toEqual(['29', '5', '1.200+', '60+'])
   })
 
   test('map loads only after consent', async ({ page }) => {
