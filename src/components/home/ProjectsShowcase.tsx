@@ -79,7 +79,7 @@ export function ProjectsShowcase({ items }: { items: Project[] }) {
                     !active && 'scale-95',
                   )}
                 >
-                  <div className="sheen relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
+                  <div className="relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}

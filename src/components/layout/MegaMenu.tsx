@@ -78,7 +78,7 @@ export function MegaMenu({
               ))}
             </ul>
             <div className="col-span-3">
-              <div className="sheen relative aspect-4/5 overflow-hidden rounded-xl bg-surface-3 shadow-lg">
+              <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-surface-3 shadow-lg">
                 <AnimatePresence initial={false}>
                   <motion.div
                     key={previewLabel}

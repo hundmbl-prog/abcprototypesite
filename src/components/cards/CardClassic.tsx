@@ -1,5 +1,5 @@
 import { cn } from '@/lib/cn'
-import { SpotlightTilt } from '@/components/motion/SpotlightTilt'
+import { Icon } from '@/components/ui/Icon'
 import { CardCta, CardFacts, CardImage, CardMeta, CardTitle, cardFocus } from './parts'
 import type { HeadingLevel, OfferCardData } from './types'
 
@@ -44,6 +44,8 @@ type CardClassicProps = {
   /** next/image sizes attribute; default fits a 3-column grid. */
   sizes?: string
   compact?: boolean
+  /** Only category, title, short text and a red button (no facts, no status badge). */
+  simple?: boolean
   preview?: 'hover'
   className?: string
 }
@@ -54,6 +56,7 @@ export function CardClassic({
   headingLevel = 'h3',
   sizes = '(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw',
   compact = false,
+  simple = false,
   shade,
   preview,
   className,
@@ -61,58 +64,78 @@ export function CardClassic({
   const dark = shade !== undefined && !lightShades.has(shade)
   const light = shade !== undefined && !dark
   return (
-    <SpotlightTilt maxTilt={3} className={cn('rounded-xl', className)}>
-      <article
-        data-preview={preview}
-        className={cn(
-          'group sheen relative flex h-full flex-col overflow-hidden rounded-xl shadow-md',
-          'transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)',
-          dark && shade
+    <article
+      data-preview={preview}
+      className={cn(
+        'group relative flex h-full flex-col overflow-hidden rounded-xl shadow-md',
+        'transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)',
+        dark && shade
+          ? cn(shadeVar[shade], 'bg-(--shade) text-on-dark [--focus-ring:var(--shade)]')
+          : light && shade
             ? cn(
                 shadeVar[shade],
-                'bg-(--shade) text-on-dark [--focus-ring:var(--shade)] [--spot-color:color-mix(in_srgb,var(--color-surface)_14%,transparent)]',
+                'bg-linear-to-b from-(--shade) to-surface text-ink ring-1 ring-blue-900/5',
               )
-            : light && shade
-              ? cn(
-                  shadeVar[shade],
-                  'bg-linear-to-b from-(--shade) to-surface text-ink ring-1 ring-blue-900/5 [--spot-color:color-mix(in_srgb,var(--color-blue)_10%,transparent)]',
-                )
-              : 'border border-line bg-surface [--spot-color:color-mix(in_srgb,var(--color-blue)_8%,transparent)]',
-          cardFocus,
-        )}
-      >
-        <div className={cn('relative overflow-hidden', compact ? 'aspect-video' : 'aspect-16/10')}>
-          <CardImage image={card.image} sizes={sizes} />
-          {shade ? (
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-(--shade) to-transparent"
+            : 'border border-line bg-surface',
+        cardFocus,
+        className,
+      )}
+    >
+      <div className={cn('relative overflow-hidden', compact ? 'aspect-video' : 'aspect-16/10')}>
+        <CardImage image={card.image} sizes={sizes} />
+        {shade ? (
+          <span
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-(--shade) to-transparent"
+          />
+        ) : null}
+      </div>
+      <div className={cn('flex flex-1 flex-col gap-3', compact ? 'p-5' : 'p-6')}>
+        <CardMeta
+          card={simple ? { ...card, badge: undefined } : card}
+          tagTone={dark ? 'dark' : light ? 'image' : 'light'}
+        />
+        <CardTitle
+          card={card}
+          as={headingLevel}
+          className={cn(compact ? 'text-h4' : 'text-h3', !dark && 'text-blue-900')}
+        />
+        <p className={cn('line-clamp-2', dark ? 'text-on-dark' : 'text-ink-muted')}>
+          {card.description}
+        </p>
+        {simple ? (
+          <span
+            aria-hidden
+            className="mt-auto inline-flex min-h-11 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1.5 pl-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) ease-out-expo group-active:scale-95 group-hov:bg-red-600 group-hov:shadow-(--shadow-glow-red)"
+          >
+            {card.ctaLabel ?? 'Mehr erfahren'}
+            <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark/15">
+              <Icon
+                name="arrow-right"
+                className="size-4 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-8"
+              />
+              <Icon
+                name="arrow-right"
+                className="absolute size-4 -translate-x-8 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-0"
+              />
+            </span>
+          </span>
+        ) : (
+          <>
+            <CardFacts
+              facts={card.facts}
+              max={compact ? 2 : 4}
+              tone={dark ? 'dark' : 'light'}
+              className="mt-auto pt-2"
             />
-          ) : null}
-        </div>
-        <div className={cn('flex flex-1 flex-col gap-3', compact ? 'p-5' : 'p-6')}>
-          <CardMeta card={card} tagTone={dark ? 'dark' : light ? 'image' : 'light'} />
-          <CardTitle
-            card={card}
-            as={headingLevel}
-            className={cn(compact ? 'text-h4' : 'text-h3', !dark && 'text-blue-900')}
-          />
-          <p className={cn('line-clamp-2', dark ? 'text-on-dark' : 'text-ink-muted')}>
-            {card.description}
-          </p>
-          <CardFacts
-            facts={card.facts}
-            max={compact ? 2 : 4}
-            tone={dark ? 'dark' : 'light'}
-            className="mt-auto pt-2"
-          />
-          <CardCta
-            label={card.ctaLabel ?? 'Mehr erfahren'}
-            tone={dark ? 'dark' : 'light'}
-            className="pt-2"
-          />
-        </div>
-      </article>
-    </SpotlightTilt>
+            <CardCta
+              label={card.ctaLabel ?? 'Mehr erfahren'}
+              tone={dark ? 'dark' : 'light'}
+              className="pt-2"
+            />
+          </>
+        )}
+      </div>
+    </article>
   )
 }

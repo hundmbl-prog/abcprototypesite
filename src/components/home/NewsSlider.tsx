@@ -110,7 +110,7 @@ export function NewsSlider({ items }: { items: NewsItem[] }) {
               aria-label={`${i + 1} von ${items.length}`}
               className="group relative grid min-w-0 shrink-0 grow-0 basis-full overflow-hidden rounded-2xl bg-linear-to-br from-surface via-surface to-red-50 lg:grid-cols-12"
             >
-              <div className="sheen relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
+              <div className="relative aspect-16/10 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-112">
                 <Image
                   src={item.image.src}
                   alt={item.image.alt}

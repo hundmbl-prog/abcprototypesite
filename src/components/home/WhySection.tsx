@@ -63,7 +63,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
           <figure className="relative">
             <div
               data-reveal="image"
-              className="sheen relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float)"
+              className="relative aspect-16/10 overflow-hidden rounded-2xl shadow-(--shadow-float)"
             >
               <Image
                 src={image.src}
@@ -89,7 +89,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
                   key={stat.id}
                   data-reveal
                   className={cn(
-                    'sheen relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
+                    'relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
                     style?.bg,
                   )}
                 >

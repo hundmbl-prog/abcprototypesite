@@ -51,7 +51,7 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
   const accent = accents[index % accents.length] ?? accents[0]
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-linear-to-b from-surface to-red-50 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1.5 hov:shadow-(--shadow-float)">
-      <div className="sheen relative aspect-4/5 overflow-hidden">
+      <div className="relative aspect-4/5 overflow-hidden">
         <Image
           src={person.image.src}
           alt={person.image.alt}
@@ -78,7 +78,7 @@ function PersonCard({ person, index }: { person: Person; index: number }) {
         <div className="mt-auto flex gap-2">
           <a
             href={telHref(person.phone)}
-            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-blue-600 px-3 text-small font-semibold text-on-dark hov:bg-blue-700"
+            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 hov:shadow-(--shadow-glow-red)"
           >
             <PhoneIcon />
             Anrufen

@@ -1,5 +1,13 @@
 # Changelog
 
+## Step 3g – Uniform offer cards, red buttons, no hover sweep (2026-10-15)
+
+- **Offer cards:** all six use the same soft logo-blue gradient. New `simple` mode on `CardClassic`: only category, title and a two-line description, with no facts or status badges.
+- **Red interactive buttons:** the card button is logo-red; on hover it deepens and glows and the arrow slides, and it presses in on click. The "Anrufen" buttons in the location and contact cards use the same red style.
+- **Hover effects:** the light-sweep "sheen" and the tilt/spotlight effect are removed everywhere (the utility and the `SpotlightTilt` component are deleted); cards only lift gently.
+- **Locations:** the cards use the same gradient as the offer cards.
+- **Checks:** lint, typecheck and build pass; 112 tests at 4 widths; Lighthouse mobile 93 / desktop 97.
+
 ## Step 3f – Partner logos, joined project cards, calm backgrounds (2026-10-15)
 
 - **Partner section:** real logos instead of names. 11 logos from the current site's media, trimmed and optimised: telc, BAMF, Bundesagentur für Arbeit, Aktion Mensch, BMAS/ESF, Deutsche Fernsehlotterie, Der Paritätische, CERTQUA, InSL, SWL, rückenwind³. Shown on white cards in a slow marquee that pauses on hover, with a gentle lift and zoom; each logo has a descriptive alt text.

@@ -100,7 +100,7 @@ export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }
         <div className="hidden flex-col gap-4 lg:col-span-5 lg:flex">
           <nav
             aria-label="Schnellzugriff"
-            className="sheen relative animate-fade-up overflow-hidden rounded-2xl p-3 text-ink glass-strong [--focus-ring:var(--color-blue)]"
+            className="relative animate-fade-up overflow-hidden rounded-2xl p-3 text-ink glass-strong [--focus-ring:var(--color-blue)]"
             style={{ animationDelay: '500ms' }}
           >
             <p className="px-3 pt-2 pb-3 text-caption font-semibold tracking-widest text-ink-muted uppercase">

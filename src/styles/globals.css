@@ -138,35 +138,6 @@
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-surface) 25%, transparent);
 }
 
-/*
- * Mirror sheen: a diagonal light reflection that sweeps across the element on hover.
- * Needs a positioned element with overflow hidden. Disabled with reduced motion.
- */
-@utility sheen {
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(
-      115deg,
-      transparent 30%,
-      color-mix(in srgb, var(--color-surface) 45%, transparent) 48%,
-      color-mix(in srgb, var(--color-surface) 10%, transparent) 55%,
-      transparent 70%
-    );
-    transform: translateX(-120%);
-    transition: transform 900ms var(--ease-out-expo);
-  }
-  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    &:hover::before,
-    &:focus-within::before {
-      transform: translateX(120%);
-    }
-  }
-}
-
 /* Visible focus ring that uses the current section tone */
 @utility focus-ring {
   outline: 2px solid var(--focus-ring);

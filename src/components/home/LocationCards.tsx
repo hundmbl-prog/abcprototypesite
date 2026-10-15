@@ -153,7 +153,7 @@ function LocationCard({
   return (
     <article
       data-reveal
-      className="flex flex-col rounded-2xl bg-linear-to-br from-surface via-surface to-blue-100 p-5 shadow-sm ring-1 ring-line transition-shadow duration-(--dur-slow) md:p-6 hov:shadow-md"
+      className="flex flex-col rounded-2xl bg-linear-to-b from-blue-100 to-surface p-5 shadow-md ring-1 ring-blue-900/5 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-6 hov:-translate-y-1 hov:shadow-(--shadow-float)"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-col gap-0.5">
@@ -195,7 +195,7 @@ function LocationCard({
       <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
         <a
           href={telHref(location.phone)}
-          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-blue-600 px-4 text-small font-semibold text-on-dark hov:bg-blue-700"
+          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 hov:shadow-(--shadow-glow-red)"
         >
           <PhoneIcon />
           Anrufen

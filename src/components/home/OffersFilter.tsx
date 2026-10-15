@@ -7,8 +7,8 @@ import type { OfferCardData } from '@/components/cards/types'
 import { cn } from '@/lib/cn'
 import type { OfferFilter } from '@/content/types'
 
-/** Soft tints only: navy text on all of them (AA). A card keeps its tint while filtering. */
-const tints: CardShade[] = ['blue-100', 'red-100', 'blue-100', 'red-100', 'blue-100', 'red-100']
+/** One shared soft logo-blue gradient for every offer card (navy text, AA). */
+const CARD_SHADE: CardShade = 'blue-100'
 
 /** Offer grid with filter chips; cards glide into their new place (off with reduced motion). */
 export function OffersFilter({
@@ -21,9 +21,9 @@ export function OffersFilter({
   const reduce = useReducedMotion()
   const [active, setActive] = useState(filters[0]?.id ?? 'alle')
   const filter = filters.find((f) => f.id === active)
-  const visible = cards
-    .map((card, index) => ({ card, tint: tints[index % tints.length] }))
-    .filter(({ card }) => !filter || filter.tags.length === 0 || filter.tags.includes(card.tag))
+  const visible = cards.filter(
+    (card) => !filter || filter.tags.length === 0 || filter.tags.includes(card.tag),
+  )
 
   return (
     <div className="flex flex-col gap-8">
@@ -73,7 +73,7 @@ export function OffersFilter({
       <LayoutGroup>
         <motion.ul layout={!reduce} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
-            {visible.map(({ card, tint }) => (
+            {visible.map((card) => (
               <motion.li
                 key={card.id}
                 layout={!reduce}
@@ -85,7 +85,7 @@ export function OffersFilter({
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="min-w-0"
               >
-                <CardClassic card={card} shade={tint} />
+                <CardClassic card={card} shade={CARD_SHADE} simple />
               </motion.li>
             ))}
           </AnimatePresence>
