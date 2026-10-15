@@ -54,32 +54,6 @@ const paths = {
     </>
   ),
   upload: <path d="M12 15.5V4m-4.5 4.5L12 4l4.5 4.5M4.5 15v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" />,
-  book: (
-    <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15.5H5.5A1.5 1.5 0 0 0 4 21V5.5Zm16 0A1.5 1.5 0 0 0 18.5 4H13v15.5h5.5A1.5 1.5 0 0 1 20 21V5.5Z" />
-  ),
-  award: (
-    <>
-      <circle cx="12" cy="9" r="5.5" />
-      <path d="m8.5 13.5-1.5 7 5-2.5 5 2.5-1.5-7" />
-    </>
-  ),
-  briefcase: (
-    <>
-      <rect x="3" y="7" width="18" height="13" rx="2" />
-      <path d="M8.5 7V5.5a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18" />
-    </>
-  ),
-  pencil: <path d="m15.5 4.5 4 4L8 20H4v-4L15.5 4.5Z" />,
-  chat: <path d="M4 5h16v11H9l-5 4V5Z" />,
-  mail: (
-    <>
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m4 7 8 6 8-6" />
-    </>
-  ),
-  phone: (
-    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
-  ),
 } as const
 
 export type IconName = keyof typeof paths

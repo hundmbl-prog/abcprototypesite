@@ -31,7 +31,7 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
     </ul>
   )
   return (
-    <section aria-labelledby="partner-titel" className="overflow-hidden bg-blue-50 py-section-sm">
+    <section aria-labelledby="partner-titel" className="overflow-hidden bg-surface py-section-sm">
       <div className="container-page">
         <SectionHeader
           id="partner-titel"
