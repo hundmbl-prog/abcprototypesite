@@ -533,20 +533,6 @@ const bskPage: ContentPage = {
       image: images.abcSeminarraum,
       reverse: true,
     },
-    {
-      type: 'links',
-      id: 'informationen',
-      eyebrow: 'Offizielle Informationen',
-      title: 'Mehr zu den Berufssprachkursen',
-      links: [
-        {
-          label: 'Deutsch für den Beruf (BAMF)',
-          href: 'https://www.bamf.de/DE/Themen/Integration/ZugewanderteTeilnehmende/DeutschBeruf/deutsch-beruf-node.html',
-          description: 'Alles zu den Berufssprachkursen beim Bundesamt.',
-          kind: 'Website',
-        },
-      ],
-    },
     contact(
       'Sie möchten einen Berufssprachkurs besuchen oder haben Fragen zur Förderung? Wir beraten Sie kostenlos.',
       'bsk@abc-mainz.de',

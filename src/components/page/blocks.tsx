@@ -22,6 +22,9 @@ import { FilteredCards } from './FilteredCards'
 
 const titleId = (id: string) => `${id}-titel`
 
+/** Section background chosen by the BlockRenderer; "deep" is the brand-blue section. */
+export type SectionTone = 'white' | 'soft' | 'deep'
+
 /** Steps fill whole rows: 4 → 4 columns, 5 → 5, 6 → 3 × 2. */
 const stepCols: Record<number, string> = {
   3: 'lg:grid-cols-3',
@@ -126,7 +129,8 @@ export function CardsBlock({ block }: { block: CardsData }) {
 }
 
 /** Two or three short lists side by side (e.g. target group, requirements, documents). */
-export function ColumnsBlock({ block }: { block: ColumnsData }) {
+export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: SectionTone }) {
+  const deep = tone === 'deep'
   return (
     <>
       <SectionHeader
@@ -134,23 +138,47 @@ export function ColumnsBlock({ block }: { block: ColumnsData }) {
         eyebrow={block.eyebrow}
         title={block.title}
         intro={block.intro}
+        tone={deep ? 'dark' : 'light'}
       />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {block.columns.map((col) => (
           <div
             key={col.title}
             data-reveal
-            className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br from-surface to-blue-50 p-6 shadow-sm md:p-8"
+            className={cn(
+              'group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1',
+              deep
+                ? 'bg-on-dark/5 ring-1 ring-on-dark/15 hov:bg-on-dark/10'
+                : 'border border-line bg-linear-to-br from-surface to-blue-50 shadow-sm hov:shadow-(--shadow-float)',
+            )}
           >
             <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
-            <span className="grid size-12 place-items-center rounded-pill bg-blue-600 text-on-dark">
+            <span
+              className={cn(
+                'grid size-12 place-items-center rounded-pill transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110',
+                deep ? 'bg-surface text-blue-700' : 'bg-blue-600 text-on-dark',
+              )}
+            >
               <Icon name={col.icon} className="size-5" />
             </span>
-            <h3 className="text-h4 text-blue-900">{col.title}</h3>
+            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{col.title}</h3>
             <ul className="flex flex-col gap-2.5">
               {col.items.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-small text-ink">
-                  <Icon name="check" className="mt-0.5 size-4 text-blue-600" strokeWidth={2.5} />
+                <li
+                  key={item}
+                  className={cn(
+                    'flex items-start gap-2.5 text-small',
+                    deep ? 'text-on-dark-muted' : 'text-ink',
+                  )}
+                >
+                  <Icon
+                    name="check"
+                    className={cn(
+                      'mt-0.5 size-4 shrink-0',
+                      deep ? 'text-red-300' : 'text-blue-600',
+                    )}
+                    strokeWidth={2.5}
+                  />
                   {item}
                 </li>
               ))}
@@ -160,13 +188,30 @@ export function ColumnsBlock({ block }: { block: ColumnsData }) {
         {block.note ? (
           <aside
             data-reveal
-            className="flex flex-col gap-3 rounded-2xl bg-blue-900 p-6 text-on-dark md:p-8 lg:col-span-1"
+            className={cn(
+              'relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6 md:p-8 lg:col-span-1',
+              deep ? 'bg-surface text-ink shadow-lg' : 'tone-navy',
+            )}
           >
-            <span className="inline-flex items-center gap-2 text-caption font-semibold tracking-widest text-red-300 uppercase">
+            <Icon
+              name="info"
+              className={cn(
+                'absolute -right-6 -bottom-6 size-32',
+                deep ? 'text-blue-50' : 'text-on-dark/10',
+              )}
+            />
+            <span
+              className={cn(
+                'relative inline-flex items-center gap-2 text-caption font-semibold tracking-widest uppercase',
+                deep ? 'text-red-600' : 'text-red-300',
+              )}
+            >
               <Icon name="info" className="size-4" />
               {block.note.title}
             </span>
-            <p className="text-on-dark-muted">{block.note.text}</p>
+            <p className={cn('relative', deep ? 'text-ink-muted' : 'text-on-dark-muted')}>
+              {block.note.text}
+            </p>
           </aside>
         ) : null}
       </div>
@@ -175,7 +220,8 @@ export function ColumnsBlock({ block }: { block: ColumnsData }) {
 }
 
 /** Numbered steps; a line connects them, each step lifts in as it scrolls into view. */
-export function StepsBlock({ block }: { block: StepsData }) {
+export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTone }) {
+  const deep = tone === 'deep'
   return (
     <>
       <SectionHeader
@@ -183,6 +229,7 @@ export function StepsBlock({ block }: { block: StepsData }) {
         eyebrow={block.eyebrow}
         title={block.title}
         intro={block.intro}
+        tone={deep ? 'dark' : 'light'}
         action={
           block.cta ? (
             <Button href={block.cta.href} variant="pill-red">
@@ -201,19 +248,36 @@ export function StepsBlock({ block }: { block: StepsData }) {
           <li
             key={step.title}
             data-reveal
-            className="group relative flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
+            className={cn(
+              'group relative flex flex-col gap-4 rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1',
+              deep
+                ? 'bg-on-dark/5 ring-1 ring-on-dark/15 hov:bg-on-dark/10'
+                : 'border border-line bg-surface shadow-sm hov:shadow-(--shadow-float)',
+            )}
           >
             <div className="flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-pill bg-blue-900 font-display text-h4 font-semibold text-on-dark transition-colors duration-(--dur-base) group-hover:bg-red-500">
+              <span
+                className={cn(
+                  'grid size-11 place-items-center rounded-pill font-display text-h4 font-semibold transition-colors duration-(--dur-base)',
+                  deep
+                    ? 'bg-red-500 text-on-dark group-hover:bg-surface group-hover:text-blue-900'
+                    : 'bg-blue-900 text-on-dark group-hover:bg-red-500',
+                )}
+              >
                 {i + 1}
               </span>
               <span
                 aria-hidden
-                className="h-0.5 flex-1 bg-linear-to-r from-blue-200 to-transparent"
+                className={cn(
+                  'h-0.5 flex-1 bg-linear-to-r to-transparent',
+                  deep ? 'from-on-dark/30' : 'from-blue-200',
+                )}
               />
             </div>
-            <h3 className="text-h4 text-blue-900">{step.title}</h3>
-            <p className="text-small text-ink-muted">{step.text}</p>
+            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{step.title}</h3>
+            <p className={cn('text-small', deep ? 'text-on-dark-muted' : 'text-ink-muted')}>
+              {step.text}
+            </p>
           </li>
         ))}
       </ol>
@@ -322,36 +386,64 @@ function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
 
-/** Contact card with address, opening hours, phone and e-mail of the responsible location. */
-export function ContactBlock({ block, location }: { block: ContactData; location: Location }) {
+/**
+ * Closing card of a page: the call to action and the personal contact in one deep-blue card –
+ * buttons, phone and department e-mail on the left, address and opening hours on the right.
+ * Without a CTA block it shows the contact text only.
+ */
+export function ClosingBlock({
+  contact,
+  cta,
+  location,
+}: {
+  contact: ContactData
+  cta?: CtaData
+  location: Location
+}) {
+  const primaryHref = (href: string) =>
+    href === `#${contact.id}` ? `mailto:${contact.email}` : href
   return (
-    <div className="grid grid-cols-1 gap-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-md lg:grid-cols-12">
-      <div className="flex flex-col gap-5 p-6 md:p-10 lg:col-span-7">
+    <div className="relative isolate grid grid-cols-1 overflow-hidden rounded-2xl tone-navy shadow-lg lg:grid-cols-12">
+      <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+      <div className="flex flex-col gap-6 p-6 md:p-12 lg:col-span-7">
         <SectionHeader
-          id={titleId(block.id)}
-          eyebrow={block.eyebrow}
-          title={block.title}
+          id={titleId(contact.id)}
+          eyebrow={contact.eyebrow}
+          title={cta?.title ?? contact.title}
+          tone="dark"
           className="mb-0! md:mb-0!"
         />
-        <p className="text-lead text-ink-muted">{block.text}</p>
-        <div className="flex flex-wrap gap-3">
+        <p className="max-w-prose text-lead text-on-dark-muted">{cta?.text ?? contact.text}</p>
+        {cta ? (
+          <div className="flex flex-wrap gap-3">
+            <Button href={primaryHref(cta.primary.href)} variant="pill-red" size="lg">
+              {cta.primary.label}
+            </Button>
+            {cta.secondary ? (
+              <Button href={cta.secondary.href} variant="ghost" size="lg">
+                {cta.secondary.label}
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-on-dark/15 pt-6 text-small font-semibold">
           <a
             href={telHref(location.phone)}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm underline-offset-4 hov:underline"
           >
-            <Icon name="phone" className="size-4" />
+            <Icon name="phone" className="size-4 text-red-300" />
             {location.phone}
           </a>
           <a
-            href={`mailto:${block.email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            href={`mailto:${contact.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-sm break-all underline-offset-4 hov:underline"
           >
-            <Icon name="mail" className="size-4" />
-            {block.email}
+            <Icon name="mail" className="size-4 text-red-300" />
+            {contact.email}
           </a>
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-6 bg-blue-900 p-6 text-on-dark md:p-10 lg:col-span-5">
+      <div className="flex flex-col justify-center gap-6 border-t border-on-dark/10 bg-on-dark/5 p-6 md:p-12 lg:col-span-5 lg:border-t-0 lg:border-l">
         <dl className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <dt className="flex items-center gap-2 text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
@@ -376,7 +468,7 @@ export function ContactBlock({ block, location }: { block: ContactData; location
         </dl>
         <Link
           href="/ueber-uns/kontakt"
-          className="inline-flex items-center gap-2 self-start text-small font-semibold text-on-dark underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-on-dark"
+          className="inline-flex items-center gap-2 self-start rounded-sm text-small font-semibold underline-offset-4 hov:underline"
         >
           Alle Standorte und Kontaktwege
           <Icon name="arrow-right" className="size-4" />
@@ -386,6 +478,7 @@ export function ContactBlock({ block, location }: { block: ContactData; location
   )
 }
 
+/** Closing call to action without a contact block (deep-blue banner). */
 export function CtaBlock({ block }: { block: CtaData }) {
   return (
     <CtaBanner

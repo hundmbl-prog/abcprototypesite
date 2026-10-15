@@ -126,13 +126,19 @@ export function Features({ block }: { block: FeaturesBlock }) {
         intro={block.intro}
       />
       <ul className={cn('grid grid-cols-1 gap-5 sm:grid-cols-2', cols)}>
-        {block.items.map((item) => (
+        {block.items.map((item, i) => (
           <li
             key={item.title}
             data-reveal
             className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
           >
             <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+            <span
+              aria-hidden
+              className="absolute top-5 right-6 font-display text-h3 font-semibold text-red-500/80"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
             <span className="grid size-12 place-items-center rounded-pill bg-blue-600 text-on-dark transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110">
               <Icon name={item.icon} className="size-5" />
             </span>
@@ -145,8 +151,168 @@ export function Features({ block }: { block: FeaturesBlock }) {
   )
 }
 
-/** Detailed section for one project or offer; cards on the same page link here by id. */
-export function Spotlight({ block }: { block: SpotlightBlock }) {
+function SpotlightImage({
+  block,
+  sizes,
+  className,
+}: {
+  block: SpotlightBlock
+  sizes: string
+  className?: string
+}) {
+  return (
+    <Image
+      src={block.image.src}
+      alt={block.image.alt}
+      width={block.image.width}
+      height={block.image.height}
+      sizes={sizes}
+      placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
+      blurDataURL={block.image.blurDataURL}
+      className={cn(
+        'size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105',
+        className,
+      )}
+    />
+  )
+}
+
+/** Heading, text, lists, funding note and actions – shared by both spotlight layouts. */
+function SpotlightBody({ block }: { block: SpotlightBlock }) {
+  return (
+    <>
+      <SectionHeader
+        id={`${block.id}-titel`}
+        eyebrow={block.eyebrow}
+        title={block.title}
+        className="mb-0! md:mb-0!"
+      />
+      {block.paragraphs.map((text) => (
+        <p key={text} className="text-ink-muted md:text-lead">
+          {text}
+        </p>
+      ))}
+      {block.lists?.length ? (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {block.lists.map((list) => (
+            <div
+              key={list.title}
+              className="relative overflow-hidden rounded-xl bg-surface p-5 shadow-sm ring-1 ring-line"
+            >
+              <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+              <h3 className="mb-3 text-small font-semibold text-blue-900">{list.title}</h3>
+              <ul className="flex flex-col gap-2">
+                {list.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-small text-ink">
+                    <Icon name="check" className="mt-0.5 size-4 text-blue-600" strokeWidth={2.5} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {block.funding ? (
+        <p className="flex items-start gap-3 rounded-xl tone-navy p-4 text-small">
+          <Icon name="info" className="mt-0.5 size-4 text-red-300" />
+          <span className="text-on-dark-muted">{block.funding}</span>
+        </p>
+      ) : null}
+      <div className="flex flex-wrap items-center gap-3">
+        {block.contact?.email ? (
+          <a
+            href={`mailto:${block.contact.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+          >
+            <Icon name="mail" className="size-4" />
+            {block.contact.email}
+          </a>
+        ) : null}
+        {block.contact?.phone ? (
+          <a
+            href={`tel:${block.contact.phone.replace(/[^\d+]/g, '')}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+          >
+            <Icon name="phone" className="size-4" />
+            {block.contact.phone}
+          </a>
+        ) : null}
+        {block.link ? (
+          <a
+            href={block.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill px-3 text-small font-semibold text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+          >
+            {block.link.label}
+            <Icon name="arrow-up-right" className="size-4" />
+            <span className="sr-only">(öffnet in neuem Tab)</span>
+          </a>
+        ) : null}
+      </div>
+      {block.contact?.label ? (
+        <p className="text-small text-ink-muted">{block.contact.label}</p>
+      ) : null}
+      {block.back ? (
+        <Link
+          href={block.back.href}
+          className="inline-flex items-center gap-2 self-start text-small font-semibold text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+        >
+          <Icon name="arrow-up-right" className="size-4 -rotate-45" />
+          {block.back.label}
+        </Link>
+      ) : null}
+    </>
+  )
+}
+
+/**
+ * Detailed section for one project or offer; cards on the same page link here by id.
+ * "split": photo with facts beside the text. "photo": the text sits on a white panel
+ * over a large photo, facts as a strip – the BlockRenderer alternates both on a page.
+ */
+export function Spotlight({
+  block,
+  variant = 'split',
+}: {
+  block: SpotlightBlock
+  variant?: 'split' | 'photo'
+}) {
+  if (variant === 'photo') {
+    return (
+      <div className="group relative overflow-hidden rounded-2xl shadow-lg lg:flex lg:min-h-[40rem] lg:items-center lg:p-10">
+        <div
+          data-reveal="image"
+          className="relative aspect-4/3 overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto"
+        >
+          <SpotlightImage block={block} sizes="(min-width: 1024px) 90vw, 100vw" />
+        </div>
+        <div
+          className={cn(
+            'relative flex flex-col gap-6 overflow-hidden bg-surface p-6 md:p-10 lg:w-[58%] lg:rounded-2xl lg:shadow-(--shadow-float)',
+            block.reverse ? 'lg:mr-auto' : 'lg:ml-auto',
+          )}
+        >
+          <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+          <SpotlightBody block={block} />
+          {block.facts?.length ? (
+            <dl className="grid grid-cols-1 gap-3 border-t border-line pt-5 sm:grid-cols-2">
+              {block.facts.map((fact) => (
+                <div key={fact.label} className="flex flex-col gap-0.5">
+                  <dt className="text-caption font-semibold tracking-wide text-red-600 uppercase">
+                    {fact.label}
+                  </dt>
+                  <dd className="font-semibold text-blue-900">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
       <div className={cn('flex flex-col gap-6 lg:col-span-5', block.reverse && 'lg:order-2')}>
@@ -154,25 +320,16 @@ export function Spotlight({ block }: { block: SpotlightBlock }) {
           data-reveal="image"
           className="group aspect-4/3 overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
         >
-          <Image
-            src={block.image.src}
-            alt={block.image.alt}
-            width={block.image.width}
-            height={block.image.height}
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={block.image.blurDataURL}
-            className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
-          />
+          <SpotlightImage block={block} sizes="(min-width: 1024px) 40vw, 100vw" />
         </div>
         {block.facts?.length ? (
-          <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-blue-100 ring-1 ring-blue-100 sm:grid-cols-2">
+          <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-blue-800 ring-1 ring-blue-800 sm:grid-cols-2">
             {block.facts.map((fact) => (
-              <div key={fact.label} className="flex flex-col gap-1 bg-surface p-4">
-                <dt className="text-caption font-semibold tracking-wide text-ink-muted uppercase">
+              <div key={fact.label} className="flex flex-col gap-1 bg-blue-900 p-4 text-on-dark">
+                <dt className="text-caption font-semibold tracking-wide text-red-300 uppercase">
                   {fact.label}
                 </dt>
-                <dd className="font-semibold text-blue-900">{fact.value}</dd>
+                <dd className="font-semibold">{fact.value}</dd>
               </div>
             ))}
           </dl>
@@ -180,88 +337,7 @@ export function Spotlight({ block }: { block: SpotlightBlock }) {
       </div>
 
       <div className={cn('flex flex-col gap-6 lg:col-span-7', block.reverse && 'lg:order-1')}>
-        <SectionHeader
-          id={`${block.id}-titel`}
-          eyebrow={block.eyebrow}
-          title={block.title}
-          className="mb-0! md:mb-0!"
-        />
-        {block.paragraphs.map((text) => (
-          <p key={text} className="text-ink-muted md:text-lead">
-            {text}
-          </p>
-        ))}
-        {block.lists?.length ? (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {block.lists.map((list) => (
-              <div key={list.title} className="rounded-xl bg-blue-50 p-5 ring-1 ring-blue-100">
-                <h3 className="mb-3 text-small font-semibold text-blue-900">{list.title}</h3>
-                <ul className="flex flex-col gap-2">
-                  {list.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-small text-ink">
-                      <Icon
-                        name="check"
-                        className="mt-0.5 size-4 text-blue-600"
-                        strokeWidth={2.5}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        ) : null}
-        {block.funding ? (
-          <p className="flex items-start gap-3 border-l-4 border-red-500 bg-surface-2 p-4 text-small text-ink-muted">
-            <Icon name="info" className="mt-0.5 size-4 text-blue-600" />
-            {block.funding}
-          </p>
-        ) : null}
-        <div className="flex flex-wrap items-center gap-3">
-          {block.contact?.email ? (
-            <a
-              href={`mailto:${block.contact.email}`}
-              className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
-            >
-              <Icon name="mail" className="size-4" />
-              {block.contact.email}
-            </a>
-          ) : null}
-          {block.contact?.phone ? (
-            <a
-              href={`tel:${block.contact.phone.replace(/[^\d+]/g, '')}`}
-              className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
-            >
-              <Icon name="phone" className="size-4" />
-              {block.contact.phone}
-            </a>
-          ) : null}
-          {block.link ? (
-            <a
-              href={block.link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-pill px-3 text-small font-semibold text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
-            >
-              {block.link.label}
-              <Icon name="arrow-up-right" className="size-4" />
-              <span className="sr-only">(öffnet in neuem Tab)</span>
-            </a>
-          ) : null}
-        </div>
-        {block.contact?.label ? (
-          <p className="text-small text-ink-muted">{block.contact.label}</p>
-        ) : null}
-        {block.back ? (
-          <Link
-            href={block.back.href}
-            className="inline-flex items-center gap-2 self-start text-small font-semibold text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
-          >
-            <Icon name="arrow-up-right" className="size-4 -rotate-45" />
-            {block.back.label}
-          </Link>
-        ) : null}
+        <SpotlightBody block={block} />
       </div>
     </div>
   )

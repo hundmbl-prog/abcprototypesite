@@ -287,7 +287,7 @@ const projects: ProjectData[] = [
     image: images.projektBruecken,
     paragraphs: [
       'Im Bundesprogramm „Menschen stärken Menschen“ stiften wir Patenschaften zwischen geflüchteten oder zugewanderten und bereits hier lebenden Menschen. Im besten Fall entwickeln sich daraus feste Freundschaften und gegenseitige Unterstützung über das Projekt hinaus.',
-      'Nach einem kurzen Vorgespräch suchen wir eine passende Patin oder einen passenden Paten – mit Blick auf Alter, Interessen und Wünsche. Angestrebt wird mindestens ein Treffen pro Woche. Für die interkulturelle Begegnung organisieren wir außerdem gemeinsame Aktivitäten, etwa eine Studienfahrt nach Berlin mit Besuch im Bundestag.',
+      'Nach einem Vorgespräch suchen wir die passende Patin oder den passenden Paten – nach Alter, Interessen und Wünschen. Ideal ist ein Treffen pro Woche; dazu kommen gemeinsame Aktivitäten wie eine Studienfahrt nach Berlin mit Besuch im Bundestag.',
     ],
     facts: [
       { label: 'Form', value: 'Patenschaften' },
@@ -383,7 +383,7 @@ export const projektePage: ContentPage = {
       eyebrow: 'Warum Projekte?',
       title: 'Damit sich jeder Mensch entfalten kann',
       paragraphs: [
-        'Unser Ziel ist eine Gesellschaft, die gemeinsam vorankommt und in der sich jeder Mensch entfalten kann. Unsere Projekte sprechen viele Menschen an – mit einem besonderen Augenmerk auf jene, die besondere Förderung brauchen: Geflüchtete, Zugewanderte, Jugendliche und Menschen, die Benachteiligungen erfahren.',
+        'Unser Ziel: eine Gesellschaft, in der sich jeder Mensch entfalten kann. Unsere Projekte richten sich besonders an Menschen, die Förderung brauchen – Geflüchtete, Zugewanderte, Jugendliche und Menschen, die Benachteiligung erfahren.',
         'Gefördert werden unsere Projekte von Unternehmen, Stiftungen und öffentlichen Programmen.',
       ],
       points: [

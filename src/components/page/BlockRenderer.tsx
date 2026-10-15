@@ -1,16 +1,24 @@
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import { cn } from '@/lib/cn'
-import type { ExamDate, Location, PageBlock, TelcExam } from '@/content/types'
+import type {
+  ContactBlock as ContactData,
+  CtaBlock as CtaData,
+  ExamDate,
+  Location,
+  PageBlock,
+  TelcExam,
+} from '@/content/types'
 import {
   CardsBlock,
+  ClosingBlock,
   ColumnsBlock,
-  ContactBlock,
   CtaBlock,
   FaqBlock,
   FeesBlock,
   IntroBlock,
   LinksBlock,
   StepsBlock,
+  type SectionTone,
 } from './blocks'
 import { CourseTypes, Features, Spotlight } from './catalog'
 import { Article, Contacts, FormSection, Locations, Press } from './extra'
@@ -23,7 +31,73 @@ import { TelcRegistrationForm } from './TelcRegistrationForm'
 
 type Data = { locations: Location[]; orgName: string; exams: TelcExam[]; dates: ExamDate[] }
 
-function Block({ block, data }: { block: PageBlock; data: Data }) {
+type Section =
+  | { kind: 'block'; block: PageBlock; tone: SectionTone; spotlight: 'split' | 'photo' }
+  | { kind: 'closing'; contact: ContactData; cta?: CtaData; tone: SectionTone }
+
+/** Block types that have a deep-blue variant. */
+const DEEP_BLOCKS = new Set<PageBlock['type']>(['steps', 'columns'])
+
+/**
+ * Turns the page blocks into sections:
+ * - a contact block followed by a CTA becomes one closing card (no repeated contact details),
+ * - backgrounds rotate white / soft blue, with steps and columns on brand blue
+ *   (never two blue sections in a row and never directly below the hero),
+ * - consecutive spotlights alternate between the split and the photo layout.
+ */
+function toSections(blocks: PageBlock[]): Section[] {
+  const sections: Section[] = []
+  let light = 0
+  let spotlights = 0
+  let previous = 'white' as SectionTone
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i]
+    if (!block) continue
+    if (block.type === 'contact') {
+      const next = blocks[i + 1]
+      const cta = next?.type === 'cta' ? next : undefined
+      if (cta) i++
+      sections.push({
+        kind: 'closing',
+        contact: block,
+        cta,
+        tone: previous === 'soft' ? 'soft' : 'white',
+      })
+      continue
+    }
+    if (block.type === 'cta') {
+      sections.push({
+        kind: 'block',
+        block,
+        tone: previous === 'soft' ? 'soft' : 'white',
+        spotlight: 'split',
+      })
+      continue
+    }
+    const tone: SectionTone =
+      DEEP_BLOCKS.has(block.type) && previous !== 'deep' && sections.length > 0
+        ? 'deep'
+        : light++ % 2 === 0
+          ? 'white'
+          : 'soft'
+    const spotlight = block.type === 'spotlight' && spotlights++ % 2 === 1 ? 'photo' : 'split'
+    sections.push({ kind: 'block', block, tone, spotlight })
+    previous = tone
+  }
+  return sections
+}
+
+function Block({
+  block,
+  data,
+  tone,
+  spotlight,
+}: {
+  block: PageBlock
+  data: Data
+  tone: SectionTone
+  spotlight: 'split' | 'photo'
+}) {
   const main = data.locations[0]
   switch (block.type) {
     case 'intro':
@@ -31,9 +105,9 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
     case 'cards':
       return <CardsBlock block={block} />
     case 'columns':
-      return <ColumnsBlock block={block} />
+      return <ColumnsBlock block={block} tone={tone} />
     case 'steps':
-      return <StepsBlock block={block} />
+      return <StepsBlock block={block} tone={tone} />
     case 'tabs':
       return <TabsBlock block={block} />
     case 'exam-structure':
@@ -45,7 +119,7 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
     case 'features':
       return <Features block={block} />
     case 'spotlight':
-      return <Spotlight block={block} />
+      return <Spotlight block={block} variant={spotlight} />
     case 'form':
       return <FormSection block={block} phone={main?.phone ?? ''} email={main?.email ?? ''} />
     case 'contacts':
@@ -66,7 +140,7 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
       return <FeesBlock block={block} />
     case 'contact': {
       const location = data.locations.find((l) => l.id === block.locationId) ?? main
-      return location ? <ContactBlock block={block} location={location} /> : null
+      return location ? <ClosingBlock contact={block} location={location} /> : null
     }
     case 'cta':
       return <CtaBlock block={block} />
@@ -112,31 +186,47 @@ function Block({ block, data }: { block: PageBlock; data: Data }) {
   }
 }
 
-/**
- * Renders a page's blocks as sections. Backgrounds alternate white / soft logo-blue;
- * CTA and contact blocks sit on the previous background without breaking the rhythm.
- */
+const toneClass: Record<SectionTone, string> = {
+  white: 'bg-surface',
+  soft: 'bg-blue-50',
+  deep: 'bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]',
+}
+
+/** Renders a page's blocks as sections (see toSections for backgrounds and merging). */
 export function BlockRenderer({ blocks, data }: { blocks: PageBlock[]; data: Data }) {
-  let toned = 0
   return (
     <>
-      {blocks.map((block) => {
-        const plain = block.type === 'cta' || block.type === 'contact'
-        const tone = plain ? (toned - 1) % 2 : toned++ % 2
+      {toSections(blocks).map((section) => {
+        if (section.kind === 'closing') {
+          const { contact } = section
+          const location =
+            data.locations.find((l) => l.id === contact.locationId) ?? data.locations[0]
+          if (!location) return null
+          return (
+            <section
+              key={contact.id}
+              id={contact.id}
+              aria-labelledby={`${contact.id}-titel`}
+              className={cn('scroll-mt-28 py-section-sm', toneClass[section.tone])}
+            >
+              <div className="container-page">
+                <ClosingBlock contact={contact} cta={section.cta} location={location} />
+              </div>
+            </section>
+          )
+        }
+        const { block, tone, spotlight } = section
+        const isCta = block.type === 'cta'
         return (
           <section
             key={block.id}
             id={block.id}
-            aria-labelledby={block.type === 'cta' ? undefined : `${block.id}-titel`}
-            aria-label={block.type === 'cta' ? block.title : undefined}
-            className={cn(
-              'scroll-mt-28',
-              tone === 1 ? 'bg-blue-50' : 'bg-surface',
-              plain ? 'py-section-sm' : 'py-section',
-            )}
+            aria-labelledby={isCta ? undefined : `${block.id}-titel`}
+            aria-label={isCta ? block.title : undefined}
+            className={cn('scroll-mt-28', toneClass[tone], isCta ? 'py-section-sm' : 'py-section')}
           >
             <div className="container-page">
-              <Block block={block} data={data} />
+              <Block block={block} data={data} tone={tone} spotlight={spotlight} />
             </div>
           </section>
         )

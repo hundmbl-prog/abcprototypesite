@@ -1,7 +1,7 @@
 /** Über uns (one page with sections) and Kontakt. Content from abc-mainz.de. */
 import { images } from '../images'
 import type { ContentPage } from '../types'
-import { contact, cta } from './shared'
+import { cta } from './shared'
 
 export const ueberUnsPage: ContentPage = {
   path: 'ueber-uns',
@@ -34,7 +34,7 @@ export const ueberUnsPage: ContentPage = {
       title: 'Wir sind Vielfalt – und leben sie',
       paragraphs: [
         'Im Jahr 1997 gründeten migrantische Eltern, Studierende und Hochschulabsolventen das Akademische Bildungs-Center als gemeinnützigen Verein. Sie erkannten den großen Bedarf an Unterstützung für die Bildung in den migrantischen Communitys und schufen passende Angebote wie Sprachkurse, Nachhilfe und Integrationskurse.',
-        'Wir verstehen uns nicht nur als Bildungsträger, sondern als Brückenbauer und Partner für die Menschen vor Ort. Besonderen Wert legen wir auf Empowerment durch Bildung und ein solidarisches Miteinander – für eine Gesellschaft, die von Toleranz, Solidarität, Empathie und Demokratie geprägt ist.',
+        'Wir sind Brückenbauer und Partner für die Menschen vor Ort – mit Empowerment durch Bildung und einem solidarischen Miteinander.',
       ],
       points: ['Bildung', 'Sprache', 'Integration', 'Kinder- und Jugendhilfe'],
       image: images.g03438,
@@ -93,7 +93,7 @@ export const ueberUnsPage: ContentPage = {
       image: images.abcUnterricht,
       paragraphs: [
         'Bei uns kommen Menschen aus unterschiedlichen Kulturen zusammen – mit eigenen Erfahrungen und Zielen. Durch unsere langjährige Erfahrung im Sprachenlernen und in der Integration wissen wir, worauf es ankommt.',
-        'Eine Sprache zu lernen ist viel mehr als Grammatik. Für den größten Lernerfolg braucht es eine positive Lernumgebung – Lehrende und Lernende gestalten sie gemeinsam. Als telc-zertifizierte Sprachschule bereiten wir auf alle Prüfungen vor, die Sie anschließend direkt bei uns ablegen können.',
+        'Sprache lernen ist mehr als Grammatik: Lehrende und Lernende gestalten gemeinsam eine positive Lernumgebung. Als telc-zertifizierte Sprachschule bereiten wir auf alle Prüfungen vor – und Sie legen sie direkt bei uns ab.',
       ],
       facts: [
         { label: 'Erfahrung', value: 'seit 1997' },
@@ -148,7 +148,7 @@ export const ueberUnsPage: ContentPage = {
       title: 'Machen Sie mit!',
       image: images.projektBruecken,
       paragraphs: [
-        'Lernen Sie uns kennen und seien Sie dabei! Wir freuen uns über alle, die an unserer Arbeit interessiert sind und mithelfen möchten – in der Freizeit oder hauptamtlich. Gemeinsam finden wir einen Weg, einen Beitrag für eine bessere Welt zu leisten.',
+        'Ob in der Freizeit oder hauptamtlich: Wir freuen uns über alle, die unsere Arbeit kennenlernen und mithelfen möchten.',
         'Sie möchten unsere Arbeit mit einer Spende unterstützen? Schreiben Sie uns – wir senden Ihnen gerne die Bankverbindung und alle Informationen.',
       ],
       lists: [
@@ -330,6 +330,5 @@ export const kontaktPage: ContentPage = {
       formId: 'kontakt',
       points: ['Kostenlose Beratung', 'Antwort per E-Mail oder Telefon', 'Für alle Standorte'],
     },
-    contact('Lieber persönlich? Kommen Sie in unsere Sprechstunde – wir freuen uns auf Sie.'),
   ],
 }

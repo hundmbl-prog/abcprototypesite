@@ -1,5 +1,43 @@
 # Changelog
 
+## Step 4 (part 4) – Blue footer, combined closing card, more varied sections (2026-10-15)
+
+Decisions from 15.10.2026: the footer becomes blue; texts are shortened and repeats merged without losing facts; text boxes get mixed styles per page.
+
+**Footer**
+
+- Brand blue (navy) with white text, the logo on a white plate, and a red-to-blue line on top.
+
+**Less repetition**
+
+- On every page, the separate contact box and the closing call to action are now one deep-blue closing card:
+  - call to action with buttons
+  - phone and department e-mail
+  - address and opening hours
+- `#kontakt` links still lead to this card. A "Beratung anfragen" button that pointed to the card itself now opens an e-mail to the department.
+- Kontakt page: the closing contact box was removed, because the locations above already show the same details.
+- Berufssprachkurse: the section with a single BAMF link was removed.
+- Shorter texts on Über uns (history, Warum ABC, Machen Sie mit) and Projekte (introduction, Menschen stärken Menschen). No facts were removed.
+
+**More variety**
+
+- Section backgrounds rotate white / light blue.
+  - Step and column sections are deep blue, with glass cards, white text and red numbers.
+  - The deep-blue sections are never directly below the hero and never two in a row.
+- Information notes are now coloured cards (white on blue sections, blue on light sections) with a large info icon.
+- Feature cards show a red number (01, 02 …).
+- Spotlights alternate between two layouts:
+  - photo beside the text, with the key facts as blue tiles
+  - large photo with a white text panel on top
+- Lists inside spotlights are white cards with a red top line.
+- Funding notes are blue cards.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 404 tests at 4 widths – 398 passed, 6 skipped (desktop- or mobile-only), including axe on all pages.
+- Section screenshots at 1440 and 390 px (BSK, telc, Über uns, Projekte).
+
 ## Step 4 (part 3) – Compact main navigation (2026-10-15)
 
 Requested on 15.10.2026: no large menu panel; a click on a top item opens its overview page, and hovering shows its sub-pages.
