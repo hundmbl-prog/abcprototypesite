@@ -1,5 +1,12 @@
 # Changelog
 
+## Step 3n – Uniform stat boxes, dark blue badges (2026-10-15)
+
+- **Warum ABC:** all four stat boxes share one background (white into soft logo-blue).
+- **Standorte:** the status badges "Geschlossen · öffnet …" and "Termine nach Vereinbarung" are dark blue with white text (a light-red dot marks "closed"); "Jetzt geöffnet" stays green.
+- **Offer cards:** the category labels (KURSE, PRÜFUNG …) are dark blue with white text – new `solid` tone on `Tag`.
+- **Checks:** 136 tests at 4 widths pass; accessibility checks (axe) pass, white on blue-900 meets WCAG AA.
+
 ## Step 3m – Final home page: previous design, matching photos (2026-10-15)
 
 - **Back to the approved design (Step 3k):** offer cards are again a photo with a white info box below; the bento grid is removed. Sections alternate plain white and soft logo-blue again; the dot and grid patterns and the dark navy band are removed.

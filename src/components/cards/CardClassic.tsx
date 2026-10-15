@@ -104,7 +104,7 @@ export function CardClassic({
           <CardImage image={card.image} sizes={sizes} />
         </div>
         <div className="relative z-10 mx-4 -mt-16 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-blue-900/5 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
-          <CardMeta card={{ ...card, badge: undefined }} />
+          <CardMeta card={{ ...card, badge: undefined }} tagTone="solid" />
           <Heading className="font-display text-h4 font-semibold text-blue-900">
             {card.title}
           </Heading>

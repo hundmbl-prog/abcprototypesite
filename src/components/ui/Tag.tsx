@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
-export type TagTone = 'light' | 'image' | 'dark'
+export type TagTone = 'light' | 'image' | 'dark' | 'solid'
 
 const tones: Record<TagTone, string> = {
   light: 'bg-blue-soft text-navy',
   image: 'glass text-navy',
   dark: 'border border-on-dark/40 text-on-dark',
+  solid: 'bg-blue-900 text-on-dark',
 }
 
 /** Category pill, e.g. "Kurs", "Prüfung", "Projekt". */

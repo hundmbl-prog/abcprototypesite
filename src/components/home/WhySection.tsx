@@ -6,9 +6,8 @@ import type { HomePage } from '@/content'
 import type { ContentImage } from '@/content/types'
 import { Counter } from './Counter'
 
-/** Red numbers and red top lines; all icons in logo blue; card tints alternate softly. */
+/** All stat boxes share one background; red numbers and top lines, blue icons. */
 const statIcons: IconName[] = ['calendar', 'location', 'users', 'level']
-const statTints = ['from-surface to-blue-50', 'from-surface to-red-50']
 
 export function WhySection({ content, image }: { content: HomePage['why']; image: ContentImage }) {
   return (
@@ -55,8 +54,7 @@ export function WhySection({ content, image }: { content: HomePage['why']; image
                   key={stat.id}
                   data-reveal
                   className={cn(
-                    'group relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
-                    statTints[i % statTints.length],
+                    'group relative flex flex-col-reverse gap-4 overflow-hidden rounded-2xl border border-line bg-linear-to-br from-surface to-blue-50 p-6 shadow-md transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1 hov:shadow-(--shadow-float)',
                   )}
                 >
                   <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />

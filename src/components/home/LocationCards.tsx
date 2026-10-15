@@ -34,7 +34,7 @@ function StatusPill({ status }: { status: OpenStatus | null }) {
     return <span className="h-8 w-40 animate-pulse rounded-pill bg-surface-3" aria-hidden />
   if (status.state === 'appointment') {
     return (
-      <span className="inline-flex items-center gap-2 rounded-pill bg-blue-50 px-3 py-1.5 text-small font-semibold text-blue-800 ring-1 ring-blue-100">
+      <span className="inline-flex items-center gap-2 rounded-pill bg-blue-900 px-3 py-1.5 text-small font-semibold text-on-dark shadow-sm">
         <Icon name="calendar" className="size-4" />
         Termine nach Vereinbarung
       </span>
@@ -47,7 +47,7 @@ function StatusPill({ status }: { status: OpenStatus | null }) {
         'inline-flex items-center gap-2 rounded-pill px-3 py-1.5 text-small font-semibold ring-1',
         open
           ? 'bg-success-soft text-success ring-success/20'
-          : 'bg-surface-2 text-ink-muted ring-line',
+          : 'bg-blue-900 text-on-dark shadow-sm ring-blue-900',
       )}
     >
       <span className="relative flex size-2">
@@ -57,7 +57,7 @@ function StatusPill({ status }: { status: OpenStatus | null }) {
         <span
           className={cn(
             'relative inline-flex size-2 rounded-pill',
-            open ? 'bg-success' : 'bg-ink-muted',
+            open ? 'bg-success' : 'bg-red-300',
           )}
         />
       </span>
