@@ -432,13 +432,11 @@ test.describe('General forms', () => {
       .setInputFiles({ name: 'cv.txt', mimeType: 'text/plain', buffer: Buffer.from('Lebenslauf') })
     await form.locator('button[type="submit"]').click()
     await expect(form.getByText('Bitte laden Sie eine PDF-Datei hoch.')).toBeVisible()
-    await form
-      .locator('#bewerbung-cv')
-      .setInputFiles({
-        name: 'cv.pdf',
-        mimeType: 'application/pdf',
-        buffer: Buffer.from('%PDF-1.4 test'),
-      })
+    await form.locator('#bewerbung-cv').setInputFiles({
+      name: 'cv.pdf',
+      mimeType: 'application/pdf',
+      buffer: Buffer.from('%PDF-1.4 test'),
+    })
     await form.locator('button[type="submit"]').click()
     await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
   })
