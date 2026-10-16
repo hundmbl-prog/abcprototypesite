@@ -5,14 +5,7 @@
  */
 import type { OfferCardData } from '@/components/cards/types'
 import { images } from '../images'
-import type {
-  ColumnsBlock,
-  ContentPage,
-  FaqItem,
-  PageBlock,
-  ResourceLink,
-  TabsBlock,
-} from '../types'
+import type { ColumnsBlock, ContentPage, FaqItem, PageBlock, TabsBlock } from '../types'
 import { CONTACT_EMAIL_COURSES, contact, cta } from './shared'
 import { telcLevels } from './telc'
 
@@ -132,45 +125,6 @@ const faq: FaqItem[] = [
   },
 ]
 
-const officialLinks: ResourceLink[] = [
-  {
-    label: 'Integrationskurse beim BAMF',
-    href: 'https://www.bamf.de/DE/Themen/Integration/ZugewanderteTeilnehmende/Integrationskurse/integrationskurse-node.html',
-    description: 'Alles zu Ablauf, Berechtigung und Kosten.',
-    kind: 'Website',
-  },
-  {
-    label: 'Abschlussprüfungen (BAMF)',
-    href: 'https://www.bamf.de/DE/Themen/Integration/ZugewanderteTeilnehmende/Integrationskurse/Abschlusspruefung/abschlusspruefung-node.html',
-    description: 'Deutsch-Test für Zuwanderer und Test „Leben in Deutschland“.',
-    kind: 'Website',
-  },
-  {
-    label: 'DTZ auf einen Blick (g.a.s.t.)',
-    href: 'https://www.gast.de/de/forschung-entwicklung/entwicklung/auftraege/deutsch-test-fuer-zuwanderer-dtz/der-dtz-auf-einen-blick',
-    description: 'Aufbau und Bewertung des Deutsch-Tests für Zuwanderer.',
-    kind: 'Website',
-  },
-  {
-    label: 'DTZ Übungssatz 1',
-    href: 'https://www.gast.de/fileadmin/gast.de/GAST/5_DTZ/PDF/gast_DTZ_UEbungssatz_1.pdf',
-    description: 'Kostenloser offizieller Übungssatz.',
-    kind: 'PDF',
-  },
-  {
-    label: 'DTZ Übungssatz 1 – Hören',
-    href: 'https://www.gast.de/fileadmin/gast.de/GAST/5_DTZ/Audio/gast_Deutsch-Test_fuer_Zuwanderer_UEbungssatz_1.mp3',
-    description: 'Die Audiodatei zum Übungssatz.',
-    kind: 'MP3',
-  },
-  {
-    label: 'Mustertest „Leben in Deutschland“',
-    href: 'https://oet.bamf.de/ords/oetut/f?p=532',
-    description: 'Online üben für den Test am Ende des Orientierungskurses.',
-    kind: 'Online-Test',
-  },
-]
-
 const finalExams: TabsBlock = {
   type: 'tabs',
   id: 'abschluss',
@@ -217,8 +171,7 @@ export const kursePage: ContentPage = {
   hero: {
     eyebrow: 'Kurse',
     title: 'Deutschkurse in Mainz',
-    intro:
-      'Vom Integrationskurs bis zur B2-Prüfung: Wir finden mit Ihnen den Kurs, der zu Ihrem Ziel passt.',
+    intro: 'Vom Integrationskurs bis zur B2-Prüfung – in kleinen Gruppen.',
     image: images.abcKursraum,
     facts: [
       { icon: 'book', label: 'Kurse', value: 'B1/B2 · BSK · Integration' },
@@ -235,8 +188,6 @@ export const kursePage: ContentPage = {
       id: 'kurse',
       eyebrow: 'Unsere Kurse',
       title: 'Drei Wege zu Ihrem Ziel',
-      intro:
-        'Als telc-zertifizierte Sprachschule arbeiten wir mit der Bundesagentur für Arbeit, dem Jobcenter Mainz und dem BAMF zusammen.',
       variant: 'classic',
       cards: courseCards,
     },
@@ -297,9 +248,7 @@ const b1b2Page: ContentPage = {
   hero: {
     eyebrow: 'Kurs · B1 & B2',
     title: 'B1 & B2 – Prüfung und Vorbereitung',
-    intro:
-      'Deutsch lernen mit klarem Ziel: sicherer sprechen, schreiben und verstehen – und das Niveau mit einer telc Prüfung nachweisen.',
-    image: images.abcLernen,
+    intro: 'Gezielt vorbereiten – und das Niveau mit einer telc Prüfung nachweisen.',
     facts: [
       { icon: 'level', label: 'Niveau', value: 'B1 und B2' },
       { icon: 'pen', label: 'Schwerpunkt', value: 'Prüfungstraining' },
@@ -315,8 +264,6 @@ const b1b2Page: ContentPage = {
       id: 'kurs',
       eyebrow: 'Prüfungsvorbereitung B1 & B2',
       title: 'Deutsch mit klarem Ziel und persönlichem Tempo',
-      intro:
-        'Unsere Kurse richten sich an alle, die ihr Deutsch gezielt vertiefen und ihr Niveau offiziell nachweisen möchten – für Einbürgerung, Ausbildung, Beruf oder Studium.',
       items: [
         {
           icon: 'level',
@@ -369,8 +316,6 @@ const b1b2Page: ContentPage = {
       id: 'kursmodelle',
       eyebrow: 'Kursmodelle',
       title: 'So lernen Sie bei uns',
-      intro:
-        'Wählen Sie das Modell, das zu Ihrem Alltag passt. Aktuelle Zeiten und Starttermine nennen wir Ihnen gerne.',
       tabs: [
         {
           id: 'flex',
@@ -411,8 +356,6 @@ const b1b2Page: ContentPage = {
       id: 'pruefung',
       eyebrow: 'Die Prüfung',
       title: 'telc Deutsch B1 und B2 im Überblick',
-      intro:
-        'Aufbau, Dauer und kostenloser Übungstest – Termine und Anmeldung finden Sie auf unserer telc Seite.',
       levels: telcLevels(['b1', 'b2']),
     },
     { type: 'faq', id: 'faq', eyebrow: 'Häufige Fragen', title: 'Gut zu wissen', items: faq },
@@ -443,9 +386,7 @@ const bskPage: ContentPage = {
   hero: {
     eyebrow: 'Kurs · Beruf',
     title: 'Berufssprachkurse (BSK)',
-    intro:
-      'Deutsch für Arbeit und Ausbildung: Aufbauend auf dem Integrationskurs bereiten die Berufssprachkurse auf die Arbeitswelt in Deutschland vor.',
-    image: images.sprachkurse,
+    intro: 'Deutsch für Arbeit und Ausbildung – aufbauend auf dem Integrationskurs.',
     facts: [
       { icon: 'award', label: 'Förderung', value: 'DeuFöV (BAMF)' },
       { icon: 'level', label: 'Zielniveau', value: 'je nach Kurs A2 bis C1' },
@@ -461,8 +402,6 @@ const bskPage: ContentPage = {
       id: 'kurs',
       eyebrow: 'Berufsbezogene Deutschsprachförderung',
       title: 'Deutsch, das Sie im Beruf weiterbringt',
-      intro:
-        'In den Basiskursen erwerben Sie berufsübergreifende Deutschkenntnisse anhand von Inhalten aus der Arbeitswelt. Der Kurs schließt mit einer Zertifikatsprüfung ab.',
       items: [
         {
           icon: 'award',
@@ -530,7 +469,6 @@ const bskPage: ContentPage = {
         'Abend- und Wochenendkurse',
         'Individuelle Inhalte',
       ],
-      image: images.abcSeminarraum,
       reverse: true,
     },
     contact(
@@ -560,9 +498,7 @@ const integrationPage: ContentPage = {
   hero: {
     eyebrow: 'Kurs · Integration',
     title: 'Integrationskurse',
-    intro:
-      'Sprache und Kultur kennenlernen: Seit über 25 Jahren begleiten wir Menschen auf dem Weg in ein selbstständiges Leben in Deutschland.',
-    image: images.abcUnterricht,
+    intro: 'Sprachkurs und Orientierungskurs – für ein selbstständiges Leben in Deutschland.',
     facts: [
       { icon: 'book', label: 'Sprachkurs', value: '600 bis 900 UE' },
       { icon: 'users', label: 'Orientierungskurs', value: '100 UE' },
@@ -720,64 +656,35 @@ const integrationPage: ContentPage = {
       ],
     },
     {
-      type: 'spotlight',
-      id: 'lern-und-sozialbegleitung',
-      eyebrow: 'Begleitung · BAMF',
-      title: 'Lern- und Sozialbegleitung',
-      image: images.paedagogik,
-      paragraphs: [
-        'Die Lern- und Sozialbegleitung in Integrationskursen ist ein Angebot des BAMF – bei uns seit Januar 2018. Jedes Jahr unterstützen wir mehr als 50 Teilnehmende beim Organisieren des selbstständigen Lernens, bei Schwierigkeiten im Kursalltag und bei Konflikten.',
-        'Ehrenamtliche Helferinnen und Helfer führen zusätzlich über 200 Beratungen im Jahr durch – etwa zu Wohnungssuche, Gesundheit und Behördengängen.',
-      ],
-      facts: [
-        { label: 'Seit', value: 'Januar 2018' },
-        { label: 'Teilnehmende', value: 'über 50 pro Jahr' },
-        { label: 'Beratungen', value: 'über 200 pro Jahr' },
-        { label: 'Träger', value: 'Angebot des BAMF' },
-      ],
-      lists: [
+      type: 'features',
+      id: 'begleitung',
+      eyebrow: 'Begleitung',
+      title: 'Unterstützung im Kurs und im Alltag',
+      items: [
         {
-          title: 'Im Kurs',
-          items: [
-            'Selbstständiges Lernen organisieren',
-            'Einzel- und Gruppengespräche',
-            'Unterstützung bei Konflikten',
-          ],
+          icon: 'users',
+          title: 'Lern- und Sozialbegleitung',
+          text: 'Angebot des BAMF, bei uns seit 2018 – für über 50 Teilnehmende im Jahr.',
         },
         {
-          title: 'Im Alltag',
-          items: ['Wohnungssuche', 'Gesundheit', 'Behördengänge', 'Orte der Begegnung'],
+          icon: 'info',
+          title: 'Beratung im Alltag',
+          text: 'Über 200 Beratungen im Jahr: Wohnung, Gesundheit, Behörden.',
+        },
+        {
+          icon: 'child',
+          title: 'Kinderbeaufsichtigung',
+          text: 'Betreuung vor Ort; die Kosten kann das BAMF übernehmen.',
+        },
+        {
+          icon: 'award',
+          title: 'Gefördert',
+          text: 'Im ESF Plus-Programm, in Zusammenarbeit mit dem Amt für Jugend und Familie.',
         },
       ],
-    },
-    {
-      type: 'intro',
-      id: 'kinderbeaufsichtigung',
-      eyebrow: 'Kinderbeaufsichtigung',
-      title: 'Lernen, während Ihr Kind betreut wird',
-      paragraphs: [
-        'Während Sie am Unterricht teilnehmen, betreut unser qualifiziertes Personal Ihr Kind direkt vor Ort. Dabei arbeiten wir eng mit dem Amt für Jugend und Familie in Mainz zusammen.',
-        'Die Kosten können nach bewilligtem Antrag vom BAMF übernommen werden. Fragen Sie bitte schon bei der Anmeldung nach freien Plätzen.',
-      ],
-      points: [
-        'Betreuung vor Ort',
-        'Qualifiziertes Personal',
-        'Kosten können übernommen werden',
-        'Gefördert im ESF Plus-Programm',
-      ],
-      image: images.kindertagespflege,
-      reverse: true,
     },
     finalExams,
-    advantages,
     requirements({ id: 'voraussetzungen' }),
-    {
-      type: 'links',
-      id: 'informationen',
-      eyebrow: 'Offizielle Informationen',
-      title: 'Informationen und Übungsmaterial',
-      links: officialLinks,
-    },
     {
       type: 'faq',
       id: 'faq',

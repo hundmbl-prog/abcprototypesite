@@ -2,6 +2,7 @@ import { cn } from '@/lib/cn'
 import { BentoGrid } from './BentoGrid'
 import { CardClassic, type CardShade } from './CardClassic'
 import { CardHorizontal } from './CardHorizontal'
+import { CardIcon } from './CardIcon'
 import { CardOverlay } from './CardOverlay'
 import { CardRail } from './CardRail'
 import type { CardVariant, HeadingLevel, OfferCardData } from './types'
@@ -28,6 +29,22 @@ export function OfferCards({
   className?: string
 }) {
   switch (variant) {
+    case 'icon':
+      return (
+        <ul
+          className={cn(
+            'grid grid-cols-1 gap-5 sm:grid-cols-2',
+            cards.length === 4 ? 'lg:grid-cols-4' : cards.length === 2 ? '' : 'lg:grid-cols-3',
+            className,
+          )}
+        >
+          {cards.map((card) => (
+            <li key={card.id} data-reveal className="min-w-0">
+              <CardIcon card={card} headingLevel={headingLevel} />
+            </li>
+          ))}
+        </ul>
+      )
     case 'bento':
       return <BentoGrid cards={cards} headingLevel={headingLevel} className={className} />
     case 'rail':

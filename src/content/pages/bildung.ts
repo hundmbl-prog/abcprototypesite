@@ -3,7 +3,6 @@
  * Content from the current abc-mainz.de pages. Outdated programmes (e.g. "Aufholen nach Corona", 2022)
  * are not presented as current offers.
  */
-import { images } from '../images'
 import type { ContentPage } from '../types'
 import { contact, cta } from './shared'
 
@@ -20,59 +19,24 @@ export const bildungsangebotePage: ContentPage = {
   hero: {
     eyebrow: 'Bildungsangebote',
     title: 'Weiterbilden und mitgestalten',
-    intro:
-      'Berufliche Weiterbildung im virtuellen Seminarraum – und politische Bildung, die junge und erwachsene Menschen stark macht.',
-    image: images.weiterbildung,
+    intro: 'Online-Weiterbildung mit Viona und politische Bildungsarbeit.',
     facts: [
       { icon: 'monitor', label: 'Viona', value: 'Live-Online-Unterricht' },
       { icon: 'euro', label: 'Förderung', value: 'z. B. Bildungsgutschein' },
       { icon: 'users', label: 'Politische Bildung', value: 'für Jung und Alt' },
       { icon: 'check', label: 'Beratung', value: 'kostenlos' },
     ],
-    primaryCta: { label: 'Angebote ansehen', href: '#angebote' },
+    primaryCta: { label: 'Viona', href: '#viona' },
     secondaryCta: { label: 'Beratung anfragen', href: '#kontakt' },
   },
   blocks: [
-    {
-      type: 'cards',
-      id: 'angebote',
-      eyebrow: 'Unsere Angebote',
-      title: 'Zwei Wege, sich weiterzubilden',
-      intro: 'Mit „Mehr erfahren“ springen Sie zu allen Details.',
-      variant: 'classic',
-      simple: true,
-      cards: [
-        {
-          id: 'viona',
-          title: 'Online-Weiterbildungen mit Viona',
-          description:
-            'Berufliche Qualifikationen im virtuellen Klassenraum – mit eigenem PC-Arbeitsplatz bei uns in Mainz.',
-          href: '/bildungsangebote#viona',
-          image: images.weiterbildung,
-          tag: 'Weiterbildung',
-          ctaLabel: 'Mehr erfahren',
-        },
-        {
-          id: 'politische-bildungsarbeit',
-          title: 'Politische Bildungsarbeit',
-          description:
-            'Demokratie, Werte und Zusammenleben – vom Orientierungskurs bis zum Schülerwettbewerb.',
-          href: '/bildungsangebote#politische-bildungsarbeit',
-          image: images.qmSchulung,
-          tag: 'Bildung',
-          ctaLabel: 'Mehr erfahren',
-        },
-      ],
-    },
     {
       type: 'spotlight',
       id: 'viona',
       eyebrow: 'Weiterbildung · Viona',
       title: 'Online-Weiterbildungen mit Viona',
-      image: images.weiterbildung,
       paragraphs: [
-        'Die virtuelle Online-Akademie Viona bietet ein breites Angebot an Fort- und Weiterbildungen für berufliche Qualifikationen. Der Unterricht findet live im virtuellen Seminarraum statt – gemeinsam mit Teilnehmenden aus ganz Deutschland, mit Dozentinnen und Dozenten, Whiteboard, Gruppenarbeiten und Diskussionen.',
-        'Bei uns in Mainz erhalten Sie Ihren eigenen PC-Arbeitsplatz mit aller nötigen Technik und eine feste Ansprechperson vor und während der Weiterbildung. Auch mit wenig PC-Vorkenntnissen finden Sie sich nach der ausführlichen Einweisung schnell zurecht.',
+        'Berufliche Weiterbildungen live im virtuellen Seminarraum – mit eigenem PC-Arbeitsplatz und fester Ansprechperson bei uns in Mainz. Auch mit wenig PC-Vorkenntnissen.',
       ],
       facts: [
         { label: 'Unterricht', value: 'live im virtuellen Seminarraum' },
@@ -109,7 +73,6 @@ export const bildungsangebotePage: ContentPage = {
         email: 'viona@abc-mainz.de',
         phone: '+49 6131 385795',
       },
-      back: { label: 'Zurück zur Übersicht', href: '#angebote' },
     },
     {
       type: 'faq',
@@ -153,11 +116,9 @@ export const bildungsangebotePage: ContentPage = {
       id: 'politische-bildungsarbeit',
       eyebrow: 'Bildung · Demokratie',
       title: 'Politische Bildungsarbeit',
-      image: images.qmSchulung,
       reverse: true,
       paragraphs: [
-        'Politische Bildung ist für uns die Grundlage für Teilhabe und ein gutes Zusammenleben. Seit 2013 sind wir Träger von Sprachkursen wie den Integrationskursen – ihr Orientierungskurs „Leben in Deutschland“ vermittelt in 100 Unterrichtseinheiten Demokratie, Geschichte und Werte.',
-        'Mit Jugendlichen fördern wir besonders Empathie, soziale Kompetenzen und Selbstbewusstsein – etwa im Schülerwettbewerb „Wir sind Vielfalt“, an dem Schulklassen aus dem ganzen Rhein-Main-Gebiet teilnehmen, oder in Patenschaften im Programm „Menschen stärken Menschen“.',
+        'Grundlage für Teilhabe: der Orientierungskurs „Leben in Deutschland“ (100 UE) in unseren Integrationskursen – und für Jugendliche Projekte wie „Wir sind Vielfalt“ und „Menschen stärken Menschen“.',
       ],
       facts: [
         { label: 'Zielgruppen', value: 'Jugendliche und Erwachsene' },
@@ -187,7 +148,6 @@ export const bildungsangebotePage: ContentPage = {
         email: 'projekte@abc-mainz.de',
       },
       link: { label: 'Bundeszentrale für politische Bildung', href: 'https://www.bpb.de/' },
-      back: { label: 'Zurück zur Übersicht', href: '#angebote' },
     },
     contact(
       'Sie interessieren sich für eine Weiterbildung oder unsere politische Bildungsarbeit? Wir beraten Sie gerne.',
@@ -214,9 +174,7 @@ export const lernfoerderungPage: ContentPage = {
   hero: {
     eyebrow: 'Bildungs- & Lernförderung',
     title: 'Nachhilfe, die Mut macht',
-    intro:
-      'Angepasste Förderung für jedes Kind – mit erfahrenen Lehrkräften, in kleinen Gruppen oder einzeln.',
-    image: images.nachhilfe,
+    intro: 'Nachhilfe in allen Fächern – in kleinen Gruppen oder einzeln.',
     facts: [
       { icon: 'book', label: 'Fächer', value: 'alle Fächer, alle Schulformen' },
       { icon: 'users', label: 'Gruppen', value: 'bis 5 Kinder oder einzeln' },
@@ -261,8 +219,7 @@ export const lernfoerderungPage: ContentPage = {
       eyebrow: 'Wir helfen Ihnen und Ihrem Kind',
       title: 'Wieder Freude am Lernen',
       paragraphs: [
-        'Ihr Kind ist überfordert mit dem Schulstoff und hat keinen Spaß mehr am Lernen? Kein Grund zur Sorge – gemeinsam finden wir einen Weg, der zu Ihnen passt.',
-        'Unsere Lehrkräfte arbeiten mit Unterrichtsmaterialien, die wir zur Verfügung stellen, und stärken Motivation und Selbstvertrauen. Auf Wunsch findet der Unterricht auch online über Zoom statt – bei Bedarf stellen wir ein Tablet zur Verfügung.',
+        'Unterrichtsmaterial stellen wir – vor Ort oder online über Zoom, bei Bedarf mit Leih-Tablet.',
       ],
       points: [
         'Kostenloses Beratungsgespräch',
@@ -270,15 +227,12 @@ export const lernfoerderungPage: ContentPage = {
         'Unterricht vor Ort oder online',
         'Tablets bei Bedarf',
       ],
-      image: images.nachhilfeBadKreuznach,
     },
     {
       type: 'tabs',
       id: 'faecher',
       eyebrow: 'Fächer',
       title: 'Wobei wir helfen',
-      intro:
-        'Wählen Sie ein Fach – wir erklären Zusammenhänge verständlich und gehen Aufgaben Schritt für Schritt gemeinsam durch.',
       tabs: [
         {
           id: 'mathe',
@@ -419,11 +373,9 @@ export const lernfoerderungPage: ContentPage = {
       id: 'sprachbildung',
       eyebrow: 'Partner',
       title: 'Sprachbildung mit System – InSL e.V.',
-      image: images.kindertagespflege,
       reverse: true,
       paragraphs: [
-        'Anders als die Alltagssprache, die viele Kinder spielerisch lernen, muss die deutsche Bildungssprache erlernt werden. Auch Kinder, die die Alltagssprache sehr gut beherrschen, haben damit manchmal Schwierigkeiten.',
-        'Die InSL e.V. wurde 2011 in Friedrichsdorf und Bad Homburg gegründet, um Kindern kostenlosen oder sehr günstigen Unterricht in Bildungssprache zu ermöglichen – für Bildungsgerechtigkeit im deutschen Bildungssystem.',
+        'Bildungssprache muss gelernt werden – auch von Kindern, die im Alltag sehr gut Deutsch sprechen. Die InSL e.V. ermöglicht Kindern dafür kostenlosen oder sehr günstigen Unterricht.',
       ],
     },
     contact(

@@ -1,10 +1,9 @@
 /**
  * Home page content (Payload "pages" document with blocks in Step 5).
- * News, projects and facts are taken from the current abc-mainz.de.
+ * News and facts are taken from the current abc-mainz.de.
  * Entries marked `placeholder: true` are invented and MUST be replaced before launch.
  */
 import { images } from './images'
-import { projectShowcase } from './pages/projekte'
 import { partners } from './partners'
 import { siteSettings } from './site'
 import type { HomePage } from './types'
@@ -19,23 +18,9 @@ export const homePage: HomePage = {
       { value: 'telc', label: 'Prüfungszentrum' },
       { value: '5', label: 'Standorte' },
     ],
-    quickLinks: [
-      { label: 'Kurse', href: '/kurse', description: 'B1/B2, BSK und Integration' },
-      {
-        label: 'Integrationskurse',
-        href: '/kurse/integrationskurse',
-        description: 'Mit Kinderbeaufsichtigung',
-      },
-      { label: 'telc Prüfungen', href: '/pruefungen/telc', description: 'Termine und Anmeldung' },
-      {
-        label: 'Nachhilfe',
-        href: '/lernfoerderung',
-        description: 'Alle Fächer, alle Schulformen',
-      },
-    ],
     eyebrow: 'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach',
     title: 'Bildung, die Menschen verbindet',
-    text: 'Sprach- und Integrationskurse, Prüfungen, Nachhilfe und soziale Projekte – seit 1997 begleiten wir Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf.',
+    text: 'Kurse, Prüfungen, Nachhilfe und Projekte in Mainz und Bad Kreuznach – seit 1997.',
     image: images.hero,
     primaryCta: { label: 'Kurs finden', href: '/kurse' },
     secondaryCta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
@@ -44,15 +29,12 @@ export const homePage: HomePage = {
   offers: {
     eyebrow: 'Unsere Angebote',
     title: 'Für jeden Schritt das passende Angebot',
-    intro:
-      'Vom ersten Deutschkurs bis zur Weiterbildung – wir beraten Sie gerne, welches Angebot zu Ihnen passt.',
     cta: { label: 'Alle Angebote', href: '/kurse' },
     cards: [
       {
         id: 'sprach-integrationskurse',
         title: 'Sprach- & Integrationskurse',
-        description:
-          'Deutsch lernen von A1 bis C1, Integrations-, Jugendintegrations- und Alphabetisierungskurse – mit Orientierungskurs und Kinderbeaufsichtigung.',
+        description: 'Deutsch von A1 bis C1 – mit Kinderbeaufsichtigung.',
         href: '/kurse/integrationskurse',
         image: images.abcUnterricht,
         tag: 'Kurse',
@@ -62,7 +44,7 @@ export const homePage: HomePage = {
       {
         id: 'pruefungen',
         title: 'Prüfungen',
-        description: 'telc Sprachprüfungen bis C1 Hochschule und der Einbürgerungstest.',
+        description: 'telc bis C1 Hochschule und Einbürgerungstest.',
         href: '/pruefungen',
         image: images.abcTelc,
         tag: 'Prüfung',
@@ -71,8 +53,7 @@ export const homePage: HomePage = {
       {
         id: 'nachhilfe',
         title: 'Nachhilfe',
-        description:
-          'Alle Fächer, alle Schulformen – mit erfahrenen Lehrkräften und flexiblen Zeiten.',
+        description: 'Alle Fächer, alle Schulformen.',
         href: '/lernfoerderung',
         image: images.nachhilfe,
         tag: 'Lernförderung',
@@ -81,8 +62,7 @@ export const homePage: HomePage = {
       {
         id: 'soziale-projekte',
         title: 'Soziale Projekte',
-        description:
-          'Straßenfotografie, Naturerlebnis, Kreativwettbewerb und mehr – für Zusammenhalt in Mainz.',
+        description: 'Für Teilhabe und Zusammenhalt in Mainz.',
         href: '/projekte',
         image: images.sozialeProjekte,
         tag: 'Projekt',
@@ -90,8 +70,7 @@ export const homePage: HomePage = {
       {
         id: 'weiterbildungen',
         title: 'Weiterbildungen',
-        description:
-          'Qualifizierungen wie der Kompakt-Kurs für Kindertagespflegepersonen und Schulungen zum Qualitätsmanagement.',
+        description: 'Viona und politische Bildungsarbeit.',
         href: '/bildungsangebote',
         image: images.qmSchulung,
         tag: 'Weiterbildung',
@@ -99,8 +78,7 @@ export const homePage: HomePage = {
       {
         id: 'paedagogische-angebote',
         title: 'Pädagogische Angebote',
-        description:
-          'Sozialpädagogische Familienhilfe und Erziehungsbeistand – Begleitung im Familienalltag.',
+        description: 'Familienhilfe und Erziehungsbeistand.',
         href: '/paedagogische-angebote',
         image: images.paedagogik,
         tag: 'Familie',
@@ -112,8 +90,7 @@ export const homePage: HomePage = {
     eyebrow: 'Über uns',
     title: 'Aus der Community – für die Community',
     paragraphs: [
-      'Im Jahr 1997 gründeten migrantische Eltern, Studierende und Hochschulabsolventen das Akademische Bildungs-Center als gemeinnützigen Verein.',
-      'Sie erkannten den großen Bedarf an Unterstützung für die Bildung in den migrantischen Communitys – und schufen passende Angebote wie Sprachkurse, Nachhilfe und Integrationskurse.',
+      '1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen als gemeinnütziger Verein gegründet – für Bildung in den migrantischen Communitys.',
     ],
     image: images.team,
     badge: { value: '1997', label: 'gegründet in Mainz' },
@@ -193,20 +170,9 @@ export const homePage: HomePage = {
     ],
   },
 
-  projects: {
-    eyebrow: 'Projekte',
-    title: 'Gemeinsam für ein starkes Miteinander',
-    intro:
-      'Mit unseren Projekten fördern wir Teilhabe, Kreativität und Zusammenhalt – oft gemeinsam mit starken Partnern.',
-    cta: { label: 'Alle Projekte', href: '/projekte' },
-    items: projectShowcase,
-  },
-
   why: {
     eyebrow: 'Warum ABC',
     title: 'Ein Ort zum Ankommen',
-    intro:
-      'Bei uns kommen Menschen aus unterschiedlichen Kulturen zusammen. Wir haben langjährige Erfahrung in der Integrationsarbeit und wissen, worauf es ankommt.',
     stats: [
       { id: 'jahre', value: yearsActive, label: 'Jahre Erfahrung seit 1997' },
       { id: 'standorte', value: 5, label: 'Standorte in Mainz und Bad Kreuznach' },
@@ -225,12 +191,11 @@ export const homePage: HomePage = {
         placeholder: true,
       },
     ],
-    caption: 'Gemeinsam lernen – in Mainz und Bad Kreuznach.',
     points: [
       'Kleine Gruppen mit erfahrenen Lehrkräften',
-      'Offizielles telc Prüfungs- und Hochschulkompetenzzentrum',
+      'telc Prüfungs- und Hochschulkompetenzzentrum',
       'Kinderbeaufsichtigung während der Integrationskurse',
-      'Gemeinnützig – gegründet aus der Community für die Community',
+      'Gemeinnützig seit 1997',
     ],
   },
 
@@ -238,12 +203,5 @@ export const homePage: HomePage = {
     eyebrow: 'Partner & Förderer',
     title: 'Gemeinsam mehr erreichen',
     items: partners,
-  },
-
-  locations: {
-    eyebrow: 'Standorte',
-    title: 'So finden Sie uns',
-    intro:
-      'Unser Hauptgebäude liegt mitten in der Mainzer Neustadt – dazu kommen drei Zweigstellen in Mainz und unser Standort in Bad Kreuznach.',
   },
 }

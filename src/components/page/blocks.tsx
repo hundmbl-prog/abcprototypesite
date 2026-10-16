@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { OfferCards } from '@/components/cards/OfferCards'
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import { CtaBanner } from '@/components/sections/CtaBanner'
+import { BrandMark } from '@/components/ui/BrandMark'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
@@ -35,6 +35,8 @@ const stepCols: Record<number, string> = {
 
 /** Text beside a photo with an asymmetric mask; optional check list. */
 export function IntroBlock({ block }: { block: IntroData }) {
+  if (!block.image) return <IntroPanel block={block} />
+  const image = block.image
   return (
     <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
       <div className={block.reverse ? 'lg:order-2 lg:col-span-6' : 'lg:col-span-6'}>
@@ -43,13 +45,13 @@ export function IntroBlock({ block }: { block: IntroData }) {
           className="group aspect-5/4 overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
         >
           <Image
-            src={block.image.src}
-            alt={block.image.alt}
-            width={block.image.width}
-            height={block.image.height}
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
             sizes="(min-width: 1024px) 50vw, 100vw"
-            placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={block.image.blurDataURL}
+            placeholder={image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={image.blurDataURL}
             className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
           />
         </div>
@@ -88,6 +90,46 @@ export function IntroBlock({ block }: { block: IntroData }) {
           </ul>
         ) : null}
       </div>
+    </div>
+  )
+}
+
+/** Intro without a photo: text on the left, the key points in a blue panel with the logo mark. */
+function IntroPanel({ block }: { block: IntroData }) {
+  return (
+    <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="flex flex-col gap-6 lg:col-span-7">
+        <SectionHeader
+          id={titleId(block.id)}
+          eyebrow={block.eyebrow}
+          title={block.title}
+          className="mb-0! md:mb-0!"
+        />
+        {block.paragraphs.map((text) => (
+          <p key={text} className="text-lead text-ink-muted">
+            {text}
+          </p>
+        ))}
+      </div>
+      {block.points?.length ? (
+        <div
+          data-reveal
+          className="relative isolate overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-5"
+        >
+          <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+          <BrandMark tone="dark" className="-right-10 -bottom-8 w-64" />
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            {block.points.map((point) => (
+              <li key={point} className="flex items-center gap-3 font-semibold">
+                <span className="grid size-8 shrink-0 place-items-center rounded-pill bg-red-500">
+                  <Icon name="check" className="size-4" strokeWidth={2.5} />
+                </span>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -387,9 +429,8 @@ function telHref(phone: string) {
 }
 
 /**
- * Closing card of a page: the call to action and the personal contact in one deep-blue card –
- * buttons, phone and department e-mail on the left, address and opening hours on the right.
- * Without a CTA block it shows the contact text only.
+ * Closing card of a page: the call to action plus phone and department e-mail in one
+ * deep-blue card with the logo mark. Addresses live in the footer and on the Kontakt page.
  */
 export function ClosingBlock({
   contact,
@@ -403,9 +444,10 @@ export function ClosingBlock({
   const primaryHref = (href: string) =>
     href === `#${contact.id}` ? `mailto:${contact.email}` : href
   return (
-    <div className="relative isolate grid grid-cols-1 overflow-hidden rounded-2xl tone-navy shadow-lg lg:grid-cols-12">
+    <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-2xl tone-navy p-6 shadow-lg md:p-12 lg:flex-row lg:items-center lg:justify-between">
       <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
-      <div className="flex flex-col gap-6 p-6 md:p-12 lg:col-span-7">
+      <BrandMark tone="dark" className="-right-8 -bottom-10 w-72" />
+      <div className="max-w-xl flex flex-col gap-4">
         <SectionHeader
           id={titleId(contact.id)}
           eyebrow={contact.eyebrow}
@@ -413,9 +455,11 @@ export function ClosingBlock({
           tone="dark"
           className="mb-0! md:mb-0!"
         />
-        <p className="max-w-prose text-lead text-on-dark-muted">{cta?.text ?? contact.text}</p>
+        <p className="text-lead text-on-dark-muted">{cta?.text ?? contact.text}</p>
+      </div>
+      <div className="flex flex-col gap-5 lg:items-end">
         {cta ? (
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 lg:justify-end">
             <Button href={primaryHref(cta.primary.href)} variant="pill-red" size="lg">
               {cta.primary.label}
             </Button>
@@ -426,7 +470,7 @@ export function ClosingBlock({
             ) : null}
           </div>
         ) : null}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-on-dark/15 pt-6 text-small font-semibold">
+        <div className="flex flex-wrap gap-x-6 gap-y-1 text-small font-semibold lg:justify-end">
           <a
             href={telHref(location.phone)}
             className="inline-flex min-h-11 items-center gap-2 rounded-sm underline-offset-4 hov:underline"
@@ -442,37 +486,6 @@ export function ClosingBlock({
             {contact.email}
           </a>
         </div>
-      </div>
-      <div className="flex flex-col justify-center gap-6 border-t border-on-dark/10 bg-on-dark/5 p-6 md:p-12 lg:col-span-5 lg:border-t-0 lg:border-l">
-        <dl className="flex flex-col gap-5">
-          <div className="flex flex-col gap-1">
-            <dt className="flex items-center gap-2 text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
-              <Icon name="location" className="size-4 text-red-300" />
-              {location.kind}
-            </dt>
-            <dd className="pl-6 font-semibold">
-              {location.street}, {location.postalCode} {location.city}
-            </dd>
-          </div>
-          <div className="flex flex-col gap-1">
-            <dt className="flex items-center gap-2 text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
-              <Icon name="clock" className="size-4 text-red-300" />
-              Sprechzeiten
-            </dt>
-            {location.hours.map((h) => (
-              <dd key={h.days} className="pl-6 font-semibold">
-                {h.days}: {h.hours}
-              </dd>
-            ))}
-          </div>
-        </dl>
-        <Link
-          href="/ueber-uns/kontakt"
-          className="inline-flex items-center gap-2 self-start rounded-sm text-small font-semibold underline-offset-4 hov:underline"
-        >
-          Alle Standorte und Kontaktwege
-          <Icon name="arrow-right" className="size-4" />
-        </Link>
       </div>
     </div>
   )

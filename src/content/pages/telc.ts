@@ -6,7 +6,7 @@ import type { OfferCardData } from '@/components/cards/types'
 import { images } from '../images'
 import { telcExams } from '../exams'
 import type { ContentImage, ContentPage, ExamLevel, ExamPart } from '../types'
-import { contact, telcLinks } from './shared'
+import { contact } from './shared'
 
 type ExamInfo = {
   id: string
@@ -242,36 +242,6 @@ export function telcExamCards(excludeId?: string): OfferCardData[] {
     })
 }
 
-const examDayColumns = [
-  {
-    icon: 'id-card' as const,
-    title: 'Mitbringen',
-    items: [
-      'Gültigen amtlichen Lichtbildausweis – ohne Ausweis keine Teilnahme',
-      'Bleistift, Kugelschreiber, Radiergummi und Anspitzer',
-      'Getränke in durchsichtigen Flaschen ohne Etikett',
-    ],
-  },
-  {
-    icon: 'close' as const,
-    title: 'Nicht erlaubt',
-    items: [
-      'Handy, Smartwatch und Armbanduhr – werden vorher abgegeben',
-      'Taschen und Jacken am Platz',
-      'Wörterbücher, Notizen und andere Hilfsmittel',
-    ],
-  },
-  {
-    icon: 'clock' as const,
-    title: 'Pünktlich sein',
-    items: [
-      'Wer nach Beginn der Prüfungsbelehrung kommt, kann nicht mehr teilnehmen',
-      'Der Ausweis liegt während der Prüfung sichtbar auf dem Tisch',
-      'Schriftliche und mündliche Prüfung finden höchstens 7 Tage auseinander statt',
-    ],
-  },
-]
-
 /* ───────────────────────── /pruefungen/telc */
 
 export const telcPage: ContentPage = {
@@ -286,9 +256,7 @@ export const telcPage: ContentPage = {
   hero: {
     eyebrow: 'Lizenziertes telc Prüfungszentrum',
     title: 'telc Prüfungen in Mainz',
-    intro:
-      'Offizielle Deutschprüfungen von A1 bis C1 Hochschule – mit persönlicher Beratung, gut vorbereitet und in vertrauter Umgebung.',
-    image: images.abcTelc,
+    intro: 'Offizielle Deutschprüfungen von A1 bis C1 Hochschule.',
     facts: [
       { icon: 'level', label: 'Niveaus', value: 'A1 bis C1 Hochschule' },
       { icon: 'award', label: 'Anbieter', value: 'telc gGmbH' },
@@ -300,39 +268,10 @@ export const telcPage: ContentPage = {
   },
   blocks: [
     {
-      type: 'intro',
-      id: 'pruefungszentrum',
-      eyebrow: 'Über das Prüfungszentrum',
-      title: 'Ihre Prüfung bei Menschen, die Sie kennen',
-      paragraphs: [
-        'Das Akademische Bildungs-Center ist ein von der telc gGmbH lizenziertes Prüfungszentrum und offizielles telc Hochschulkompetenzzentrum. Sie legen Ihre Prüfung direkt bei uns in Mainz ab – dort, wo Sie vielleicht auch Ihren Kurs besucht haben.',
-        'Wir beraten Sie, welche Prüfung Sie für Ihr Ziel brauchen, und begleiten Sie von der Anmeldung bis zum Zertifikat.',
-      ],
-      points: [
-        'Offizielle telc Zertifikate',
-        'Beratung zur passenden Prüfung',
-        'Vorbereitungskurse im eigenen Haus',
-        'Kleine Prüfungsgruppen',
-      ],
-      image: images.abcTelc,
-    },
-    {
-      type: 'cards',
-      id: 'pruefungen',
-      eyebrow: 'Prüfungen',
-      title: 'Welche Prüfung möchten Sie ablegen?',
-      intro:
-        'Wählen Sie Ihr Niveau – auf jeder Seite finden Sie Aufbau, Dauer und kostenlose Übungstests.',
-      variant: 'rail',
-      filterBy: 'level',
-      cards: telcExamCards(),
-    },
-    {
       type: 'exam-levels',
       id: 'aufbau',
       eyebrow: 'Aufbau der Prüfungen',
       title: 'So läuft Ihre Prüfung ab',
-      intro: 'Wählen Sie Ihr Niveau: Aufbau, Dauer und der kostenlose Übungstest der telc gGmbH.',
       levels: telcLevels(),
     },
     {
@@ -340,8 +279,6 @@ export const telcPage: ContentPage = {
       id: 'termine',
       eyebrow: 'Prüfungstermine',
       title: 'Nächste Prüfungstermine',
-      intro:
-        'Filtern Sie nach Prüfung und Ort. Mit „Anmelden“ übernehmen Sie den Termin direkt ins Anmeldeformular.',
       emptyText:
         'Sobald neue Prüfungstermine feststehen, veröffentlichen wir sie hier. Gerne nennen wir Ihnen den nächsten Termin für Ihre Prüfung persönlich.',
     },
@@ -350,8 +287,6 @@ export const telcPage: ContentPage = {
       id: 'gebuehren',
       eyebrow: 'Gebühren',
       title: 'Was kostet die Prüfung?',
-      intro:
-        'Die Prüfungsgebühr legt jedes Prüfungszentrum selbst fest. Die aktuelle Gebühr für Ihre Prüfung nennen wir Ihnen gerne.',
       rows: telcExams.map((exam) => ({
         label: exam.name,
         value: 'auf Anfrage',
@@ -365,52 +300,26 @@ export const telcPage: ContentPage = {
       note: 'Diese Gebühren erhebt die telc gGmbH laut Prüfungsordnung (gültig ab 15.04.2025).',
     },
     {
-      type: 'steps',
-      id: 'so-melden-sie-sich-an',
-      eyebrow: 'Anmeldung',
-      title: 'So melden Sie sich an',
-      steps: [
-        {
-          title: 'Prüfung wählen',
-          text: 'Wählen Sie Ihre Prüfung und einen Termin – wir beraten Sie gerne, welches Niveau zu Ihrem Ziel passt.',
-        },
-        {
-          title: 'Anmelden',
-          text: 'Melden Sie sich mit dem Formular, telefonisch oder persönlich an. Ihr Name muss genau wie im Ausweis geschrieben sein.',
-        },
-        {
-          title: 'Gebühr bezahlen',
-          text: 'Nach der Anmeldung erhalten Sie alle Informationen zur Prüfungsgebühr und zur Zahlung.',
-        },
-        {
-          title: 'Vorbereiten',
-          text: 'Üben Sie mit den kostenlosen Übungstests der telc gGmbH oder in unseren Vorbereitungskursen.',
-        },
-        {
-          title: 'Prüfung ablegen',
-          text: 'Kommen Sie pünktlich mit gültigem amtlichem Lichtbildausweis.',
-        },
-        {
-          title: 'Zertifikat erhalten',
-          text: 'Das Ergebnis liegt meist nach 4 bis 6 Wochen vor. Wir informieren Sie, sobald es da ist.',
-        },
-      ],
-    },
-    {
-      type: 'columns',
-      id: 'pruefungstag',
-      eyebrow: 'Am Prüfungstag',
-      title: 'Gut vorbereitet zur Prüfung',
-      intro: 'Diese Regeln gelten laut Prüfungsordnung der telc gGmbH für alle Prüfungen.',
-      columns: examDayColumns,
-    },
-    {
       type: 'faq',
       id: 'faq',
       eyebrow: 'Häufige Fragen',
       title: 'Fragen zu telc Prüfungen',
-      intro: 'Ihre Frage ist nicht dabei? Rufen Sie uns an oder schreiben Sie uns.',
       items: [
+        {
+          question: 'Was muss ich zur Prüfung mitbringen?',
+          answer:
+            'Einen gültigen amtlichen Lichtbildausweis (ohne Ausweis keine Teilnahme), Bleistift, Kugelschreiber, Radiergummi und Anspitzer. Getränke nur in durchsichtigen Flaschen ohne Etikett.',
+        },
+        {
+          question: 'Was ist in der Prüfung nicht erlaubt?',
+          answer:
+            'Handy, Smartwatch und Armbanduhr werden vorher abgegeben. Taschen, Jacken, Wörterbücher und Notizen sind am Platz nicht erlaubt.',
+        },
+        {
+          question: 'Was passiert, wenn ich zu spät komme?',
+          answer:
+            'Wer nach Beginn der Prüfungsbelehrung kommt, kann nicht mehr teilnehmen. Schriftliche und mündliche Prüfung finden höchstens 7 Tage auseinander statt.',
+        },
         {
           question: 'Wann bekomme ich mein Ergebnis?',
           answer:
@@ -453,18 +362,10 @@ export const telcPage: ContentPage = {
       ],
     },
     {
-      type: 'links',
-      id: 'offizielle-informationen',
-      eyebrow: 'Offizielle Informationen',
-      title: 'Alles direkt von telc',
-      links: [telcLinks.overview, telcLinks.faq, telcLinks.rules, telcLinks.verify],
-    },
-    {
       type: 'telc-registration',
       id: 'anmeldung',
       eyebrow: 'Anmeldung',
       title: 'Zur Prüfung anmelden',
-      intro: 'Füllen Sie das Formular aus – wir melden uns mit allen Details zu Termin und Gebühr.',
     },
     contact(
       'Sie sind unsicher, welche Prüfung Sie brauchen? Wir beraten Sie gerne persönlich oder am Telefon.',

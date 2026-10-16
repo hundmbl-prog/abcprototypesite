@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { SiteForm } from '@/components/forms/SiteForm'
 import { LocationCards } from '@/components/home/LocationCards'
 import { SectionHeader } from '@/components/sections/SectionHeader'
@@ -169,6 +170,18 @@ export function Article({ block }: { block: ArticleBlock }) {
         title={block.title}
         className="mb-0! md:mb-0!"
       />
+      {block.image ? (
+        <Image
+          src={block.image.src}
+          alt={block.image.alt}
+          width={block.image.width}
+          height={block.image.height}
+          sizes="(min-width: 768px) 768px, 100vw"
+          placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={block.image.blurDataURL}
+          className="h-auto w-full rounded-2xl shadow-md"
+        />
+      ) : null}
       {block.paragraphs.map((text) => (
         <p key={text} className="text-lead text-ink">
           {text}

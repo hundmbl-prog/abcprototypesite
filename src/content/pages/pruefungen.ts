@@ -17,8 +17,7 @@ export const pruefungenPage: ContentPage = {
   hero: {
     eyebrow: 'Prüfungen',
     title: 'Ihr Nachweis für den nächsten Schritt',
-    intro:
-      'Ob Aufenthalt, Einbürgerung, Studium oder Beruf: Bei uns legen Sie offizielle Prüfungen ab – und wir sagen Ihnen vorher, welche Sie wirklich brauchen.',
+    intro: 'Offizielle Prüfungen für Aufenthalt, Einbürgerung, Studium und Beruf – direkt bei uns.',
     image: images.abcLernen,
     facts: [
       { icon: 'award', label: 'telc', value: 'Lizenziertes Prüfungszentrum' },
@@ -35,7 +34,6 @@ export const pruefungenPage: ContentPage = {
       id: 'unsere-pruefungen',
       eyebrow: 'Unsere Prüfungen',
       title: 'Prüfungen am ABC',
-      intro: 'Beide Prüfungen legen Sie direkt bei uns in Mainz ab.',
       variant: 'horizontal',
       cards: [
         {
@@ -71,8 +69,7 @@ export const pruefungenPage: ContentPage = {
       id: 'welche-pruefung',
       eyebrow: 'Orientierung',
       title: 'Welche Prüfung brauche ich?',
-      intro:
-        'Ein erster Überblick – welcher Nachweis im Einzelfall gilt, entscheidet die zuständige Stelle. Wir beraten Sie gerne.',
+      intro: 'Welcher Nachweis gilt, entscheidet die zuständige Stelle.',
       tabs: [
         {
           id: 'einbuergerung',
@@ -165,9 +162,7 @@ export const einbuergerungstestPage: ContentPage = {
   hero: {
     eyebrow: 'Prüfung · BAMF',
     title: 'Einbürgerungstest in Mainz',
-    intro:
-      'Der Test „Leben in Deutschland“ für Ihre Einbürgerung – direkt bei uns in Mainz, mit persönlicher Beratung vorher.',
-    image: images.team,
+    intro: 'Der Test „Leben in Deutschland“ – direkt bei uns in Mainz.',
     facts: [
       { icon: 'book', label: 'Fragen', value: '33 (30 + 3 zu Rheinland-Pfalz)' },
       { icon: 'clock', label: 'Dauer', value: '60 Minuten' },
@@ -193,7 +188,6 @@ export const einbuergerungstestPage: ContentPage = {
         'Mensch und Gesellschaft',
         'Fragen zu Rheinland-Pfalz',
       ],
-      image: images.team,
     },
     {
       type: 'steps',
@@ -265,7 +259,6 @@ export const einbuergerungstestPage: ContentPage = {
       id: 'vorbereitung',
       eyebrow: 'Vorbereitung',
       title: 'Kostenlos üben – mit dem offiziellen Fragenkatalog',
-      intro: 'Das BAMF stellt alle Fragen und einen Mustertest online bereit.',
       links: [
         {
           label: 'Online-Testcenter des BAMF',

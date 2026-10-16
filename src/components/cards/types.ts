@@ -1,5 +1,6 @@
 import type { StaticImageData } from 'next/image'
 import type { BadgeStatus } from '@/components/ui/Badge'
+import type { IconName } from '@/components/ui/Icon'
 
 export type CardImageData = {
   src: string | StaticImageData
@@ -30,9 +31,11 @@ export type OfferCardData = {
   badge?: BadgeStatus
   facts?: OfferFacts
   ctaLabel?: string
+  /** Icon for the photo-free "icon" variant. */
+  icon?: IconName
 }
 
 export type HeadingLevel = 'h2' | 'h3' | 'h4'
 
-/** The five approved card variants. Editors choose one per section in the CMS. */
-export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail'
+/** The approved card variants ("icon" = no photo, for secondary pages). Editors choose one per section in the CMS. */
+export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail' | 'icon'

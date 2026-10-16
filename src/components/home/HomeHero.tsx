@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Magnetic } from '@/components/motion/Magnetic'
@@ -97,36 +96,7 @@ export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }
           </div>
         </div>
 
-        <div className="hidden flex-col gap-4 lg:col-span-5 lg:flex">
-          <nav
-            aria-label="Schnellzugriff"
-            className="relative animate-fade-up overflow-hidden rounded-2xl p-3 text-ink glass-strong [--focus-ring:var(--color-blue)]"
-            style={{ animationDelay: '500ms' }}
-          >
-            <p className="px-3 pt-2 pb-3 text-caption font-semibold tracking-widest text-ink-muted uppercase">
-              Schnellzugriff
-            </p>
-            <ul className="flex flex-col gap-1">
-              {hero.quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="group/q flex items-center justify-between gap-4 rounded-xl px-3 py-3 transition-colors duration-(--dur-fast) hov:bg-surface"
-                  >
-                    <span className="flex flex-col">
-                      <span className="font-semibold text-navy">{link.label}</span>
-                      {link.description ? (
-                        <span className="text-small text-ink-muted">{link.description}</span>
-                      ) : null}
-                    </span>
-                    <span className="grid size-10 shrink-0 place-items-center rounded-pill bg-surface-3 text-navy transition-[background-color,color,transform] duration-(--dur-base) group-hover/q:-rotate-45 group-hover/q:bg-red group-hover/q:text-on-dark">
-                      <Icon name="arrow-right" className="size-4" />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div className="hidden flex-col justify-end gap-4 lg:col-span-5 lg:flex">
           <ul
             className="grid animate-fade-up grid-cols-3 gap-3"
             style={{ animationDelay: '650ms' }}

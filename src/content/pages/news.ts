@@ -96,6 +96,7 @@ export const newsCards: OfferCardData[] = articles.map((a) => ({
   image: a.image,
   tag: a.category,
   ctaLabel: 'Weiterlesen',
+  icon: 'book',
 }))
 
 export const newsPage: ContentPage = {
@@ -109,9 +110,7 @@ export const newsPage: ContentPage = {
   hero: {
     eyebrow: 'News',
     title: 'Aktuelles aus dem ABC',
-    intro: 'Erfolge, Neuigkeiten und Einblicke aus Kursen, Prüfungen und Projekten.',
-    image: images.jugendErfolg,
-    primaryCta: { label: 'Alle Beiträge', href: '#beitraege' },
+    intro: 'Neuigkeiten aus Kursen, Prüfungen und Projekten.',
   },
   blocks: [
     {
@@ -119,8 +118,7 @@ export const newsPage: ContentPage = {
       id: 'beitraege',
       eyebrow: 'Beiträge',
       title: 'Neuigkeiten',
-      intro: 'Filtern Sie nach Thema.',
-      variant: 'overlay',
+      variant: 'icon',
       filterBy: 'tag',
       cards: newsCards,
     },
@@ -137,7 +135,7 @@ export const articlePages: ContentPage[] = articles.map((a) => ({
   path: `news/${a.slug}`,
   label: a.title,
   seo: { title: a.title, description: a.excerpt },
-  hero: { eyebrow: `News · ${a.category}`, title: a.title, intro: a.excerpt, image: a.image },
+  hero: { eyebrow: `News · ${a.category}`, title: a.title, intro: a.excerpt },
   blocks: [
     {
       type: 'article',
@@ -146,14 +144,14 @@ export const articlePages: ContentPage[] = articles.map((a) => ({
       title: 'Der Beitrag',
       paragraphs: a.paragraphs,
       points: a.points,
+      image: a.image,
     },
     {
       type: 'cards',
       id: 'weitere-news',
       eyebrow: 'Weitere News',
       title: 'Mehr aus dem ABC',
-      variant: 'classic',
-      simple: true,
+      variant: 'icon',
       cards: newsCards.filter((c) => c.id !== a.slug).slice(0, 3),
       cta: { label: 'Alle News', href: '/news' },
     },

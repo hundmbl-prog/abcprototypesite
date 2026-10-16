@@ -10,9 +10,12 @@ import logoWordmark from '@/assets/brand/logo-wordmark.png'
  */
 export function Logo({
   variant = 'wordmark',
+  white = false,
   className,
 }: {
   variant?: 'wordmark' | 'full'
+  /** All-white version for blue backgrounds (footer). */
+  white?: boolean
   className?: string
 }) {
   const src = variant === 'full' ? logoFull : logoWordmark
@@ -25,7 +28,11 @@ export function Logo({
         height={src.height}
         sizes={variant === 'full' ? '240px' : '220px'}
         priority={variant === 'wordmark'}
-        className={cn('w-auto', variant === 'full' ? 'h-24' : 'h-8 md:h-10')}
+        className={cn(
+          'w-auto',
+          variant === 'full' ? 'h-24' : 'h-8 md:h-10',
+          white && 'brightness-0 invert',
+        )}
       />
     </Link>
   )

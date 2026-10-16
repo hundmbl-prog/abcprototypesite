@@ -65,7 +65,6 @@ export type HeroContent = {
   badge: string
   eyebrow: string
   highlights: HeroHighlight[]
-  quickLinks: NavLink[]
   title: string
   text: string
   image: ContentImage
@@ -116,10 +115,8 @@ export type HomePage = {
     cta: NavLink
   }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
-  projects: SectionIntro & { items: Project[]; cta: NavLink }
-  why: SectionIntro & { stats: Stat[]; points: string[]; caption: string }
+  why: SectionIntro & { stats: Stat[]; points: string[] }
   partners: SectionIntro & { items: Partner[] }
-  locations: SectionIntro
 }
 
 /* ───────────────────────── Content pages (Payload "pages" collection with blocks in Step 5) */
@@ -139,7 +136,8 @@ export type PageHero = {
   eyebrow: string
   title: string
   intro: string
-  image: ContentImage
+  /** Only main pages (Kurse, Prüfungen) show a photo; all others get the compact blue hero. */
+  image?: ContentImage
   facts?: FactItem[]
   primaryCta?: NavLink
   secondaryCta?: NavLink
@@ -151,7 +149,8 @@ export type IntroBlock = BlockBase & {
   type: 'intro'
   paragraphs: string[]
   points?: string[]
-  image: ContentImage
+  /** Without an image the points are shown in a blue data panel instead. */
+  image?: ContentImage
   reverse?: boolean
 }
 export type CardsBlock = BlockBase & {
@@ -228,7 +227,8 @@ export type FeaturesBlock = BlockBase & {
 /** A detailed section (project or offer) that cards on the same page link to by its id. */
 export type SpotlightBlock = BlockBase & {
   type: 'spotlight'
-  image: ContentImage
+  /** Without an image the facts are shown in a blue data panel instead. */
+  image?: ContentImage
   paragraphs: string[]
   facts?: Array<{ label: string; value: string }>
   lists?: Array<{ title: string; items: string[] }>
@@ -271,7 +271,13 @@ export type PressBlock = BlockBase & {
   type: 'press'
   items: Array<{ outlet: string; date: string; title: string }>
 }
-export type ArticleBlock = BlockBase & { type: 'article'; paragraphs: string[]; points?: string[] }
+export type ArticleBlock = BlockBase & {
+  type: 'article'
+  paragraphs: string[]
+  points?: string[]
+  /** Shown whole (no cropping) above the text. */
+  image?: ContentImage
+}
 
 export type PageBlock =
   | IntroBlock

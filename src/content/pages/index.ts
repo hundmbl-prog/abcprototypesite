@@ -8,7 +8,7 @@ import { datenschutzPage, hausordnungPage, impressumPage } from './legal'
 import { articlePages, newsPage } from './news'
 import { paedagogikPage } from './paedagogik'
 import { pressePage } from './presse'
-import { projektePage } from './projekte'
+import { projectPages, projektePage } from './projekte'
 import { einbuergerungstestPage, pruefungenPage } from './pruefungen'
 import { telcPage } from './telc'
 import { kontaktPage, ueberUnsPage } from './ueber-uns'
@@ -20,6 +20,7 @@ export const contentPages: ContentPage[] = [
   einbuergerungstestPage,
   telcPage,
   projektePage,
+  ...projectPages,
   bildungsangebotePage,
   lernfoerderungPage,
   paedagogikPage,

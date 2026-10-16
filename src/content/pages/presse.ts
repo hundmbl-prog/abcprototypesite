@@ -1,5 +1,4 @@
 /** Presse – press review from abc-mainz.de (outlet, date, headline; no links were verifiable). */
-import { images } from '../images'
 import type { ContentPage } from '../types'
 import { contact } from './shared'
 
@@ -14,8 +13,7 @@ export const pressePage: ContentPage = {
   hero: {
     eyebrow: 'Presse',
     title: 'Das ABC in den Medien',
-    intro: 'Was Zeitungen, Radio und Online-Medien über unsere Arbeit berichtet haben.',
-    image: images.qmSchulung,
+    intro: 'Berichte über unsere Arbeit.',
     primaryCta: { label: 'Zum Pressespiegel', href: '#pressespiegel' },
   },
   blocks: [

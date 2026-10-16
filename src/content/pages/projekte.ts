@@ -1,11 +1,12 @@
 /**
- * Projekte – one page: intro, project cards (photo + short text + "Mehr erfahren") and one detail
- * section per project. Content from the current abc-mainz.de project pages; only links that were
+ * Projekte – overview with one photo card per project, and one landing page per project
+ * (/projekte/<id>) with the key facts and one detail section. Content from the current abc-mainz.de project pages; only links that were
  * reachable on 15.10.2026 are included.
  */
 import type { OfferCardData } from '@/components/cards/types'
 import { images } from '../images'
-import type { ContentImage, ContentPage, Project, SpotlightBlock } from '../types'
+import type { IconName } from '@/components/ui/Icon'
+import type { ContentImage, ContentPage, SpotlightBlock } from '../types'
 import { cta } from './shared'
 
 type ProjectData = Omit<SpotlightBlock, 'type' | 'back' | 'reverse' | 'eyebrow'> & {
@@ -333,24 +334,87 @@ const projects: ProjectData[] = [
   },
 ]
 
+const factIcons: Record<string, IconName> = {
+  Förderung: 'award',
+  Programm: 'award',
+  Laufzeit: 'calendar',
+  Ausgabe: 'calendar',
+  Für: 'users',
+  Zielgruppe: 'users',
+  Teilnahme: 'users',
+  Plätze: 'users',
+  Form: 'users',
+  Region: 'location',
+  Ort: 'location',
+  Alter: 'child',
+  Treffen: 'clock',
+  Kosten: 'euro',
+  Sprachniveau: 'level',
+  Vorkenntnisse: 'level',
+  'Motto 2026': 'pen',
+}
+
+const tagIcons: Record<string, IconName> = {
+  Kultur: 'pen',
+  Umwelt: 'location',
+  Arbeit: 'award',
+  Wettbewerb: 'award',
+  Medien: 'mic',
+  Patenschaften: 'users',
+  Gesellschaft: 'users',
+  Organisation: 'monitor',
+  Jugend: 'child',
+}
+
 export const projectCards: OfferCardData[] = projects.map((p) => ({
   id: p.id,
   title: p.title,
   description: p.short,
-  href: `/projekte#${p.id}`,
+  href: `/projekte/${p.id}`,
   image: p.image,
   tag: p.tag,
-  ctaLabel: 'Mehr erfahren',
+  ctaLabel: 'Zum Projekt',
+  icon: tagIcons[p.tag] ?? 'users',
 }))
 
-/** Projects for the home page slideshow – same source as the Projekte page. */
-export const projectShowcase: Project[] = projects.slice(0, 6).map((p) => ({
-  id: p.id,
-  slug: p.id,
-  title: p.title,
-  description: p.short,
-  partners: p.partners,
-  image: p.image,
+/** One landing page per project: compact hero with the key facts, one detail section, CTA. */
+export const projectPages: ContentPage[] = projects.map((p) => ({
+  path: `projekte/${p.id}`,
+  label: p.title,
+  seo: { title: `${p.title} – Projekt des ABC e.V.`, description: p.short },
+  hero: {
+    eyebrow: `Projekt · ${p.tag}`,
+    title: p.title,
+    intro: p.short,
+    facts: (p.facts ?? []).slice(0, 4).map((f) => ({
+      icon: factIcons[f.label] ?? 'check',
+      label: f.label,
+      value: f.value,
+    })),
+  },
+  blocks: [
+    {
+      type: 'spotlight',
+      id: 'projekt',
+      eyebrow: 'Das Projekt',
+      title: 'Worum es geht',
+      image: p.image,
+      paragraphs: p.paragraphs,
+      lists: p.lists,
+      funding: p.funding,
+      contact: p.contact,
+      link: p.link,
+    },
+    {
+      type: 'cards',
+      id: 'weitere-projekte',
+      eyebrow: 'Weitere Projekte',
+      title: 'Das könnte Sie auch interessieren',
+      variant: 'icon',
+      cards: projectCards.filter((c) => c.id !== p.id).slice(0, 3),
+      cta: { label: 'Alle Projekte', href: '/projekte' },
+    },
+  ],
 }))
 
 export const projektePage: ContentPage = {
@@ -364,69 +428,28 @@ export const projektePage: ContentPage = {
   hero: {
     eyebrow: 'Projekte',
     title: 'Gemeinsam für ein starkes Miteinander',
-    intro:
-      'Unsere Projekte fördern Teilhabe, Kreativität und Zusammenhalt – oft gemeinsam mit starken Partnern.',
-    image: images.projektStrassenfotografie,
+    intro: 'Projekte für Teilhabe, Kreativität und Zusammenhalt in Mainz.',
     facts: [
       { icon: 'users', label: 'Projekte', value: `${projects.length} aktuelle Projekte` },
       { icon: 'award', label: 'Förderer', value: 'Bund, EU, Stiftungen' },
       { icon: 'location', label: 'Region', value: 'Mainz und Umgebung' },
-      { icon: 'check', label: 'Mitmachen', value: 'ehrenamtlich möglich' },
     ],
-    primaryCta: { label: 'Projekte ansehen', href: '#projekte' },
-    secondaryCta: { label: 'Kontakt', href: '#mitmachen' },
   },
   blocks: [
-    {
-      type: 'intro',
-      id: 'warum',
-      eyebrow: 'Warum Projekte?',
-      title: 'Damit sich jeder Mensch entfalten kann',
-      paragraphs: [
-        'Unser Ziel: eine Gesellschaft, in der sich jeder Mensch entfalten kann. Unsere Projekte richten sich besonders an Menschen, die Förderung brauchen – Geflüchtete, Zugewanderte, Jugendliche und Menschen, die Benachteiligung erfahren.',
-        'Gefördert werden unsere Projekte von Unternehmen, Stiftungen und öffentlichen Programmen.',
-      ],
-      points: [
-        'Teilhabe und Zusammenhalt',
-        'Kreativität und Bildung',
-        'Wege in Arbeit und Ausbildung',
-        'Begegnung und Ehrenamt',
-      ],
-      image: images.sozialeProjekte,
-    },
     {
       type: 'cards',
       id: 'projekte',
       eyebrow: 'Unsere Projekte',
       title: 'Aktuelle Projekte',
-      intro:
-        'Wählen Sie ein Projekt – mit „Mehr erfahren“ springen Sie zu allen Details weiter unten.',
       variant: 'classic',
       simple: true,
       cards: projectCards,
     },
-    ...projects.map((p, i): SpotlightBlock => ({
-      type: 'spotlight',
-      id: p.id,
-      eyebrow: `Projekt · ${p.tag}`,
-      title: p.title,
-      image: p.image,
-      paragraphs: p.paragraphs,
-      facts: p.facts,
-      lists: p.lists,
-      funding: p.funding,
-      contact: p.contact,
-      link: p.link,
-      reverse: i % 2 === 1,
-      back: { label: 'Zurück zur Projektübersicht', href: '#projekte' },
-    })),
     {
       type: 'columns',
       id: 'mitmachen',
       eyebrow: 'Mitmachen',
       title: 'Sei ein Teil unseres Engagements',
-      intro:
-        'Jedes noch so kleine Engagement zählt – ob als Ehrenamtliche oder Ehrenamtlicher vor Ort oder mit einer Spende.',
       columns: [
         {
           icon: 'users',
@@ -434,18 +457,18 @@ export const projektePage: ContentPage = {
           items: [
             'Als Patin oder Pate',
             'Bei Projekten und Veranstaltungen',
-            'Mit Ihrem Wissen und Ihrer Zeit',
+            'Mit Wissen und Zeit',
           ],
         },
         {
           icon: 'mail',
-          title: 'Kontakt zu unseren Projekten',
-          items: ['E-Mail: projekte@abc-mainz.de', 'Telefon: 06131 8897826'],
+          title: 'Kontakt',
+          items: ['projekte@abc-mainz.de', 'Telefon: 06131 8897826'],
         },
       ],
       note: {
         title: 'Spenden',
-        text: 'Sie möchten unsere Projekte mit einer Spende unterstützen? Schreiben Sie uns – wir senden Ihnen gerne alle Informationen.',
+        text: 'Schreiben Sie uns – wir senden Ihnen alle Informationen.',
       },
     },
     cta({

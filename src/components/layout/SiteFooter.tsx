@@ -7,7 +7,7 @@ function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
 
-/** Brand-blue footer with white text: logo on a white plate, navigation, contact block, legal row. */
+/** Brand-blue footer with white text: white logo, navigation, locations (address, hours, contact), legal row. */
 export async function SiteFooter() {
   const [navigation, settings] = await Promise.all([getNavigation(), getSiteSettings()])
   const year = new Date().getFullYear()
@@ -26,9 +26,7 @@ export async function SiteFooter() {
       </h2>
       <div className="container-wide grid gap-12 pt-section-sm pb-12 lg:grid-cols-12">
         <div className="flex flex-col gap-5 lg:col-span-4">
-          <span className="self-start rounded-2xl bg-surface p-3 shadow-lg [--focus-ring:var(--color-blue)]">
-            <Logo variant="full" />
-          </span>
+          <Logo variant="full" white className="self-start" />
           <p className="max-w-prose text-small text-on-dark-muted">{settings.footerAbout}</p>
           <Link
             href={navigation.cta.href}
@@ -66,12 +64,22 @@ export async function SiteFooter() {
 
         <div className="flex flex-col gap-4 lg:col-span-3">
           <p className="text-caption font-semibold tracking-widest text-blue-200 uppercase">
-            Kontakt
+            Standorte
           </p>
           <ul className="flex flex-col gap-4 text-small">
             {settings.locations.map((location) => (
               <li key={location.id} className="flex flex-col gap-1">
-                <span className="font-semibold text-on-dark">{location.name}</span>
+                <span className="font-semibold text-on-dark">
+                  {location.name} · {location.kind}
+                </span>
+                <span className="text-on-dark-muted">
+                  {location.street}, {location.postalCode} {location.city}
+                </span>
+                {location.hours.map((h) => (
+                  <span key={h.days} className="text-on-dark-muted">
+                    {h.days}: {h.hours}
+                  </span>
+                ))}
                 <a
                   href={telHref(location.phone)}
                   className="text-on-dark-muted hov:text-on-dark hov:underline"

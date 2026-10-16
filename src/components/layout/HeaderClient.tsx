@@ -127,18 +127,17 @@ export function HeaderClient({
                     >
                       <div
                         className={cn(
-                          'relative flex min-h-11 items-center rounded-pill text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-fast) hov:bg-surface-3',
-                          (isOpen || isCurrent) && 'bg-surface-3',
+                          'relative flex min-h-11 items-center rounded-pill text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-fast)',
+                          isOpen || isCurrent
+                            ? 'bg-blue-900 text-on-dark [--focus-ring:var(--color-blue)]'
+                            : 'text-ink hov:bg-surface-3',
                         )}
                       >
                         <Link
                           href={section.href}
                           aria-current={pathname === section.href ? 'page' : undefined}
                           onClick={closeMenus}
-                          className={cn(
-                            'inline-flex min-h-11 items-center rounded-l-pill pl-3 text-ink',
-                            (isOpen || isCurrent) && 'text-navy',
-                          )}
+                          className="inline-flex min-h-11 items-center rounded-l-pill pl-3"
                         >
                           {section.label}
                         </Link>
@@ -151,7 +150,7 @@ export function HeaderClient({
                           aria-controls={panelId}
                           aria-label={`Untermenü ${section.label}`}
                           onClick={() => setOpenIndex(isOpen ? null : index)}
-                          className="inline-flex min-h-11 items-center rounded-r-pill pr-2.5 pl-1 text-ink"
+                          className="inline-flex min-h-11 items-center rounded-r-pill pr-2.5 pl-1"
                         >
                           <Icon
                             name="chevron-down"
@@ -181,14 +180,15 @@ export function HeaderClient({
             </nav>
 
             <div className="flex items-center gap-2">
-              <span className="hidden sm:block">
+              <span>
                 <Button
                   href={cta.href}
                   variant="cta"
                   size="sm"
-                  className="rounded-pill! shadow-(--shadow-glow-red)"
+                  icon="mail"
+                  className="rounded-pill! shadow-(--shadow-glow-red) max-sm:px-3"
                 >
-                  {cta.label}
+                  <span className="max-sm:sr-only">{cta.label}</span>
                 </Button>
               </span>
               <button

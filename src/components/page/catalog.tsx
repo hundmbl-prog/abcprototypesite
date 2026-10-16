@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { BrandMark } from '@/components/ui/BrandMark'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
-import type { CourseTypesBlock, FeaturesBlock, SpotlightBlock } from '@/content/types'
+import type { ContentImage, CourseTypesBlock, FeaturesBlock, SpotlightBlock } from '@/content/types'
 
 /**
  * Course catalogue blocks: each course type as one large card – header with hours and summary,
@@ -151,34 +152,29 @@ export function Features({ block }: { block: FeaturesBlock }) {
   )
 }
 
-function SpotlightImage({
-  block,
-  sizes,
-  className,
-}: {
-  block: SpotlightBlock
-  sizes: string
-  className?: string
-}) {
+function SpotlightImage({ image, sizes }: { image: ContentImage; sizes: string }) {
   return (
     <Image
-      src={block.image.src}
-      alt={block.image.alt}
-      width={block.image.width}
-      height={block.image.height}
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
       sizes={sizes}
-      placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
-      blurDataURL={block.image.blurDataURL}
-      className={cn(
-        'h-auto w-full transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105',
-        className,
-      )}
+      placeholder={image.blurDataURL ? 'blur' : 'empty'}
+      blurDataURL={image.blurDataURL}
+      className="h-auto w-full transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
     />
   )
 }
 
 /** Heading, text, lists, funding note and actions of a spotlight. */
-function SpotlightBody({ block }: { block: SpotlightBlock }) {
+function SpotlightBody({
+  block,
+  withLists = true,
+}: {
+  block: SpotlightBlock
+  withLists?: boolean
+}) {
   return (
     <>
       <SectionHeader
@@ -192,7 +188,7 @@ function SpotlightBody({ block }: { block: SpotlightBlock }) {
           {text}
         </p>
       ))}
-      {block.lists?.length ? (
+      {withLists && block.lists?.length ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {block.lists.map((list) => (
             <div
@@ -268,31 +264,79 @@ function SpotlightBody({ block }: { block: SpotlightBlock }) {
 }
 
 /**
- * Detailed section for one project or offer; cards on the same page link here by id.
- * The photo is shown whole (no cropping) beside the text, with the key facts below it.
+ * Detailed section for one project or offer.
+ * With a photo: the whole photo (no cropping) beside the text, key facts below it.
+ * Without a photo: the key facts as a blue data panel with the logo mark beside the text.
  */
 export function Spotlight({ block }: { block: SpotlightBlock }) {
-  return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
-      <div className={cn('flex flex-col gap-6 lg:col-span-5', block.reverse && 'lg:order-2')}>
-        <div
-          data-reveal="image"
-          className="group overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
-        >
-          <SpotlightImage block={block} sizes="(min-width: 1024px) 40vw, 100vw" />
+  const facts = block.facts?.length ? (
+    <dl
+      className={cn(
+        'grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-blue-800 ring-1 ring-blue-800',
+        block.image ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-1',
+      )}
+    >
+      {block.facts.map((fact) => (
+        <div key={fact.label} className="flex flex-col gap-1 bg-blue-900 p-4 text-on-dark md:p-5">
+          <dt className="text-caption font-semibold tracking-wide text-red-300 uppercase">
+            {fact.label}
+          </dt>
+          <dd className="font-semibold">{fact.value}</dd>
         </div>
-        {block.facts?.length ? (
-          <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-blue-800 ring-1 ring-blue-800 sm:grid-cols-2">
-            {block.facts.map((fact) => (
-              <div key={fact.label} className="flex flex-col gap-1 bg-blue-900 p-4 text-on-dark">
-                <dt className="text-caption font-semibold tracking-wide text-red-300 uppercase">
-                  {fact.label}
-                </dt>
-                <dd className="font-semibold">{fact.value}</dd>
+      ))}
+    </dl>
+  ) : null
+
+  if (!block.image && !facts) {
+    return (
+      <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="flex flex-col gap-6 lg:col-span-6">
+          <SpotlightBody block={block} withLists={false} />
+        </div>
+        {block.lists?.length ? (
+          <div className="relative isolate flex flex-col gap-4 overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-6">
+            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
+            <BrandMark tone="dark" className="-right-10 -bottom-8 w-56" />
+            {block.lists.map((list) => (
+              <div key={list.title} className="flex flex-col gap-3">
+                <h3 className="text-small font-semibold tracking-widest text-red-300 uppercase">
+                  {list.title}
+                </h3>
+                <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {list.items.map((item) => (
+                    <li key={item} className="flex items-center gap-3 font-semibold">
+                      <span className="grid size-7 shrink-0 place-items-center rounded-pill bg-red-500">
+                        <Icon name="check" className="size-3.5" strokeWidth={2.5} />
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
-          </dl>
+          </div>
         ) : null}
+      </div>
+    )
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+      <div
+        className={cn(
+          'relative isolate flex flex-col gap-6 lg:col-span-5',
+          block.reverse && 'lg:order-2',
+        )}
+      >
+        {block.image ? (
+          <div
+            data-reveal="image"
+            className="group overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
+          >
+            <SpotlightImage image={block.image} sizes="(min-width: 1024px) 40vw, 100vw" />
+          </div>
+        ) : null}
+        {facts}
       </div>
 
       <div className={cn('flex flex-col gap-6 lg:col-span-7', block.reverse && 'lg:order-1')}>

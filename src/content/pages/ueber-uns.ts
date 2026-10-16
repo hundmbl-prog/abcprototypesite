@@ -1,5 +1,4 @@
 /** Über uns (one page with sections) and Kontakt. Content from abc-mainz.de. */
-import { images } from '../images'
 import type { ContentPage } from '../types'
 import { cta } from './shared'
 
@@ -15,85 +14,24 @@ export const ueberUnsPage: ContentPage = {
     eyebrow: 'Über uns',
     title: 'Aus der Community – für die Community',
     intro:
-      'Seit 1997 begleiten wir Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf – als gemeinnütziger Verein in Mainz und Bad Kreuznach.',
-    image: images.team,
+      'Gemeinnütziger Verein, 1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen gegründet.',
     facts: [
       { icon: 'calendar', label: 'Gegründet', value: '1997 in Mainz' },
       { icon: 'users', label: 'Rechtsform', value: 'gemeinnütziger Verein' },
       { icon: 'location', label: 'Standorte', value: 'Mainz & Bad Kreuznach' },
       { icon: 'award', label: 'Prüfungen', value: 'telc Prüfungszentrum' },
     ],
-    primaryCta: { label: 'Mehr über uns', href: '#bereiche' },
-    secondaryCta: { label: 'Kontakt', href: '/ueber-uns/kontakt' },
+    primaryCta: { label: 'Warum ABC?', href: '#warum-abc' },
+    secondaryCta: { label: 'Jobs', href: '#jobs' },
   },
   blocks: [
-    {
-      type: 'intro',
-      id: 'geschichte',
-      eyebrow: 'Unsere Geschichte',
-      title: 'Wir sind Vielfalt – und leben sie',
-      paragraphs: [
-        'Im Jahr 1997 gründeten migrantische Eltern, Studierende und Hochschulabsolventen das Akademische Bildungs-Center als gemeinnützigen Verein. Sie erkannten den großen Bedarf an Unterstützung für die Bildung in den migrantischen Communitys und schufen passende Angebote wie Sprachkurse, Nachhilfe und Integrationskurse.',
-        'Wir sind Brückenbauer und Partner für die Menschen vor Ort – mit Empowerment durch Bildung und einem solidarischen Miteinander.',
-      ],
-      points: ['Bildung', 'Sprache', 'Integration', 'Kinder- und Jugendhilfe'],
-      image: images.g03438,
-    },
-    {
-      type: 'cards',
-      id: 'bereiche',
-      eyebrow: 'Mehr erfahren',
-      title: 'Lernen Sie uns kennen',
-      variant: 'classic',
-      simple: true,
-      cards: [
-        {
-          id: 'warum-abc',
-          title: 'Warum ABC?',
-          description: 'Was das Lernen bei uns besonders macht.',
-          href: '/ueber-uns#warum-abc',
-          image: images.abcUnterricht,
-          tag: 'Verein',
-          ctaLabel: 'Mehr erfahren',
-        },
-        {
-          id: 'mitgliedschaft',
-          title: 'Mitgliedschaft',
-          description: 'Werden Sie Teil des Vereins und gestalten Sie mit.',
-          href: '/ueber-uns#mitgliedschaft',
-          image: images.jugendErfolg,
-          tag: 'Verein',
-          ctaLabel: 'Mehr erfahren',
-        },
-        {
-          id: 'machen-sie-mit',
-          title: 'Machen Sie mit!',
-          description: 'Ehrenamtlich helfen oder unsere Arbeit unterstützen.',
-          href: '/ueber-uns#machen-sie-mit',
-          image: images.projektBruecken,
-          tag: 'Engagement',
-          ctaLabel: 'Mehr erfahren',
-        },
-        {
-          id: 'jobs',
-          title: 'Jobs',
-          description: 'Arbeiten in einem offenen, internationalen Team.',
-          href: '/ueber-uns#jobs',
-          image: images.abcTafel,
-          tag: 'Karriere',
-          ctaLabel: 'Mehr erfahren',
-        },
-      ],
-    },
     {
       type: 'spotlight',
       id: 'warum-abc',
       eyebrow: 'Warum ABC?',
       title: 'Ein Ort, an dem Sie ankommen',
-      image: images.abcUnterricht,
       paragraphs: [
-        'Bei uns kommen Menschen aus unterschiedlichen Kulturen zusammen – mit eigenen Erfahrungen und Zielen. Durch unsere langjährige Erfahrung im Sprachenlernen und in der Integration wissen wir, worauf es ankommt.',
-        'Sprache lernen ist mehr als Grammatik: Lehrende und Lernende gestalten gemeinsam eine positive Lernumgebung. Als telc-zertifizierte Sprachschule bereiten wir auf alle Prüfungen vor – und Sie legen sie direkt bei uns ab.',
+        'Langjährige Erfahrung in Sprache und Integration, eine familiäre Atmosphäre – und telc Prüfungen direkt im Haus.',
       ],
       facts: [
         { label: 'Erfahrung', value: 'seit 1997' },
@@ -112,28 +50,13 @@ export const ueberUnsPage: ContentPage = {
           ],
         },
       ],
-      back: { label: 'Zurück zur Übersicht', href: '#bereiche' },
-    },
-    {
-      type: 'spotlight',
-      id: 'mitgliedschaft',
-      eyebrow: 'Mitgliedschaft',
-      title: 'Sei dabei!',
-      image: images.jugendErfolg,
-      reverse: true,
-      paragraphs: [
-        'Unser Verein lebt vom Engagement von Menschen, die eine Vision haben und die Vielfalt unserer Gesellschaft schätzen. Wir möchten wachsen und noch aktiver werden – helfen Sie uns dabei und unterstützen Sie uns als Mitglied.',
-        'Senden Sie uns Ihre Anfrage – wir melden uns mit allen Informationen zur Mitgliedschaft.',
-      ],
-      back: { label: 'Zurück zur Übersicht', href: '#bereiche' },
     },
     {
       type: 'form',
-      id: 'mitglied-werden',
+      id: 'mitgliedschaft',
       eyebrow: 'Mitgliedschaft',
       title: 'Mitglied werden',
-      intro:
-        'Ihre Anfrage ist unverbindlich. Wir schicken Ihnen alle Unterlagen und beantworten Ihre Fragen.',
+      intro: 'Unterstützen Sie den Verein als Mitglied – die Anfrage ist unverbindlich.',
       formId: 'mitgliedschaft',
       points: [
         'Unverbindliche Anfrage',
@@ -146,10 +69,8 @@ export const ueberUnsPage: ContentPage = {
       id: 'machen-sie-mit',
       eyebrow: 'Engagement',
       title: 'Machen Sie mit!',
-      image: images.projektBruecken,
       paragraphs: [
-        'Ob in der Freizeit oder hauptamtlich: Wir freuen uns über alle, die unsere Arbeit kennenlernen und mithelfen möchten.',
-        'Sie möchten unsere Arbeit mit einer Spende unterstützen? Schreiben Sie uns – wir senden Ihnen gerne die Bankverbindung und alle Informationen.',
+        'Ehrenamtlich oder mit einer Spende – schreiben Sie uns, wir senden Ihnen alle Informationen.',
       ],
       lists: [
         {
@@ -163,37 +84,12 @@ export const ueberUnsPage: ContentPage = {
         },
       ],
       contact: { label: 'Engagement und Spenden', email: 'kontakt@abc-mainz.de' },
-      back: { label: 'Zurück zur Übersicht', href: '#bereiche' },
-    },
-    {
-      type: 'spotlight',
-      id: 'jobs',
-      eyebrow: 'Jobs',
-      title: 'Arbeiten beim ABC',
-      image: images.abcTafel,
-      reverse: true,
-      paragraphs: [
-        'Als gemeinnütziger Verein haben wir langjährige Erfahrung in Bildungs- und Integrationsarbeit und in sozialen Projekten. Wir legen großen Wert auf ein respektvolles und tolerantes Miteinander in kultureller Vielfalt.',
-        'Wir freuen uns über Bewerbungen in diesen Bereichen – auch initiativ.',
-      ],
-      lists: [
-        {
-          title: 'Wir bieten',
-          items: [
-            'Ein offenes, internationales Team',
-            'Ausführliche Einarbeitung und Begleitung',
-            'Flexible Zeiteinteilung',
-            'Kontinuierliche pädagogische Unterstützung',
-          ],
-        },
-      ],
-      back: { label: 'Zurück zur Übersicht', href: '#bereiche' },
     },
     {
       type: 'columns',
-      id: 'stellen',
-      eyebrow: 'Bereiche',
-      title: 'Hier verstärken Sie unser Team',
+      id: 'jobs',
+      eyebrow: 'Jobs',
+      title: 'Arbeiten beim ABC',
       columns: [
         {
           icon: 'pen',
@@ -202,16 +98,15 @@ export const ueberUnsPage: ContentPage = {
             'Sehr gute Kenntnisse in Ihren Fächern',
             'Sehr gute Deutschkenntnisse',
             'Freude an der Arbeit mit Kindern und Jugendlichen',
-            'Interkulturelle Kompetenz – weitere Sprachen sind ein Vorteil',
+            'Weitere Sprachen sind ein Vorteil',
           ],
         },
         {
           icon: 'users',
           title: 'Sozialpädagogik / Familienhilfe',
           items: [
-            'Studium der Sozialen Arbeit, (Sozial-)Pädagogik oder Erziehungswissenschaften',
+            'Studium Soziale Arbeit, (Sozial-)Pädagogik oder Erziehungswissenschaften',
             'Aufsuchende Arbeit mit Familien',
-            'Teamfähigkeit, Engagement und Flexibilität',
             'Erfahrung im Kinderschutz von Vorteil',
           ],
         },
@@ -222,7 +117,6 @@ export const ueberUnsPage: ContentPage = {
             'Deutsch auf muttersprachlichem Niveau',
             'Studienabschluss',
             'Zulassung für Integrationskurse (BAMF)',
-            'Pädagogische und interkulturelle Stärke',
           ],
         },
       ],
@@ -232,13 +126,17 @@ export const ueberUnsPage: ContentPage = {
       id: 'bewerben',
       eyebrow: 'Bewerbung',
       title: 'Jetzt bewerben',
-      intro: 'Senden Sie uns Ihren Lebenslauf und ein paar Worte zu Ihnen.',
       formId: 'bewerbung',
-      points: ['Lebenslauf als PDF', 'Kurzes Anschreiben', 'Initiativbewerbungen willkommen'],
+      points: [
+        'Offenes, internationales Team',
+        'Einarbeitung und flexible Zeiten',
+        'Lebenslauf als PDF',
+        'Initiativbewerbungen willkommen',
+      ],
     },
     cta({
       title: 'Lernen Sie uns persönlich kennen',
-      text: 'Besuchen Sie uns in Mainz oder Bad Kreuznach – wir freuen uns auf Sie.',
+      text: 'Besuchen Sie uns in Mainz oder Bad Kreuznach.',
       primary: { label: 'Kontakt', href: '/ueber-uns/kontakt' },
       secondary: { label: 'Unsere Projekte', href: '/projekte' },
     }),
@@ -257,7 +155,6 @@ export const kontaktPage: ContentPage = {
     eyebrow: 'Kontakt',
     title: 'Wir sind für Sie da',
     intro: 'Rufen Sie an, schreiben Sie uns oder besuchen Sie uns in Mainz und Bad Kreuznach.',
-    image: images.g03419,
     facts: [
       { icon: 'location', label: 'Hauptsitz', value: 'Rhabanusstr. 5, Mainz' },
       { icon: 'clock', label: 'Sprechzeiten', value: 'Mo, Di, Mi, Fr 9–16 Uhr' },
@@ -326,7 +223,6 @@ export const kontaktPage: ContentPage = {
       id: 'nachricht',
       eyebrow: 'Kontaktformular',
       title: 'Schreiben Sie uns',
-      intro: 'Wir antworten so schnell wie möglich – in der Regel innerhalb weniger Werktage.',
       formId: 'kontakt',
       points: ['Kostenlose Beratung', 'Antwort per E-Mail oder Telefon', 'Für alle Standorte'],
     },

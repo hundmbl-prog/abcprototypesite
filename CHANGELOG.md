@@ -1,5 +1,62 @@
 # Changelog
 
+## Step 4 (part 6) – Less is more: fewer photos, shorter pages, project landing pages (2026-10-16)
+
+Requested on 16.10.2026. Decisions:
+
+- Photo heroes only on Home, Kurse and Prüfungen.
+- Locations only in the footer and on the Kontakt page.
+- White logo directly on the blue footer.
+
+**Home (hero + 5 sections)**
+
+- The "Schnellzugriff" box in the hero, the projects slideshow and the locations section were removed.
+- News is now a compact strip: three headlines with category, no photos.
+- "Warum ABC" is a compact blue band: four counters and the key points as chips, no photo.
+- Shorter texts throughout.
+
+**All pages**
+
+- Compact blue hero instead of a photo, except on Home, Kurse and Prüfungen. It has the title, one sentence, the key facts as icon chips, and the ABC house as a faint brand mark.
+- At most 6 sections per page:
+  - Integrationskurse: the support sections are merged into one icon section.
+  - telc: from 11 to 6 sections. The exam-day rules moved into the FAQ, and the exam cards are covered by the level tabs.
+  - Über uns: membership and jobs are merged with their forms.
+  - Bildungsangebote, Pädagogik, Formulare: the cards that only jumped to sections further down were removed.
+- Fewer photos:
+  - Secondary sections show icons and blue data panels with the logo mark instead.
+  - News and related cards use the new photo-free icon card.
+  - Photos stay only for the main offers, the Kurse and Prüfungen cards, project pages, articles and the gallery.
+- Section intros removed where they repeated the heading; hero sentences and long paragraphs shortened.
+- The closing card shows only the call to action, phone and department e-mail; addresses are in the footer.
+
+**Projekte**
+
+- The overview shows one photo card per project.
+- Each project has its own page `/projekte/<projekt>`:
+  - key facts in the hero
+  - one detail section (photo, text, lists, funding, contact)
+  - three related projects as icon cards
+- Menu links point to the project pages.
+
+**Top bar and footer**
+
+- The red top-bar button is now "Kontakt"; on phones it shows as an icon.
+- The open or current menu item is highlighted in dark blue with white text.
+- Footer: white logo without a box. Both locations are listed with address, opening hours, phone and e-mail.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 372 tests at 4 widths – 364 passed, 8 skipped (desktop- or mobile-only), including axe on all pages.
+- New tests:
+  - at most 6 sections per page, and photo heroes only on Kurse and Prüfungen
+  - project landing pages
+  - compact news
+  - Kontakt button and dark highlight in the top bar
+  - footer locations
+- The tests for the counters and the back-to-top button now wait for hydration, which fixes a timing race on mobile.
+
 ## Step 4 (part 5) – Spotlight photos shown in full (2026-10-16)
 
 Requested on 16.10.2026: no large photo with the text on top; the whole photo should be visible, beside or below the text, and not too big.

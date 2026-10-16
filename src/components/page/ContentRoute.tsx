@@ -11,6 +11,7 @@ import {
   getSiteSettings,
   getTelcData,
 } from '@/content'
+import { images } from '@/content/images'
 
 type Props = { params: Promise<{ slug?: string[] }> }
 
@@ -33,8 +34,9 @@ export function contentRoute(section: string) {
     const page = await getContentPage([section, ...slug].join('/'))
     if (!page) return {}
     const url = `/${page.path}`
-    const image =
-      typeof page.hero.image.src === 'string' ? page.hero.image.src : page.hero.image.src.src
+    // Pages without a hero photo share the site's default social image.
+    const ogImage = page.hero.image ?? images.hero
+    const image = typeof ogImage.src === 'string' ? ogImage.src : ogImage.src.src
     return {
       title: page.seo.title,
       description: page.seo.description,
@@ -45,7 +47,7 @@ export function contentRoute(section: string) {
         url,
         title: page.seo.title,
         description: page.seo.description,
-        images: [{ url: image, alt: page.hero.image.alt }],
+        images: [{ url: image, alt: ogImage.alt }],
       },
     }
   }

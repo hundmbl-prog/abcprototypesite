@@ -13,11 +13,15 @@ test.describe('Home page', () => {
     expect(problems).toEqual([])
   })
 
-  test('has all 9 sections, one h1 and correct heading order', async ({ page }) => {
+  test('has its six sections (no projects, no locations), one h1 and heading order', async ({
+    page,
+  }) => {
     await page.goto('/')
-    for (const id of ['start', 'angebote', 'news', 'projekte', 'warum-abc', 'standorte']) {
+    for (const id of ['start', 'angebote', 'ueber-uns', 'news', 'warum-abc']) {
       await expect(page.locator(`#${id}`)).toHaveCount(1)
     }
+    for (const id of ['projekte', 'standorte']) await expect(page.locator(`#${id}`)).toHaveCount(0)
+    await expect(page.getByRole('navigation', { name: 'Schnellzugriff' })).toHaveCount(0)
     const partners = page.getByRole('heading', { name: 'Gemeinsam mehr erreichen' })
     await page.locator('#partner-titel').evaluate((el) => el.scrollIntoView({ block: 'center' }))
     await expect(partners).toBeVisible()
@@ -108,6 +112,30 @@ test.describe('Header navigation', () => {
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   })
 
+  test('top bar has a Kontakt button; the current section is highlighted in dark blue', async ({
+    page,
+  }, info) => {
+    test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop navigation only')
+    await page.goto('/projekte')
+    const header = page.locator('header').first()
+    await expect(header.getByRole('link', { name: 'Kontakt' })).toHaveAttribute(
+      'href',
+      '/ueber-uns/kontakt',
+    )
+    const nav = page.getByRole('navigation', { name: 'Hauptnavigation' })
+    const current = nav.getByRole('link', { name: 'Projekte', exact: true }).locator('..')
+    await expect(current).toHaveClass(/bg-blue-900/)
+  })
+
+  test('footer shows both locations with address and opening hours', async ({ page }) => {
+    await page.goto('/')
+    const footer = page.locator('footer')
+    await expect(footer).toContainText('Rhabanusstr. 5, 55118 Mainz')
+    await expect(footer).toContainText('Mo, Di, Mi, Fr: 9:00–16:00 Uhr')
+    await expect(footer).toContainText('Mathildenstr. 3–7, 55543 Bad Kreuznach')
+    await expect(footer.locator('img').first()).toHaveClass(/invert/)
+  })
+
   test('submenu opens with keyboard and closes with Escape', async ({ page }, info) => {
     test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop navigation only')
     await page.goto('/')
@@ -151,78 +179,20 @@ test.describe('Header navigation', () => {
   })
 })
 
-test.describe('Sliders', () => {
-  test('news slideshow: next button, thumbnails and pause', async ({ page }) => {
-    await page.goto('/#news')
-    const region = page.getByRole('region', { name: 'Aktuelle News' })
-    const counter = region.locator('p.font-mono')
-    await expect(counter).toContainText('01 / 06')
-    await region.getByRole('button', { name: 'Nächste News' }).click()
-    await expect(counter).toContainText('02 / 06')
-    await region.getByRole('button', { name: 'Vorherige News' }).click()
-    await expect(counter).toContainText('01 / 06')
-    const pause = region.getByRole('button', { name: 'Automatisches Abspielen pausieren' })
-    await pause.click()
-    await expect(region.getByRole('button', { name: 'Automatisch abspielen' })).toBeVisible()
-  })
-
-  test('news slideshow does not autoplay with reduced motion', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto('/#news')
-    const region = page.getByRole('region', { name: 'Aktuelle News' })
-    await expect(region.getByRole('button', { name: 'Automatisch abspielen' })).toBeVisible()
-  })
-
-  test('projects slideshow: arrow keys and buttons', async ({ page }) => {
-    await page.goto('/#projekte')
-    const region = page.getByRole('region', { name: /Projekte/ })
-    const live = region.locator('p[aria-live]')
-    await region.focus()
-    await page.keyboard.press('ArrowRight')
-    await expect(live).toContainText('Projekt 2 von 6')
-    await page.keyboard.press('ArrowLeft')
-    await expect(live).toContainText('Projekt 1 von 6')
-    await region.getByRole('button', { name: 'Nächstes Projekt' }).click()
-    await expect(live).toContainText('Projekt 2 von 6')
-  })
-})
-
-test.describe('Projects autoplay', () => {
-  test('advances on its own and can be paused', async ({ page }) => {
-    test.setTimeout(60_000)
-    await page.clock.install()
+test.describe('Compact news', () => {
+  test('shows the three latest headlines as links, without photos or dates', async ({ page }) => {
     await page.goto('/')
-    const region = page.getByRole('region', { name: /Projekte/ })
-    const live = region.locator('p[aria-live]')
-    await expect(live).toContainText('Projekt 1 von 6')
-    await page.clock.runFor(7000)
-    await expect(live).toContainText('Projekt 2 von 6')
-    await region
-      .getByRole('button', { name: 'Projekte: automatisches Abspielen pausieren' })
-      .click()
-    await page.mouse.move(0, 0)
-    await region.getByRole('button', { name: 'Projekte automatisch abspielen' }).focus()
-    // longer than one autoplay interval (6.5 s): a paused slideshow must not move
-    await page.clock.runFor(8000)
-    await expect(live).toContainText('Projekt 2 von 6')
-  })
-
-  test('does not autoplay with reduced motion', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto('/')
-    const region = page.getByRole('region', { name: /Projekte/ })
-    await expect(
-      region.getByRole('button', { name: 'Projekte automatisch abspielen' }),
-    ).toBeAttached()
-  })
-
-  test('news slides show no dates', async ({ page }) => {
-    await page.goto('/')
+    const links = page.locator('#news li a')
+    await expect(links).toHaveCount(3)
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute('href', /^\/news\//)
+    }
+    await expect(page.locator('#news img')).toHaveCount(0)
     await expect(page.locator('#news time')).toHaveCount(0)
   })
 })
 
-test.describe('Counters, locations, map', () => {
+test.describe('Counters and locations on the Kontakt page', () => {
   test('counters end at their target value', async ({ page }) => {
     await page.goto('/')
     const stats = page.locator('#warum-abc dd')
@@ -232,6 +202,8 @@ test.describe('Counters, locations, map', () => {
 
   test('counters never stay at 0 after scrolling past quickly', async ({ page }) => {
     await page.goto('/')
+    // Scroll only after hydration: the page-load scroll reset would otherwise move back to the top.
+    await page.waitForLoadState('networkidle')
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
     await page.waitForTimeout(2500)
     const values = await page.locator('#warum-abc dd > span:first-child').allTextContents()
@@ -252,7 +224,7 @@ test.describe('Counters, locations, map', () => {
     page.on('request', (req) => {
       if (req.url().includes('openstreetmap.org')) osm.push(req.url())
     })
-    await page.goto('/#standorte')
+    await page.goto('/ueber-uns/kontakt#standorte')
     const cards = page.locator('#standorte article')
     await expect(cards).toHaveCount(2)
     await page.waitForTimeout(500)
@@ -269,7 +241,7 @@ test.describe('Counters, locations, map', () => {
 test.describe('Locations live status', () => {
   test('Mainz shows open on Monday 10:00 (Berlin time)', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-10-12T08:00:00Z'))
-    await page.goto('/#standorte')
+    await page.goto('/ueber-uns/kontakt#standorte')
     const mainz = page.locator('#standorte article').first()
     await expect(mainz).toContainText('Jetzt geöffnet · bis 16:00 Uhr')
     await mainz.getByRole('button', { name: 'Öffnungszeiten & Karte' }).click()
@@ -278,14 +250,14 @@ test.describe('Locations live status', () => {
 
   test('Mainz shows closed on Thursday with next opening', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-10-15T08:00:00Z'))
-    await page.goto('/#standorte')
+    await page.goto('/ueber-uns/kontakt#standorte')
     await expect(page.locator('#standorte article').first()).toContainText(
       'Geschlossen · öffnet morgen 9:00 Uhr',
     )
   })
 
   test('Bad Kreuznach shows appointments only', async ({ page }) => {
-    await page.goto('/#standorte')
+    await page.goto('/ueber-uns/kontakt#standorte')
     await expect(page.locator('#standorte article').nth(1)).toContainText(
       'Termine nach Vereinbarung',
     )
@@ -294,7 +266,7 @@ test.describe('Locations live status', () => {
   test('copy address shows a confirmation toast', async ({ page, context, browserName }) => {
     test.skip(browserName !== 'chromium', 'clipboard permission is chromium-only')
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
-    await page.goto('/#standorte')
+    await page.goto('/ueber-uns/kontakt#standorte')
     await page.getByRole('button', { name: 'Adresse Mainz kopieren' }).click()
     await expect(page.getByRole('status').filter({ hasText: 'Adresse kopiert' })).toBeVisible()
     expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Rhabanusstr. 5')
@@ -306,6 +278,7 @@ test.describe('Scroll extras', () => {
     await page.goto('/')
     const button = page.getByRole('button', { name: 'Nach oben' })
     await expect(button).toHaveCount(0)
+    await page.waitForLoadState('networkidle')
     await page.evaluate(() => window.scrollTo(0, window.innerHeight * 2))
     await expect(button).toBeVisible()
     await button.click()

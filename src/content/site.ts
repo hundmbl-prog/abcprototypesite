@@ -119,12 +119,6 @@ export const mainNavigation: NavSection[] = [
     image: images.nachhilfe,
     links: [
       {
-        label: 'Bildungsangebote',
-        href: '/bildungsangebote',
-        description: 'Viona und politische Bildung',
-        image: images.weiterbildung,
-      },
-      {
         label: 'Viona',
         href: '/bildungsangebote#viona',
         description: 'Online-Weiterbildungen',
@@ -164,32 +158,27 @@ export const mainNavigation: NavSection[] = [
     links: [
       {
         label: 'Straßenfotografie Mainz',
-        href: '/projekte#strassenfotografie',
+        href: '/projekte/strassenfotografie',
         description: 'Mit der Kamera die Stadt entdecken',
         image: images.projektStrassenfotografie,
       },
       {
         label: 'Natur erleben',
-        href: '/projekte#natur-erleben',
+        href: '/projekte/natur-erleben',
         description: 'Inklusives Naturprojekt',
         image: images.projektNatur,
       },
       {
         label: 'STARTklar',
-        href: '/projekte#startklar',
+        href: '/projekte/startklar',
         description: 'Stabil in Arbeit',
         image: images.projektStartklar,
       },
       {
         label: 'Wir sind Vielfalt',
-        href: '/projekte#wir-sind-vielfalt',
+        href: '/projekte/wir-sind-vielfalt',
         description: 'Kreativwettbewerb',
         image: images.projektVielfalt,
-      },
-      {
-        label: 'Alle Projekte',
-        href: '/projekte#projekte',
-        description: 'Alle aktuellen Projekte im Überblick',
       },
     ],
   },
@@ -222,7 +211,7 @@ export const mainNavigation: NavSection[] = [
   },
 ]
 
-export const headerCta: NavLink = { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' }
+export const headerCta: NavLink = { label: 'Kontakt', href: '/ueber-uns/kontakt' }
 
 export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
   {

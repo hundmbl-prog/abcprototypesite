@@ -29,6 +29,8 @@ const pages = [
   '/news/frauenintegrationskurs',
   '/news/schulung-zum-qualitaets-manager',
   '/news/jetzt-kostenlose-nachhilfe-in-bad-kreuznach',
+  '/projekte/startklar',
+  '/projekte/strassenfotografie',
   '/presse',
   '/fotogalerie',
   '/impressum',
@@ -86,6 +88,20 @@ test.describe('Content pages', () => {
     }
   })
 
+  test('every page has at most six sections; only Kurse and Prüfungen have a photo hero', async ({
+    page,
+  }) => {
+    for (const path of pages.filter(
+      (p) => !['/impressum', '/datenschutz', '/hausordnung'].includes(p),
+    )) {
+      await page.goto(path)
+      const sections = await page.locator('main > section:not(#seitenkopf)').count()
+      expect(sections, path).toBeLessThanOrEqual(6)
+      const heroPhotos = await page.locator('#seitenkopf [data-hero-media] img').count()
+      expect(heroPhotos > 0, path).toBe(['/kurse', '/pruefungen'].includes(path))
+    }
+  })
+
   test('breadcrumbs show the path with the current page marked', async ({ page }) => {
     await page.goto('/kurse/integrationskurse')
     const crumbs = page.getByRole('navigation', { name: 'Brotkrümelnavigation' })
@@ -121,17 +137,6 @@ test.describe('Interactive elements', () => {
     await expect(item.locator('p')).toBeVisible()
   })
 
-  test('telc exam cards filter by level', async ({ page }) => {
-    await page.goto('/pruefungen/telc#pruefungen')
-    const section = page.locator('#pruefungen')
-    await expect(section.locator('article')).toHaveCount(6)
-    await section.getByRole('button', { name: /^B2/ }).click()
-    await expect(section.locator('article')).toHaveCount(1)
-    await expect(section.locator('article h3')).toHaveText('telc Deutsch B2')
-    await section.getByRole('button', { name: /^Alle/ }).click()
-    await expect(section.locator('article')).toHaveCount(6)
-  })
-
   test('without dates the telc page shows the empty state, not invented dates', async ({
     page,
   }) => {
@@ -158,59 +163,31 @@ test.describe('Kurse, Projekte, Bildungsangebote', () => {
     await expect(courses).toHaveCount(3)
     await expect(courses.first().locator('ol > li')).toHaveCount(7)
     await expect(courses.first().getByText('Niveaustufen')).toBeVisible()
-    await expect(page.locator('#lern-und-sozialbegleitung')).toBeVisible()
+    await expect(page.locator('#begleitung')).toBeVisible()
   })
 
-  for (const [path, list] of [
-    ['/projekte', '#projekte'],
-    ['/bildungsangebote', '#angebote'],
-    ['/paedagogische-angebote', '#angebote'],
-    ['/ueber-uns', '#bereiche'],
-    ['/formulare', '#uebersicht'],
-  ] as const) {
-    test(`${path}: every card jumps to an existing detail section`, async ({ page }) => {
-      await page.goto(path)
-      const targets = await page
-        .locator(`${list} article a[href*="#"]`)
-        .evaluateAll((links) => links.map((a) => a.getAttribute('href')!.split('#')[1]!))
-      expect(targets.length).toBeGreaterThan(1)
-      for (const id of targets) await expect(page.locator(`section#${id}`)).toHaveCount(1)
-    })
-  }
+  test('every project card opens its own landing page with at most two sections', async ({
+    page,
+    request,
+  }) => {
+    await page.goto('/projekte')
+    const hrefs = await page
+      .locator('#projekte article a[href]')
+      .evaluateAll((links) => links.map((a) => a.getAttribute('href')!))
+    expect(hrefs.length).toBe(9)
+    for (const href of hrefs) {
+      expect(href).toMatch(/^\/projekte\/[a-z-]+$/)
+      expect((await request.get(href)).status(), href).toBe(200)
+    }
+    await page.goto(hrefs[0]!)
+    expect(await page.locator('main > section:not(#seitenkopf)').count()).toBeLessThanOrEqual(2)
+  })
 
-  test('a project card scrolls to its section', async ({ page }) => {
+  test('a project card opens the project page', async ({ page }) => {
     await page.goto('/projekte')
     await page.locator('#projekte article', { hasText: 'STARTklar' }).getByRole('link').click()
-    await expect(page).toHaveURL(/#startklar$/)
-    // the section starts right below the header (on phones the photo comes before the heading)
-    await expect(page.locator('section#startklar')).toBeInViewport()
-    await expect
-      .poll(() =>
-        page.locator('section#startklar').evaluate((el) => el.getBoundingClientRect().top),
-      )
-      .toBeLessThan(200)
-  })
-
-  test('a link from another page lands on the project section', async ({ page }) => {
-    await page.goto('/projekte#natur-erleben')
-    await expect(page.locator('section#natur-erleben')).toBeInViewport()
-    await expect
-      .poll(() =>
-        page.locator('section#natur-erleben').evaluate((el) => el.getBoundingClientRect().top),
-      )
-      .toBeLessThan(200)
-  })
-
-  test('home slideshow links point to existing project sections', async ({ page, request }) => {
-    await page.goto('/')
-    const ids = await page
-      .locator('#projekte a[href^="/projekte#"]')
-      .evaluateAll((links) => [
-        ...new Set(links.map((a) => a.getAttribute('href')!.split('#')[1]!)),
-      ])
-    expect(ids.length).toBeGreaterThan(0)
-    const html = await (await request.get('/projekte')).text()
-    for (const id of ids) expect(html, id).toContain(`id="${id}"`)
+    await expect(page).toHaveURL(/\/projekte\/startklar$/)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('STARTklar')
   })
 
   test('Lernförderung shows all subjects as tabs', async ({ page }) => {
@@ -225,17 +202,6 @@ test.describe('telc level tabs', () => {
     const tabs = page.locator('#aufbau').getByRole('tab')
     await expect(tabs.filter({ hasText: /^B2$/ })).toHaveAttribute('aria-selected', 'true')
     await expect(page.locator('#aufbau [role="tabpanel"] h3')).toHaveText('telc Deutsch B2')
-  })
-
-  test('clicking an exam card selects its level', async ({ page }) => {
-    await page.goto('/pruefungen/telc')
-    await page
-      .locator('#pruefungen article', { hasText: 'C1 Hochschule' })
-      .getByRole('link')
-      .click()
-    await expect(page.locator('#aufbau [role="tabpanel"] h3')).toHaveText(
-      'telc Deutsch C1 Hochschule',
-    )
   })
 
   test('levels switch with the arrow keys', async ({ page }) => {

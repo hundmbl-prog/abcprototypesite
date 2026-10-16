@@ -50,7 +50,6 @@ export const galeriePage: ContentPage = {
     eyebrow: 'Fotogalerie',
     title: 'Einblicke ins ABC',
     intro: 'Unterricht, Räume und Projekte – so sieht es bei uns aus.',
-    image: images.g03438,
     primaryCta: { label: 'Fotos ansehen', href: '#fotos' },
   },
   blocks: [
@@ -59,8 +58,6 @@ export const galeriePage: ContentPage = {
       id: 'fotos',
       eyebrow: 'Galerie',
       title: 'Unsere Bilder',
-      intro:
-        'Klicken Sie auf ein Foto, um es groß anzusehen – mit den Pfeiltasten blättern Sie weiter.',
       items,
     },
     cta({
