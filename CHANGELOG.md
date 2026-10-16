@@ -1,5 +1,37 @@
 # Changelog
 
+## Step 4 (part 7) – Icon offer cards, small-photo heroes, interactive details (2026-10-16)
+
+Requested on 16.10.2026: no photos in the home offer cards; main pages may show a small hero photo; everything more designed and interactive.
+
+**Home**
+
+- The six offer cards are now numbered icon cards (01–06) without photos. Each has:
+  - a blue icon tile that turns red and tilts on hover
+  - a large faint icon as a visual
+  - category, facts and an arrow button
+
+**Heroes**
+
+- Main pages (Kurse, Prüfungen, Bildungsangebote, Projekte, Über uns): blue hero with a small photo beside the text.
+  - The photo sits in a frame with a red offset outline and a white badge showing the first key fact.
+  - It leans slightly towards the cursor and zooms slowly.
+- All other pages keep the compact blue hero.
+- Both heroes have a soft light that follows the cursor. The fact chips lift on hover.
+
+**Interactive details everywhere**
+
+- A soft cursor light on all cards: icon cards, feature, column and step cards, links, news and statistics.
+- One shared pointer listener for the whole site:
+  - only for mouse and pen, never on touch screens
+  - the tilt switches off with reduced motion
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 368 tests at 4 widths – 360 passed, 8 skipped (desktop- or mobile-only), including axe on all pages.
+- Tests updated: home offers use icons (no photos); a hero photo appears only on the five main pages.
+
 ## Step 4 (part 6) – Less is more: fewer photos, shorter pages, project landing pages (2026-10-16)
 
 Requested on 16.10.2026. Decisions:

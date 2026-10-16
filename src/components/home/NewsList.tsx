@@ -10,7 +10,8 @@ export function NewsList({ items }: { items: NewsItem[] }) {
         <li key={item.id} data-reveal className="min-w-0">
           <Link
             href={`/news/${item.slug}`}
-            className="group flex h-full flex-col gap-3 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-200 hov:shadow-md"
+            data-glow
+            className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-200 hov:shadow-md"
           >
             <span className="self-start rounded-pill bg-blue-900 px-3 py-1 text-caption font-semibold text-on-dark">
               {item.category}

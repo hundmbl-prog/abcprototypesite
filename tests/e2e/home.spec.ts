@@ -46,7 +46,7 @@ test.describe('Home page', () => {
     expect(overflow).toBeLessThanOrEqual(0)
   })
 
-  test('offers bento shows 6 photo cards, each a single link', async ({ page }) => {
+  test('offers show 6 numbered icon cards, each a single link', async ({ page }) => {
     await page.goto('/')
     const cards = page.locator('#angebote article')
     await expect(cards).toHaveCount(6)
@@ -55,15 +55,12 @@ test.describe('Home page', () => {
 })
 
 test.describe('Offer cards and about', () => {
-  test('photo and info box form one link per card', async ({ page }) => {
+  test('offer cards use icons instead of photos', async ({ page }) => {
     await page.goto('/')
-    const card = page.locator('#angebote article').first()
-    await expect(card.locator('a[href]')).toHaveCount(1)
-    await expect(page.locator('#angebote [aria-label="Angebote filtern"]')).toHaveCount(0)
-    const link = card.locator('a[href]')
-    const box = await link.boundingBox()
-    const img = await card.locator('img').boundingBox()
-    expect(box && img && box.y <= img.y && box.y + box.height >= img.y + img.height).toBeTruthy()
+    const cards = page.locator('#angebote article')
+    await expect(cards.first().locator('a[href]')).toHaveCount(1)
+    await expect(page.locator('#angebote img')).toHaveCount(0)
+    await expect(cards.first().locator('svg').first()).toBeVisible()
   })
 
   test('about section shows story, milestones and a red button', async ({ page }) => {
@@ -208,15 +205,6 @@ test.describe('Counters and locations on the Kontakt page', () => {
     await page.waitForTimeout(2500)
     const values = await page.locator('#warum-abc dd > span:first-child').allTextContents()
     expect(values).toEqual(['29', '5', '1.200+', '60+'])
-  })
-
-  test('offer cards show photos that match their topic', async ({ page }) => {
-    await page.goto('/')
-    const alts = await page
-      .locator('#angebote article img')
-      .evaluateAll((imgs) => imgs.map((img) => img.getAttribute('alt')))
-    expect(alts[0]).toContain('Lehrerin')
-    expect(alts[1]).toContain('telc')
   })
 
   test('map loads only after consent', async ({ page }) => {

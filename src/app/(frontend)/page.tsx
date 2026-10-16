@@ -23,7 +23,7 @@ export default async function HomePage() {
       {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* Blue: offers – photo with overlapping white info box */}
+      {/* Blue: offers – numbered icon cards */}
       <section id="angebote" aria-labelledby="angebote-titel" className="bg-blue-50 py-section">
         <div className="container-page">
           <SectionHeader
@@ -37,13 +37,7 @@ export default async function HomePage() {
               </Button>
             }
           />
-          <OfferCards
-            cards={home.offers.cards}
-            variant="classic"
-            label={home.offers.title}
-            simple
-            className="gap-y-10"
-          />
+          <OfferCards cards={home.offers.cards} variant="icon" label={home.offers.title} />
         </div>
       </section>
 

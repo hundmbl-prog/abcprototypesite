@@ -33,6 +33,7 @@ export const homePage: HomePage = {
     cards: [
       {
         id: 'sprach-integrationskurse',
+        icon: 'book',
         title: 'Sprach- & Integrationskurse',
         description: 'Deutsch von A1 bis C1 – mit Kinderbeaufsichtigung.',
         href: '/kurse/integrationskurse',
@@ -43,6 +44,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'pruefungen',
+        icon: 'award',
         title: 'Prüfungen',
         description: 'telc bis C1 Hochschule und Einbürgerungstest.',
         href: '/pruefungen',
@@ -52,6 +54,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'nachhilfe',
+        icon: 'pen',
         title: 'Nachhilfe',
         description: 'Alle Fächer, alle Schulformen.',
         href: '/lernfoerderung',
@@ -61,6 +64,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'soziale-projekte',
+        icon: 'users',
         title: 'Soziale Projekte',
         description: 'Für Teilhabe und Zusammenhalt in Mainz.',
         href: '/projekte',
@@ -69,6 +73,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'weiterbildungen',
+        icon: 'monitor',
         title: 'Weiterbildungen',
         description: 'Viona und politische Bildungsarbeit.',
         href: '/bildungsangebote',
@@ -77,6 +82,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'paedagogische-angebote',
+        icon: 'child',
         title: 'Pädagogische Angebote',
         description: 'Familienhilfe und Erziehungsbeistand.',
         href: '/paedagogische-angebote',

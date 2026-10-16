@@ -131,6 +131,7 @@ export function Features({ block }: { block: FeaturesBlock }) {
           <li
             key={item.title}
             data-reveal
+            data-glow
             className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
           >
             <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />

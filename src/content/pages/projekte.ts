@@ -429,6 +429,7 @@ export const projektePage: ContentPage = {
     eyebrow: 'Projekte',
     title: 'Gemeinsam für ein starkes Miteinander',
     intro: 'Projekte für Teilhabe, Kreativität und Zusammenhalt in Mainz.',
+    image: images.sozialeProjekte,
     facts: [
       { icon: 'users', label: 'Projekte', value: `${projects.length} aktuelle Projekte` },
       { icon: 'award', label: 'Förderer', value: 'Bund, EU, Stiftungen' },

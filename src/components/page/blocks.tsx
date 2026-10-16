@@ -187,6 +187,7 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
           <div
             key={col.title}
             data-reveal
+            data-glow={deep ? 'dark' : ''}
             className={cn(
               'group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1',
               deep
@@ -290,6 +291,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
           <li
             key={step.title}
             data-reveal
+            data-glow={deep ? 'dark' : ''}
             className={cn(
               'group relative flex flex-col gap-4 rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1',
               deep
@@ -396,7 +398,8 @@ export function LinksBlock({ block }: { block: LinksData }) {
               <a
                 href={link.href}
                 {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="group flex h-full items-start gap-4 rounded-xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-300 hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                data-glow
+                className="group relative flex h-full items-start gap-4 overflow-hidden rounded-xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-300 hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
               >
                 <span className="grid size-11 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-colors duration-(--dur-base) group-hover:bg-blue-600 group-hover:text-on-dark">
                   <Icon name={download ? 'download' : 'arrow-up-right'} className="size-5" />

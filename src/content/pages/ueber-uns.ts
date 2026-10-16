@@ -1,4 +1,5 @@
 /** Über uns (one page with sections) and Kontakt. Content from abc-mainz.de. */
+import { images } from '../images'
 import type { ContentPage } from '../types'
 import { cta } from './shared'
 
@@ -15,6 +16,7 @@ export const ueberUnsPage: ContentPage = {
     title: 'Aus der Community – für die Community',
     intro:
       'Gemeinnütziger Verein, 1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen gegründet.',
+    image: images.g03438,
     facts: [
       { icon: 'calendar', label: 'Gegründet', value: '1997 in Mainz' },
       { icon: 'users', label: 'Rechtsform', value: 'gemeinnütziger Verein' },

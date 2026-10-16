@@ -29,6 +29,7 @@ export function WhySection({ content }: { content: HomePage['why'] }) {
             <div
               key={stat.id}
               data-reveal
+              data-glow
               className="group relative flex flex-col-reverse gap-3 overflow-hidden rounded-2xl bg-surface p-5 text-ink shadow-md transition-transform duration-(--dur-slow) ease-out-expo md:p-6 hov:-translate-y-1"
             >
               <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />

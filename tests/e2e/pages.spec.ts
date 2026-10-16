@@ -88,7 +88,7 @@ test.describe('Content pages', () => {
     }
   })
 
-  test('every page has at most six sections; only Kurse and Prüfungen have a photo hero', async ({
+  test('every page has at most six sections; only the five main pages have a hero photo', async ({
     page,
   }) => {
     for (const path of pages.filter(
@@ -98,7 +98,9 @@ test.describe('Content pages', () => {
       const sections = await page.locator('main > section:not(#seitenkopf)').count()
       expect(sections, path).toBeLessThanOrEqual(6)
       const heroPhotos = await page.locator('#seitenkopf [data-hero-media] img').count()
-      expect(heroPhotos > 0, path).toBe(['/kurse', '/pruefungen'].includes(path))
+      expect(heroPhotos > 0, path).toBe(
+        ['/kurse', '/pruefungen', '/bildungsangebote', '/projekte', '/ueber-uns'].includes(path),
+      )
     }
   })
 

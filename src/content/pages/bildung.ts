@@ -3,6 +3,7 @@
  * Content from the current abc-mainz.de pages. Outdated programmes (e.g. "Aufholen nach Corona", 2022)
  * are not presented as current offers.
  */
+import { images } from '../images'
 import type { ContentPage } from '../types'
 import { contact, cta } from './shared'
 
@@ -20,6 +21,7 @@ export const bildungsangebotePage: ContentPage = {
     eyebrow: 'Bildungsangebote',
     title: 'Weiterbilden und mitgestalten',
     intro: 'Online-Weiterbildung mit Viona und politische Bildungsarbeit.',
+    image: images.weiterbildung,
     facts: [
       { icon: 'monitor', label: 'Viona', value: 'Live-Online-Unterricht' },
       { icon: 'euro', label: 'Förderung', value: 'z. B. Bildungsgutschein' },
