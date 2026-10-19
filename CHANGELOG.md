@@ -1,5 +1,40 @@
 # Changelog
 
+## Step 4 (part 9) – Previous home hero with the skyline, one colour order, moderate logo use (2026-10-19)
+
+Requested on 19.10.2026.
+
+**Home hero**
+
+- The previous hero frame is back, unchanged except for the photo: welcome badge, headline, two buttons, three key figures and the scroll arrow.
+- The Mainz skyline photo is shown sharper:
+  - no slow zoom (it enlarged the photo by 12 %)
+  - image quality 90 instead of 75
+  - lighter navy shading only where the text sits
+- The source file is 1774 × 887 px. For a fully sharp result on large and high-resolution screens it should be at least 2560 px wide.
+
+**One colour order on every page**
+
+- navy hero → white / Blue wash alternating → at most one navy band (the first steps or column block) → light pink closing section with the navy CTA card → navy footer
+- Home page:
+  - skyline → Blue wash (offers) → white (about us) → light pink (news) → navy (Warum ABC) → white (partners) → navy footer
+- Light pink is added as an approved colour: ABC Red mixed with white – #FAF2F3, #F4E3E5, #EBCDD0. It is used only for light backgrounds and soft accents.
+
+**Moderate use of the ABC house**
+
+- The house appears only in the page hero and the footer, plus the offers section and the Warum ABC band on the home page.
+- It is about 40 % smaller than before.
+- It no longer appears in the navy bands, the info panels or the closing card.
+
+**Shorter heroes**
+
+- One sentence, one button and at most three key facts on every content page.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 368 tests at 4 widths – 360 passed, 8 skipped (desktop- or mobile-only), including axe on all pages.
+
 ## Step 4 (part 8) – Brand colours, Mainz skyline hero, corporate finish (2026-10-19)
 
 Requested on 19.10.2026, with the ABC colour sheet and a Mainz skyline photo.

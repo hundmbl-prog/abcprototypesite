@@ -15,7 +15,7 @@ export function WhySection({ content }: { content: HomePage['why'] }) {
       aria-labelledby="warum-titel"
       className="relative isolate overflow-hidden bg-blue-900 py-section-sm text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <BrandMark tone="dark" className="-right-16 -bottom-12 w-[30rem]" />
+      <BrandMark tone="dark" className="-right-10 -bottom-10 w-[22rem]" />
       <div className="container-page flex flex-col gap-10">
         <SectionHeader
           id="warum-titel"

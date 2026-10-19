@@ -51,18 +51,12 @@ function HeroText({
       <p className="max-w-2xl animate-fade-up text-lead text-on-dark-muted [animation-delay:150ms]">
         {hero.intro}
       </p>
-      {hero.primaryCta || hero.secondaryCta ? (
+      {/* Short on purpose: one sentence and one action (the secondary link stays in the content). */}
+      {hero.primaryCta ? (
         <div className="flex animate-fade-up flex-wrap gap-3 [animation-delay:250ms]">
-          {hero.primaryCta ? (
-            <Button href={hero.primaryCta.href} variant="pill-red" size="lg">
-              {hero.primaryCta.label}
-            </Button>
-          ) : null}
-          {hero.secondaryCta ? (
-            <Button href={hero.secondaryCta.href} variant="ghost" size="lg">
-              {hero.secondaryCta.label}
-            </Button>
-          ) : null}
+          <Button href={hero.primaryCta.href} variant="pill-red" size="lg">
+            {hero.primaryCta.label}
+          </Button>
         </div>
       ) : null}
     </>
@@ -91,12 +85,14 @@ export function PageHero({
       aria-labelledby="seiten-titel"
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <BrandMark tone="dark" className="-right-24 -bottom-20 w-[40rem]" />
+      <BrandMark tone="dark" className="-right-10 -bottom-10 w-[24rem]" />
       <div className="container-wide grid grid-cols-1 items-center gap-12 pt-32 pb-14 md:pt-36 lg:grid-cols-12 lg:gap-16 lg:pb-16">
         <div className="flex flex-col gap-5 lg:col-span-7">
           <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
           {/* The first fact is shown on the photo badge. */}
-          {hero.facts && hero.facts.length > 1 ? <HeroFacts facts={hero.facts.slice(1)} /> : null}
+          {hero.facts && hero.facts.length > 1 ? (
+            <HeroFacts facts={hero.facts.slice(1, 4)} />
+          ) : null}
         </div>
         <div className="max-w-md relative mx-auto w-full animate-fade-up [animation-delay:200ms] lg:col-span-5 lg:max-w-none">
           <figure className="relative">
@@ -153,10 +149,10 @@ function CompactHero({
       aria-labelledby="seiten-titel"
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <BrandMark tone="dark" className="-right-20 -bottom-16 w-[40rem]" />
+      <BrandMark tone="dark" className="-right-10 -bottom-10 w-[24rem]" />
       <div className="container-wide flex flex-col gap-5 pt-32 pb-12 md:pt-36 md:pb-14">
         <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
-        {hero.facts?.length ? <HeroFacts facts={hero.facts} /> : null}
+        {hero.facts?.length ? <HeroFacts facts={hero.facts.slice(0, 3)} /> : null}
       </div>
     </section>
   )

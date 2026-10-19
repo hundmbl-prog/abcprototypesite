@@ -18,7 +18,7 @@ export async function SiteFooter() {
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
       aria-labelledby="footer-titel"
     >
-      <BrandMark tone="dark" className="-right-24 -bottom-24 w-[44rem]" />
+      <BrandMark tone="dark" className="-right-12 -bottom-12 w-[28rem]" />
       <h2 id="footer-titel" className="sr-only">
         Fußbereich
       </h2>

@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { OfferCards } from '@/components/cards/OfferCards'
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import { CtaBanner } from '@/components/sections/CtaBanner'
-import { BrandMark } from '@/components/ui/BrandMark'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
@@ -23,7 +22,7 @@ import { FilteredCards } from './FilteredCards'
 const titleId = (id: string) => `${id}-titel`
 
 /** Section background chosen by the BlockRenderer; "deep" is the brand-blue section. */
-export type SectionTone = 'white' | 'soft' | 'deep'
+export type SectionTone = 'white' | 'soft' | 'deep' | 'pink'
 
 /** Steps fill whole rows: 4 → 4 columns, 5 → 5, 6 → 3 × 2. */
 const stepCols: Record<number, string> = {
@@ -116,7 +115,6 @@ function IntroPanel({ block }: { block: IntroData }) {
           data-reveal
           className="relative isolate overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-5"
         >
-          <BrandMark tone="dark" className="-right-10 -bottom-8 w-64" />
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
             {block.points.map((point) => (
               <li key={point} className="flex items-center gap-3 font-semibold">
@@ -444,7 +442,6 @@ export function ClosingBlock({
     href === `#${contact.id}` ? `mailto:${contact.email}` : href
   return (
     <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-2xl tone-navy p-6 shadow-lg md:p-12 lg:flex-row lg:items-center lg:justify-between">
-      <BrandMark tone="dark" className="-right-8 -bottom-10 w-72" />
       <div className="max-w-xl flex flex-col gap-4">
         <SectionHeader
           id={titleId(contact.id)}

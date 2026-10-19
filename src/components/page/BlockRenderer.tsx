@@ -1,5 +1,4 @@
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { BrandMark } from '@/components/ui/BrandMark'
 import { cn } from '@/lib/cn'
 import type {
   ContactBlock as ContactData,
@@ -42,12 +41,14 @@ const DEEP_BLOCKS = new Set<PageBlock['type']>(['steps', 'columns'])
 /**
  * Turns the page blocks into sections:
  * - a contact block followed by a CTA becomes one closing card (no repeated contact details),
- * - backgrounds rotate white / soft blue, with steps and columns on brand blue
- *   (never two blue sections in a row and never directly below the hero).
+ * - one colour order on every page: navy hero → white / blue wash alternating →
+ *   at most one navy band (the first steps or columns block, never right below the hero) →
+ *   light pink closing section with the navy CTA card → navy footer.
  */
 function toSections(blocks: PageBlock[]): Section[] {
   const sections: Section[] = []
   let light = 0
+  let navyUsed = false
   let previous = 'white' as SectionTone
   for (let i = 0; i < blocks.length; i++) {
     const block = blocks[i]
@@ -56,24 +57,17 @@ function toSections(blocks: PageBlock[]): Section[] {
       const next = blocks[i + 1]
       const cta = next?.type === 'cta' ? next : undefined
       if (cta) i++
-      sections.push({
-        kind: 'closing',
-        contact: block,
-        cta,
-        tone: previous === 'soft' ? 'soft' : 'white',
-      })
+      sections.push({ kind: 'closing', contact: block, cta, tone: 'pink' })
       continue
     }
     if (block.type === 'cta') {
-      sections.push({ kind: 'block', block, tone: previous === 'soft' ? 'soft' : 'white' })
+      sections.push({ kind: 'block', block, tone: 'pink' })
       continue
     }
-    const tone: SectionTone =
-      DEEP_BLOCKS.has(block.type) && previous !== 'deep' && sections.length > 0
-        ? 'deep'
-        : light++ % 2 === 0
-          ? 'white'
-          : 'soft'
+    const navy =
+      !navyUsed && DEEP_BLOCKS.has(block.type) && previous !== 'deep' && sections.length > 0
+    if (navy) navyUsed = true
+    const tone: SectionTone = navy ? 'deep' : light++ % 2 === 0 ? 'white' : 'soft'
     sections.push({ kind: 'block', block, tone })
     previous = tone
   }
@@ -173,6 +167,7 @@ const toneClass: Record<SectionTone, string> = {
   white: 'bg-surface',
   soft: 'bg-blue-50',
   deep: 'bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]',
+  pink: 'bg-red-50',
 }
 
 /** Renders a page's blocks as sections (see toSections for backgrounds and merging). */
@@ -212,9 +207,6 @@ export function BlockRenderer({ blocks, data }: { blocks: PageBlock[]; data: Dat
               isCta ? 'py-section-sm' : 'py-section',
             )}
           >
-            {tone === 'deep' ? (
-              <BrandMark tone="dark" className="-right-24 -bottom-20 w-[40rem]" />
-            ) : null}
             <div className="container-page">
               <Block block={block} data={data} tone={tone} />
             </div>

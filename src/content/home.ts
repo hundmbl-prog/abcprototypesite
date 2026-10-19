@@ -12,6 +12,7 @@ const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
+    badge: 'Willkommen beim ABC e.V.',
     highlights: [
       { value: 'seit 1997', label: 'gemeinnützig in Mainz' },
       { value: 'telc', label: 'Prüfungszentrum' },

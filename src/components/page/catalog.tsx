@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { BrandMark } from '@/components/ui/BrandMark'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 import type { ContentImage, CourseTypesBlock, FeaturesBlock, SpotlightBlock } from '@/content/types'
@@ -291,7 +290,6 @@ export function Spotlight({ block }: { block: SpotlightBlock }) {
         </div>
         {block.lists?.length ? (
           <div className="relative isolate flex flex-col gap-4 overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-6">
-            <BrandMark tone="dark" className="-right-10 -bottom-8 w-56" />
             {block.lists.map((list) => (
               <div key={list.title} className="flex flex-col gap-3">
                 <h3 className="text-small font-semibold tracking-widest text-red-300 uppercase">

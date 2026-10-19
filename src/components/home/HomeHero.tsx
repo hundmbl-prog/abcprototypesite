@@ -1,61 +1,73 @@
 import Image from 'next/image'
-import { Fragment } from 'react'
 import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/ui/Icon'
+import { Magnetic } from '@/components/motion/Magnetic'
 import type { HeroContent } from '@/content/types'
+import { HeroScroll } from './HeroScroll'
 
 const HERO_ID = 'start'
 
-/**
- * Home hero: the Mainz skyline, a navy overlay on the text side, headline, two solid buttons
- * and a white key-figures bar along the bottom edge. No glass, no transparency on hover.
- */
-export function HomeHero({ hero }: { hero: HeroContent; nextId?: string }) {
+export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }) {
   const words = hero.title.split(' ')
   return (
     <section
       id={HERO_ID}
       aria-labelledby="hero-titel"
-      className="relative isolate flex min-h-[88svh] flex-col justify-end overflow-hidden bg-navy text-on-dark [--focus-ring:var(--color-on-dark)]"
+      className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden bg-shade text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <div data-hero-media className="absolute inset-0 -z-10 overflow-hidden">
-        <Image
-          src={hero.image.src}
-          alt={hero.image.alt}
-          width={hero.image.width}
-          height={hero.image.height}
-          sizes="100vw"
-          priority
-          fetchPriority="high"
-          placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
-          blurDataURL={hero.image.blurDataURL}
-          className="size-full object-cover object-[65%_center] motion-safe:animate-kenburns"
-        />
-        {/* Navy only behind the text, so the skyline stays visible on the right */}
+      <div data-hero-media className="absolute inset-0 -z-10 overflow-hidden will-change-transform">
+        <div className="size-full">
+          <Image
+            src={hero.image.src}
+            alt={hero.image.alt}
+            width={hero.image.width}
+            height={hero.image.height}
+            sizes="100vw"
+            priority
+            fetchPriority="high"
+            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={hero.image.blurDataURL}
+            quality={90}
+            className="size-full object-cover object-[65%_center]"
+          />
+        </div>
+        {/* Light navy shading only where the text sits, so the photo keeps its colours */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-linear-to-t from-navy/90 via-navy/40 to-navy/0 lg:bg-linear-to-r lg:from-navy lg:via-navy/80 lg:to-navy/0"
+          className="absolute inset-0 bg-linear-to-t from-shade/75 via-shade/20 to-shade/0"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-r from-shade/55 via-shade/10 to-shade/0"
         />
       </div>
 
-      <div className="container-wide pt-36 pb-10 md:pb-14">
-        <div className="max-w-3xl flex flex-col gap-6">
-          <p className="inline-flex animate-fade-up items-center gap-3 text-small font-semibold tracking-widest text-on-dark-muted uppercase">
-            <span aria-hidden className="h-0.5 w-8 bg-red" />
-            {hero.eyebrow}
+      <div
+        data-hero-content
+        className="container-wide grid items-end gap-10 pt-36 pb-16 md:pb-20 lg:grid-cols-12 lg:gap-12"
+      >
+        <div className="flex flex-col gap-7 lg:col-span-7">
+          <p className="inline-flex animate-fade-up items-center gap-2 self-start rounded-pill px-4 py-2 text-small font-semibold glass-dark">
+            <span aria-hidden className="relative flex size-2">
+              <span className="absolute inline-flex size-full rounded-pill bg-success-soft opacity-75 motion-safe:animate-ping" />
+              <span className="relative inline-flex size-2 rounded-pill bg-success-soft" />
+            </span>
+            {hero.badge}
           </p>
           <h1 id="hero-titel" className="text-display">
             {words.map((word, index) => (
-              <Fragment key={`${word}-${index}`}>
-                <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                  <span
-                    className="inline-block animate-word-in"
-                    style={{ animationDelay: `${120 + index * 80}ms` }}
-                  >
-                    {word}
-                  </span>
+              <span
+                key={`${word}-${index}`}
+                className="inline-block overflow-hidden pb-[0.08em] align-bottom"
+              >
+                <span
+                  className="inline-block animate-word-in"
+                  style={{ animationDelay: `${120 + index * 80}ms` }}
+                >
+                  {word}
                 </span>
-                {index < words.length - 1 ? ' ' : null}
-              </Fragment>
+                {index < words.length - 1 ? ' ' : null}
+              </span>
             ))}
           </h1>
           <p className="max-w-prose text-lead text-on-dark">{hero.text}</p>
@@ -63,40 +75,51 @@ export function HomeHero({ hero }: { hero: HeroContent; nextId?: string }) {
             className="flex animate-fade-up flex-wrap items-center gap-3"
             style={{ animationDelay: `${320 + words.length * 80}ms` }}
           >
-            <Button
-              href={hero.primaryCta.href}
-              variant="cta"
-              size="lg"
-              icon="arrow-right"
-              className="rounded-pill!"
-            >
-              {hero.primaryCta.label}
-            </Button>
+            <Magnetic>
+              <Button
+                href={hero.primaryCta.href}
+                variant="cta"
+                size="lg"
+                icon="arrow-right"
+                className="rounded-pill! shadow-(--shadow-glow-red)"
+              >
+                {hero.primaryCta.label}
+              </Button>
+            </Magnetic>
             <Button
               href={hero.secondaryCta.href}
-              variant="white"
+              variant="ghost"
               size="lg"
-              className="rounded-pill! hov:bg-navy! hov:text-on-dark!"
+              className="rounded-pill! border-0! glass-dark hov:bg-navy!"
             >
               {hero.secondaryCta.label}
             </Button>
           </div>
         </div>
+
+        <div className="hidden flex-col justify-end gap-4 lg:col-span-5 lg:flex">
+          <ul
+            className="grid animate-fade-up grid-cols-3 gap-3"
+            style={{ animationDelay: '650ms' }}
+          >
+            {hero.highlights.map((item) => (
+              <li key={item.label} className="flex flex-col gap-1 rounded-xl px-4 py-3 glass-dark">
+                <span className="font-display text-h4 font-semibold">{item.value}</span>
+                <span className="text-caption text-on-dark">{item.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      {/* Key figures on a solid white bar */}
-      <div className="container-wide">
-        <dl className="md:max-w-3xl grid animate-fade-up grid-cols-3 divide-x divide-line rounded-t-2xl bg-surface text-ink shadow-lg [animation-delay:600ms]">
-          {hero.highlights.map((item) => (
-            <div key={item.label} className="flex flex-col-reverse gap-1 px-4 py-4 md:px-6 md:py-5">
-              <dt className="text-caption text-ink-muted md:text-small">{item.label}</dt>
-              <dd className="font-display text-h4 font-semibold text-red md:text-h3">
-                {item.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+      <a
+        href={`#${nextId}`}
+        className="absolute bottom-6 left-1/2 hidden size-11 -translate-x-1/2 place-items-center rounded-pill glass-dark md:grid"
+      >
+        <Icon name="chevron-down" className="size-4 motion-safe:animate-bounce" />
+        <span className="sr-only">Weiter zu den Angeboten</span>
+      </a>
+      <HeroScroll targetId={HERO_ID} />
     </section>
   )
 }

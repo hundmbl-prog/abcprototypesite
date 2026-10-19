@@ -22,7 +22,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
-      <HomeHero hero={home.hero} />
+      <HomeHero hero={home.hero} nextId="angebote" />
 
       {/* Blue: offers – numbered icon cards */}
       <section
@@ -30,7 +30,7 @@ export default async function HomePage() {
         aria-labelledby="angebote-titel"
         className="relative isolate overflow-hidden bg-blue-50 py-section"
       >
-        <BrandMark className="-top-10 -right-24 w-[36rem]" />
+        <BrandMark className="-top-6 -right-12 w-[24rem]" />
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
@@ -51,7 +51,7 @@ export default async function HomePage() {
       <AboutSection content={home.about} />
 
       {/* Blue: compact news strip */}
-      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section-sm">
+      <section id="news" aria-labelledby="news-titel" className="bg-red-50 py-section-sm">
         <div className="container-page">
           <SectionHeader
             id="news-titel"

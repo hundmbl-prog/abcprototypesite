@@ -15,6 +15,8 @@
    * ABC brand palette (colour sheet, 19.10.2026) – no other colours are used.
    * ABC Blue #1C4A83 · ABC Red #990111 · Navy #123054 · Ink #242222 · Text #484343
    * Blue tint #E9EDF3 · Blue wash #F4F6F9 · Lines #DCE1EC · plus white.
+ * Light pink (approved 19.10.2026) = ABC Red mixed with white: wash #FAF2F3, tint #F4E3E5,
+ * line #EBCDD0 – only for light backgrounds that relate to the red accents.
    * Navy and ABC Red are the two main colours. The shade utilities below only map
    * Tailwind names onto these values; there are no in-between tints.
    */
@@ -38,7 +40,7 @@
   /* Red */
   --color-red: #990111;
   --color-red-strong: #990111;
-  --color-red-soft: #e9edf3;
+  --color-red-soft: #faf2f3;
 
   /* Name map: wash/tint/lines for light shades, ABC Blue for mid, Navy for dark */
   --color-blue-50: #f4f6f9;
@@ -52,10 +54,10 @@
   --color-blue-800: #123054;
   --color-blue-900: #123054;
   --color-blue-950: #123054;
-  /* Light "red" shades are the neutral tints; on navy, accents use the Blue tint */
-  --color-red-50: #f4f6f9;
-  --color-red-100: #e9edf3;
-  --color-red-200: #dce1ec;
+  /* Light pink (red tints); on navy, accents use the Blue tint */
+  --color-red-50: #faf2f3;
+  --color-red-100: #f4e3e5;
+  --color-red-200: #ebcdd0;
   --color-red-300: #e9edf3;
   --color-red-400: #990111;
   --color-red-500: #990111;
