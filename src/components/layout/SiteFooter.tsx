@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getNavigation, getSiteSettings } from '@/content'
+import { BrandMark } from '@/components/ui/BrandMark'
 import { Icon } from '@/components/ui/Icon'
 import { Logo } from './Logo'
 
@@ -17,10 +18,7 @@ export async function SiteFooter() {
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
       aria-labelledby="footer-titel"
     >
-      <span
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-red-500 via-red-400 to-blue-400"
-      />
+      <BrandMark tone="dark" className="-right-24 -bottom-24 w-[44rem]" />
       <h2 id="footer-titel" className="sr-only">
         Fußbereich
       </h2>
@@ -30,7 +28,7 @@ export async function SiteFooter() {
           <p className="max-w-prose text-small text-on-dark-muted">{settings.footerAbout}</p>
           <Link
             href={navigation.cta.href}
-            className="inline-flex items-center gap-2 self-start rounded-pill bg-red-500 px-5 py-2.5 text-small font-semibold text-on-dark shadow-(--shadow-glow-red) hov:bg-red-600"
+            className="inline-flex items-center gap-2 self-start rounded-pill bg-red-500 px-5 py-2.5 text-small font-semibold text-on-dark shadow-(--shadow-glow-red) hov:bg-navy"
           >
             {navigation.cta.label}
             <Icon name="arrow-right" className="size-4" />
@@ -98,7 +96,7 @@ export async function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-on-dark/15">
+      <div className="border-t border-blue">
         <div className="container-wide flex flex-col gap-4 py-6 text-small text-on-dark-muted md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {settings.name}

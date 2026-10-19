@@ -124,7 +124,7 @@ export function Gallery({ block }: { block: GalleryBlock }) {
               <button
                 type="button"
                 onClick={() => setOpen(null)}
-                className="grid size-11 place-items-center rounded-pill bg-red-500 text-on-dark transition-transform active:scale-90 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-on-dark"
+                className="grid size-11 place-items-center rounded-pill bg-red-500 text-on-dark transition-transform active:scale-90 hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-on-dark"
               >
                 <Icon name="close" label="Schließen" />
               </button>

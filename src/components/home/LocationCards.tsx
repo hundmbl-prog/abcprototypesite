@@ -46,7 +46,7 @@ function StatusPill({ status }: { status: OpenStatus | null }) {
       className={cn(
         'inline-flex items-center gap-2 rounded-pill px-3 py-1.5 text-small font-semibold ring-1',
         open
-          ? 'bg-success-soft text-success ring-success/20'
+          ? 'bg-success-soft text-success ring-line'
           : 'bg-blue-900 text-on-dark shadow-sm ring-blue-900',
       )}
     >
@@ -209,7 +209,7 @@ function LocationCard({
       <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
         <a
           href={telHref(location.phone)}
-          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 hov:shadow-(--shadow-glow-red)"
+          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-navy hov:shadow-(--shadow-glow-red)"
         >
           <PhoneIcon />
           Anrufen

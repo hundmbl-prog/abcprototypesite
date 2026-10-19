@@ -110,32 +110,21 @@
   --focus-ring: var(--color-on-dark);
 }
 
-/* Frosted glass panel on photos or light backgrounds: dark text, blurred backdrop, light rim */
+/* Solid panels (formerly frosted glass): no transparency anywhere */
 @utility glass {
   background: var(--glass-light);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
   border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--color-surface) 80%, transparent),
-    var(--shadow-float);
+  box-shadow: var(--shadow-md);
 }
 @utility glass-strong {
   background: var(--glass-light-strong);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.6);
   border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--color-surface) 90%, transparent),
-    var(--shadow-float);
+  box-shadow: var(--shadow-md);
 }
-/* Glass on dark photos: white text */
+/* Solid ABC Blue panel on dark photos: white text */
 @utility glass-dark {
   background: var(--glass-dark);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.4);
-  border: 1px solid color-mix(in srgb, var(--color-surface) 22%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-surface) 25%, transparent);
+  border: 1px solid var(--glass-dark);
 }
 
 /* Visible focus ring that uses the current section tone */
@@ -209,48 +198,5 @@
     &::before {
       content: none;
     }
-  }
-}
-
-/* ---------- Pointer effects (see PointerEffects.tsx) ---------- */
-
-/* Soft light following the cursor; painted behind the card content. */
-[data-glow] {
-  isolation: isolate;
-}
-[data-glow]::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--dur-slow) ease-out;
-  background: radial-gradient(
-    22rem circle at var(--gx, 50%) var(--gy, 0%),
-    color-mix(in srgb, var(--color-blue-400) 18%, transparent),
-    transparent 70%
-  );
-}
-[data-glow='dark']::after {
-  background: radial-gradient(
-    22rem circle at var(--gx, 50%) var(--gy, 0%),
-    color-mix(in srgb, var(--color-surface) 12%, transparent),
-    transparent 70%
-  );
-}
-[data-glow]:hover::after {
-  opacity: 1;
-}
-
-/* Gentle 3D lean towards the cursor. */
-[data-tilt] {
-  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-tilt] {
-    transform: none;
   }
 }

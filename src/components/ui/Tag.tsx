@@ -6,7 +6,7 @@ export type TagTone = 'light' | 'image' | 'dark' | 'solid'
 const tones: Record<TagTone, string> = {
   light: 'bg-blue-soft text-navy',
   image: 'glass text-navy',
-  dark: 'border border-on-dark/40 text-on-dark',
+  dark: 'border border-on-dark text-on-dark',
   solid: 'bg-blue-900 text-on-dark',
 }
 

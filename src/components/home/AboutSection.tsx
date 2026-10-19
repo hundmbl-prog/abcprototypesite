@@ -21,7 +21,7 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
               className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
             />
           </div>
-          <p className="absolute -bottom-6 left-6 flex items-center gap-3 rounded-xl bg-surface px-5 py-3 shadow-(--shadow-float) ring-1 ring-blue-900/5 transition-transform duration-(--dur-slow) ease-out-expo group-hover:-translate-y-1">
+          <p className="absolute -bottom-6 left-6 flex items-center gap-3 rounded-xl bg-surface px-5 py-3 shadow-(--shadow-float) ring-1 ring-line transition-transform duration-(--dur-slow) ease-out-expo group-hover:-translate-y-1">
             <span className="font-display text-h2 font-semibold text-red-600">
               {content.badge.value}
             </span>

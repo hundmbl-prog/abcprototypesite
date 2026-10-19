@@ -28,7 +28,7 @@ export default function NotFound() {
           </Button>
         </div>
       </div>
-      <Watermark text="404" className="-right-6 bottom-0 w-[min(70vw,40rem)] text-navy/5" />
+      <Watermark text="404" className="-right-6 bottom-0 w-[min(70vw,40rem)] text-surface-3" />
     </section>
   )
 }

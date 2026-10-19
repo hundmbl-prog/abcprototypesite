@@ -14,7 +14,7 @@ function HeroFacts({ facts }: { facts: NonNullable<PageHeroData['facts']> }) {
       {facts.map((fact) => (
         <div
           key={fact.label}
-          className="relative flex min-h-14 flex-col justify-center rounded-xl bg-on-dark/5 py-2 pr-4 pl-14 ring-1 ring-on-dark/15 transition-[background-color,transform] duration-(--dur-base) ease-out-expo hov:-translate-y-0.5 hov:bg-on-dark/10"
+          className="relative flex min-h-14 flex-col justify-center rounded-xl bg-blue py-2 pr-4 pl-14 ring-1 ring-blue transition-[background-color,transform] duration-(--dur-base) ease-out-expo hov:-translate-y-0.5 hov:ring-on-dark"
         >
           <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
             <span className="absolute top-1/2 left-2.5 grid size-9 -translate-y-1/2 place-items-center rounded-lg bg-red-500 text-on-dark">
@@ -70,9 +70,8 @@ function HeroText({
 }
 
 /**
- * Hero for content pages, always on brand blue with the logo mark and a light that follows the
- * cursor. Main pages (with a photo) show it small beside the text in a tilting frame;
- * all other pages are text-only with the key facts as chips.
+ * Hero for content pages on navy with the ABC house as brand element. Main pages (with a
+ * photo) show it small beside the text with a fact badge; all other pages are text-only.
  */
 export function PageHero({
   hero,
@@ -90,11 +89,9 @@ export function PageHero({
     <section
       id={HERO_ID}
       aria-labelledby="seiten-titel"
-      data-glow="dark"
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-red-500" />
-      <BrandMark tone="dark" className="-bottom-10 -left-16 w-[30rem] opacity-[0.05]!" />
+      <BrandMark tone="dark" className="-right-24 -bottom-20 w-[40rem]" />
       <div className="container-wide grid grid-cols-1 items-center gap-12 pt-32 pb-14 md:pt-36 lg:grid-cols-12 lg:gap-16 lg:pb-16">
         <div className="flex flex-col gap-5 lg:col-span-7">
           <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
@@ -102,14 +99,10 @@ export function PageHero({
           {hero.facts && hero.facts.length > 1 ? <HeroFacts facts={hero.facts.slice(1)} /> : null}
         </div>
         <div className="max-w-md relative mx-auto w-full animate-fade-up [animation-delay:200ms] lg:col-span-5 lg:max-w-none">
-          <span
-            aria-hidden
-            className="absolute -top-3 -right-3 hidden size-full rounded-2xl border-2 border-red-500/70 sm:block md:-top-4 md:-right-4"
-          />
-          <figure data-tilt className="relative">
+          <figure className="relative">
             <div
               data-hero-media
-              className="shadow-2xl overflow-hidden rounded-2xl ring-1 ring-on-dark/15"
+              className="shadow-2xl overflow-hidden rounded-2xl ring-1 ring-blue"
             >
               <Image
                 src={image.src}
@@ -121,7 +114,7 @@ export function PageHero({
                 fetchPriority="high"
                 placeholder={image.blurDataURL ? 'blur' : 'empty'}
                 blurDataURL={image.blurDataURL}
-                className="aspect-4/3 w-full object-cover motion-safe:animate-kenburns"
+                className="aspect-4/3 w-full object-cover"
               />
             </div>
             {highlight ? (
@@ -158,11 +151,9 @@ function CompactHero({
     <section
       id={HERO_ID}
       aria-labelledby="seiten-titel"
-      data-glow="dark"
       className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-red-500" />
-      <BrandMark tone="dark" className="-right-16 -bottom-10 w-[34rem] opacity-[0.06]!" />
+      <BrandMark tone="dark" className="-right-20 -bottom-16 w-[40rem]" />
       <div className="container-wide flex flex-col gap-5 pt-32 pb-12 md:pt-36 md:pb-14">
         <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
         {hero.facts?.length ? <HeroFacts facts={hero.facts} /> : null}

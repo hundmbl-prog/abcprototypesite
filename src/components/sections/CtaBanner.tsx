@@ -32,15 +32,6 @@ export function CtaBanner({
         className,
       )}
     >
-      <span
-        aria-hidden
-        className={cn(
-          'absolute -top-24 -right-24 -z-10 size-96 rounded-pill opacity-60 blur-3xl',
-          tone === 'navy' && 'bg-blue',
-          tone === 'red' && 'bg-red-strong',
-          tone === 'soft' && 'bg-surface',
-        )}
-      />
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex max-w-narrow flex-col gap-3">
           <Heading className="text-h2">{title}</Heading>

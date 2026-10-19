@@ -12,16 +12,15 @@ const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
-    badge: 'Willkommen beim ABC e.V.',
     highlights: [
       { value: 'seit 1997', label: 'gemeinnützig in Mainz' },
       { value: 'telc', label: 'Prüfungszentrum' },
       { value: '5', label: 'Standorte' },
     ],
-    eyebrow: 'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach',
+    eyebrow: 'Gemeinnützig in Mainz und Bad Kreuznach',
     title: 'Bildung, die Menschen verbindet',
     text: 'Kurse, Prüfungen, Nachhilfe und Projekte in Mainz und Bad Kreuznach – seit 1997.',
-    image: images.hero,
+    image: images.mainzSkyline,
     primaryCta: { label: 'Kurs finden', href: '/kurse' },
     secondaryCta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
   },

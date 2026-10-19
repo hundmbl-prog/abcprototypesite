@@ -24,7 +24,6 @@ export function CardIcon({
     <article className="h-full">
       <Link
         href={card.href}
-        data-glow
         className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo md:p-7 hov:-translate-y-1.5 hov:border-blue-200 hov:shadow-(--shadow-float)"
       >
         <span
@@ -45,7 +44,7 @@ export function CardIcon({
             {typeof index === 'number' ? (
               <span
                 aria-hidden
-                className="font-display text-h4 leading-none font-semibold text-red-500/80"
+                className="font-display text-h4 leading-none font-semibold text-red"
               >
                 {String(index + 1).padStart(2, '0')}
               </span>

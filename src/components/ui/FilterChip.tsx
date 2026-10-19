@@ -39,7 +39,7 @@ export function FilterChip({
         <span
           className={cn(
             'rounded-pill px-2 text-caption',
-            selected ? 'bg-on-dark/15' : 'bg-surface-3 text-ink-muted',
+            selected ? 'bg-on-dark text-navy' : 'bg-surface-3 text-ink-muted',
           )}
         >
           {count}

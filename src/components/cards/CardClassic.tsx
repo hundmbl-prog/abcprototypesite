@@ -55,10 +55,10 @@ function RedButton({ label }: { label: string }) {
   return (
     <span
       aria-hidden
-      className="mt-auto inline-flex min-h-10 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1 pl-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow] duration-(--dur-base) group-hov:bg-red-600 group-hov:shadow-(--shadow-glow-red)"
+      className="mt-auto inline-flex min-h-10 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1 pl-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow] duration-(--dur-base) group-hov:bg-navy group-hov:shadow-(--shadow-glow-red)"
     >
       {label}
-      <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark/15">
+      <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark text-red">
         <Icon
           name="arrow-right"
           className="size-4 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-8"
@@ -103,7 +103,7 @@ export function CardClassic({
         <div className="aspect-4/3 overflow-hidden rounded-2xl shadow-md">
           <CardImage image={card.image} sizes={sizes} />
         </div>
-        <div className="relative z-10 mx-4 -mt-16 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-blue-900/5 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
+        <div className="relative z-10 mx-4 -mt-16 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
           <CardMeta card={{ ...card, badge: undefined }} tagTone="solid" />
           <Heading className="font-display text-h4 font-semibold text-blue-900">
             {card.title}
@@ -128,7 +128,7 @@ export function CardClassic({
           : light && shade
             ? cn(
                 shadeVar[shade],
-                'bg-linear-to-b from-(--shade) to-surface text-ink ring-1 ring-blue-900/5',
+                'bg-linear-to-b from-(--shade) to-surface text-ink ring-1 ring-line',
               )
             : 'border border-line bg-surface',
         cardFocus,

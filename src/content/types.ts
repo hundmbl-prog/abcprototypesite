@@ -62,7 +62,6 @@ export type SiteSettings = {
 export type HeroHighlight = { value: string; label: string }
 
 export type HeroContent = {
-  badge: string
   eyebrow: string
   highlights: HeroHighlight[]
   title: string

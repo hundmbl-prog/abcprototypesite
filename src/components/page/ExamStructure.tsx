@@ -105,20 +105,20 @@ export function ExamStructureBody({
             Mündliche Prüfung
           </Heading>
           <dl className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-on-dark/10 p-3">
+            <div className="rounded-xl bg-blue p-3">
               <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                 Dauer
               </dt>
               <dd className="font-semibold">ca. {block.oral.minutes} Min.</dd>
             </div>
-            <div className="rounded-xl bg-on-dark/10 p-3">
+            <div className="rounded-xl bg-blue p-3">
               <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                 Form
               </dt>
               <dd className="font-semibold">{block.oral.format}</dd>
             </div>
             {block.oral.preparation ? (
-              <div className="col-span-2 rounded-xl bg-on-dark/10 p-3">
+              <div className="col-span-2 rounded-xl bg-blue p-3">
                 <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                   Vorbereitung
                 </dt>

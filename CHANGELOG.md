@@ -1,5 +1,47 @@
 # Changelog
 
+## Step 4 (part 8) – Brand colours, Mainz skyline hero, corporate finish (2026-10-19)
+
+Requested on 19.10.2026, with the ABC colour sheet and a Mainz skyline photo.
+
+**Brand colours only**
+
+- All colour tokens now use the colour sheet, plus white:
+  - ABC Blue #1C4A83, ABC Red #990111, Navy #123054
+  - Ink #242222, Text #484343
+  - Blue tint #E9EDF3, Blue wash #F4F6F9, Lines #DCE1EC
+- Navy and ABC Red are the main colours. There are no extra in-between shades or green status colours anymore.
+- Shadows are navy-based, and the coloured glow under buttons was removed.
+- Red buttons turn navy on hover.
+
+**No transparency, no "AI look"**
+
+- Header, menu dropdown and all former glass panels are solid.
+- Dark cards and chips use solid ABC Blue on navy.
+- Removed: the cursor light, the photo tilt, the blurred colour blobs, the red offset frame around hero photos, the red line under every hero and the gradient line in the footer.
+- Removed on the home page: the text fade while scrolling and the "magnetic" button.
+
+**Home hero**
+
+- New photo: the Mainz skyline with the cathedral along the Rhine.
+- Navy covers only the text side, so the skyline stays visible.
+- Two solid buttons and a white key-figures bar along the bottom edge.
+
+**Breadcrumbs**
+
+- The visible "Start › Kurse" trail was removed. Search engines still get the path as structured data.
+
+**ABC logo as brand element**
+
+- The ABC house now appears as a solid tone-on-tone shape: ABC Blue on navy, or Blue tint on light backgrounds.
+- It is used in all heroes, the blue sections, the closing cards, the "Warum ABC" band, the footer and the home offers section.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 368 tests at 4 widths – 360 passed, 8 skipped (desktop- or mobile-only), including axe (contrast) on all pages.
+- Breadcrumb tests replaced: no visible trail, and the structured data is still present.
+
 ## Step 4 (part 7) – Icon offer cards, small-photo heroes, interactive details (2026-10-16)
 
 Requested on 16.10.2026: no photos in the home offer cards; main pages may show a small hero photo; everything more designed and interactive.

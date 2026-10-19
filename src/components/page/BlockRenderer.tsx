@@ -1,4 +1,5 @@
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { BrandMark } from '@/components/ui/BrandMark'
 import { cn } from '@/lib/cn'
 import type {
   ContactBlock as ContactData,
@@ -205,8 +206,15 @@ export function BlockRenderer({ blocks, data }: { blocks: PageBlock[]; data: Dat
             id={block.id}
             aria-labelledby={isCta ? undefined : `${block.id}-titel`}
             aria-label={isCta ? block.title : undefined}
-            className={cn('scroll-mt-28', toneClass[tone], isCta ? 'py-section-sm' : 'py-section')}
+            className={cn(
+              'relative isolate scroll-mt-28 overflow-hidden',
+              toneClass[tone],
+              isCta ? 'py-section-sm' : 'py-section',
+            )}
           >
+            {tone === 'deep' ? (
+              <BrandMark tone="dark" className="-right-24 -bottom-20 w-[40rem]" />
+            ) : null}
             <div className="container-page">
               <Block block={block} data={data} tone={tone} />
             </div>

@@ -100,7 +100,7 @@ export function ExamDates({
         <div className="flex flex-wrap gap-3">
           <a
             href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="phone" className="size-4" />
             Anrufen
@@ -189,7 +189,7 @@ export function ExamDates({
                   <tr
                     key={d.id}
                     role="row"
-                    className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line p-5 first:border-t-0 md:table-row md:p-0 md:odd:bg-blue-50/50"
+                    className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line p-5 first:border-t-0 md:table-row md:p-0 md:odd:bg-blue-50"
                   >
                     <th
                       role="rowheader"
@@ -229,7 +229,7 @@ export function ExamDates({
                         type="button"
                         disabled={!bookable}
                         onClick={() => select({ examId: d.examId, dateId: d.id })}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 disabled:cursor-not-allowed disabled:bg-surface-3 disabled:text-ink-muted disabled:shadow-none hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                        className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 disabled:cursor-not-allowed disabled:bg-surface-3 disabled:text-ink-muted disabled:shadow-none hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                       >
                         Anmelden
                         <span className="sr-only">

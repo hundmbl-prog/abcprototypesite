@@ -29,7 +29,6 @@ export function WhySection({ content }: { content: HomePage['why'] }) {
             <div
               key={stat.id}
               data-reveal
-              data-glow
               className="group relative flex flex-col-reverse gap-3 overflow-hidden rounded-2xl bg-surface p-5 text-ink shadow-md transition-transform duration-(--dur-slow) ease-out-expo md:p-6 hov:-translate-y-1"
             >
               <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
@@ -49,7 +48,7 @@ export function WhySection({ content }: { content: HomePage['why'] }) {
           {content.points.map((point) => (
             <li
               key={point}
-              className="inline-flex items-center gap-2 rounded-pill bg-on-dark/5 py-2 pr-4 pl-2 text-small font-semibold ring-1 ring-on-dark/15"
+              className="inline-flex items-center gap-2 rounded-pill bg-blue py-2 pr-4 pl-2 text-small font-semibold ring-1 ring-blue"
             >
               <span className="grid size-6 place-items-center rounded-pill bg-red-500">
                 <Icon name="check" className="size-3.5" strokeWidth={2.5} />

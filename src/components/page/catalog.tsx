@@ -28,12 +28,8 @@ export function CourseTypes({ block }: { block: CourseTypesBlock }) {
             className="scroll-mt-28 overflow-hidden rounded-2xl border border-line bg-surface shadow-md"
           >
             <header className="relative isolate flex flex-col gap-4 overflow-hidden bg-blue-900 p-6 text-on-dark md:p-8">
-              <span
-                aria-hidden
-                className="absolute -top-24 -right-16 -z-10 size-72 rounded-pill bg-blue-600/40 blur-3xl"
-              />
               <div className="flex items-start gap-4">
-                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-on-dark/10 ring-1 ring-on-dark/20">
+                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-blue ring-1 ring-blue">
                   <Icon name={course.icon} className="size-6" />
                 </span>
                 <div className="flex flex-col gap-1">
@@ -131,13 +127,12 @@ export function Features({ block }: { block: FeaturesBlock }) {
           <li
             key={item.title}
             data-reveal
-            data-glow
             className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
           >
             <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
             <span
               aria-hidden
-              className="absolute top-5 right-6 font-display text-h3 font-semibold text-red-500/80"
+              className="absolute top-5 right-6 font-display text-h3 font-semibold text-red"
             >
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -220,7 +215,7 @@ function SpotlightBody({
         {block.contact?.email ? (
           <a
             href={`mailto:${block.contact.email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-600 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="mail" className="size-4" />
             {block.contact.email}
@@ -296,7 +291,6 @@ export function Spotlight({ block }: { block: SpotlightBlock }) {
         </div>
         {block.lists?.length ? (
           <div className="relative isolate flex flex-col gap-4 overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-6">
-            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
             <BrandMark tone="dark" className="-right-10 -bottom-8 w-56" />
             {block.lists.map((list) => (
               <div key={list.title} className="flex flex-col gap-3">

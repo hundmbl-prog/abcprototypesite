@@ -54,7 +54,7 @@ test.describe('Content pages', () => {
       await page.waitForLoadState('networkidle')
       expect(problems).toEqual([])
       await expectHeadingOrder(page)
-      await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toBeVisible()
+      await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toHaveCount(0)
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - window.innerWidth,
       )
@@ -104,11 +104,16 @@ test.describe('Content pages', () => {
     }
   })
 
-  test('breadcrumbs show the path with the current page marked', async ({ page }) => {
+  test('no visible breadcrumbs, but the path is still given to search engines', async ({
+    page,
+  }) => {
     await page.goto('/kurse/integrationskurse')
-    const crumbs = page.getByRole('navigation', { name: 'Brotkrümelnavigation' })
-    await expect(crumbs.getByRole('link')).toHaveText(['Start', 'Kurse'])
-    await expect(crumbs.locator('[aria-current="page"]')).toHaveText('Integrationskurse')
+    await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toHaveCount(0)
+    const jsonLd = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((els) => els.map((el) => el.textContent ?? ''))
+    const crumbs = jsonLd.find((text) => text.includes('BreadcrumbList'))
+    expect(crumbs).toContain('Integrationskurse')
   })
 })
 

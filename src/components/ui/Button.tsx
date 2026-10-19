@@ -64,16 +64,16 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     'rounded-md bg-blue text-on-dark shadow-sm hov:bg-blue-strong hov:shadow-md act:translate-y-px',
   navy: 'rounded-md bg-navy text-on-dark shadow-sm hov:bg-navy-2 hov:shadow-md act:translate-y-px',
-  cta: 'rounded-md bg-red text-on-dark shadow-sm hov:bg-red-strong hov:shadow-md act:translate-y-px',
+  cta: 'rounded-md bg-red text-on-dark shadow-sm hov:bg-navy hov:shadow-md act:translate-y-px',
   white: 'rounded-md bg-surface text-navy shadow-sm hov:bg-blue-soft act:translate-y-px',
   'white-red': 'rounded-md bg-surface text-red-strong shadow-sm hov:bg-red-soft act:translate-y-px',
   outline:
     'rounded-md border-2 border-navy text-navy hov:bg-navy hov:text-on-dark act:translate-y-px',
   ghost:
-    'rounded-md border-2 border-on-dark/70 text-on-dark hov:border-on-dark hov:bg-on-dark/10 act:translate-y-px',
+    'rounded-md border-2 border-on-dark text-on-dark hov:bg-on-dark hov:text-navy act:translate-y-px',
   pill: 'rounded-pill bg-navy pr-2 text-on-dark hov:bg-navy-2 act:translate-y-px',
   'pill-red':
-    'rounded-pill bg-red-500 pr-1.5 text-on-dark shadow-sm hov:bg-red-600 hov:shadow-(--shadow-glow-red) act:scale-95',
+    'rounded-pill bg-red-500 pr-1.5 text-on-dark shadow-sm hov:bg-navy hov:shadow-(--shadow-glow-red) act:scale-95',
   link: 'min-h-0! px-0! text-blue after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-(--dur-slow) after:ease-out-expo before:absolute before:inset-x-0 before:-bottom-0.5 before:h-0.5 before:bg-current before:opacity-25 hov:text-blue-strong hov:after:scale-x-100 foc:after:scale-x-100',
 }
 
@@ -85,7 +85,7 @@ function Content({ variant, icon, loading, loadingLabel, children }: CommonProps
         <span
           className={cn(
             'relative grid size-9 place-items-center overflow-hidden rounded-pill',
-            variant === 'pill-red' ? 'bg-on-dark/15 text-on-dark' : 'bg-surface text-navy',
+            variant === 'pill-red' ? 'bg-on-dark text-red' : 'bg-surface text-navy',
           )}
         >
           {loading ? (

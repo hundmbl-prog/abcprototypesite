@@ -31,6 +31,7 @@ import type { StaticImageData } from 'next/image'
 import type { ContentImage } from './types'
 import frauenintegrationskurs from '@/assets/placeholder/frauenintegrationskurs.jpg'
 import hero from '@/assets/placeholder/hero.jpg'
+import mainzSkyline from '@/assets/photos/mainz-skyline.webp'
 import jugendintegrationskursErfolg from '@/assets/placeholder/jugendintegrationskurs-erfolg.jpg'
 import kindertagespflege from '@/assets/placeholder/kindertagespflege.jpg'
 import nachhilfe from '@/assets/placeholder/nachhilfe.jpg'
@@ -55,6 +56,7 @@ function img(src: StaticImageData, alt: string): ContentImage {
 }
 
 export const images = {
+  mainzSkyline: img(mainzSkyline, 'Mainzer Rheinufer mit Dom und Altstadt bei Sonnenuntergang'),
   hero: img(hero, 'Fröhliche junge Menschen jubeln gemeinsam in einer sonnigen Straße'),
   sprachkurse: img(sprachkurse, 'Lehrer unterstützt Jugendliche an ihren Laptops im Unterricht'),
   integrationskurse: img(

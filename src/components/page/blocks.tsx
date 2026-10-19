@@ -116,7 +116,6 @@ function IntroPanel({ block }: { block: IntroData }) {
           data-reveal
           className="relative isolate overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-5"
         >
-          <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
           <BrandMark tone="dark" className="-right-10 -bottom-8 w-64" />
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
             {block.points.map((point) => (
@@ -187,11 +186,10 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
           <div
             key={col.title}
             data-reveal
-            data-glow={deep ? 'dark' : ''}
             className={cn(
               'group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1',
               deep
-                ? 'bg-on-dark/5 ring-1 ring-on-dark/15 hov:bg-on-dark/10'
+                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
                 : 'border border-line bg-linear-to-br from-surface to-blue-50 shadow-sm hov:shadow-(--shadow-float)',
             )}
           >
@@ -240,7 +238,7 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
               name="info"
               className={cn(
                 'absolute -right-6 -bottom-6 size-32',
-                deep ? 'text-blue-50' : 'text-on-dark/10',
+                deep ? 'text-blue-50' : 'text-blue',
               )}
             />
             <span
@@ -291,11 +289,10 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
           <li
             key={step.title}
             data-reveal
-            data-glow={deep ? 'dark' : ''}
             className={cn(
               'group relative flex flex-col gap-4 rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1',
               deep
-                ? 'bg-on-dark/5 ring-1 ring-on-dark/15 hov:bg-on-dark/10'
+                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
                 : 'border border-line bg-surface shadow-sm hov:shadow-(--shadow-float)',
             )}
           >
@@ -314,7 +311,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
                 aria-hidden
                 className={cn(
                   'h-0.5 flex-1 bg-linear-to-r to-transparent',
-                  deep ? 'from-on-dark/30' : 'from-blue-200',
+                  deep ? 'from-blue' : 'from-blue-200',
                 )}
               />
             </div>
@@ -398,7 +395,6 @@ export function LinksBlock({ block }: { block: LinksData }) {
               <a
                 href={link.href}
                 {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                data-glow
                 className="group relative flex h-full items-start gap-4 overflow-hidden rounded-xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-300 hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
               >
                 <span className="grid size-11 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-colors duration-(--dur-base) group-hover:bg-blue-600 group-hover:text-on-dark">
@@ -448,7 +444,6 @@ export function ClosingBlock({
     href === `#${contact.id}` ? `mailto:${contact.email}` : href
   return (
     <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-2xl tone-navy p-6 shadow-lg md:p-12 lg:flex-row lg:items-center lg:justify-between">
-      <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
       <BrandMark tone="dark" className="-right-8 -bottom-10 w-72" />
       <div className="max-w-xl flex flex-col gap-4">
         <SectionHeader
@@ -545,7 +540,7 @@ export function FeesBlock({ block }: { block: FeesData }) {
             </thead>
             <tbody>
               {block.rows.map((row) => (
-                <tr key={row.label} className="border-t border-line odd:bg-blue-50/50">
+                <tr key={row.label} className="border-t border-line odd:bg-blue-50">
                   <th scope="row" className="p-4 font-semibold text-blue-900 md:px-6">
                     {row.label}
                     {row.note ? (

@@ -6,6 +6,7 @@ import { NewsList } from '@/components/home/NewsList'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { BrandMark } from '@/components/ui/BrandMark'
 import { Button } from '@/components/ui/Button'
 import { getHomePage } from '@/content'
 
@@ -21,10 +22,15 @@ export default async function HomePage() {
   return (
     <>
       {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
-      <HomeHero hero={home.hero} nextId="angebote" />
+      <HomeHero hero={home.hero} />
 
       {/* Blue: offers – numbered icon cards */}
-      <section id="angebote" aria-labelledby="angebote-titel" className="bg-blue-50 py-section">
+      <section
+        id="angebote"
+        aria-labelledby="angebote-titel"
+        className="relative isolate overflow-hidden bg-blue-50 py-section"
+      >
+        <BrandMark className="-top-10 -right-24 w-[36rem]" />
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
