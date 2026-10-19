@@ -99,7 +99,6 @@ export const homePage: HomePage = {
       '1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen als gemeinnütziger Verein gegründet – für Bildung in den migrantischen Communitys.',
     ],
     image: images.team,
-    badge: { value: '1997', label: 'gegründet in Mainz' },
     milestones: [
       { id: 'gruendung', year: '1997', text: 'Gründung als gemeinnütziger Verein' },
       { id: 'telc', year: '2021', text: 'Offizielles telc Hochschulkompetenzzentrum' },

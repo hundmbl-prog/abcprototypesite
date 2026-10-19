@@ -3,7 +3,7 @@ import { SectionHeader } from '@/components/sections/SectionHeader'
 import { Button } from '@/components/ui/Button'
 import type { HomePage } from '@/content'
 
-/** About us: photo with a small badge, founding story, three milestones and a red button. */
+/** About us: photo, founding story, three milestones and a red button. */
 export function AboutSection({ content }: { content: HomePage['about'] }) {
   return (
     <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-surface py-section">
@@ -21,12 +21,6 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
               className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
             />
           </div>
-          <p className="absolute -bottom-6 left-6 flex items-center gap-3 rounded-xl bg-surface px-5 py-3 shadow-(--shadow-float) ring-1 ring-line transition-transform duration-(--dur-slow) ease-out-expo group-hover:-translate-y-1">
-            <span className="font-display text-h2 font-semibold text-red-600">
-              {content.badge.value}
-            </span>
-            <span className="text-small font-medium text-blue-900">{content.badge.label}</span>
-          </p>
         </div>
 
         <div className="flex flex-col gap-6 lg:col-span-6">

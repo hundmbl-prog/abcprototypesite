@@ -42,7 +42,6 @@ function HeroText({
     <>
       <Breadcrumbs items={crumbs} siteUrl={siteUrl} />
       <p className="inline-flex animate-fade-up items-center gap-3 text-small font-semibold tracking-widest text-red-300 uppercase">
-        <span aria-hidden className="h-0.5 w-8 bg-current" />
         {hero.eyebrow}
       </p>
       <h1 id="seiten-titel" className="max-w-4xl animate-fade-up text-h1 text-balance">

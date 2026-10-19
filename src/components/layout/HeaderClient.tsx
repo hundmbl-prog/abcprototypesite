@@ -160,12 +160,6 @@ export function HeaderClient({
                             )}
                           />
                         </button>
-                        {isCurrent ? (
-                          <span
-                            aria-hidden
-                            className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-pill bg-red"
-                          />
-                        ) : null}
                       </div>
                       <NavDropdown
                         section={section}

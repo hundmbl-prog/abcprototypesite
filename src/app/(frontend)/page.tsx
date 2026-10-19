@@ -50,8 +50,8 @@ export default async function HomePage() {
       {/* White: about us */}
       <AboutSection content={home.about} />
 
-      {/* Blue: compact news strip */}
-      <section id="news" aria-labelledby="news-titel" className="bg-red-50 py-section-sm">
+      {/* Blue wash: compact news strip */}
+      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section-sm">
         <div className="container-page">
           <SectionHeader
             id="news-titel"
@@ -68,10 +68,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Deep blue: compact stats and reasons */}
+      {/* White: compact stats and reasons */}
       <WhySection content={home.why} />
 
-      {/* Blue: partner logos */}
+      {/* Blue wash: partner logos */}
       <PartnerMarquee content={home.partners} />
     </>
   )

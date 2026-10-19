@@ -128,7 +128,6 @@ export function Features({ block }: { block: FeaturesBlock }) {
             data-reveal
             className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
           >
-            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
             <span
               aria-hidden
               className="absolute top-5 right-6 font-display text-h3 font-semibold text-red"
@@ -190,7 +189,6 @@ function SpotlightBody({
               key={list.title}
               className="relative overflow-hidden rounded-xl bg-surface p-5 shadow-sm ring-1 ring-line"
             >
-              <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
               <h3 className="mb-3 text-small font-semibold text-blue-900">{list.title}</h3>
               <ul className="flex flex-col gap-2">
                 {list.items.map((item) => (

@@ -1,5 +1,39 @@
 # Changelog
 
+## Step 4 (part 10) – No decorative lines, strict white/wash order, photos for news and projects (2026-10-19)
+
+Decisions from 19.10.2026: remove all decorative red lines; section backgrounds only white ↔ Blue wash; photos on the news page, in articles and in "weitere Projekte"; keep the home figures 1.200+ and 60+.
+
+**Decorative lines removed**
+
+- the red line under the active menu item
+- the red bars on top of cards, number boxes and info boxes
+- the short line before every section label (labels stay red text)
+- the red-to-blue reading-progress line at the top of the screen
+- the red side bar on the legal review note and the red line on the location cards
+
+**Section backgrounds**
+
+- Every content page: navy hero → white / Blue wash strictly alternating, including the closing contact section → navy footer.
+- There are no navy bands or light-pink sections in between anymore.
+- Home page:
+  - skyline → Blue wash (offers) → white (about us) → Blue wash (news) → white (Warum ABC, now a light section) → Blue wash (partners) → navy footer
+
+**Photos**
+
+- /news, "Weitere News" under each article and "Das könnte Sie auch interessieren" on every project page now show photo cards again.
+- The home news strip stays text-only.
+
+**Less repetition**
+
+- Home "Über uns": the "1997 gegründet in Mainz" badge on the photo was removed. 1997 is already in the text and the timeline.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 368 tests at 4 widths – 360 passed, 8 skipped (desktop- or mobile-only), including axe on all pages.
+- Screenshots checked: home, news, a project page and Integrationskurse.
+
 ## Step 4 (part 9) – Previous home hero with the skyline, one colour order, moderate logo use (2026-10-19)
 
 Requested on 19.10.2026.

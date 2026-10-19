@@ -35,21 +35,15 @@ type Section =
   | { kind: 'block'; block: PageBlock; tone: SectionTone }
   | { kind: 'closing'; contact: ContactData; cta?: CtaData; tone: SectionTone }
 
-/** Block types that have a deep-blue variant. */
-const DEEP_BLOCKS = new Set<PageBlock['type']>(['steps', 'columns'])
-
 /**
  * Turns the page blocks into sections:
  * - a contact block followed by a CTA becomes one closing card (no repeated contact details),
- * - one colour order on every page: navy hero → white / blue wash alternating →
- *   at most one navy band (the first steps or columns block, never right below the hero) →
- *   light pink closing section with the navy CTA card → navy footer.
+ * - backgrounds strictly alternate white / Blue wash after the navy hero, including the
+ *   closing section, so the colour order is the same on every page (navy footer follows).
  */
 function toSections(blocks: PageBlock[]): Section[] {
   const sections: Section[] = []
-  let light = 0
-  let navyUsed = false
-  let previous = 'white' as SectionTone
+  const nextTone = (): SectionTone => (sections.length % 2 === 0 ? 'white' : 'soft')
   for (let i = 0; i < blocks.length; i++) {
     const block = blocks[i]
     if (!block) continue
@@ -57,19 +51,10 @@ function toSections(blocks: PageBlock[]): Section[] {
       const next = blocks[i + 1]
       const cta = next?.type === 'cta' ? next : undefined
       if (cta) i++
-      sections.push({ kind: 'closing', contact: block, cta, tone: 'pink' })
+      sections.push({ kind: 'closing', contact: block, cta, tone: nextTone() })
       continue
     }
-    if (block.type === 'cta') {
-      sections.push({ kind: 'block', block, tone: 'pink' })
-      continue
-    }
-    const navy =
-      !navyUsed && DEEP_BLOCKS.has(block.type) && previous !== 'deep' && sections.length > 0
-    if (navy) navyUsed = true
-    const tone: SectionTone = navy ? 'deep' : light++ % 2 === 0 ? 'white' : 'soft'
-    sections.push({ kind: 'block', block, tone })
-    previous = tone
+    sections.push({ kind: 'block', block, tone: nextTone() })
   }
   return sections
 }
@@ -167,7 +152,6 @@ const toneClass: Record<SectionTone, string> = {
   white: 'bg-surface',
   soft: 'bg-blue-50',
   deep: 'bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]',
-  pink: 'bg-red-50',
 }
 
 /** Renders a page's blocks as sections (see toSections for backgrounds and merging). */

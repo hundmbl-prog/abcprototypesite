@@ -1,13 +1,12 @@
 'use client'
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { useLenis } from './SmoothScroll'
 
-/** Thin reading-progress line at the very top and a back-to-top button after the first screen. */
+/** Back-to-top button after the first screen. */
 export function ScrollExtras() {
-  const bar = useRef<HTMLSpanElement>(null)
   const [showTop, setShowTop] = useState(false)
   const lenis = useLenis()
   const reduce = useReducedMotion()
@@ -16,9 +15,6 @@ export function ScrollExtras() {
     let frame = 0
     const update = () => {
       frame = 0
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      const progress = max > 0 ? window.scrollY / max : 0
-      if (bar.current) bar.current.style.transform = `scaleX(${progress})`
       setShowTop(window.scrollY > window.innerHeight * 1.2)
     }
     const onScroll = () => {
@@ -42,12 +38,6 @@ export function ScrollExtras() {
 
   return (
     <>
-      <span aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5">
-        <span
-          ref={bar}
-          className="block h-full origin-left scale-x-0 bg-linear-to-r from-blue-400 via-blue-600 to-red-500"
-        />
-      </span>
       <AnimatePresence>
         {showTop ? (
           <motion.button

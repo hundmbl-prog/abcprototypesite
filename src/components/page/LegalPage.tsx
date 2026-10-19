@@ -53,7 +53,7 @@ export function LegalPage({
           </nav>
           <div className="flex min-w-0 flex-col gap-10 lg:col-span-8">
             {legal.reviewNote ? (
-              <p className="flex items-start gap-3 rounded-xl border-l-4 border-red-500 bg-red-50 p-4 text-small text-red-800">
+              <p className="flex items-start gap-3 rounded-xl bg-blue-50 p-4 text-small text-ink ring-1 ring-line">
                 <Icon name="alert" className="mt-0.5 size-4 shrink-0" />
                 {legal.reviewNote}
               </p>

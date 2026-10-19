@@ -157,10 +157,6 @@ function LocationCard({
       data-reveal
       className="relative isolate flex flex-col overflow-hidden rounded-2xl bg-blue-50 p-5 shadow-md ring-1 ring-blue-100 transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo md:p-6 hov:-translate-y-1 hov:shadow-(--shadow-float)"
     >
-      <span
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-red-500 to-red-600"
-      />
       <Image
         src={house}
         alt=""

@@ -22,7 +22,7 @@ import { FilteredCards } from './FilteredCards'
 const titleId = (id: string) => `${id}-titel`
 
 /** Section background chosen by the BlockRenderer; "deep" is the brand-blue section. */
-export type SectionTone = 'white' | 'soft' | 'deep' | 'pink'
+export type SectionTone = 'white' | 'soft' | 'deep'
 
 /** Steps fill whole rows: 4 → 4 columns, 5 → 5, 6 → 3 × 2. */
 const stepCols: Record<number, string> = {
@@ -154,6 +154,7 @@ export function CardsBlock({ block }: { block: CardsData }) {
           variant={block.variant}
           label={block.title}
           by={block.filterBy}
+          simple={block.simple}
         />
       ) : (
         <OfferCards
@@ -191,7 +192,6 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
                 : 'border border-line bg-linear-to-br from-surface to-blue-50 shadow-sm hov:shadow-(--shadow-float)',
             )}
           >
-            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
             <span
               className={cn(
                 'grid size-12 place-items-center rounded-pill transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110',

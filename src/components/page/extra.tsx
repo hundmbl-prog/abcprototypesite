@@ -72,7 +72,6 @@ export function Contacts({ block }: { block: ContactsBlock }) {
             data-reveal
             className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
           >
-            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-red-500" />
             <span className="grid size-11 place-items-center rounded-pill bg-blue-600 text-on-dark">
               <Icon name={item.icon} className="size-5" />
             </span>

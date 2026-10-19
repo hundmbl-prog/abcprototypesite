@@ -28,10 +28,6 @@ export function CardIcon({
       >
         <span
           aria-hidden
-          className="absolute inset-x-0 top-0 h-1 origin-left scale-x-25 bg-red-500 transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-x-100"
-        />
-        <span
-          aria-hidden
           className="pointer-events-none absolute -right-8 -bottom-8 -z-10 text-blue-50 transition-transform duration-(--dur-slower) ease-out-expo group-hover:scale-110 group-hover:-rotate-6"
         >
           <Icon name={icon} className="size-40" strokeWidth={1.25} />

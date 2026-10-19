@@ -110,7 +110,6 @@ export type HomePage = {
   about: SectionIntro & {
     paragraphs: string[]
     image: ContentImage
-    badge: { value: string; label: string }
     milestones: Array<{ id: string; year: string; text: string }>
     cta: NavLink
   }

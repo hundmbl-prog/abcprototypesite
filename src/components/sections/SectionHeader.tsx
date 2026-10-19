@@ -42,7 +42,6 @@ export function SectionHeader({
               tone === 'dark' ? 'text-red-300' : 'text-red-600',
             )}
           >
-            <span aria-hidden className="h-0.5 w-8 bg-current" />
             {eyebrow}
           </p>
         ) : null}
