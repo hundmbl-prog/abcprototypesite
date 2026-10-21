@@ -55,32 +55,21 @@ export function ScrollReveal() {
         )
       })
 
-      // Marked underlines: drawn once when the heading scrolls in; headings already on screen stay
-      // complete. With non-scaling-stroke the dash values count in screen pixels, so the path length
-      // is scaled by the rendered size, re-measured on refresh, and released once the line is drawn.
+      // Brush underlines (Marked): painted once from left to right when the heading scrolls in;
+      // headings already on screen stay complete. The clip is removed again once it is painted.
       gsap.utils
-        .toArray<SVGPathElement>('[data-draw] path')
-        .filter((path) => below(path.closest('[data-draw]') as HTMLElement))
-        .forEach((path) => {
-          const svg = path.closest('svg')
-          const length = () =>
-            path.getTotalLength() *
-            (svg ? svg.getBoundingClientRect().width / (svg.viewBox.baseVal.width || 1) : 1) *
-            1.05
+        .toArray<SVGSVGElement>('svg[data-draw]')
+        .filter((svg) => below(svg as unknown as HTMLElement))
+        .forEach((svg) => {
           gsap.fromTo(
-            path,
-            { strokeDasharray: length, strokeDashoffset: length },
+            svg,
+            { clipPath: 'inset(0% 100% 0% 0%)' },
             {
-              strokeDashoffset: 0,
-              duration: 0.9,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: path,
-                start: 'top 85%',
-                once: true,
-                invalidateOnRefresh: true,
-              },
-              onComplete: () => gsap.set(path, { clearProps: 'strokeDasharray,strokeDashoffset' }),
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: svg, start: 'top 85%', once: true },
+              onComplete: () => gsap.set(svg, { clearProps: 'clipPath' }),
             },
           )
         })

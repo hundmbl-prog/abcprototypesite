@@ -131,9 +131,13 @@ test.describe('Offer cards and about', () => {
     }
     await scrollThrough(page)
     const offsets = await page
-      .locator('svg[data-draw] path, [data-thread] line')
-      .evaluateAll((paths) => paths.map((p) => (p as SVGGeometryElement).style.strokeDashoffset))
-    expect(offsets).toHaveLength(6) // 5 marker underlines + the offer thread
+      .locator('svg[data-draw], [data-thread] line')
+      .evaluateAll((paths) =>
+        paths.map(
+          (p) => (p as SVGElement).style.clipPath + (p as SVGElement).style.strokeDashoffset,
+        ),
+      )
+    expect(offsets).toHaveLength(6) // 5 brush underlines + the offer thread
     expect(offsets.every((offset) => offset === '')).toBe(true)
   })
 

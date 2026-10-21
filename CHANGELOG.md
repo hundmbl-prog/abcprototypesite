@@ -1,5 +1,17 @@
 # Changelog
 
+## Home page: brush-stroke underline (2026-10-21)
+
+Requested on 21.10.2026: the underlines as a brush stroke, a bit thicker.
+
+- **Marked** is a filled brush shape now (blunt start, tapering dry end, two bristle streaks) instead of an even line; `--spacing-mark` 0.55em, `--spacing-mark-offset` 0.18em, slightly wider than the word. A wrapper sets the box so the svg spans exactly the word.
+- **Animation:** painted once from left to right with a clip reveal when the heading scrolls in, then the clip is removed. Without JavaScript or with reduced motion it is simply there.
+- **Test:** the reduced-motion check reads the clip of the five brush strokes and the dash of the thread (6 elements, all static).
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK. Playwright home at 375, 768, 1280 and 1920 px: 104 passed, 12 skipped. Checked in the browser at 1280 px.
+
 ## Home page: thicker marker, the logo house as line drawing (2026-10-21)
 
 Requested on 21.10.2026: the underline is liked – thicker and more striking; subtle decorative elements derived from the house of the logo, spread across the home page.
