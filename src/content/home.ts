@@ -85,7 +85,7 @@ export const homePage: HomePage = {
         title: 'Pädagogische Angebote',
         description: 'Familienhilfe und Erziehungsbeistand.',
         href: '/paedagogische-angebote',
-        image: images.kindertagespflege,
+        image: images.paedagogik,
         tag: 'Familie',
       },
     ],

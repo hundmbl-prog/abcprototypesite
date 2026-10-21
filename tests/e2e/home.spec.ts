@@ -278,14 +278,15 @@ test.describe('Header navigation', () => {
 })
 
 test.describe('Compact news', () => {
-  test('shows the three latest headlines as links, without photos or dates', async ({ page }) => {
+  test('shows the three latest news as links with photos, without dates', async ({ page }) => {
     await page.goto('/')
     const links = page.locator('#news li a')
     await expect(links).toHaveCount(3)
     for (const link of await links.all()) {
       await expect(link).toHaveAttribute('href', /^\/news\//)
     }
-    await expect(page.locator('#news img')).toHaveCount(0)
+    await expect(page.locator('#news img')).toHaveCount(3)
+    for (const link of await links.all()) await expect(link.locator('img')).toHaveCount(1)
     await expect(page.locator('#news time')).toHaveCount(0)
   })
 })

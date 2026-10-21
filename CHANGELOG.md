@@ -1,5 +1,14 @@
 # Changelog
 
+## Home page: news as a magazine block (2026-10-21)
+
+Requested on 21.10.2026: the news section was too plain.
+
+- **NewsList:** the latest news is the lead story – large photo (3:2), category, headline, teaser; the other two sit beside it with a wide photo, category and headline. No boxes; the whole item is the link, the photo zooms slightly and the headline turns red on hover. Still no dates (the latest news are from 2021–2022).
+- **Photos:** the children on book stacks belong to the Kindertagespflege news, so "Pädagogische Angebote" in the offers uses its own counselling photo again – no photo twice on the page.
+- **Test:** the news test expects three links with one photo each and still no dates.
+- **Checks:** lint 0 / build OK / Playwright home at four widths green; checked in the browser at 375 and 1280 px.
+
 ## Home page: house roof ends freely (2026-10-21)
 
 Requested on 21.10.2026: the roof of the logo house should not end in a point.
