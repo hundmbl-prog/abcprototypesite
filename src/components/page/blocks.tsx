@@ -152,6 +152,7 @@ export function CardsBlock({ block }: { block: CardsData }) {
           label={block.title}
           by={block.filterBy}
           simple={block.simple}
+          wide={block.wide}
         />
       ) : (
         <OfferCards
@@ -159,6 +160,7 @@ export function CardsBlock({ block }: { block: CardsData }) {
           variant={block.variant}
           label={block.title}
           simple={block.simple}
+          wide={block.wide}
         />
       )}
     </>

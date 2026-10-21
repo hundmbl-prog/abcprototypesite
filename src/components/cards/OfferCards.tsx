@@ -15,10 +15,13 @@ export function OfferCards({
   headingLevel = 'h3',
   shades,
   simple = false,
+  wide = false,
   className,
 }: {
   /** Classic variant only: photo with overlapping info box. */
   simple?: boolean
+  /** Classic simple only: wide, flat photo */
+  wide?: boolean
   /** Classic variant only: solid text-area colours, used in turn for each card. */
   shades?: CardShade[]
   cards: OfferCardData[]
@@ -92,6 +95,7 @@ export function OfferCards({
                 headingLevel={headingLevel}
                 shade={shades?.[i % shades.length]}
                 simple={simple}
+                wide={wide}
               />
             </li>
           ))}

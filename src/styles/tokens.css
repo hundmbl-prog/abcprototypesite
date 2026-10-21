@@ -17,51 +17,47 @@
    * Blue tint #E9EDF3 · Blue wash #F4F6F9 · Lines #DCE1EC · plus white.
    * Light pink (approved 19.10.2026) = ABC Red mixed with white: wash #FAF2F3, tint #F4E3E5,
    * line #EBCDD0 – only for light backgrounds that relate to the red accents.
-   * 21.10.2026: requested a little lighter and brighter – large blue areas use ABC Blue
-   * instead of navy, mid shades a lighter ABC blue (#2B5FA6), washes are brighter.
+   * Navy and ABC Red are the two main colours (confirmed again 21.10.2026).
    */
 
   /* Light surfaces */
   --color-surface: #ffffff;
-  --color-surface-2: #f6f9fd;
-  --color-surface-3: #edf2fa;
-  --color-line: #dfe6f1;
-  --color-line-strong: #dfe6f1;
+  --color-surface-2: #f4f6f9;
+  --color-surface-3: #e9edf3;
+  --color-line: #dce1ec;
+  --color-line-strong: #dce1ec;
   /* Form-control borders need ≥ 3:1 on white (WCAG 1.4.11): Text colour */
   --color-control: #484343;
 
   /* Blue */
-  --color-navy: #1c4a83;
-  --color-navy-2: #2b5fa6;
-  --color-blue: #2b5fa6;
-  --color-blue-strong: #1c4a83;
-  --color-blue-soft: #edf2fa;
+  --color-navy: #123054;
+  --color-navy-2: #1c4a83;
+  --color-blue: #1c4a83;
+  --color-blue-strong: #123054;
+  --color-blue-soft: #e9edf3;
 
   /* Red */
   --color-red: #990111;
   --color-red-strong: #990111;
   --color-red-soft: #faf2f3;
 
-  /*
-   * Name map (lighter since 21.10.2026): brighter washes; mid shades a lighter ABC blue
-   * #2B5FA6; the dark shades (large blue areas, headings) are ABC Blue #1C4A83 instead of navy.
-   */
-  --color-blue-50: #f6f9fd;
-  --color-blue-100: #edf2fa;
-  --color-blue-200: #dfe6f1;
-  --color-blue-300: #dfe6f1;
-  --color-blue-400: #2b5fa6;
-  --color-blue-500: #2b5fa6;
-  --color-blue-600: #2b5fa6;
-  --color-blue-700: #2b5fa6;
-  --color-blue-800: #1c4a83;
-  --color-blue-900: #1c4a83;
-  --color-blue-950: #1c4a83;
+  /* Name map: wash/tint/lines for light shades, ABC Blue for mid, Navy for dark (colour sheet) */
+  --color-blue-50: #f4f6f9;
+  --color-blue-100: #e9edf3;
+  --color-blue-200: #dce1ec;
+  --color-blue-300: #dce1ec;
+  --color-blue-400: #1c4a83;
+  --color-blue-500: #1c4a83;
+  --color-blue-600: #1c4a83;
+  --color-blue-700: #1c4a83;
+  --color-blue-800: #123054;
+  --color-blue-900: #123054;
+  --color-blue-950: #123054;
   /* Light pink (red tints); on navy, accents use the Blue tint */
   --color-red-50: #faf2f3;
   --color-red-100: #f4e3e5;
   --color-red-200: #ebcdd0;
-  --color-red-300: #edf2fa;
+  --color-red-300: #e9edf3;
   --color-red-400: #990111;
   --color-red-500: #990111;
   --color-red-600: #990111;
@@ -70,11 +66,11 @@
 
   /* Text */
   --color-ink: #242222;
-  /* Overlays on photos use ABC Blue */
-  --color-shade: #1c4a83;
+  /* Overlays on photos use Navy */
+  --color-shade: #123054;
   --color-ink-muted: #484343;
   --color-on-dark: #ffffff;
-  --color-on-dark-muted: #edf2fa;
+  --color-on-dark-muted: #e9edf3;
 
   /* Status */
   --color-success: #1c4a83;

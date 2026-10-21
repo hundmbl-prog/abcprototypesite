@@ -1,5 +1,4 @@
 import { getImageProps } from 'next/image'
-import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Magnetic } from '@/components/motion/Magnetic'
@@ -58,13 +57,6 @@ export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }
         className="container-wide grid items-end gap-10 pt-36 pb-16 md:pb-20 lg:grid-cols-12 lg:gap-12"
       >
         <div className="flex flex-col gap-7 lg:col-span-7">
-          <p className="inline-flex animate-fade-up items-center gap-2 self-start rounded-pill px-4 py-2 text-small font-semibold glass-dark">
-            <span aria-hidden className="relative flex size-2">
-              <span className="absolute inline-flex size-full rounded-pill bg-success-soft opacity-75 motion-safe:animate-ping" />
-              <span className="relative inline-flex size-2 rounded-pill bg-success-soft" />
-            </span>
-            {hero.badge}
-          </p>
           <h1 id="hero-titel" className="text-display">
             {words.map((word, index) => (
               <span
@@ -97,16 +89,6 @@ export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }
                 {hero.primaryCta.label}
               </Button>
             </Magnetic>
-            <Link
-              href={hero.secondaryCta.href}
-              className="group inline-flex min-h-11 items-center gap-2 px-2 text-lead font-semibold underline-offset-4 hov:underline"
-            >
-              {hero.secondaryCta.label}
-              <Icon
-                name="arrow-right"
-                className="size-4 transition-transform duration-(--dur-base) group-hover:translate-x-1"
-              />
-            </Link>
           </div>
         </div>
       </div>

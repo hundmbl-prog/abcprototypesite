@@ -46,6 +46,8 @@ type CardClassicProps = {
   sizes?: string
   compact?: boolean
   /** Photo with an overlapping white info box (category, title, short text, red button). */
+  /** Simple only: a wide, flat photo instead of 4:3 */
+  wide?: boolean
   simple?: boolean
   preview?: 'hover'
   className?: string
@@ -56,7 +58,7 @@ function RedButton({ label }: { label: string }) {
   return (
     <span
       aria-hidden
-      className="mt-auto inline-flex items-center gap-2 self-start text-small font-semibold text-red-600 underline-offset-4 group-hov:underline"
+      className="mt-auto inline-flex origin-left items-center gap-2 self-start text-small font-semibold text-red-600 transition-transform duration-(--dur-base) ease-out-expo group-hov:scale-105"
     >
       {label}
       <Icon
@@ -74,6 +76,7 @@ export function CardClassic({
   sizes = '(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw',
   compact = false,
   simple = false,
+  wide = false,
   shade,
   preview,
   className,
@@ -95,10 +98,15 @@ export function CardClassic({
         >
           <span className="sr-only">{card.title}</span>
         </Link>
-        <div className="aspect-4/3 overflow-hidden rounded-2xl shadow-md">
+        <div
+          className={cn(
+            'overflow-hidden rounded-2xl shadow-md',
+            wide ? 'aspect-[2/1]' : 'aspect-4/3',
+          )}
+        >
           <CardImage image={card.image} sizes={sizes} />
         </div>
-        <div className="relative z-10 mx-4 -mt-16 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
+        <div className="relative z-10 mx-4 -mt-10 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
           <CardMeta card={{ ...card, badge: undefined }} tagTone="solid" />
           <Heading className="font-display text-h4 font-semibold text-blue-900">
             {card.title}

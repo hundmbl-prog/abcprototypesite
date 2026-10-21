@@ -162,7 +162,7 @@ export function Press({ block }: { block: PressBlock }) {
 /** Body of a news article. */
 export function Article({ block }: { block: ArticleBlock }) {
   return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-6">
+    <div className="mx-auto flex max-w-narrow flex-col gap-6">
       <SectionHeader
         id={`${block.id}-titel`}
         eyebrow={block.eyebrow}
@@ -178,7 +178,7 @@ export function Article({ block }: { block: ArticleBlock }) {
           sizes="(min-width: 768px) 768px, 100vw"
           placeholder={block.image.blurDataURL ? 'blur' : 'empty'}
           blurDataURL={block.image.blurDataURL}
-          className="h-auto w-full rounded-2xl shadow-md"
+          className="aspect-[5/2] w-full rounded-2xl object-cover shadow-md"
         />
       ) : null}
       {block.paragraphs.map((text) => (

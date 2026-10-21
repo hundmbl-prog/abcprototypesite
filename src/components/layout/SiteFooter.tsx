@@ -8,7 +8,7 @@ function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
 
-/** Brand-blue footer with white text: white logo, navigation, locations (address, hours, contact), legal row. */
+/** Dark navy footer, all text white: white logo, navigation, locations, legal row. Links light up in ABC Blue and shift slightly on hover. */
 export async function SiteFooter() {
   const [navigation, settings] = await Promise.all([getNavigation(), getSiteSettings()])
   const year = new Date().getFullYear()
@@ -25,10 +25,10 @@ export async function SiteFooter() {
       <div className="container-wide grid gap-12 pt-section-sm pb-12 lg:grid-cols-12">
         <div className="flex flex-col gap-5 lg:col-span-4">
           <Logo variant="full" white className="self-start" />
-          <p className="max-w-prose text-small text-on-dark-muted">{settings.footerAbout}</p>
+          <p className="max-w-prose text-small text-on-dark">{settings.footerAbout}</p>
           <Link
             href={navigation.cta.href}
-            className="inline-flex items-center gap-2 self-start rounded-pill bg-red-500 px-5 py-2.5 text-small font-semibold text-on-dark shadow-(--shadow-glow-red) hov:bg-navy"
+            className="inline-flex items-center gap-2 self-start rounded-pill bg-red-500 px-5 py-2.5 text-small font-semibold text-on-dark shadow-(--shadow-glow-red) ring-2 ring-red hov:scale-[1.03] hov:bg-surface hov:text-red"
           >
             {navigation.cta.label}
             <Icon name="arrow-right" className="size-4" />
@@ -41,7 +41,7 @@ export async function SiteFooter() {
         >
           {navigation.footer.map((group) => (
             <div key={group.title} className="flex flex-col gap-4">
-              <p className="text-caption font-semibold tracking-widest text-blue-200 uppercase">
+              <p className="text-caption font-semibold tracking-widest text-on-dark uppercase">
                 {group.title}
               </p>
               <ul className="flex flex-col gap-2">
@@ -49,7 +49,7 @@ export async function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="rounded-sm text-small text-on-dark-muted hov:text-on-dark hov:underline"
+                      className="-mx-1.5 inline-block rounded-sm px-1.5 text-small text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
                     >
                       {link.label}
                     </Link>
@@ -61,7 +61,7 @@ export async function SiteFooter() {
         </nav>
 
         <div className="flex flex-col gap-4 lg:col-span-3">
-          <p className="text-caption font-semibold tracking-widest text-blue-200 uppercase">
+          <p className="text-caption font-semibold tracking-widest text-on-dark uppercase">
             Standorte
           </p>
           <ul className="flex flex-col gap-4 text-small">
@@ -70,23 +70,23 @@ export async function SiteFooter() {
                 <span className="font-semibold text-on-dark">
                   {location.name} · {location.kind}
                 </span>
-                <span className="text-on-dark-muted">
+                <span className="text-on-dark">
                   {location.street}, {location.postalCode} {location.city}
                 </span>
                 {location.hours.map((h) => (
-                  <span key={h.days} className="text-on-dark-muted">
+                  <span key={h.days} className="text-on-dark">
                     {h.days}: {h.hours}
                   </span>
                 ))}
                 <a
                   href={telHref(location.phone)}
-                  className="text-on-dark-muted hov:text-on-dark hov:underline"
+                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
                 >
                   Tel. {location.phone}
                 </a>
                 <a
                   href={`mailto:${location.email}`}
-                  className="break-all text-on-dark-muted hov:text-on-dark hov:underline"
+                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 break-all text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
                 >
                   {location.email}
                 </a>
@@ -97,14 +97,17 @@ export async function SiteFooter() {
       </div>
 
       <div className="border-t border-blue">
-        <div className="container-wide flex flex-col gap-4 py-6 text-small text-on-dark-muted md:flex-row md:items-center md:justify-between">
+        <div className="container-wide flex flex-col gap-4 py-6 text-small text-on-dark md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {settings.name}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {settings.legalLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="hov:text-on-dark hov:underline">
+                <Link
+                  href={link.href}
+                  className="-mx-1.5 inline-block rounded-sm px-1.5 transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
+                >
                   {link.label}
                 </Link>
               </li>

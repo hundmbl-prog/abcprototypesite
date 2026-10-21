@@ -64,7 +64,7 @@ export function CardIcon({
             ))}
           </ul>
         ) : null}
-        <span className="mt-auto inline-flex items-center gap-2 pt-2 text-small font-semibold text-red-600 group-hover:underline">
+        <span className="mt-auto inline-flex origin-left items-center gap-2 pt-2 text-small font-semibold text-red-600 transition-transform duration-(--dur-base) ease-out-expo group-hover:scale-105">
           {card.ctaLabel ?? 'Mehr erfahren'}
           <Icon
             name="arrow-right"

@@ -1,5 +1,33 @@
 # Changelog
 
+## Colour sheet again, dark footer, interactive buttons, flat news photos (2026-10-21)
+
+Requested on 21.10.2026.
+
+- **Hero:** the "Willkommen beim ABC e.V." badge and the "Beratung anfragen" link are removed. The video, headline, sentence, "Kurs finden" and the scroll arrow remain.
+- **Offer cards 1–3:** the small boxes (A1–C1, A1–C1, Vor Ort) are removed.
+- **About section:** the link reads "Mehr Informationen" instead of "Mehr über uns".
+- **Colours:** exactly the colour sheet again:
+  - ABC Blue #1C4A83, Navy #123054, ABC Red #990111
+  - Blue tint #E9EDF3, Blue wash #F4F6F9, Lines #DCE1EC
+  - Ink #242222, Text #484343
+  - (The lighter blue tried earlier today is reverted.)
+- **Footer:** dark navy with all text white. Links get an ABC Blue background and shift slightly on hover, with no underline.
+- **Buttons:**
+  - Every button zooms slightly on hover.
+  - Hover colours always contrast with the background: red buttons turn white with red text and a red ring (also on navy boxes and the footer); blue and navy buttons turn red.
+  - Text links turn red and grow slightly, with no underline. Links in cards grow slightly and the arrow moves.
+- **News:**
+  - Card photos on /news and "Weitere News" are wide and flat (2:1).
+  - The article photo is flatter (5:2) in a narrower column.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 376 tests, 2 parallel browsers – 364 passed, 8 skipped (desktop- or mobile-only).
+  - 4 desktop tests on /projekte and /fotogalerie timed out because the local server was running at the same time. Rerun: all 4 passed.
+- Not uploaded to Netlify.
+
 ## Back to the live design + video hero, fewer buttons, no repetition, lighter blue (2026-10-21)
 
 Decision from 21.10.2026: the redesign (251c97a) is not used. The live design (b3663a0) is kept, with these changes only. The redesign remains in the git history.

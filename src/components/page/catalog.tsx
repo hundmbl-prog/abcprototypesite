@@ -212,7 +212,7 @@ function SpotlightBody({
         {block.contact?.email ? (
           <a
             href={`mailto:${block.contact.email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm ring-2 ring-red transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:scale-[1.03] hov:bg-surface hov:text-red foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="mail" className="size-4" />
             {block.contact.email}
@@ -221,7 +221,7 @@ function SpotlightBody({
         {block.contact?.phone ? (
           <a
             href={`tel:${block.contact.phone.replace(/[^\d+]/g, '')}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:scale-[1.03] hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="phone" className="size-4" />
             {block.contact.phone}

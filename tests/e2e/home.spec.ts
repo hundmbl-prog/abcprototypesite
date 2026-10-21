@@ -76,7 +76,7 @@ test.describe('Offer cards and about', () => {
       'Aus der Community – für die Community',
     )
     await expect(about.locator('li')).toHaveCount(0)
-    await expect(about.getByRole('link', { name: /Mehr über uns/ })).toHaveAttribute(
+    await expect(about.getByRole('link', { name: /Mehr Informationen/ })).toHaveAttribute(
       'href',
       '/ueber-uns',
     )
@@ -100,6 +100,9 @@ test.describe('Offer cards and about', () => {
     await expect(video).toHaveAttribute('playsinline', '')
     await expect(video).toHaveAttribute('poster', /.+/)
     await expect(page.locator('#start img')).toHaveCount(1)
+    await expect(page.locator('#start')).not.toContainText('Willkommen')
+    await expect(page.locator('#start')).not.toContainText('Beratung anfragen')
+    await expect(page.locator('#angebote article li')).toHaveCount(0)
   })
 })
 

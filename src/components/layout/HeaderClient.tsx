@@ -191,7 +191,7 @@ export function HeaderClient({
                 aria-expanded={mobileOpen}
                 aria-haspopup="dialog"
                 onClick={() => setMobileOpen(true)}
-                className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark transition-[background-color,transform] duration-(--dur-base) active:scale-95 xl:hidden hov:bg-navy"
+                className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark ring-2 ring-red transition-[background-color,transform] duration-(--dur-base) active:scale-95 xl:hidden hov:scale-[1.03] hov:bg-surface hov:text-red"
               >
                 <span aria-hidden className="flex w-4 flex-col gap-1">
                   <span className="h-0.5 w-full rounded-pill bg-current" />

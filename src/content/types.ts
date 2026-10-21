@@ -62,7 +62,6 @@ export type SiteSettings = {
 export type HeroHighlight = { value: string; label: string }
 
 export type HeroContent = {
-  badge: string
   eyebrow: string
   title: string
   text: string
@@ -157,6 +156,8 @@ export type CardsBlock = BlockBase & {
   cta?: NavLink
   /** Classic variant only: photo with the info box below (no fact icons). */
   simple?: boolean
+  /** Classic simple only: a wide, flat photo (e.g. news) instead of 4:3. */
+  wide?: boolean
   /** Optional filter chips by level fact or by category tag. */
   filterBy?: 'level' | 'tag'
 }

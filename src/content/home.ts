@@ -12,7 +12,6 @@ const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
-    badge: 'Willkommen beim ABC e.V.',
     eyebrow: 'Gemeinnützig in Mainz und Bad Kreuznach',
     title: 'Bildung, die Menschen verbindet',
     text: 'Kurse, Prüfungen, Nachhilfe und Projekte in Mainz und Bad Kreuznach.',
@@ -36,7 +35,6 @@ export const homePage: HomePage = {
         image: images.abcUnterricht,
         tag: 'Kurse',
         badge: 'plaetze-frei',
-        facts: { level: 'A1–C1' },
       },
       {
         id: 'pruefungen',
@@ -47,7 +45,6 @@ export const homePage: HomePage = {
         href: '/pruefungen',
         image: images.abcTelc,
         tag: 'Prüfung',
-        facts: { level: 'A1–C1' },
       },
       {
         id: 'nachhilfe',
@@ -58,7 +55,6 @@ export const homePage: HomePage = {
         href: '/lernfoerderung',
         image: images.nachhilfe,
         tag: 'Lernförderung',
-        facts: { format: 'Vor Ort' },
       },
       {
         id: 'soziale-projekte',
@@ -100,7 +96,7 @@ export const homePage: HomePage = {
       '1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen als gemeinnütziger Verein gegründet – für Bildung in den migrantischen Communitys.',
     ],
     image: images.team,
-    cta: { label: 'Mehr über uns', href: '/ueber-uns' },
+    cta: { label: 'Mehr Informationen', href: '/ueber-uns' },
   },
 
   news: {

@@ -18,15 +18,16 @@ export function TextLink({
     <Link
       href={href}
       className={cn(
-        'group inline-flex items-center gap-1.5 font-semibold underline-offset-4 hov:underline',
-        tone === 'dark' ? 'text-on-dark' : 'text-blue hov:text-blue-strong',
+        // hover: turns red and grows slightly (no underline)
+        'group inline-flex origin-left items-center gap-1.5 font-semibold transition-[color,transform] duration-(--dur-base) ease-out-expo hov:scale-105',
+        tone === 'dark' ? 'text-on-dark hov:text-red-200' : 'text-blue hov:text-red',
         className,
       )}
     >
       {children}
       <span
         aria-hidden
-        className="transition-transform duration-(--dur-base) group-hover:translate-x-0.5"
+        className="transition-transform duration-(--dur-base) group-hover:translate-x-1"
       >
         →
       </span>
