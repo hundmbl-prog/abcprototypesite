@@ -52,7 +52,7 @@ test.describe('Home page', () => {
     expect(overflow).toBeLessThanOrEqual(0)
   })
 
-  test('offers show 6 numbered icon cards, each a single link', async ({ page }) => {
+  test('offers show six index entries, each a single link', async ({ page }) => {
     await page.goto('/')
     const cards = page.locator('#angebote article')
     await expect(cards).toHaveCount(6)
@@ -61,12 +61,80 @@ test.describe('Home page', () => {
 })
 
 test.describe('Offer cards and about', () => {
-  test('offer cards use icons instead of photos', async ({ page }) => {
+  test('offers show one photo frame with the first photo active, no icon tiles', async ({
+    page,
+  }, info) => {
     await page.goto('/')
-    const cards = page.locator('#angebote article')
-    await expect(cards.first().locator('a[href]')).toHaveCount(1)
-    await expect(page.locator('#angebote img')).toHaveCount(0)
-    await expect(cards.first().locator('svg').first()).toBeVisible()
+    const images = page.locator('#angebote img')
+    await expect(images).toHaveCount(6)
+    await expect(page.locator('#angebote img[data-active]')).toHaveCount(1)
+    await expect(images.first()).toHaveAttribute('data-active', '')
+    // the only svg in an entry is the arrow of its link line – no icon tile
+    await expect(page.locator('#angebote article').first().locator('svg')).toHaveCount(1)
+    if (!isDesktop(info.project.use.viewport?.width)) {
+      // phones and tablets load the first photo only
+      await expect(images.first()).toBeVisible()
+      await expect(images.nth(1)).toBeHidden()
+    }
+  })
+
+  test('sticky frame swaps the photo with the entry in view', async ({ page }, info) => {
+    test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop layout only')
+    await page.goto('/')
+    await page.waitForLoadState('networkidle')
+    await page
+      .locator('#angebote article')
+      .nth(3)
+      .evaluate((el) => el.scrollIntoView({ block: 'center' }))
+    await expect(page.locator('#angebote img').nth(3)).toHaveAttribute('data-active', '')
+    await expect(page.locator('#angebote img[data-active]')).toHaveCount(1)
+    await expect(page.locator('#angebote [data-index-entry]').nth(3)).toHaveAttribute(
+      'data-active',
+      'true',
+    )
+  })
+
+  test('the offer thread is drawn as you scroll', async ({ page }, info) => {
+    test.skip(!isDesktop(info.project.use.viewport?.width), 'desktop layout only')
+    await page.goto('/')
+    await page.waitForLoadState('networkidle')
+    const path = page.locator('#angebote [data-thread] line')
+    await expect(path).toHaveCount(1)
+    await page
+      .locator('#angebote')
+      .evaluate((el) =>
+        window.scrollTo(
+          0,
+          el.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.6,
+        ),
+      )
+    await expect
+      .poll(() => path.evaluate((el) => parseFloat(getComputedStyle(el).strokeDashoffset)), {
+        timeout: 5000,
+      })
+      .toBeLessThan(0.1)
+  })
+
+  test('section headings carry the marker underline; static with reduced motion', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('/')
+    for (const id of [
+      'angebote-titel',
+      'ueber-uns-titel',
+      'news-titel',
+      'warum-titel',
+      'partner-titel',
+    ]) {
+      await expect(page.locator(`#${id} svg[data-draw]`)).toHaveCount(1)
+    }
+    await scrollThrough(page)
+    const offsets = await page
+      .locator('svg[data-draw] path, [data-thread] line')
+      .evaluateAll((paths) => paths.map((p) => (p as SVGGeometryElement).style.strokeDashoffset))
+    expect(offsets).toHaveLength(6)
+    expect(offsets.every((offset) => offset === '')).toBe(true)
   })
 
   test('about section: story and one text link, no milestone boxes', async ({ page }) => {

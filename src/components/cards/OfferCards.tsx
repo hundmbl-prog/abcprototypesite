@@ -5,6 +5,7 @@ import { CardHorizontal } from './CardHorizontal'
 import { CardIcon } from './CardIcon'
 import { CardOverlay } from './CardOverlay'
 import { CardRail } from './CardRail'
+import { OfferIndex } from '@/components/home/OfferIndex'
 import type { CardVariant, HeadingLevel, OfferCardData } from './types'
 
 /** Renders a list of offers in the variant an editor picked for this section. */
@@ -32,6 +33,8 @@ export function OfferCards({
   className?: string
 }) {
   switch (variant) {
+    case 'index':
+      return <OfferIndex cards={cards} className={className} />
     case 'icon':
       return (
         <ul

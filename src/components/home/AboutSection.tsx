@@ -3,39 +3,49 @@ import { SectionHeader } from '@/components/sections/SectionHeader'
 import { TextLink } from '@/components/ui/TextLink'
 import type { HomePage } from '@/content'
 
-/** About us: photo, founding story (the only place for "1997" on the home page) and one text link. */
+/**
+ * About us as one full screen on large displays: heading and story side by side, the team photo
+ * wide below (21:9 keeps all six faces). The photo drifts slowly while it crosses the viewport.
+ */
 export function AboutSection({ content }: { content: HomePage['about'] }) {
   return (
-    <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-surface py-section">
-      <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
-        <div className="lg:col-span-6">
-          <div data-reveal="image" className="aspect-16/10 overflow-hidden rounded-xl">
-            <Image
-              src={content.image.src}
-              alt={content.image.alt}
-              width={content.image.width}
-              height={content.image.height}
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              placeholder={content.image.blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={content.image.blurDataURL}
-              className="size-full object-cover"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-6 lg:col-span-6">
+    <section
+      id="ueber-uns"
+      aria-labelledby="ueber-uns-titel"
+      className="bg-surface py-section-lg lg:flex lg:min-h-svh lg:flex-col lg:justify-center"
+    >
+      <div className="container-page flex flex-col gap-12 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-8">
           <SectionHeader
             id="ueber-uns-titel"
             eyebrow={content.eyebrow}
             title={content.title}
-            className="mb-0! md:mb-0!"
+            size="h1"
+            mark
+            reveal={false}
+            className="mb-0! md:mb-0! lg:col-span-7"
           />
-          {content.paragraphs.map((text) => (
-            <p key={text} className="text-lead text-ink-muted">
-              {text}
-            </p>
-          ))}
-          <TextLink href={content.cta.href}>{content.cta.label}</TextLink>
+          <div className="flex flex-col gap-6 lg:col-span-5">
+            {content.paragraphs.map((text) => (
+              <p key={text} className="max-w-prose text-lead text-ink-muted">
+                {text}
+              </p>
+            ))}
+            <TextLink href={content.cta.href}>{content.cta.label}</TextLink>
+          </div>
+        </div>
+        <div className="aspect-3/2 overflow-hidden rounded-xl md:aspect-21/9">
+          <Image
+            data-parallax
+            src={content.image.src}
+            alt={content.image.alt}
+            width={content.image.width}
+            height={content.image.height}
+            sizes="(min-width: 1280px) 1216px, 100vw"
+            placeholder={content.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={content.image.blurDataURL}
+            className="size-full object-cover object-center"
+          />
         </div>
       </div>
     </section>

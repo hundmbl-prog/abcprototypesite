@@ -6,7 +6,6 @@ import { NewsList } from '@/components/home/NewsList'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { BrandMark } from '@/components/ui/BrandMark'
 import { TextLink } from '@/components/ui/TextLink'
 import { getHomePage } from '@/content'
 
@@ -21,49 +20,52 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
+      {/* Below the hero nothing sits in a box: paper and white alternate, type and photos carry. */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* Blue: offers – icon cards */}
+      {/* Paper: the offers as a typographic index beside one sticky photo frame */}
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
-        className="relative isolate overflow-hidden bg-blue-50 py-section"
+        className="bg-surface-2 py-section-lg"
       >
-        <BrandMark className="-top-6 -right-12 w-[24rem]" />
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"
             eyebrow={home.offers.eyebrow}
             title={home.offers.title}
-            intro={home.offers.intro}
+            size="h1"
+            mark
+            reveal={false}
             action={<TextLink href={home.offers.cta.href}>{home.offers.cta.label}</TextLink>}
           />
-          <OfferCards cards={home.offers.cards} variant="icon" label={home.offers.title} />
+          <OfferCards cards={home.offers.cards} variant="index" label={home.offers.title} />
         </div>
       </section>
 
-      {/* White: about us */}
+      {/* White: who we are, one full screen */}
       <AboutSection content={home.about} />
 
-      {/* Blue wash: compact news strip */}
-      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section-sm">
+      {/* White, short: three headlines */}
+      <section id="news" aria-labelledby="news-titel" className="bg-surface py-section-lg">
         <div className="container-page">
           <SectionHeader
             id="news-titel"
             eyebrow={home.news.eyebrow}
             title={home.news.title}
-            className="mb-8! md:mb-10!"
+            size="h1"
+            mark
+            reveal={false}
             action={<TextLink href={home.news.cta.href}>{home.news.cta.label}</TextLink>}
           />
           <NewsList items={home.news.items} />
         </div>
       </section>
 
-      {/* White: compact stats and reasons */}
+      {/* Paper: figures and reasons beside the learners, one full screen */}
       <WhySection content={home.why} />
 
-      {/* Blue wash: partner logos */}
+      {/* White, short: partner logos */}
       <PartnerMarquee content={home.partners} />
     </>
   )

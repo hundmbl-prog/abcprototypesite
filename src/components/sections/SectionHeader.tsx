@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Marked } from '@/components/ui/Marked'
 import { cn } from '@/lib/cn'
 
 /** Eyebrow + heading + intro text, with an optional action on the right. */
@@ -11,6 +12,9 @@ export function SectionHeader({
   as: Heading = 'h2',
   align = 'start',
   tone = 'light',
+  size,
+  mark = false,
+  reveal = true,
   className,
 }: {
   id?: string
@@ -21,11 +25,19 @@ export function SectionHeader({
   as?: 'h1' | 'h2' | 'h3'
   align?: 'start' | 'center'
   tone?: 'light' | 'dark'
+  /** Visual size only; the tag stays `as`. Default: h1 tags are text-h1, everything else text-h2. */
+  size?: 'h1' | 'h2'
+  /** Marker underline under the last word of the title (home page chapters). */
+  mark?: boolean
+  /** Fade-in when it scrolls into view. Off on the home page, where motion is scroll-linked instead. */
+  reveal?: boolean
   className?: string
 }) {
+  const split = mark ? title.lastIndexOf(' ') : -1
+  const visual = size ?? (Heading === 'h1' ? 'h1' : 'h2')
   return (
     <header
-      data-reveal
+      data-reveal={reveal || undefined}
       className={cn(
         'mb-10 flex flex-col gap-6 md:mb-14',
         align === 'center'
@@ -47,9 +59,15 @@ export function SectionHeader({
         ) : null}
         <Heading
           id={id}
-          className={cn(Heading === 'h1' ? 'text-h1' : 'text-h2', tone === 'light' && 'text-navy')}
+          className={cn(visual === 'h1' ? 'text-h1' : 'text-h2', tone === 'light' && 'text-navy')}
         >
-          {title}
+          {split > 0 ? (
+            <>
+              {title.slice(0, split)} <Marked>{title.slice(split + 1)}</Marked>
+            </>
+          ) : (
+            title
+          )}
         </Heading>
         {intro ? (
           <p

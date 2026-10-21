@@ -33,9 +33,11 @@ export type OfferCardData = {
   ctaLabel?: string
   /** Icon for the photo-free "icon" variant. */
   icon?: IconName
+  /** "index" variant: which side of the photo to keep when the frame crops it. */
+  imageFocus?: 'left' | 'right'
 }
 
 export type HeadingLevel = 'h2' | 'h3' | 'h4'
 
-/** The approved card variants ("icon" = no photo, for secondary pages). Editors choose one per section in the CMS. */
-export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail' | 'icon'
+/** The approved card variants ("icon" = no photo, for secondary pages; "index" = typographic list beside one sticky photo frame, home page). Editors choose one per section in the CMS. */
+export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail' | 'icon' | 'index'

@@ -111,7 +111,7 @@ export type HomePage = {
     cta: NavLink
   }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
-  why: SectionIntro & { stats: Stat[]; points: string[] }
+  why: SectionIntro & { stats: Stat[]; points: string[]; image: ContentImage }
   partners: SectionIntro & { items: Partner[] }
 }
 

@@ -54,6 +54,44 @@ export function ScrollReveal() {
           },
         )
       })
+
+      // Marker underlines (Marked): drawn once when the heading scrolls in; headings already on
+      // screen stay complete. With non-scaling-stroke the dash values count in screen pixels, so
+      // the length is the rendered width of the underline (the curve is nearly horizontal).
+      gsap.utils
+        .toArray<SVGPathElement>('[data-draw] path')
+        .filter((path) => below(path.closest('[data-draw]') as HTMLElement))
+        .forEach((path) => {
+          const length = (path.closest('svg')?.getBoundingClientRect().width ?? 320) * 1.1
+          gsap.fromTo(
+            path,
+            { strokeDasharray: length, strokeDashoffset: length },
+            {
+              strokeDashoffset: 0,
+              duration: 0.9,
+              ease: 'expo.out',
+              scrollTrigger: { trigger: path, start: 'top 85%', once: true },
+            },
+          )
+        })
+      // Large photos: a slow drift inside their frame while they cross the viewport.
+      gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -5, scale: 1.1 },
+          {
+            yPercent: 5,
+            scale: 1.1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          },
+        )
+      })
     })
     return () => ctx.revert()
   }, [pathname])

@@ -3,7 +3,7 @@ import { SectionHeader } from '@/components/sections/SectionHeader'
 import type { HomePage } from '@/content'
 
 /**
- * Partner logos moving slowly across the blue wash – plain logos, no tiles. Pauses on hover;
+ * Partner logos moving slowly across the white coda – plain logos, no tiles. Pauses on hover;
  * static, wrapped row with reduced motion. Multiply blending hides the white boxes of logos
  * that have no transparency.
  */
@@ -32,13 +32,15 @@ export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
     </ul>
   )
   return (
-    <section aria-labelledby="partner-titel" className="overflow-hidden bg-blue-50 py-section-sm">
+    <section aria-labelledby="partner-titel" className="overflow-hidden bg-surface py-section">
       <div className="container-page">
         <SectionHeader
           id="partner-titel"
           eyebrow={content.eyebrow}
           title={content.title}
           align="center"
+          mark
+          reveal={false}
         />
       </div>
       <div className="group flex [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] py-3 motion-reduce:[mask-image:none]">

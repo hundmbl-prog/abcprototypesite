@@ -33,6 +33,7 @@ export const homePage: HomePage = {
         description: 'Deutsch lernen von A1 bis C1.',
         href: '/kurse/integrationskurse',
         image: images.abcUnterricht,
+        imageFocus: 'right',
         tag: 'Kurse',
         badge: 'plaetze-frei',
       },
@@ -43,7 +44,8 @@ export const homePage: HomePage = {
         title: 'Prüfungen',
         description: 'telc bis C1 Hochschule und Einbürgerungstest.',
         href: '/pruefungen',
-        image: images.abcTelc,
+        image: images.abcTafel,
+        imageFocus: 'left',
         tag: 'Prüfung',
       },
       {
@@ -73,7 +75,7 @@ export const homePage: HomePage = {
         title: 'Weiterbildungen',
         description: 'Viona und politische Bildungsarbeit.',
         href: '/bildungsangebote',
-        image: images.qmSchulung,
+        image: images.abcKursraum,
         tag: 'Weiterbildung',
       },
       {
@@ -83,7 +85,7 @@ export const homePage: HomePage = {
         title: 'Pädagogische Angebote',
         description: 'Familienhilfe und Erziehungsbeistand.',
         href: '/paedagogische-angebote',
-        image: images.paedagogik,
+        image: images.kindertagespflege,
         tag: 'Familie',
       },
     ],
@@ -192,6 +194,7 @@ export const homePage: HomePage = {
       'Kleine Gruppen mit erfahrenen Lehrkräften',
       'Kinderbeaufsichtigung während der Integrationskurse',
     ],
+    image: images.abcLernen,
   },
 
   partners: {

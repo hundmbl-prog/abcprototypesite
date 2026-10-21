@@ -1,5 +1,35 @@
 # Changelog
 
+## Home page: Großdruck – type instead of tiles, one blue thread (2026-10-21)
+
+Requested on 21.10.2026: no more rectangles and squares around the information, nicer or no icons, a few more faces, more air between sections, sections at viewport height, more colour and cheer, something that draws itself from top to bottom while scrolling, Apple-clean.
+
+Three independent concepts were designed and judged by three lenses (design director, front-end lead, audience); the editorial concept "Großdruck" won unanimously and took the scroll-drawn line from the second concept and the "full height on desktop only" rule from the third.
+
+- **Offers (`#angebote`):** new presentation "index" (`OfferIndex`, variant `index` in `OfferCards`): the six offers are one typographic list – title in Clash Display, one sentence, link line – beside a single sticky photo frame. The entry in the middle of the screen is active: its title is Navy, the others recede, the frame cross-fades to its photo. Between frame and list a thin ABC-Blue line draws itself downward exactly as far as you have scrolled. Phones get the first photo once and a plain list, no line. No cards, no icon tiles, no numbers.
+- **Photos:** Prüfungen → teacher at the digital board with the telc task (was the telc sign), Weiterbildungen → the ABC course room with participants (was a stock lecture), Pädagogische Angebote → three laughing children on book stacks (was a counselling photo). Sprach- & Integrationskurse crop to the teacher in front of the alphabet posters. Warum ABC gets the learners' photo (`why.image`), Über uns keeps the team photo, now 21:9 with all six faces.
+- **Über uns and Warum ABC** fill one screen each on large displays (`lg:min-h-svh`): heading beside the text and a wide team photo; the learners' photo beside four large figures and two calm sentences. No tiles, no check icons, no watermark.
+- **News:** three headlines as type in one narrow column; the headline is the link and turns red on hover. No "Weiterlesen", no arrows, no frames.
+- **Rhythm:** every home section below the hero uses `py-section-lg`; paper and white alternate (offers paper, about + news white, Warum ABC paper, partners white, blue footer). No border, shadow or tile anywhere below the hero.
+- **Marker underline:** the last word of every chapter heading gets a hand-drawn-feeling underline in ABC Blue (`Marked`, `SectionHeader mark`), drawn once when the heading scrolls in – the teacher's stroke from the whiteboard photo, the same motif as the thread. Without JavaScript or with reduced motion both are simply there, complete and static.
+- **Icons:** none below the hero; the photos do their job. The offer icons stay in the data for the secondary pages.
+- **SectionHeader** gained `size` (visual h1 on an h2), `mark` and `reveal` (the home page turns the fade-in off); `ScrollReveal` draws `[data-draw]` once and drifts `[data-parallax]` photos; three tokens: `--spacing-stage` (45svh per offer entry), `--spacing-mark`, `--spacing-mark-offset`.
+- **Tests:** the two offer tests describe the index (six entries, each one link; six photos in one frame, the first active; phones hide the rest), plus three new tests: frame swap at the entry in view, thread drawn when the list has passed, underline and thread present and static with reduced motion.
+- Hero, texts, colours, the morning's rules (red only for "Kurs finden", Navy for text, text links red on hover, no "Mehr erfahren") unchanged.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK (42 static pages).
+- Playwright home at 375, 768, 1280 and 1920 px: 104 passed, 12 skipped (desktop- or mobile-only), including axe and the three new tests (frame swap, thread, static underline with reduced motion). Pages and styleguide at 375 and 1280 px: 136 passed.
+- Checked in the browser at 375 and 1280 px: sticky frame and photo swap, thread progress, underline drawing, no console errors, no horizontal overflow. 1280 × 720 fit of the 4:5 frame under the header: by calculation (96 + 600 px), not seen.
+- Not uploaded to Netlify.
+
+**Open for the client**
+
+- The three photo swaps and the index presentation are reversible in `src/content/home.ts` and `page.tsx` (variant); if the thread or the underline does not please, each is one svg and one tween.
+- "1.200+ Teilnehmende" and "60+ Kurse und Prüfungen" are placeholders and are now set very large – real figures needed before launch.
+- More hue in the UI itself would be a palette decision; the one approved option is the light rosé wash for Warum ABC.
+
 ## Warmer and lighter: warm surfaces, ABC Blue for elements, Navy for text only (2026-10-21)
 
 Requested on 21.10.2026: "wärmer, freundlicher, moderner" – the blue cast over the hero video goes, and of the two blues only the lighter ABC Blue is used for design elements; Navy stays for text.
