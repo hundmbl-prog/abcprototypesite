@@ -1,38 +1,30 @@
 /**
  * Home page content (Payload "pages" document with blocks in Step 5).
  * News and facts are taken from the current abc-mainz.de.
- * Entries marked `placeholder: true` are invented and MUST be replaced before launch.
+ * The figures "über 1.200 Menschen" and "mehr als 60 Kurse" are not confirmed yet – check before launch.
  */
 import { images } from './images'
 import { partners } from './partners'
-import { siteSettings } from './site'
 import type { HomePage } from './types'
-
-const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
-    badge: 'Willkommen beim ABC e.V.',
-    highlights: [
-      { value: 'seit 1997', label: 'gemeinnützig in Mainz' },
-      { value: 'telc', label: 'Prüfungszentrum' },
-      { value: '5', label: 'Standorte' },
-    ],
-    eyebrow: 'Gemeinnützig in Mainz und Bad Kreuznach',
-    title: 'Bildung, die Menschen verbindet',
-    text: 'Kurse, Prüfungen, Nachhilfe und Projekte in Mainz und Bad Kreuznach – seit 1997.',
-    image: images.mainzSkyline,
+    eyebrow: '',
+    title: 'Bildung, die Perspektiven schafft',
+    text: 'Sprachkurse, Prüfungen, Nachhilfe und soziale Projekte in Mainz und Bad Kreuznach.',
+    image: images.heroPoster,
     primaryCta: { label: 'Kurs finden', href: '/kurse' },
     secondaryCta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
   },
 
   offers: {
-    eyebrow: 'Unsere Angebote',
+    eyebrow: '',
     title: 'Für jeden Schritt das passende Angebot',
     cta: { label: 'Alle Angebote', href: '/kurse' },
     cards: [
       {
         id: 'sprach-integrationskurse',
+        ctaLabel: 'Zu den Sprachkursen',
         icon: 'book',
         title: 'Sprach- & Integrationskurse',
         description: 'Deutsch von A1 bis C1 – mit Kinderbeaufsichtigung.',
@@ -44,6 +36,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'pruefungen',
+        ctaLabel: 'Prüfungen und Termine',
         icon: 'award',
         title: 'Prüfungen',
         description: 'telc bis C1 Hochschule und Einbürgerungstest.',
@@ -54,6 +47,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'nachhilfe',
+        ctaLabel: 'Nachhilfe anfragen',
         icon: 'pen',
         title: 'Nachhilfe',
         description: 'Alle Fächer, alle Schulformen.',
@@ -64,6 +58,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'soziale-projekte',
+        ctaLabel: 'Projekte entdecken',
         icon: 'users',
         title: 'Soziale Projekte',
         description: 'Für Teilhabe und Zusammenhalt in Mainz.',
@@ -73,6 +68,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'weiterbildungen',
+        ctaLabel: 'Weiterbildung finden',
         icon: 'monitor',
         title: 'Weiterbildungen',
         description: 'Viona und politische Bildungsarbeit.',
@@ -82,6 +78,7 @@ export const homePage: HomePage = {
       },
       {
         id: 'paedagogische-angebote',
+        ctaLabel: 'Unterstützung für Familien',
         icon: 'child',
         title: 'Pädagogische Angebote',
         description: 'Familienhilfe und Erziehungsbeistand.',
@@ -93,23 +90,19 @@ export const homePage: HomePage = {
   },
 
   about: {
-    eyebrow: 'Über uns',
-    title: 'Aus der Community – für die Community',
+    eyebrow: '',
+    title: 'Wer wir sind',
     paragraphs: [
-      '1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen als gemeinnütziger Verein gegründet – für Bildung in den migrantischen Communitys.',
+      'Seit 1997 bringt unser gemeinnütziger Verein Bildung zu den Menschen in Mainz und Bad Kreuznach – gegründet von migrantischen Eltern, Studierenden und Hochschulabsolventen.',
+      'Heute lernen jedes Jahr über 1.200 Menschen in mehr als 60 Kursen und Prüfungen an unseren fünf Standorten.',
     ],
     image: images.team,
-    milestones: [
-      { id: 'gruendung', year: '1997', text: 'Gründung als gemeinnütziger Verein' },
-      { id: 'telc', year: '2021', text: 'Offizielles telc Hochschulkompetenzzentrum' },
-      { id: 'heute', year: 'Heute', text: '5 Standorte in Mainz und Bad Kreuznach' },
-    ],
-    cta: { label: 'Mehr über uns', href: '/ueber-uns' },
+    cta: { label: 'Mehr über den Verein', href: '/ueber-uns' },
   },
 
   news: {
-    eyebrow: 'News',
-    title: 'Aktuelles aus dem ABC',
+    eyebrow: '',
+    title: 'Aktuelles',
     cta: { label: 'Alle News', href: '/news' },
     items: [
       {
@@ -175,38 +168,9 @@ export const homePage: HomePage = {
     ],
   },
 
-  why: {
-    eyebrow: 'Warum ABC',
-    title: 'Ein Ort zum Ankommen',
-    stats: [
-      { id: 'jahre', value: yearsActive, label: 'Jahre Erfahrung seit 1997' },
-      { id: 'standorte', value: 5, label: 'Standorte in Mainz und Bad Kreuznach' },
-      {
-        id: 'teilnehmende',
-        value: 1200,
-        suffix: '+',
-        label: 'Teilnehmende pro Jahr',
-        placeholder: true,
-      },
-      {
-        id: 'kurse',
-        value: 60,
-        suffix: '+',
-        label: 'Kurse und Prüfungen pro Jahr',
-        placeholder: true,
-      },
-    ],
-    points: [
-      'Kleine Gruppen mit erfahrenen Lehrkräften',
-      'telc Prüfungs- und Hochschulkompetenzzentrum',
-      'Kinderbeaufsichtigung während der Integrationskurse',
-      'Gemeinnützig seit 1997',
-    ],
-  },
-
   partners: {
-    eyebrow: 'Partner & Förderer',
-    title: 'Gemeinsam mehr erreichen',
+    eyebrow: '',
+    title: 'Unsere Partner und Förderer',
     items: partners,
   },
 }

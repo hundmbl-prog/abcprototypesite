@@ -95,7 +95,7 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
                 transition={
                   reduce ? { duration: 0 } : { type: 'spring', stiffness: 420, damping: 34 }
                 }
-                className="absolute inset-0 rounded-xl bg-blue-900 shadow-md"
+                className="absolute inset-0 rounded-md bg-blue"
               />
             ) : null}
             <span className="relative">{l.level}</span>
@@ -119,9 +119,9 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col gap-6"
             >
-              <div className="grid grid-cols-1 gap-6 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-8 lg:grid-cols-12">
+              <div className="grid grid-cols-1 gap-6 rounded-lg border border-line bg-surface p-6 md:p-8 lg:grid-cols-12">
                 <div className="flex flex-col gap-3 lg:col-span-7">
-                  <h3 className="text-h3 text-blue-900">{exam.name}</h3>
+                  <h3 className="text-h3 text-navy">{exam.name}</h3>
                   {exam.about.map((text) => (
                     <p key={text} className="text-ink-muted">
                       {text}
@@ -135,9 +135,9 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-3 rounded-xl bg-blue-50 p-4 ring-1 ring-blue-100 transition-[background-color,box-shadow] duration-(--dur-base) hov:bg-surface hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                        className="group flex items-center gap-3 border-b border-line py-3 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                       >
-                        <span className="grid size-10 shrink-0 place-items-center rounded-pill bg-blue-900 text-on-dark transition-colors group-hover:bg-red-500">
+                        <span className="grid shrink-0 place-items-center text-blue">
                           <Icon
                             name={
                               link.kind === 'ZIP' || link.kind === 'PDF'

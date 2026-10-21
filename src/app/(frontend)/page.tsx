@@ -4,10 +4,7 @@ import { AboutSection } from '@/components/home/AboutSection'
 import { HomeHero } from '@/components/home/HomeHero'
 import { NewsList } from '@/components/home/NewsList'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
-import { WhySection } from '@/components/home/WhySection'
-import { SectionHeader } from '@/components/sections/SectionHeader'
-import { BrandMark } from '@/components/ui/BrandMark'
-import { Button } from '@/components/ui/Button'
+import { TextLink } from '@/components/ui/TextLink'
 import { getHomePage } from '@/content'
 
 export const metadata: Metadata = {
@@ -21,57 +18,37 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
-      <HomeHero hero={home.hero} nextId="angebote" />
+      <HomeHero hero={home.hero} />
 
-      {/* Blue: offers – numbered icon cards */}
-      <section
-        id="angebote"
-        aria-labelledby="angebote-titel"
-        className="relative isolate overflow-hidden bg-blue-50 py-section"
-      >
-        <BrandMark className="-top-6 -right-12 w-[24rem]" />
+      {/* White: offers as a simple text grid (no photos) */}
+      <section id="angebote" aria-labelledby="angebote-titel" className="bg-surface py-section">
         <div className="container-page">
-          <SectionHeader
-            id="angebote-titel"
-            eyebrow={home.offers.eyebrow}
-            title={home.offers.title}
-            intro={home.offers.intro}
-            action={
-              <Button href={home.offers.cta.href} variant="pill-red">
-                {home.offers.cta.label}
-              </Button>
-            }
-          />
-          <OfferCards cards={home.offers.cards} variant="icon" label={home.offers.title} />
+          <h2 id="angebote-titel" className="mb-10 max-w-narrow text-h2 text-navy md:mb-14">
+            {home.offers.title}
+          </h2>
+          <OfferCards cards={home.offers.cards} variant="text" label={home.offers.title} />
         </div>
       </section>
 
-      {/* White: about us */}
+      {/* Light blue: about us */}
       <AboutSection content={home.about} />
 
-      {/* Blue wash: compact news strip */}
-      <section id="news" aria-labelledby="news-titel" className="bg-blue-50 py-section-sm">
-        <div className="container-page">
-          <SectionHeader
-            id="news-titel"
-            eyebrow={home.news.eyebrow}
-            title={home.news.title}
-            className="mb-8! md:mb-10!"
-            action={
-              <Button href={home.news.cta.href} variant="pill-red">
-                {home.news.cta.label}
-              </Button>
-            }
-          />
-          <NewsList items={home.news.items} />
+      {/* White: news as a simple list */}
+      <section id="news" aria-labelledby="news-titel" className="bg-surface py-section">
+        <div className="container-page grid grid-cols-1 gap-8 lg:grid-cols-12">
+          <div className="flex flex-col gap-4 lg:col-span-3">
+            <h2 id="news-titel" className="text-h2 text-navy">
+              {home.news.title}
+            </h2>
+            <TextLink href={home.news.cta.href}>{home.news.cta.label}</TextLink>
+          </div>
+          <div className="lg:col-span-9">
+            <NewsList items={home.news.items} />
+          </div>
         </div>
       </section>
 
-      {/* White: compact stats and reasons */}
-      <WhySection content={home.why} />
-
-      {/* Blue wash: partner logos */}
+      {/* White with a line: partners */}
       <PartnerMarquee content={home.partners} />
     </>
   )

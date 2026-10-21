@@ -7,6 +7,12 @@ import {
   watchProblems,
 } from './helpers'
 
+// The hero video is not needed for these checks; streaming it to four parallel browsers
+// would only slow the single local test server down.
+test.beforeEach(async ({ page }) => {
+  await page.route('**/media/*.mp4', (route) => route.fulfill({ status: 204, body: '' }))
+})
+
 const pages = [
   '/kurse',
   '/kurse/b1-b2',
@@ -54,7 +60,7 @@ test.describe('Content pages', () => {
       await page.waitForLoadState('networkidle')
       expect(problems).toEqual([])
       await expectHeadingOrder(page)
-      await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toHaveCount(0)
+      await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toBeVisible()
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - window.innerWidth,
       )
@@ -97,23 +103,22 @@ test.describe('Content pages', () => {
       await page.goto(path)
       const sections = await page.locator('main > section:not(#seitenkopf)').count()
       expect(sections, path).toBeLessThanOrEqual(6)
-      const heroPhotos = await page.locator('#seitenkopf [data-hero-media] img').count()
+      const heroPhotos = await page.locator('#seitenkopf img').count()
       expect(heroPhotos > 0, path).toBe(
         ['/kurse', '/pruefungen', '/bildungsangebote', '/projekte', '/ueber-uns'].includes(path),
       )
     }
   })
 
-  test('no visible breadcrumbs, but the path is still given to search engines', async ({
-    page,
-  }) => {
+  test('breadcrumbs are visible and also given to search engines', async ({ page }) => {
     await page.goto('/kurse/integrationskurse')
-    await expect(page.getByRole('navigation', { name: 'Brotkrümelnavigation' })).toHaveCount(0)
+    const crumbs = page.getByRole('navigation', { name: 'Brotkrümelnavigation' })
+    await expect(crumbs.getByRole('link')).toHaveText(['Start', 'Kurse'])
+    await expect(crumbs.locator('[aria-current="page"]')).toHaveText('Integrationskurse')
     const jsonLd = await page
       .locator('script[type="application/ld+json"]')
       .evaluateAll((els) => els.map((el) => el.textContent ?? ''))
-    const crumbs = jsonLd.find((text) => text.includes('BreadcrumbList'))
-    expect(crumbs).toContain('Integrationskurse')
+    expect(jsonLd.find((text) => text.includes('BreadcrumbList'))).toContain('Integrationskurse')
   })
 })
 

@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { OfferCards } from '@/components/cards/OfferCards'
 import { SectionHeader } from '@/components/sections/SectionHeader'
-import { CtaBanner } from '@/components/sections/CtaBanner'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { TextLink } from '@/components/ui/TextLink'
 import { cn } from '@/lib/cn'
 import type {
   CardsBlock as CardsData,
@@ -21,8 +21,8 @@ import { FilteredCards } from './FilteredCards'
 
 const titleId = (id: string) => `${id}-titel`
 
-/** Section background chosen by the BlockRenderer; "deep" is the brand-blue section. */
-export type SectionTone = 'white' | 'soft' | 'deep'
+/** Section background chosen by the BlockRenderer: white or the light blue tint. */
+export type SectionTone = 'white' | 'soft' | 'blue'
 
 /** Steps fill whole rows: 4 → 4 columns, 5 → 5, 6 → 3 × 2. */
 const stepCols: Record<number, string> = {
@@ -32,121 +32,74 @@ const stepCols: Record<number, string> = {
   6: 'lg:grid-cols-3',
 }
 
-/** Text beside a photo with an asymmetric mask; optional check list. */
+/** Plain check list (blue ticks, no circles or boxes). */
+function CheckList({ items, className }: { items: string[]; className?: string }) {
+  return (
+    <ul className={cn('flex flex-col gap-2.5', className)}>
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-2.5 text-ink">
+          <Icon name="check" className="mt-1 size-4 shrink-0 text-blue" strokeWidth={2.5} />
+          {item}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Text beside a photo; optional check list. Without a photo the points sit in a second column. */
 export function IntroBlock({ block }: { block: IntroData }) {
-  if (!block.image) return <IntroPanel block={block} />
+  const text = (
+    <div className="flex flex-col gap-5">
+      <SectionHeader id={titleId(block.id)} title={block.title} className="mb-0! md:mb-0!" />
+      {block.paragraphs.map((p) => (
+        <p key={p} className="max-w-prose text-lead text-ink-muted">
+          {p}
+        </p>
+      ))}
+    </div>
+  )
+  if (!block.image) {
+    return (
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7">{text}</div>
+        {block.points?.length ? (
+          <CheckList items={block.points} className="lg:col-span-5 lg:pt-2" />
+        ) : null}
+      </div>
+    )
+  }
   const image = block.image
   return (
     <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div className={block.reverse ? 'lg:order-2 lg:col-span-6' : 'lg:col-span-6'}>
-        <div
-          data-reveal="image"
-          className="group aspect-5/4 overflow-hidden rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm shadow-md"
-        >
-          <Image
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            placeholder={image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={image.blurDataURL}
-            className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
-          />
-        </div>
-      </div>
-      <div
-        className={
-          block.reverse
-            ? 'flex flex-col gap-6 lg:order-1 lg:col-span-6'
-            : 'flex flex-col gap-6 lg:col-span-6'
-        }
-      >
-        <SectionHeader
-          id={titleId(block.id)}
-          eyebrow={block.eyebrow}
-          title={block.title}
-          className="mb-0! md:mb-0!"
+      <div className={cn('lg:col-span-6', block.reverse && 'lg:order-2')}>
+        <Image
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          placeholder={image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={image.blurDataURL}
+          className="aspect-5/4 w-full rounded-lg object-cover"
         />
-        {block.paragraphs.map((text) => (
-          <p key={text} className="text-lead text-ink-muted">
-            {text}
-          </p>
-        ))}
-        {block.points?.length ? (
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {block.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-3 text-small font-medium text-blue-900"
-              >
-                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-pill bg-blue-600 text-on-dark">
-                  <Icon name="check" className="size-3.5" strokeWidth={2.5} />
-                </span>
-                {point}
-              </li>
-            ))}
-          </ul>
-        ) : null}
+      </div>
+      <div className={cn('flex flex-col gap-6 lg:col-span-6', block.reverse && 'lg:order-1')}>
+        {text}
+        {block.points?.length ? <CheckList items={block.points} /> : null}
       </div>
     </div>
   )
 }
 
-/** Intro without a photo: text on the left, the key points in a blue panel with the logo mark. */
-function IntroPanel({ block }: { block: IntroData }) {
-  return (
-    <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
-      <div className="flex flex-col gap-6 lg:col-span-7">
-        <SectionHeader
-          id={titleId(block.id)}
-          eyebrow={block.eyebrow}
-          title={block.title}
-          className="mb-0! md:mb-0!"
-        />
-        {block.paragraphs.map((text) => (
-          <p key={text} className="text-lead text-ink-muted">
-            {text}
-          </p>
-        ))}
-      </div>
-      {block.points?.length ? (
-        <div
-          data-reveal
-          className="relative isolate overflow-hidden rounded-2xl tone-navy p-6 md:p-8 lg:col-span-5"
-        >
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            {block.points.map((point) => (
-              <li key={point} className="flex items-center gap-3 font-semibold">
-                <span className="grid size-8 shrink-0 place-items-center rounded-pill bg-red-500">
-                  <Icon name="check" className="size-4" strokeWidth={2.5} />
-                </span>
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
-/** Photo offer cards in the variant chosen for this section (optionally with level filter). */
+/** Photo tiles (optionally with a filter); a section link is a plain text link. */
 export function CardsBlock({ block }: { block: CardsData }) {
   return (
     <>
       <SectionHeader
         id={titleId(block.id)}
-        eyebrow={block.eyebrow}
         title={block.title}
         intro={block.intro}
-        action={
-          block.cta ? (
-            <Button href={block.cta.href} variant="pill-red">
-              {block.cta.label}
-            </Button>
-          ) : undefined
-        }
+        action={block.cta ? <TextLink href={block.cta.href}>{block.cta.label}</TextLink> : null}
       />
       {block.filterBy ? (
         <FilteredCards
@@ -154,103 +107,36 @@ export function CardsBlock({ block }: { block: CardsData }) {
           variant={block.variant}
           label={block.title}
           by={block.filterBy}
-          simple={block.simple}
         />
       ) : (
-        <OfferCards
-          cards={block.cards}
-          variant={block.variant}
-          label={block.title}
-          simple={block.simple}
-        />
+        <OfferCards cards={block.cards} variant={block.variant} label={block.title} />
       )}
     </>
   )
 }
 
-/** Two or three short lists side by side (e.g. target group, requirements, documents). */
-export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: SectionTone }) {
-  const deep = tone === 'deep'
+/** Two or three short lists side by side, separated by a line – no boxes. Optional note. */
+export function ColumnsBlock({ block }: { block: ColumnsData; tone?: SectionTone }) {
   return (
     <>
-      <SectionHeader
-        id={titleId(block.id)}
-        eyebrow={block.eyebrow}
-        title={block.title}
-        intro={block.intro}
-        tone={deep ? 'dark' : 'light'}
-      />
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <SectionHeader id={titleId(block.id)} title={block.title} intro={block.intro} />
+      <div className="grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {block.columns.map((col) => (
-          <div
-            key={col.title}
-            data-reveal
-            className={cn(
-              'group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1',
-              deep
-                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
-                : 'border border-line bg-linear-to-br from-surface to-blue-50 shadow-sm hov:shadow-(--shadow-float)',
-            )}
-          >
-            <span
-              className={cn(
-                'grid size-12 place-items-center rounded-pill transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110',
-                deep ? 'bg-surface text-blue-700' : 'bg-blue-600 text-on-dark',
-              )}
-            >
-              <Icon name={col.icon} className="size-5" />
-            </span>
-            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{col.title}</h3>
-            <ul className="flex flex-col gap-2.5">
-              {col.items.map((item) => (
-                <li
-                  key={item}
-                  className={cn(
-                    'flex items-start gap-2.5 text-small',
-                    deep ? 'text-on-dark-muted' : 'text-ink',
-                  )}
-                >
-                  <Icon
-                    name="check"
-                    className={cn(
-                      'mt-0.5 size-4 shrink-0',
-                      deep ? 'text-red-300' : 'text-blue-600',
-                    )}
-                    strokeWidth={2.5}
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div key={col.title} className="flex flex-col gap-4 border-t-2 border-blue-200 pt-6">
+            <h3 className="flex items-center gap-2.5 text-h4 text-navy">
+              <Icon name={col.icon} className="size-5 text-blue" />
+              {col.title}
+            </h3>
+            <CheckList items={col.items} className="text-small" />
           </div>
         ))}
         {block.note ? (
-          <aside
-            data-reveal
-            className={cn(
-              'relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6 md:p-8 lg:col-span-1',
-              deep ? 'bg-surface text-ink shadow-lg' : 'tone-navy',
-            )}
-          >
-            <Icon
-              name="info"
-              className={cn(
-                'absolute -right-6 -bottom-6 size-32',
-                deep ? 'text-blue-50' : 'text-blue',
-              )}
-            />
-            <span
-              className={cn(
-                'relative inline-flex items-center gap-2 text-caption font-semibold tracking-widest uppercase',
-                deep ? 'text-red-600' : 'text-red-300',
-              )}
-            >
-              <Icon name="info" className="size-4" />
+          <aside className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-6">
+            <p className="flex items-center gap-2 font-semibold text-navy">
+              <Icon name="info" className="size-4 text-red" />
               {block.note.title}
-            </span>
-            <p className={cn('relative', deep ? 'text-ink-muted' : 'text-on-dark-muted')}>
-              {block.note.text}
             </p>
+            <p className="text-ink-muted">{block.note.text}</p>
           </aside>
         ) : null}
       </div>
@@ -258,65 +144,29 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
   )
 }
 
-/** Numbered steps; a line connects them, each step lifts in as it scrolls into view. */
-export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTone }) {
-  const deep = tone === 'deep'
+/** Numbered steps as a plain list with small numbers – no cards. */
+export function StepsBlock({ block }: { block: StepsData; tone?: SectionTone }) {
   return (
     <>
       <SectionHeader
         id={titleId(block.id)}
-        eyebrow={block.eyebrow}
         title={block.title}
         intro={block.intro}
-        tone={deep ? 'dark' : 'light'}
-        action={
-          block.cta ? (
-            <Button href={block.cta.href} variant="pill-red">
-              {block.cta.label}
-            </Button>
-          ) : undefined
-        }
+        action={block.cta ? <TextLink href={block.cta.href}>{block.cta.label}</TextLink> : null}
       />
       <ol
         className={cn(
-          'relative grid gap-6 md:grid-cols-2 md:gap-5',
+          'grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2',
           stepCols[block.steps.length] ?? 'lg:grid-cols-3',
         )}
       >
         {block.steps.map((step, i) => (
-          <li
-            key={step.title}
-            data-reveal
-            className={cn(
-              'group relative flex flex-col gap-4 rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1',
-              deep
-                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
-                : 'border border-line bg-surface shadow-sm hov:shadow-(--shadow-float)',
-            )}
-          >
-            <div className="flex items-center gap-3">
-              <span
-                className={cn(
-                  'grid size-11 place-items-center rounded-pill font-display text-h4 font-semibold transition-colors duration-(--dur-base)',
-                  deep
-                    ? 'bg-red-500 text-on-dark group-hover:bg-surface group-hover:text-blue-900'
-                    : 'bg-blue-900 text-on-dark group-hover:bg-red-500',
-                )}
-              >
-                {i + 1}
-              </span>
-              <span
-                aria-hidden
-                className={cn(
-                  'h-0.5 flex-1 bg-linear-to-r to-transparent',
-                  deep ? 'from-blue' : 'from-blue-200',
-                )}
-              />
-            </div>
-            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{step.title}</h3>
-            <p className={cn('text-small', deep ? 'text-on-dark-muted' : 'text-ink-muted')}>
-              {step.text}
-            </p>
+          <li key={step.title} className="flex flex-col gap-3">
+            <span className="grid size-10 place-items-center rounded-full bg-blue-100 font-semibold text-blue-700 ring-1 ring-blue-200">
+              {i + 1}
+            </span>
+            <h3 className="text-h4 text-navy">{step.title}</h3>
+            <p className="text-ink-muted">{step.text}</p>
           </li>
         ))}
       </ol>
@@ -324,7 +174,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
   )
 }
 
-/** FAQ as an accordion of native <details> elements (keyboard and screen reader friendly). */
+/** FAQ as an accordion of native <details> elements, separated by lines. */
 export function FaqBlock({ block }: { block: FaqData }) {
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -336,28 +186,21 @@ export function FaqBlock({ block }: { block: FaqData }) {
     })),
   }
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
       <div className="lg:col-span-4">
-        <SectionHeader
-          id={titleId(block.id)}
-          eyebrow={block.eyebrow}
-          title={block.title}
-          intro={block.intro}
-        />
+        <SectionHeader id={titleId(block.id)} title={block.title} intro={block.intro} />
       </div>
-      <div className="flex flex-col gap-3 lg:col-span-8">
+      <div className="divide-y divide-line border-y border-line lg:col-span-8">
         {block.items.map((item) => (
-          <details
-            key={item.question}
-            className="group rounded-xl border border-line bg-surface shadow-sm transition-shadow duration-(--dur-base) open:shadow-md"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-5 font-semibold text-blue-900 marker:hidden md:p-6 hov:bg-blue-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue [&::-webkit-details-marker]:hidden">
+          <details key={item.question} className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-semibold text-navy marker:hidden hov:text-blue foc:outline-2 foc:outline-offset-2 foc:outline-blue [&::-webkit-details-marker]:hidden">
               {item.question}
-              <span className="grid size-8 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-[transform,background-color,color] duration-(--dur-base) ease-out-expo group-open:rotate-180 group-open:bg-red-500 group-open:text-on-dark">
-                <Icon name="chevron-down" className="size-4" />
-              </span>
+              <Icon
+                name="chevron-down"
+                className="size-5 shrink-0 text-blue transition-transform duration-(--dur-base) group-open:rotate-180"
+              />
             </summary>
-            <p className="px-5 pb-6 text-ink-muted md:px-6">{item.answer}</p>
+            <p className="max-w-prose pb-6 text-ink-muted">{item.answer}</p>
           </details>
         ))}
       </div>
@@ -369,42 +212,31 @@ export function FaqBlock({ block }: { block: FaqData }) {
   )
 }
 
-/** Official links (practice tests, information pages); external links open in a new tab. */
+/** Official links as a simple list; external links open in a new tab. */
 export function LinksBlock({ block }: { block: LinksData }) {
   return (
     <>
-      <SectionHeader
-        id={titleId(block.id)}
-        eyebrow={block.eyebrow}
-        title={block.title}
-        intro={block.intro}
-      />
-      <ul
-        className={cn(
-          'grid gap-4 md:grid-cols-2',
-          block.links.length % 3 === 0 || block.links.length > 4 ? 'lg:grid-cols-3' : '',
-        )}
-      >
+      <SectionHeader id={titleId(block.id)} title={block.title} intro={block.intro} />
+      <ul className="grid grid-cols-1 gap-x-10 md:grid-cols-2">
         {block.links.map((link) => {
           const external = link.href.startsWith('http')
           const download = link.kind === 'ZIP' || link.kind === 'PDF' || link.kind === 'MP3'
           return (
-            <li key={link.href} data-reveal>
+            <li key={link.href} className="border-b border-line">
               <a
                 href={link.href}
                 {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="group relative flex h-full items-start gap-4 overflow-hidden rounded-xl border border-line bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:border-blue-300 hov:shadow-md foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                className="group flex items-start gap-3 py-4 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
               >
-                <span className="grid size-11 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-colors duration-(--dur-base) group-hover:bg-blue-600 group-hover:text-on-dark">
-                  <Icon name={download ? 'download' : 'arrow-up-right'} className="size-5" />
-                </span>
-                <span className="flex min-w-0 flex-col gap-1">
-                  <span className="flex flex-wrap items-center gap-2">
-                    <span className="font-semibold text-blue-900">{link.label}</span>
+                <Icon
+                  name={download ? 'download' : 'arrow-up-right'}
+                  className="mt-1 size-4 shrink-0 text-blue"
+                />
+                <span className="flex min-w-0 flex-col gap-0.5">
+                  <span className="font-semibold text-navy group-hover:text-blue group-hover:underline">
+                    {link.label}
                     {link.kind ? (
-                      <span className="rounded-pill bg-blue-900 px-2 py-0.5 text-caption font-semibold text-on-dark">
-                        {link.kind}
-                      </span>
+                      <span className="font-normal text-ink-muted"> ({link.kind})</span>
                     ) : null}
                   </span>
                   {link.description ? (
@@ -425,9 +257,50 @@ function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
 
+/** Closing band (ABC Blue, white text): text on the left, the page's one red button on the right. */
+function Closing({
+  id,
+  title,
+  text,
+  primary,
+  secondary,
+  children,
+}: {
+  id?: string
+  title: string
+  text: string
+  primary?: { href: string; label: string }
+  secondary?: { href: string; label: string }
+  children?: React.ReactNode
+}) {
+  return (
+    <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex max-w-[36rem] flex-col gap-4">
+        <h2 id={id} className="text-h2 text-on-dark">
+          {title}
+        </h2>
+        <p className="text-lead text-on-dark-muted">{text}</p>
+        {children}
+      </div>
+      {primary ? (
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button href={primary.href} variant="cta" size="lg">
+            {primary.label}
+          </Button>
+          {secondary ? (
+            <TextLink href={secondary.href} tone="dark">
+              {secondary.label}
+            </TextLink>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 /**
- * Closing card of a page: the call to action plus phone and department e-mail in one
- * deep-blue card with the logo mark. Addresses live in the footer and on the Kontakt page.
+ * Closing section of a page: the call to action plus phone and department e-mail.
+ * Addresses live in the footer and on the Kontakt page.
  */
 export function ClosingBlock({
   contact,
@@ -438,72 +311,48 @@ export function ClosingBlock({
   cta?: CtaData
   location: Location
 }) {
-  const primaryHref = (href: string) =>
-    href === `#${contact.id}` ? `mailto:${contact.email}` : href
+  const primary = cta
+    ? {
+        label: cta.primary.label,
+        href: cta.primary.href === `#${contact.id}` ? `mailto:${contact.email}` : cta.primary.href,
+      }
+    : undefined
   return (
-    <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-2xl tone-navy p-6 shadow-lg md:p-12 lg:flex-row lg:items-center lg:justify-between">
-      <div className="max-w-xl flex flex-col gap-4">
-        <SectionHeader
-          id={titleId(contact.id)}
-          eyebrow={contact.eyebrow}
-          title={cta?.title ?? contact.title}
-          tone="dark"
-          className="mb-0! md:mb-0!"
-        />
-        <p className="text-lead text-on-dark-muted">{cta?.text ?? contact.text}</p>
-      </div>
-      <div className="flex flex-col gap-5 lg:items-end">
-        {cta ? (
-          <div className="flex flex-wrap gap-3 lg:justify-end">
-            <Button href={primaryHref(cta.primary.href)} variant="pill-red" size="lg">
-              {cta.primary.label}
-            </Button>
-            {cta.secondary ? (
-              <Button href={cta.secondary.href} variant="ghost" size="lg">
-                {cta.secondary.label}
-              </Button>
-            ) : null}
-          </div>
-        ) : null}
-        <div className="flex flex-wrap gap-x-6 gap-y-1 text-small font-semibold lg:justify-end">
-          <a
-            href={telHref(location.phone)}
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm underline-offset-4 hov:underline"
-          >
-            <Icon name="phone" className="size-4 text-red-300" />
-            {location.phone}
-          </a>
-          <a
-            href={`mailto:${contact.email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm break-all underline-offset-4 hov:underline"
-          >
-            <Icon name="mail" className="size-4 text-red-300" />
-            {contact.email}
-          </a>
-        </div>
-      </div>
-    </div>
+    <Closing
+      id={titleId(contact.id)}
+      title={cta?.title ?? contact.title}
+      text={cta?.text ?? contact.text}
+      primary={primary}
+      secondary={cta?.secondary}
+    >
+      <p className="flex flex-wrap gap-x-6 gap-y-1 font-semibold">
+        <a
+          href={telHref(location.phone)}
+          className="inline-flex min-h-11 items-center gap-2 text-on-dark hov:underline"
+        >
+          <Icon name="phone" className="size-4" />
+          {location.phone}
+        </a>
+        <a
+          href={`mailto:${contact.email}`}
+          className="inline-flex min-h-11 items-center gap-2 break-all text-on-dark hov:underline"
+        >
+          <Icon name="mail" className="size-4" />
+          {contact.email}
+        </a>
+      </p>
+    </Closing>
   )
 }
 
-/** Closing call to action without a contact block (deep-blue banner). */
+/** Closing call to action without a contact block. */
 export function CtaBlock({ block }: { block: CtaData }) {
   return (
-    <CtaBanner
+    <Closing
       title={block.title}
       text={block.text}
-      actions={
-        <>
-          <Button href={block.primary.href} variant="pill-red" size="lg">
-            {block.primary.label}
-          </Button>
-          {block.secondary ? (
-            <Button href={block.secondary.href} variant="ghost" size="lg">
-              {block.secondary.label}
-            </Button>
-          ) : null}
-        </>
-      }
+      primary={block.primary}
+      secondary={block.secondary}
     />
   )
 }
@@ -512,62 +361,45 @@ export function CtaBlock({ block }: { block: CtaData }) {
 export function FeesBlock({ block }: { block: FeesData }) {
   return (
     <>
-      <SectionHeader
-        id={titleId(block.id)}
-        eyebrow={block.eyebrow}
-        title={block.title}
-        intro={block.intro}
-      />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        <div
-          data-reveal
-          className="overflow-hidden rounded-2xl border border-line bg-surface shadow-md lg:col-span-7"
-        >
-          <table className="w-full text-left">
-            <caption className="sr-only">Prüfungsgebühren am ABC</caption>
-            <thead className="bg-blue-900 text-on-dark">
-              <tr>
-                <th scope="col" className="p-4 text-small font-semibold md:px-6">
-                  Prüfung
+      <SectionHeader id={titleId(block.id)} title={block.title} intro={block.intro} />
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+        <table className="w-full text-left lg:col-span-7">
+          <caption className="sr-only">Prüfungsgebühren am ABC</caption>
+          <thead className="border-b-2 border-blue-200 text-navy">
+            <tr>
+              <th scope="col" className="py-3 pr-4 text-small font-semibold">
+                Prüfung
+              </th>
+              <th scope="col" className="py-3 text-small font-semibold">
+                Gebühr
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {block.rows.map((row) => (
+              <tr key={row.label} className="border-b border-line">
+                <th scope="row" className="py-4 pr-4 font-semibold text-navy">
+                  {row.label}
+                  {row.note ? (
+                    <span className="block text-small font-normal text-ink-muted">{row.note}</span>
+                  ) : null}
                 </th>
-                <th scope="col" className="p-4 text-small font-semibold md:px-6">
-                  Gebühr
-                </th>
+                <td className="py-4 whitespace-nowrap text-ink">{row.value}</td>
               </tr>
-            </thead>
-            <tbody>
-              {block.rows.map((row) => (
-                <tr key={row.label} className="border-t border-line odd:bg-blue-50">
-                  <th scope="row" className="p-4 font-semibold text-blue-900 md:px-6">
-                    {row.label}
-                    {row.note ? (
-                      <span className="block text-small font-normal text-ink-muted">
-                        {row.note}
-                      </span>
-                    ) : null}
-                  </th>
-                  <td className="p-4 font-semibold whitespace-nowrap text-ink md:px-6">
-                    {row.value}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <aside
-          data-reveal
-          className="flex flex-col gap-4 rounded-2xl bg-blue-900 p-6 text-on-dark md:p-8 lg:col-span-5"
-        >
-          <h3 className="text-h4">Gebühren der telc gGmbH</h3>
-          <dl className="flex flex-col divide-y divide-on-dark/15">
+            ))}
+          </tbody>
+        </table>
+        <aside className="flex flex-col gap-3 lg:col-span-5">
+          <h3 className="text-h4 text-navy">Gebühren der telc gGmbH</h3>
+          <dl className="flex flex-col divide-y divide-line border-y border-line">
             {block.officialFees.map((fee) => (
               <div key={fee.label} className="flex items-baseline justify-between gap-4 py-3">
-                <dt className="text-on-dark-muted">{fee.label}</dt>
-                <dd className="font-semibold whitespace-nowrap">{fee.value}</dd>
+                <dt className="text-ink-muted">{fee.label}</dt>
+                <dd className="font-semibold whitespace-nowrap text-navy">{fee.value}</dd>
               </div>
             ))}
           </dl>
-          <p className="text-small text-on-dark-muted">{block.note}</p>
+          <p className="text-small text-ink-muted">{block.note}</p>
         </aside>
       </div>
     </>

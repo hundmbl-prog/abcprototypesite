@@ -38,4 +38,4 @@ export type OfferCardData = {
 export type HeadingLevel = 'h2' | 'h3' | 'h4'
 
 /** The approved card variants ("icon" = no photo, for secondary pages). Editors choose one per section in the CMS. */
-export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail' | 'icon'
+export type CardVariant = 'classic' | 'overlay' | 'horizontal' | 'bento' | 'rail' | 'icon' | 'text'

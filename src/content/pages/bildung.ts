@@ -385,7 +385,7 @@ export const lernfoerderungPage: ContentPage = {
       'nachhilfe@abc-mainz.de',
     ),
     cta({
-      title: 'Bereit für die Probestunde?',
+      title: 'Eine Probestunde vereinbaren',
       text: 'Schreiben Sie uns – wir melden uns schnell mit einem Termin.',
       primary: { label: 'Probetermin anfragen', href: 'mailto:nachhilfe@abc-mainz.de' },
       secondary: { label: 'Unsere Kurse', href: '/kurse' },

@@ -20,18 +20,19 @@ import g03419 from '@/assets/gallery/dsc03419.jpg'
 import g03458 from '@/assets/gallery/dsc03458.jpg'
 import g03447 from '@/assets/gallery/dsc03447.jpg'
 import g03454 from '@/assets/gallery/dsc03454.jpg'
-import abcUnterricht from '@/assets/photos/dsc00475.jpg'
-import abcTelc from '@/assets/photos/dsc03421.jpg'
-import abcTafel from '@/assets/photos/dsc00466.jpg'
-import abcKursraum from '@/assets/photos/dsc00462.jpg'
-import abcWhiteboard from '@/assets/photos/dsc00474.jpg'
-import abcLernen from '@/assets/photos/dsc00473.jpg'
-import abcSeminarraum from '@/assets/photos/dsc03442.jpg'
+import abcUnterricht from '@/assets/photos/web/dsc00475.jpg'
+import abcTelc from '@/assets/photos/web/dsc03421.jpg'
+import abcTafel from '@/assets/photos/web/dsc00466.jpg'
+import abcKursraum from '@/assets/photos/web/dsc00462.jpg'
+import abcWhiteboard from '@/assets/photos/web/dsc00474.jpg'
+import abcLernen from '@/assets/photos/web/dsc00473.jpg'
+import abcSeminarraum from '@/assets/photos/web/dsc03442.jpg'
 import type { StaticImageData } from 'next/image'
 import type { ContentImage } from './types'
 import frauenintegrationskurs from '@/assets/placeholder/frauenintegrationskurs.jpg'
 import hero from '@/assets/placeholder/hero.jpg'
 import mainzSkyline from '@/assets/photos/mainz-skyline.webp'
+import heroPoster from '@/assets/photos/hero-poster.jpg'
 import jugendintegrationskursErfolg from '@/assets/placeholder/jugendintegrationskurs-erfolg.jpg'
 import kindertagespflege from '@/assets/placeholder/kindertagespflege.jpg'
 import nachhilfe from '@/assets/placeholder/nachhilfe.jpg'
@@ -56,6 +57,10 @@ function img(src: StaticImageData, alt: string): ContentImage {
 }
 
 export const images = {
+  heroPoster: img(
+    heroPoster,
+    'Drei Frauen sprechen gemeinsam an einem Tisch in einem hellen Kursraum',
+  ),
   mainzSkyline: img(mainzSkyline, 'Mainzer Rheinufer mit Dom und Altstadt bei Sonnenuntergang'),
   hero: img(hero, 'Fröhliche junge Menschen jubeln gemeinsam in einer sonnigen Straße'),
   sprachkurse: img(sprachkurse, 'Lehrer unterstützt Jugendliche an ihren Laptops im Unterricht'),

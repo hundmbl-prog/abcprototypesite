@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Button } from '@/components/ui/Button'
-import { Watermark } from '@/components/ui/Watermark'
 
 export const metadata: Metadata = {
   title: 'Seite nicht gefunden',
@@ -28,7 +27,6 @@ export default function NotFound() {
           </Button>
         </div>
       </div>
-      <Watermark text="404" className="-right-6 bottom-0 w-[min(70vw,40rem)] text-surface-3" />
     </section>
   )
 }

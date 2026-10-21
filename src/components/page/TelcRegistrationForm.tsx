@@ -300,7 +300,7 @@ export function TelcRegistrationForm({
       <div className="flex flex-wrap items-center gap-4">
         <Button
           type="submit"
-          variant="cta"
+          variant="primary"
           size="lg"
           loading={pending}
           loadingLabel="Wird geprüft …"
@@ -317,23 +317,23 @@ export function TelcRegistrationForm({
 
       <div aria-live="polite" role="status">
         {result?.status === 'not-connected' ? (
-          <div className="flex flex-col gap-3 rounded-xl bg-blue-900 p-5 text-on-dark md:p-6">
+          <div className="flex flex-col gap-3 rounded-lg border border-blue-200 bg-blue-50 p-5 text-ink md:p-6">
             <p className="inline-flex items-center gap-2 font-semibold">
-              <Icon name="check" className="size-5 text-red-300" strokeWidth={2.5} />
+              <Icon name="check" className="size-5 text-success" strokeWidth={2.5} />
               Ihre Angaben sind vollständig.
             </p>
-            <p className="text-on-dark-muted">
+            <p className="text-ink-muted">
               Die Online-Übermittlung ist noch nicht freigeschaltet – Ihre Daten wurden nicht
               gesendet. Bitte melden Sie sich telefonisch unter {phone} oder per E-Mail an {email}{' '}
               an.
             </p>
           </div>
         ) : result?.status === 'rate-limited' ? (
-          <p className="rounded-xl bg-red-50 p-5 font-semibold text-red-700 ring-1 ring-red-200">
+          <p className="rounded-lg border border-red-200 bg-red-50 p-5 font-semibold text-red-700">
             Zu viele Versuche in kurzer Zeit. Bitte versuchen Sie es in ein paar Minuten erneut.
           </p>
         ) : result?.status === 'invalid' ? (
-          <p className="rounded-xl bg-red-50 p-5 font-semibold text-red-700 ring-1 ring-red-200">
+          <p className="rounded-lg border border-red-200 bg-red-50 p-5 font-semibold text-red-700">
             Bitte prüfen Sie die markierten Felder.
           </p>
         ) : null}

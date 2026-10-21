@@ -14,13 +14,11 @@ export function FilteredCards({
   variant,
   label,
   by = 'level',
-  simple = false,
 }: {
   cards: OfferCardData[]
   variant: CardVariant
   label: string
   by?: 'level' | 'tag'
-  simple?: boolean
 }) {
   const reduce = useReducedMotion()
   const keyOf = (c: OfferCardData) => (by === 'tag' ? c.tag : c.facts?.level)
@@ -67,7 +65,7 @@ export function FilteredCards({
           exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -8 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
-          <OfferCards cards={visible} variant={variant} label={label} simple={simple} />
+          <OfferCards cards={visible} variant={variant} label={label} />
         </motion.div>
       </AnimatePresence>
     </div>

@@ -11,7 +11,7 @@ export const siteSettings: SiteSettings = {
   claim: 'Bildung, die verbindet',
   foundingYear: 1997,
   footerAbout:
-    'Gemeinnütziger Bildungsträger seit 1997 – gegründet von migrantischen Eltern, Studierenden und Hochschulabsolventen. Wir begleiten Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf.',
+    'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach – für Sprache, Ausbildung und Beruf.',
   locations: [
     {
       id: 'mainz',
@@ -185,7 +185,7 @@ export const mainNavigation: NavSection[] = [
   {
     label: 'Über uns',
     href: '/ueber-uns',
-    intro: 'Seit 1997 ein Ort, an dem Menschen ankommen und sich willkommen fühlen.',
+    intro: 'Verein, Mitmachen, Jobs und Kontakt.',
     image: images.jugendErfolg,
     links: [
       { label: 'Warum ABC?', href: '/ueber-uns#warum-abc', description: 'Was uns ausmacht' },
@@ -240,7 +240,6 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
     links: [
       { label: 'Kontakt', href: '/ueber-uns/kontakt' },
       { label: 'Formulare', href: '/formulare' },
-      { label: 'Beschwerdeformular', href: '/formulare#beschwerde' },
       { label: 'Mitgliedschaft', href: '/ueber-uns#mitgliedschaft' },
     ],
   },

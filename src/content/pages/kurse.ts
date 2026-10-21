@@ -226,7 +226,7 @@ export const kursePage: ContentPage = {
       CONTACT_EMAIL_COURSES,
     ),
     cta({
-      title: 'Bereit für den ersten Schritt?',
+      title: 'Ihr Einstieg beginnt mit einem Gespräch',
       text: 'Vereinbaren Sie Ihren kostenlosen Einstufungstest – wir melden uns schnell zurück.',
       primary: { label: 'Einstufungstest vereinbaren', href: '#kontakt' },
       secondary: { label: 'telc Prüfungen', href: '/pruefungen/telc' },
@@ -364,7 +364,7 @@ const b1b2Page: ContentPage = {
       CONTACT_EMAIL_COURSES,
     ),
     cta({
-      title: 'Bereit für Ihre Prüfung?',
+      title: 'Prüfungstermin sichern',
       text: 'Sehen Sie die nächsten telc Termine oder melden Sie sich direkt an.',
       primary: { label: 'Zur Anmeldung', href: '/pruefungen/telc#anmeldung' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },
@@ -476,7 +476,7 @@ const bskPage: ContentPage = {
       'bsk@abc-mainz.de',
     ),
     cta({
-      title: 'Bereit für den nächsten Schritt im Beruf?',
+      title: 'Förderung klären, Kurs finden',
       text: 'Lassen Sie sich kostenlos beraten – wir klären mit Ihnen die Förderung.',
       primary: { label: 'Beratung anfragen', href: '#kontakt' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },
@@ -697,7 +697,7 @@ const integrationPage: ContentPage = {
       'integration@abc-mainz.de',
     ),
     cta({
-      title: 'Bereit für Ihren Integrationskurs?',
+      title: 'Ihr Platz im nächsten Kurs',
       text: 'Vereinbaren Sie Ihren kostenlosen Einstufungstest – neue Kurse starten regelmäßig.',
       primary: { label: 'Einstufungstest vereinbaren', href: '#kontakt' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },

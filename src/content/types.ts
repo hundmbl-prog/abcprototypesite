@@ -62,9 +62,7 @@ export type SiteSettings = {
 export type HeroHighlight = { value: string; label: string }
 
 export type HeroContent = {
-  badge: string
   eyebrow: string
-  highlights: HeroHighlight[]
   title: string
   text: string
   image: ContentImage
@@ -110,11 +108,9 @@ export type HomePage = {
   about: SectionIntro & {
     paragraphs: string[]
     image: ContentImage
-    milestones: Array<{ id: string; year: string; text: string }>
     cta: NavLink
   }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
-  why: SectionIntro & { stats: Stat[]; points: string[] }
   partners: SectionIntro & { items: Partner[] }
 }
 

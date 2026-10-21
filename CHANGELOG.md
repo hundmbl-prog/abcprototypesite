@@ -1,5 +1,76 @@
 # Changelog
 
+## Redesign – bright, warm, less template-like (2026-10-21)
+
+Brief from the management review: too dark, too much navy, looks AI-made because of repetition and template patterns.
+
+Decisions from 21.10.2026:
+
+- The brief's colours replace the colour sheet. The closing band uses ABC Blue #1C4A83 from the sheet in combination.
+- Slogan: "Bildung, die Perspektiven schafft".
+- Hero video: taken from abc-mainz.de. ABC confirmed it may be used outside Wix.
+- The Netlify toolbar is switched off by the user in Netlify.
+- Home offers have no photos.
+- The hero has no text box and no button shape.
+
+**Colours**
+
+- Real 50–900 scales: primary blue #2563C9 (hover #1D4FA6), tint #EEF4FC / #F7FAFE, navy #14325A for text only, red #C1121F.
+- No more large navy areas: the subpage heroes, the footer, info boxes, course headers, the fees panel and form notices are light.
+- Red is used once per page: the main button in the closing band. Other buttons are blue, slightly rounded (10 px), with no pills and no arrow circles.
+
+**Home page**
+
+- Hero: muted 11 s classroom loop from abc-mainz.de (480p on mobile, 720p otherwise) with the poster image underneath.
+  - The video loads only after the page and pauses when off-screen. With reduced motion it is not loaded at all.
+  - Headline, one sentence and two text links sit directly on the video, over a soft navy shading at the bottom left.
+- Order: hero → offers (text grid, each with its own link text) → "Wer wir sind" (team photo, the only "Seit 1997") → news as a plain list → partner logos (greyscale, colour on hover) → footer.
+- Removed:
+  - the welcome pill, the stat boxes and the scroll arrow
+  - the "Warum ABC" counters and the 1997/2021/Heute timeline
+  - the numbered icon cards, the chips and category pills
+  - the house shapes and the "Gemeinsam mehr erreichen" headline
+
+**Less repetition, fewer templates**
+
+- No small labels above headings, and no pill buttons beside section headings (plain text links instead).
+- "1997" appears at most once in the visible home text, and "Mehr erfahren" not at all.
+- Rewritten:
+  - the five "Bereit für …?" closing headings
+  - "Ein Ort zum Ankommen" (home) and the Über uns menu text
+  - "seit 1997" in the footer
+- Photo tiles (one photo, title, one line, the whole tile clickable) replace the nested card designs on Kurse, Prüfungen, Projekte and News.
+- Steps, features, columns, contacts, press, links and FAQ are simple lists separated by lines, with no card inside a card.
+
+**Subpages**
+
+- Compact light hero: breadcrumb (visible again, as in the brief), heading readable immediately, one sentence, key facts as a text line and one text link. Main pages show a photo beside it, with no badge and no frame.
+- The closing section of every page is a full-width ABC Blue band with white text, phone, department e-mail and the red main button.
+- Photo cards no longer look blurry: the large 24-megapixel originals are now served as 2400 px web copies (originals unchanged in the repository).
+
+**Typography and motion**
+
+- Clash Display only for h1 and h2, with looser letter-spacing and a little extra word spacing. Inter for everything else.
+- Removed: fade-in on scroll, Ken Burns zoom, counters, the scroll-linked hero effect and the "magnetic" button. Only subtle hover states remain.
+
+**Footer**
+
+- Light blue tint and compact: logo with one line, three link columns, and both locations with address, opening hours, phone and e-mail.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 364 tests at 4 widths – 356 passed, 8 skipped (desktop- or mobile-only), including axe on all pages.
+  - In the full run, 4 /kurse tests at 1280 px timed out while the emptied image cache generated new photo sizes. Rerun with a warm cache: passed.
+  - The tests answer hero-video requests with an empty response, so four parallel browsers don't overload the local test server.
+- New tests:
+  - "1997" at most once, and no "Mehr erfahren"
+  - hero video attributes and poster
+  - offer link texts are all different
+  - breadcrumb visible
+- Lighthouse, home page, mobile: performance 90–92 (LCP 3.4–3.6 s), accessibility 96, best practices 100, SEO 100.
+- Before/after screenshots at 1440 and 390 px of /, /kurse, /ueber-uns and /pruefungen were reviewed.
+
 ## Step 4 (part 10) – No decorative lines, strict white/wash order, photos for news and projects (2026-10-19)
 
 Decisions from 19.10.2026: remove all decorative red lines; section backgrounds only white ↔ Blue wash; photos on the news page, in articles and in "weitere Projekte"; keep the home figures 1.200+ and 60+.

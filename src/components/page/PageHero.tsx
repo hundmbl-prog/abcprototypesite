@@ -1,70 +1,14 @@
 import Image from 'next/image'
-import { Button } from '@/components/ui/Button'
-import { BrandMark } from '@/components/ui/BrandMark'
-import { Icon } from '@/components/ui/Icon'
+import { TextLink } from '@/components/ui/TextLink'
 import type { PageHero as PageHeroData } from '@/content/types'
 import { Breadcrumbs, type Crumb } from './Breadcrumbs'
 
 const HERO_ID = 'seitenkopf'
 
-/** Facts as icon chips – shared by both hero variants. */
-function HeroFacts({ facts }: { facts: NonNullable<PageHeroData['facts']> }) {
-  return (
-    <dl className="mt-3 flex animate-fade-up flex-wrap gap-3 [animation-delay:350ms]">
-      {facts.map((fact) => (
-        <div
-          key={fact.label}
-          className="relative flex min-h-14 flex-col justify-center rounded-xl bg-blue py-2 pr-4 pl-14 ring-1 ring-blue transition-[background-color,transform] duration-(--dur-base) ease-out-expo hov:-translate-y-0.5 hov:ring-on-dark"
-        >
-          <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
-            <span className="absolute top-1/2 left-2.5 grid size-9 -translate-y-1/2 place-items-center rounded-lg bg-red-500 text-on-dark">
-              <Icon name={fact.icon} className="size-4" />
-            </span>
-            {fact.label}
-          </dt>
-          <dd className="text-small font-semibold">{fact.value}</dd>
-        </div>
-      ))}
-    </dl>
-  )
-}
-
-function HeroText({
-  hero,
-  crumbs,
-  siteUrl,
-}: {
-  hero: PageHeroData
-  crumbs: Crumb[]
-  siteUrl: string
-}) {
-  return (
-    <>
-      <Breadcrumbs items={crumbs} siteUrl={siteUrl} />
-      <p className="inline-flex animate-fade-up items-center gap-3 text-small font-semibold tracking-widest text-red-300 uppercase">
-        {hero.eyebrow}
-      </p>
-      <h1 id="seiten-titel" className="max-w-4xl animate-fade-up text-h1 text-balance">
-        {hero.title}
-      </h1>
-      <p className="max-w-2xl animate-fade-up text-lead text-on-dark-muted [animation-delay:150ms]">
-        {hero.intro}
-      </p>
-      {/* Short on purpose: one sentence and one action (the secondary link stays in the content). */}
-      {hero.primaryCta ? (
-        <div className="flex animate-fade-up flex-wrap gap-3 [animation-delay:250ms]">
-          <Button href={hero.primaryCta.href} variant="pill-red" size="lg">
-            {hero.primaryCta.label}
-          </Button>
-        </div>
-      ) : null}
-    </>
-  )
-}
-
 /**
- * Hero for content pages on navy with the ABC house as brand element. Main pages (with a
- * photo) show it small beside the text with a fact badge; all other pages are text-only.
+ * Compact, light hero for content pages: breadcrumb, dark heading (visible immediately,
+ * no fade), one short intro, one text link. Main pages show a bright photo beside the text.
+ * Key facts are a plain text line – no chips, no badges.
  */
 export function PageHero({
   hero,
@@ -75,83 +19,54 @@ export function PageHero({
   crumbs: Crumb[]
   siteUrl: string
 }) {
-  if (!hero.image) return <CompactHero hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
-  const image = hero.image
-  const highlight = hero.facts?.[0]
+  const facts = hero.facts?.slice(0, 3) ?? []
   return (
-    <section
-      id={HERO_ID}
-      aria-labelledby="seiten-titel"
-      className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
-    >
-      <BrandMark tone="dark" className="-right-10 -bottom-10 w-[24rem]" />
-      <div className="container-wide grid grid-cols-1 items-center gap-12 pt-32 pb-14 md:pt-36 lg:grid-cols-12 lg:gap-16 lg:pb-16">
-        <div className="flex flex-col gap-5 lg:col-span-7">
-          <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
-          {/* The first fact is shown on the photo badge. */}
-          {hero.facts && hero.facts.length > 1 ? (
-            <HeroFacts facts={hero.facts.slice(1, 4)} />
+    <section id={HERO_ID} aria-labelledby="seiten-titel" className="bg-blue-100">
+      <div
+        className={
+          hero.image
+            ? 'container-wide grid grid-cols-1 items-center gap-10 pt-28 pb-12 md:pt-32 lg:grid-cols-12 lg:gap-14'
+            : 'container-wide pt-28 pb-12 md:pt-32 md:pb-14'
+        }
+      >
+        <div className="flex max-w-narrow flex-col gap-5 lg:col-span-7">
+          <Breadcrumbs items={crumbs} siteUrl={siteUrl} />
+          <h1 id="seiten-titel" className="text-h1 text-navy">
+            {hero.title}
+          </h1>
+          <p className="max-w-prose text-lead text-ink-muted">{hero.intro}</p>
+          {facts.length ? (
+            <dl className="flex flex-wrap gap-x-8 gap-y-2 text-small">
+              {facts.map((fact) => (
+                <div key={fact.label} className="flex gap-1.5">
+                  <dt className="text-ink-muted">{fact.label}:</dt>
+                  <dd className="font-semibold text-navy">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+          {hero.primaryCta ? (
+            <TextLink href={hero.primaryCta.href} className="text-lead">
+              {hero.primaryCta.label}
+            </TextLink>
           ) : null}
         </div>
-        <div className="max-w-md relative mx-auto w-full animate-fade-up [animation-delay:200ms] lg:col-span-5 lg:max-w-none">
-          <figure className="relative">
-            <div
-              data-hero-media
-              className="shadow-2xl overflow-hidden rounded-2xl ring-1 ring-blue"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                priority
-                fetchPriority="high"
-                placeholder={image.blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={image.blurDataURL}
-                className="aspect-4/3 w-full object-cover"
-              />
-            </div>
-            {highlight ? (
-              <figcaption className="absolute -bottom-6 left-3 flex items-center gap-3 rounded-xl bg-surface py-3 pr-5 pl-3 text-ink shadow-lg md:-left-8">
-                <span className="grid size-10 place-items-center rounded-lg bg-blue-700 text-on-dark">
-                  <Icon name={highlight.icon} className="size-5" />
-                </span>
-                <span className="flex flex-col">
-                  <span className="text-caption font-semibold tracking-wide text-red-600 uppercase">
-                    {highlight.label}
-                  </span>
-                  <span className="text-small font-semibold text-blue-900">{highlight.value}</span>
-                </span>
-              </figcaption>
-            ) : null}
-          </figure>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/** Photo-free hero for secondary pages: brand blue, logo mark, title, one sentence, key facts. */
-function CompactHero({
-  hero,
-  crumbs,
-  siteUrl,
-}: {
-  hero: PageHeroData
-  crumbs: Crumb[]
-  siteUrl: string
-}) {
-  return (
-    <section
-      id={HERO_ID}
-      aria-labelledby="seiten-titel"
-      className="relative isolate overflow-hidden bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]"
-    >
-      <BrandMark tone="dark" className="-right-10 -bottom-10 w-[24rem]" />
-      <div className="container-wide flex flex-col gap-5 pt-32 pb-12 md:pt-36 md:pb-14">
-        <HeroText hero={hero} crumbs={crumbs} siteUrl={siteUrl} />
-        {hero.facts?.length ? <HeroFacts facts={hero.facts.slice(0, 3)} /> : null}
+        {hero.image ? (
+          <div className="overflow-hidden rounded-lg lg:col-span-5">
+            <Image
+              src={hero.image.src}
+              alt={hero.image.alt}
+              width={hero.image.width}
+              height={hero.image.height}
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              priority
+              fetchPriority="high"
+              placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+              blurDataURL={hero.image.blurDataURL}
+              className="aspect-4/3 w-full object-cover"
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   )

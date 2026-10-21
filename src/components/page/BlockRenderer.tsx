@@ -38,8 +38,8 @@ type Section =
 /**
  * Turns the page blocks into sections:
  * - a contact block followed by a CTA becomes one closing card (no repeated contact details),
- * - backgrounds strictly alternate white / Blue wash after the navy hero, including the
- *   closing section, so the colour order is the same on every page (navy footer follows).
+ * - backgrounds alternate white / light blue tint after the hero; the closing section is
+ *   always a full-width ABC Blue band, so every page ends the same way before the footer.
  */
 function toSections(blocks: PageBlock[]): Section[] {
   const sections: Section[] = []
@@ -51,10 +51,10 @@ function toSections(blocks: PageBlock[]): Section[] {
       const next = blocks[i + 1]
       const cta = next?.type === 'cta' ? next : undefined
       if (cta) i++
-      sections.push({ kind: 'closing', contact: block, cta, tone: nextTone() })
+      sections.push({ kind: 'closing', contact: block, cta, tone: 'blue' })
       continue
     }
-    sections.push({ kind: 'block', block, tone: nextTone() })
+    sections.push({ kind: 'block', block, tone: block.type === 'cta' ? 'blue' : nextTone() })
   }
   return sections
 }
@@ -150,8 +150,9 @@ function Block({ block, data, tone }: { block: PageBlock; data: Data; tone: Sect
 
 const toneClass: Record<SectionTone, string> = {
   white: 'bg-surface',
-  soft: 'bg-blue-50',
-  deep: 'bg-blue-900 text-on-dark [--focus-ring:var(--color-on-dark)]',
+  soft: 'bg-blue-100',
+  // closing band: ABC Blue from the colour sheet, white text
+  blue: 'bg-abc-blue text-on-dark [--focus-ring:var(--color-on-dark)]',
 }
 
 /** Renders a page's blocks as sections (see toSections for backgrounds and merging). */

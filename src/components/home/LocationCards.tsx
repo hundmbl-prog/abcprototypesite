@@ -205,7 +205,7 @@ function LocationCard({
       <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
         <a
           href={telHref(location.phone)}
-          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-navy hov:shadow-(--shadow-glow-red)"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md bg-blue px-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow,transform] duration-(--dur-base) active:scale-95 hov:bg-navy hov:shadow-(--shadow-glow-red)"
         >
           <PhoneIcon />
           Anrufen
@@ -213,7 +213,7 @@ function LocationCard({
         </a>
         <a
           href={`mailto:${location.email}`}
-          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-4 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md bg-surface px-4 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50"
         >
           <Icon name="arrow-up-right" className="size-4" />
           E-Mail
@@ -223,7 +223,7 @@ function LocationCard({
           href={route}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-4 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md bg-surface px-4 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50"
         >
           <Icon name="location" className="size-4" />
           Route
@@ -234,7 +234,7 @@ function LocationCard({
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
-          className="ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-small font-semibold text-red-700 hov:bg-red-50"
+          className="ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-small font-semibold text-red-700 hov:bg-red-50"
         >
           Öffnungszeiten &amp; Karte
           <Icon

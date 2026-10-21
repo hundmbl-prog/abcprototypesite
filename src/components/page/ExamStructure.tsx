@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 import type { ExamStructureBlock } from '@/content/types'
 
-const shades = ['bg-blue-900', 'bg-blue-600', 'bg-blue-400', 'bg-red-500']
+const shades = ['bg-blue-700', 'bg-blue-500', 'bg-blue-300', 'bg-red-400']
 
 /**
  * Exam structure: a time bar sized by each written part's minutes (hover a part to highlight it),
@@ -46,12 +46,12 @@ export function ExamStructureBody({
         <div className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-8 lg:col-span-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Heading className="inline-flex items-center gap-3 text-h4 text-blue-900">
-              <span className="grid size-10 place-items-center rounded-pill bg-blue-900 text-on-dark">
+              <span className="grid size-10 place-items-center rounded-full bg-blue-100 text-blue-700">
                 <Icon name="pen" className="size-4" />
               </span>
               Schriftliche Prüfung
             </Heading>
-            <span className="rounded-pill bg-blue-900 px-3 py-1 text-small font-semibold text-on-dark">
+            <span className="text-small font-semibold text-navy">
               ca. {writtenTotal} Minuten
               {block.breakMinutes ? ` + ${block.breakMinutes} Min. Pause` : ''}
             </span>
@@ -97,36 +97,34 @@ export function ExamStructureBody({
             ))}
           </ul>
         </div>
-        <div className="flex flex-col gap-4 rounded-2xl bg-blue-900 p-6 text-on-dark shadow-md md:p-8 lg:col-span-4">
+        <div className="flex flex-col gap-4 rounded-lg border border-line bg-blue-50 p-6 text-ink md:p-8 lg:col-span-4">
           <Heading className="inline-flex items-center gap-3 text-h4">
-            <span className="grid size-10 place-items-center rounded-pill bg-red-500">
-              <Icon name="mic" className="size-4" />
-            </span>
+            <Icon name="mic" className="size-5 text-blue" />
             Mündliche Prüfung
           </Heading>
           <dl className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-blue p-3">
-              <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+            <div className="rounded-md bg-surface p-3 ring-1 ring-line">
+              <dt className="text-caption font-semibold tracking-wide text-ink-muted uppercase">
                 Dauer
               </dt>
               <dd className="font-semibold">ca. {block.oral.minutes} Min.</dd>
             </div>
-            <div className="rounded-xl bg-blue p-3">
-              <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+            <div className="rounded-md bg-surface p-3 ring-1 ring-line">
+              <dt className="text-caption font-semibold tracking-wide text-ink-muted uppercase">
                 Form
               </dt>
               <dd className="font-semibold">{block.oral.format}</dd>
             </div>
             {block.oral.preparation ? (
-              <div className="col-span-2 rounded-xl bg-blue p-3">
-                <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+              <div className="col-span-2 rounded-md bg-surface p-3 ring-1 ring-line">
+                <dt className="text-caption font-semibold tracking-wide text-ink-muted uppercase">
                   Vorbereitung
                 </dt>
                 <dd className="font-semibold">{block.oral.preparation}</dd>
               </div>
             ) : null}
           </dl>
-          <p className="text-small text-on-dark-muted">{block.oral.text}</p>
+          <p className="text-small text-ink-muted">{block.oral.text}</p>
         </div>
         <ul className="grid gap-3 rounded-2xl bg-blue-50 p-6 ring-1 ring-blue-100 sm:grid-cols-2 lg:col-span-12">
           {block.notes.map((note) => (
