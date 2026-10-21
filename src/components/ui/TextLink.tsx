@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { cn } from '@/lib/cn'
+import { Icon } from './Icon'
 
 /** Plain inline text link with a small arrow – used instead of a button where an action is secondary. */
 export function TextLink({
@@ -25,12 +26,10 @@ export function TextLink({
       )}
     >
       {children}
-      <span
-        aria-hidden
-        className="transition-transform duration-(--dur-base) group-hover:translate-x-1"
-      >
-        →
-      </span>
+      <Icon
+        name="arrow-right"
+        className="size-4 transition-transform duration-(--dur-base) group-hover:translate-x-1"
+      />
     </Link>
   )
 }

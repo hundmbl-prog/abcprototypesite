@@ -97,7 +97,7 @@ export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }
         href={`#${nextId}`}
         className="absolute bottom-6 left-1/2 hidden size-11 -translate-x-1/2 place-items-center rounded-pill glass-dark md:grid"
       >
-        <Icon name="chevron-down" className="size-4 motion-safe:animate-bounce" />
+        <Icon name="chevron-down" className="size-4" />
         <span className="sr-only">Weiter zu den Angeboten</span>
       </a>
       <HeroScroll targetId={HERO_ID} />

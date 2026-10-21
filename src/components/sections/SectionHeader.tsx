@@ -38,8 +38,8 @@ export function SectionHeader({
         {eyebrow ? (
           <p
             className={cn(
-              'inline-flex items-center gap-3 text-small font-semibold tracking-widest uppercase',
-              tone === 'dark' ? 'text-red-300' : 'text-red-600',
+              'text-small font-semibold',
+              tone === 'dark' ? 'text-on-dark-muted' : 'text-blue',
             )}
           >
             {eyebrow}

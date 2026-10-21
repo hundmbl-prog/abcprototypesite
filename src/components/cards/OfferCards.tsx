@@ -41,9 +41,9 @@ export function OfferCards({
             className,
           )}
         >
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <li key={card.id} data-reveal className="min-w-0">
-              <CardIcon card={card} index={index} headingLevel={headingLevel} />
+              <CardIcon card={card} headingLevel={headingLevel} />
             </li>
           ))}
         </ul>

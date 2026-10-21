@@ -8,8 +8,8 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
   return (
     <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-surface py-section">
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
-        <div className="group relative lg:col-span-6">
-          <div data-reveal="image" className="aspect-16/10 overflow-hidden rounded-2xl shadow-md">
+        <div className="lg:col-span-6">
+          <div data-reveal="image" className="aspect-16/10 overflow-hidden rounded-xl">
             <Image
               src={content.image.src}
               alt={content.image.alt}
@@ -18,7 +18,7 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
               sizes="(min-width: 1024px) 50vw, 100vw"
               placeholder={content.image.blurDataURL ? 'blur' : 'empty'}
               blurDataURL={content.image.blurDataURL}
-              className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
+              className="size-full object-cover"
             />
           </div>
         </div>

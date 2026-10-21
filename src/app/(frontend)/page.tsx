@@ -24,7 +24,7 @@ export default async function HomePage() {
       {/* Sections alternate soft logo-blue (blue-50) and white; cards always contrast with their section. */}
       <HomeHero hero={home.hero} nextId="angebote" />
 
-      {/* Blue: offers – numbered icon cards */}
+      {/* Blue: offers – icon cards */}
       <section
         id="angebote"
         aria-labelledby="angebote-titel"

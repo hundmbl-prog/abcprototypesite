@@ -1,5 +1,26 @@
 # Changelog
 
+## Home page: less template, same design (2026-10-21)
+
+Requested on 21.10.2026: keep the home page as it is, but remove what makes it look generated.
+
+- **Section labels:** the small line above each heading (Unsere Angebote, Über uns, News, Warum ABC, Partner & Förderer) is sentence case in ABC Blue instead of spaced capitals in red – on the subpage heroes too.
+- **Offer cards:** no "01–06" numbers (the offers are not a sequence), no category pill (the title says it already) and no large faded icon in the corner. The icon tile no longer rotates or turns red. Cards have a 16 px radius; on hover the frame turns ABC Blue with a soft shadow instead of lifting.
+- **News cards:** the category is plain text instead of a navy pill; same frame and hover as the offer cards.
+- **Warum ABC:** plain figures in Navy on the blue wash, without the icon circles and the hover lift; the two points are a simple check list instead of pills.
+- **Partner logos:** plain logos on the blue band – no white tiles, no lift. Logos without transparency are blended so their white boxes disappear.
+- **About:** photo with a 24 px radius (matches the reveal animation) and no shadow; it no longer zooms on hover, because it is not a link.
+- **Links:** text links use the same drawn arrow as the cards instead of the typed "→" character. Card links are blue and turn red on hover, like the text links.
+- **Motion:** the hero scroll arrow does not bounce; sections scroll in over 20 px instead of 32 px.
+- Unchanged: structure, texts, colours, hero video and button, footer, and every decision from earlier today.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright at 375 and 1280 px, 2 parallel browsers: home 48 passed, 4 skipped (desktop- or mobile-only); pages and styleguide 136 passed. 768 and 1920 px were not run.
+- Checked in the browser at 375 and 1280 px: no console errors or warnings, no horizontal overflow.
+- Not uploaded to Netlify.
+
 ## Colour sheet again, dark footer, interactive buttons, flat news photos (2026-10-21)
 
 Requested on 21.10.2026.

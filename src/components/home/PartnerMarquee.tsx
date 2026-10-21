@@ -2,26 +2,27 @@ import Image from 'next/image'
 import { SectionHeader } from '@/components/sections/SectionHeader'
 import type { HomePage } from '@/content'
 
-/** Partner logos on white cards, moving slowly. Pauses on hover; static grid with reduced motion. */
+/**
+ * Partner logos moving slowly across the blue wash – plain logos, no tiles. Pauses on hover;
+ * static, wrapped row with reduced motion. Multiply blending hides the white boxes of logos
+ * that have no transparency.
+ */
 export function PartnerMarquee({ content }: { content: HomePage['partners'] }) {
   const row = (hidden: boolean) => (
     <ul
       aria-hidden={hidden || undefined}
-      className="flex shrink-0 items-stretch gap-5 pr-5 motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:pr-0"
+      className="flex shrink-0 items-center gap-10 pr-10 motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-6 motion-reduce:pr-0"
     >
       {content.items.map((partner) => (
-        <li
-          key={partner.id}
-          className="group/logo grid h-32 w-64 shrink-0 place-items-center rounded-2xl bg-surface px-7 shadow-sm ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hover:-translate-y-1 hover:shadow-md"
-        >
+        <li key={partner.id} className="grid h-20 w-44 shrink-0 place-items-center">
           {partner.logo ? (
             <Image
               src={partner.logo.src}
               alt={hidden ? '' : partner.logo.alt}
               width={partner.logo.width}
               height={partner.logo.height}
-              sizes="224px"
-              className="max-h-20 w-auto max-w-full object-contain opacity-90 transition-[opacity,transform] duration-(--dur-slow) group-hover/logo:scale-105 group-hover/logo:opacity-100"
+              sizes="176px"
+              className="max-h-14 w-auto max-w-full object-contain mix-blend-multiply"
             />
           ) : (
             <span className="text-center font-semibold text-ink-muted">{partner.name}</span>

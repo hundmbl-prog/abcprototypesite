@@ -25,7 +25,7 @@ export function ScrollReveal() {
 
       if (blocks.length) {
         // opacity only (not visibility): content stays available to screen readers before it scrolls in
-        gsap.set(blocks, { opacity: 0, y: 32 })
+        gsap.set(blocks, { opacity: 0, y: 20 })
         ScrollTrigger.batch(blocks, {
           start: 'top 90%',
           once: true,
@@ -33,7 +33,7 @@ export function ScrollReveal() {
             gsap.to(batch, {
               opacity: 1,
               y: 0,
-              duration: 0.9,
+              duration: 0.8,
               ease: 'expo.out',
               stagger: 0.08,
               overwrite: true,
