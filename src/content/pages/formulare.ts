@@ -16,7 +16,7 @@ export const formularePage: ContentPage = {
     intro: 'Beschwerde und Bildung und Teilhabe – online.',
     facts: [
       { icon: 'pen', label: 'Formulare', value: 'Beschwerde, Bildung und Teilhabe' },
-      { icon: 'check', label: 'Beschwerde', value: 'auch anonym möglich' },
+      { icon: 'check', label: 'Beschwerde', value: 'anonym' },
       { icon: 'info', label: 'Datenschutz', value: 'vertraulich behandelt' },
       { icon: 'mail', label: 'Alternativ', value: 'kontakt@abc-mainz.de' },
     ],
@@ -26,15 +26,11 @@ export const formularePage: ContentPage = {
     {
       type: 'form',
       id: 'beschwerde',
-      eyebrow: 'Beschwerde',
-      title: 'Beschwerdeformular',
-      intro: 'Vertraulich – auf Wunsch auch anonym.',
+      eyebrow: 'Beschwerdeformular',
+      title: 'Beschwerdebogen',
+      intro: 'Hinweis: Bitte füllen Sie den Fragebogen anonym aus.',
       formId: 'beschwerde',
-      points: [
-        'Auch anonym möglich',
-        'Vertrauliche Bearbeitung',
-        'Rückmeldung, wenn Sie es wünschen',
-      ],
+      points: ['Die Beschwerde wird anonym an ABC Mainz übermittelt.'],
     },
     {
       type: 'form',

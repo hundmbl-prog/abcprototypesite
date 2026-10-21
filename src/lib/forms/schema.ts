@@ -45,6 +45,7 @@ function fieldSchema(field: FormField): z.ZodType {
       return required ? tel : z.union([z.literal(''), tel])
     }
     case 'select':
+    case 'radio':
       return required
         ? z
             .string()

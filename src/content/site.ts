@@ -207,6 +207,11 @@ export const mainNavigation: NavSection[] = [
         image: images.kindertagespflege,
       },
       { label: 'Kontakt', href: '/ueber-uns/kontakt', description: 'Mainz und Bad Kreuznach' },
+      {
+        label: 'Beschwerdeformular',
+        href: '/formulare#beschwerde',
+        description: 'Anonym und vertraulich',
+      },
     ],
   },
 ]

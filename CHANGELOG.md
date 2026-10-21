@@ -1,5 +1,15 @@
 # Changelog
 
+## Beschwerdeformular as on abc-mainz.de, linked in the menu (2026-10-21)
+
+Requested on 21.10.2026: the complaint form with the same content as the current website (abc-mainz.de/beschwerdeformular), and the "Beschwerdeformular" sub-item in the navigation linked.
+
+- **Form:** the "Beschwerdebogen" from the live site, question for question: 1. Ich bin … (5 choices), 2. Ich habe eine Beschwerde über … (14 choices), 3. Der Name der Person ist, 4. Der Raum / Kursnummer, Betreff, 5. Meine Beschwerde ist folgende, Lösungsvorschlag / zusätzliche Hinweise – with the original placeholders, the note "Bitte füllen Sie den Fragebogen anonym aus.", "Die Beschwerde wird anonym an ABC Mainz übermittelt." and the button "Beschwerde absenden". Like the original it asks for no name, e-mail or consent.
+- **Form system:** new field type `radio` (a fieldset with legend, two columns from 640 px, validated like a select) and an optional `placeholder` per field.
+- **Navigation:** "Über uns" › "Beschwerdeformular" (Anonym und vertraulich) links to `/formulare#beschwerde`, in the desktop dropdown and the mobile menu.
+- **Tests:** the empty-submit check expects the required-choice message for the complaint form; the complaint tests fill the questionnaire and check 5 + 14 choices and no consent box.
+- **Checks:** lint 0 / tsc 0 / build OK; Playwright home, pages and styleguide at 375 and 1280 px: 52 + 136 passed, 6 skipped. Checked in the browser at 1280 px, menu link included.
+
 ## Home page: news as a magazine block (2026-10-21)
 
 Requested on 21.10.2026: the news section was too plain.

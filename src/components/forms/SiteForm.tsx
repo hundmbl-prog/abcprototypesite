@@ -9,7 +9,7 @@ import { cn } from '@/lib/cn'
 import { submitForm } from '@/lib/forms/actions'
 import { formDefinitions, type FormField, type FormId } from '@/lib/forms/definitions'
 import { buildSchema, errorsFrom, type FormResult, type FormValues } from '@/lib/forms/schema'
-import { Checkbox, Field, FileInput, Input, Select, Textarea, describedBy } from './Field'
+import { Checkbox, Field, FileInput, Input, Radio, Select, Textarea, describedBy } from './Field'
 
 /**
  * A complete form built from its definition: same zod rules in the browser and on the server,
@@ -87,6 +87,7 @@ export function SiteForm({
       id: id(field.name),
       invalid,
       'aria-describedby': describedBy(id(field.name), { hint: !!field.hint, error: invalid }),
+      placeholder: field.placeholder,
       ...register(field.name),
     }
     switch (field.type) {
@@ -128,7 +129,44 @@ export function SiteForm({
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {definition.fields.map((field) =>
-          field.type === 'checkbox' ? (
+          field.type === 'radio' ? (
+            <fieldset
+              key={field.name}
+              aria-describedby={err(field.name) ? `${id(field.name)}-error` : undefined}
+              className={cn('flex flex-col gap-3', field.wide && 'md:col-span-2')}
+            >
+              <legend className="mb-3 text-small font-semibold text-ink">
+                {field.label}
+                {field.required ? (
+                  <span className="text-red-strong">
+                    <span aria-hidden> *</span>
+                    <span className="sr-only"> (Pflichtfeld)</span>
+                  </span>
+                ) : null}
+              </legend>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {field.options?.map((option, index) => (
+                  <Radio
+                    key={option}
+                    id={`${id(field.name)}-${index}`}
+                    value={option}
+                    label={option}
+                    invalid={!!err(field.name)}
+                    {...register(field.name)}
+                  />
+                ))}
+              </div>
+              {err(field.name) ? (
+                <p
+                  id={`${id(field.name)}-error`}
+                  className="flex items-start gap-1.5 text-small font-medium text-red-strong"
+                >
+                  <Icon name="alert" className="mt-0.5 size-4" />
+                  {err(field.name)}
+                </p>
+              ) : null}
+            </fieldset>
+          ) : field.type === 'checkbox' ? (
             <div key={field.name} className="flex flex-col gap-2 md:col-span-2">
               <Checkbox
                 id={id(field.name)}

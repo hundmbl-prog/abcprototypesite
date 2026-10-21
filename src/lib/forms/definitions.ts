@@ -3,7 +3,7 @@
  * One description per form – the browser and the server build the same zod schema from it.
  */
 export type FieldType =
-  'text' | 'email' | 'tel' | 'date' | 'textarea' | 'select' | 'checkbox' | 'file'
+  'text' | 'email' | 'tel' | 'date' | 'textarea' | 'select' | 'radio' | 'checkbox' | 'file'
 
 export type FormField = {
   name: string
@@ -11,6 +11,8 @@ export type FormField = {
   type: FieldType
   required?: boolean
   hint?: string
+  placeholder?: string
+  /** select and radio: the choices */
   options?: string[]
   autoComplete?: string
   /** Take up the full row on wide screens. */
@@ -78,41 +80,83 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       privacy,
     ],
   },
+  /* Beschwerdebogen – questions and choices as on abc-mainz.de/beschwerdeformular (anonymous, no consent box) */
   beschwerde: {
     id: 'beschwerde',
-    submitLabel: 'Beschwerde senden',
+    submitLabel: 'Beschwerde absenden',
     fields: [
       {
-        name: 'name',
-        label: 'Name',
-        type: 'text',
-        autoComplete: 'name',
-        hint: 'Freiwillig – Sie können die Beschwerde auch anonym senden.',
-      },
-      {
-        name: 'email',
-        label: 'E-Mail',
-        type: 'email',
-        autoComplete: 'email',
-        hint: 'Nur nötig, wenn Sie eine Antwort möchten.',
-      },
-      {
-        name: 'area',
-        label: 'Bereich',
-        type: 'select',
+        name: 'personType',
+        label: '1. Ich bin …',
+        type: 'radio',
         required: true,
+        wide: true,
         options: [
-          'Kurs',
-          'Prüfung',
-          'Beratung',
-          'Räume und Ausstattung',
-          'Verwaltung',
-          'Sonstiges',
+          'ein Schüler in der Nachhilfe',
+          'ein Schüler in dem Jugendprojekt',
+          'ein Teilnehmer in einem Integrationskurs/ADD-Kurs/Berufssprachkurs',
+          'ein Mitarbeiter',
+          'ein Angehöriger/Besucher',
         ],
       },
-      { name: 'date', label: 'Datum (falls bekannt)', type: 'date' },
-      { name: 'message', label: 'Ihre Beschwerde', type: 'textarea', required: true, wide: true },
-      privacy,
+      {
+        name: 'complaintAbout',
+        label: '2. Ich habe eine Beschwerde über …',
+        type: 'radio',
+        required: true,
+        wide: true,
+        options: [
+          'eine Lehrkraft in der Nachhilfe',
+          'eine Lehrkraft in dem Jugendprojekt',
+          'eine Lehrkraft in einem Integrationskurs',
+          'eine Lehrkraft in einem ADD-Kurs',
+          'eine Lehrkraft in einem Berufssprachkurs',
+          'eine Person in der Verwaltung',
+          'die Reinigungskraft',
+          'einen Schüler in der Nachhilfe',
+          'einen Schüler in dem Jugendprojekt (Schüler-Café/Wir sind Vielfalt/...)',
+          'einen Teilnehmer in einem Integrationskurs',
+          'einen Teilnehmer in einem ADD-Kurs',
+          'einen Teilnehmer in einem Berufssprachkurs',
+          'den Zustand in einem Raum',
+          'etwas anderes',
+        ],
+      },
+      {
+        name: 'personName',
+        label: '3. Der Name der Person ist:',
+        type: 'text',
+        placeholder: 'Name der betroffenen Person',
+      },
+      {
+        name: 'room',
+        label: '4. Der Raum / Kursnummer:',
+        type: 'text',
+        placeholder: 'Raum oder Kursnummer',
+      },
+      {
+        name: 'subject',
+        label: 'Betreff',
+        type: 'text',
+        required: true,
+        wide: true,
+        placeholder: 'Betreff Ihrer Beschwerde',
+      },
+      {
+        name: 'message',
+        label: '5. Meine Beschwerde ist folgende:',
+        type: 'textarea',
+        required: true,
+        wide: true,
+        placeholder: 'Bitte schildern Sie Ihre Beschwerde möglichst genau.',
+      },
+      {
+        name: 'solution',
+        label: 'Lösungsvorschlag / zusätzliche Hinweise:',
+        type: 'textarea',
+        wide: true,
+        placeholder: 'Hier können Sie einen Lösungsvorschlag oder weitere Hinweise eingeben.',
+      },
     ],
   },
   'bildung-und-teilhabe': {

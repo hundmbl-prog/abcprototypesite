@@ -350,12 +350,14 @@ test.describe('General forms', () => {
   const formOf = (page: Page, formId: string) =>
     page.locator(`form[aria-describedby="${formId}-hinweis"]`)
 
-  for (const [path, formId] of [
-    ['/ueber-uns/kontakt', 'kontakt'],
-    ['/formulare', 'beschwerde'],
-    ['/formulare', 'bildung-und-teilhabe'],
-    ['/ueber-uns', 'mitgliedschaft'],
-    ['/ueber-uns', 'bewerbung'],
+  const consent = 'Bitte stimmen Sie der Datenverarbeitung zu.'
+  for (const [path, formId, message] of [
+    ['/ueber-uns/kontakt', 'kontakt', consent],
+    // the anonymous complaint form has no consent box; its first question is required
+    ['/formulare', 'beschwerde', 'Bitte wählen Sie eine Option.'],
+    ['/formulare', 'bildung-und-teilhabe', consent],
+    ['/ueber-uns', 'mitgliedschaft', consent],
+    ['/ueber-uns', 'bewerbung', consent],
   ] as const) {
     test(`${formId}: empty submit shows errors, honeypot stays hidden`, async ({ page }) => {
       await page.goto(path)
@@ -363,7 +365,7 @@ test.describe('General forms', () => {
       await form.scrollIntoViewIfNeeded()
       await expect(form.locator(`#${formId}-website`)).not.toBeInViewport()
       await form.locator('button[type="submit"]').click()
-      await expect(form.getByText('Bitte stimmen Sie der Datenverarbeitung zu.')).toBeVisible()
+      await expect(form.getByText(message).first()).toBeVisible()
       await expect(form.locator('[aria-invalid="true"]').first()).toBeVisible()
     })
   }
@@ -385,13 +387,19 @@ test.describe('General forms', () => {
     await expect(form.getByText(/Ihre Daten wurden nicht gesendet/)).toBeVisible()
   })
 
-  test('complaint form works anonymously', async ({ page }) => {
+  test('complaint form: the questionnaire from abc-mainz.de works anonymously', async ({
+    page,
+  }) => {
     await newVisitor(page)
     await page.goto('/formulare#beschwerde')
     const form = formOf(page, 'beschwerde')
-    await form.locator('#beschwerde-area').selectOption('Kurs')
+    await expect(form.locator('input[name="personType"]')).toHaveCount(5)
+    await expect(form.locator('input[name="complaintAbout"]')).toHaveCount(14)
+    await expect(form.locator('#beschwerde-privacy')).toHaveCount(0)
+    await form.getByLabel('ein Angehöriger/Besucher').check()
+    await form.getByLabel('den Zustand in einem Raum').check()
+    await form.locator('#beschwerde-subject').fill('Heizung')
     await form.locator('#beschwerde-message').fill('Der Raum war zu kalt.')
-    await form.locator('#beschwerde-privacy').check()
     await form.locator('button[type="submit"]').click()
     await expect(form.getByText('Ihre Angaben sind vollständig.')).toBeVisible()
   })
@@ -424,9 +432,10 @@ test.describe('General forms', () => {
     await newVisitor(page)
     await page.goto('/formulare#beschwerde')
     const form = formOf(page, 'beschwerde')
-    await form.locator('#beschwerde-area').selectOption('Sonstiges')
+    await form.getByLabel('ein Mitarbeiter').check()
+    await form.getByLabel('etwas anderes').check()
+    await form.locator('#beschwerde-subject').fill('Test')
     await form.locator('#beschwerde-message').fill('Test der Begrenzung.')
-    await form.locator('#beschwerde-privacy').check()
     const submit = form.locator('button[type="submit"]')
     for (let i = 0; i < 5; i++) {
       await submit.click()
