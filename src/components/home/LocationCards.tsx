@@ -85,7 +85,7 @@ function WeekTable({ location, today }: { location: Location; today: number | nu
                 scope="row"
                 className={cn(
                   'rounded-l-md py-1.5 pl-3 text-left font-medium',
-                  isToday ? 'text-blue-900' : 'text-ink',
+                  isToday ? 'text-navy' : 'text-ink',
                 )}
               >
                 {name}
@@ -170,7 +170,7 @@ function LocationCard({
           <span className="text-caption font-semibold tracking-widest text-red-600 uppercase">
             {location.kind}
           </span>
-          <h3 className="text-h3 text-blue-900">{location.name}</h3>
+          <h3 className="text-h3 text-navy">{location.name}</h3>
         </div>
         <StatusPill status={status} />
       </div>
@@ -181,7 +181,7 @@ function LocationCard({
         <button
           type="button"
           onClick={copyAddress}
-          className="ml-1 grid size-8 shrink-0 place-items-center rounded-pill text-blue-700 transition-colors hov:bg-blue-50"
+          className="ml-1 grid size-8 shrink-0 place-items-center rounded-pill text-blue-700 transition-colors hov:bg-surface-3"
         >
           <svg
             viewBox="0 0 24 24"
@@ -267,7 +267,7 @@ function LocationCard({
               )}
               {location.branches?.length ? (
                 <div className="mt-2 border-t border-line px-3 pt-3 pb-1">
-                  <p className="text-caption font-semibold text-blue-900">Zweigstellen</p>
+                  <p className="text-caption font-semibold text-navy">Zweigstellen</p>
                   <ul className="mt-1 flex flex-col gap-0.5 text-caption text-ink-muted">
                     {location.branches.map((branch) => (
                       <li key={branch}>{branch}</li>

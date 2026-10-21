@@ -8,7 +8,7 @@ const config: Record<BadgeStatus, { label: string; className: string; dot?: bool
   'plaetze-frei': { label: 'Plätze frei', className: 'bg-success-soft text-success', dot: true },
   'wenige-plaetze': { label: 'Wenige Plätze', className: 'bg-red-soft text-red-strong', dot: true },
   ausgebucht: { label: 'Ausgebucht', className: 'bg-red text-on-dark' },
-  kostenlos: { label: 'Kostenlos', className: 'bg-navy text-on-dark' },
+  kostenlos: { label: 'Kostenlos', className: 'bg-blue text-on-dark' },
 }
 
 /** Status badge. Sharp corners on purpose, so it reads differently from the category pill. */

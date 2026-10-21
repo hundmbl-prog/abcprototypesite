@@ -8,7 +8,7 @@ function telHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
 }
 
-/** Dark navy footer, all text white: white logo, navigation, locations, legal row. Links light up in ABC Blue and shift slightly on hover. */
+/** ABC Blue footer, all text white: white logo, navigation, locations, legal row. Links get a white chip and shift slightly on hover. */
 export async function SiteFooter() {
   const [navigation, settings] = await Promise.all([getNavigation(), getSiteSettings()])
   const year = new Date().getFullYear()
@@ -49,7 +49,7 @@ export async function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="-mx-1.5 inline-block rounded-sm px-1.5 text-small text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
+                      className="-mx-1.5 inline-block rounded-sm px-1.5 text-small text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-on-dark hov:text-blue"
                     >
                       {link.label}
                     </Link>
@@ -80,13 +80,13 @@ export async function SiteFooter() {
                 ))}
                 <a
                   href={telHref(location.phone)}
-                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
+                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-on-dark hov:text-blue"
                 >
                   Tel. {location.phone}
                 </a>
                 <a
                   href={`mailto:${location.email}`}
-                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 break-all text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
+                  className="-mx-1.5 inline-block self-start rounded-sm px-1.5 break-all text-on-dark transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-on-dark hov:text-blue"
                 >
                   {location.email}
                 </a>
@@ -96,7 +96,7 @@ export async function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-blue">
+      <div className="border-t border-on-dark-muted">
         <div className="container-wide flex flex-col gap-4 py-6 text-small text-on-dark md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {settings.name}
@@ -106,7 +106,7 @@ export async function SiteFooter() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="-mx-1.5 inline-block rounded-sm px-1.5 transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-blue"
+                  className="-mx-1.5 inline-block rounded-sm px-1.5 transition-[background-color,transform] duration-(--dur-base) hov:translate-x-1 hov:bg-on-dark hov:text-blue"
                 >
                   {link.label}
                 </Link>

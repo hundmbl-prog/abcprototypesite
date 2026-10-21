@@ -119,7 +119,7 @@ export function SiteForm({
     >
       <p
         id={`${formId}-hinweis`}
-        className="flex items-start gap-3 rounded-xl bg-blue-50 p-4 text-small text-blue-900 ring-1 ring-blue-100"
+        className="flex items-start gap-3 rounded-xl bg-blue-50 p-4 text-small text-navy ring-1 ring-blue-100"
       >
         <Icon name="info" className="mt-0.5 size-4 text-blue-600" />
         Die Online-Übermittlung wird gerade eingerichtet. Sie können das Formular schon ausfüllen

@@ -77,10 +77,7 @@ export function IntroBlock({ block }: { block: IntroData }) {
         {block.points?.length ? (
           <ul className="grid gap-3 sm:grid-cols-2">
             {block.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-3 text-small font-medium text-blue-900"
-              >
+              <li key={point} className="flex items-start gap-3 text-small font-medium text-navy">
                 <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-pill bg-blue-600 text-on-dark">
                   <Icon name="check" className="size-3.5" strokeWidth={2.5} />
                 </span>
@@ -187,7 +184,7 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
             className={cn(
               'group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo md:p-8 hov:-translate-y-1',
               deep
-                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
+                ? 'bg-blue ring-1 ring-on-dark-muted hov:ring-on-dark'
                 : 'border border-line bg-linear-to-br from-surface to-blue-50 shadow-sm hov:shadow-(--shadow-float)',
             )}
           >
@@ -199,7 +196,7 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
             >
               <Icon name={col.icon} className="size-5" />
             </span>
-            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{col.title}</h3>
+            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-navy')}>{col.title}</h3>
             <ul className="flex flex-col gap-2.5">
               {col.items.map((item) => (
                 <li
@@ -235,7 +232,7 @@ export function ColumnsBlock({ block, tone }: { block: ColumnsData; tone?: Secti
               name="info"
               className={cn(
                 'absolute -right-6 -bottom-6 size-32',
-                deep ? 'text-blue-50' : 'text-blue',
+                deep ? 'text-blue-50' : 'text-on-dark/15',
               )}
             />
             <span
@@ -285,7 +282,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
             className={cn(
               'group relative flex flex-col gap-4 rounded-2xl p-6 transition-[transform,box-shadow,background-color] duration-(--dur-slow) ease-out-expo hov:-translate-y-1',
               deep
-                ? 'bg-blue ring-1 ring-blue hov:ring-on-dark'
+                ? 'bg-blue ring-1 ring-on-dark-muted hov:ring-on-dark'
                 : 'border border-line bg-surface shadow-sm hov:shadow-(--shadow-float)',
             )}
           >
@@ -294,7 +291,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
                 className={cn(
                   'grid size-11 place-items-center rounded-pill font-display text-h4 font-semibold transition-colors duration-(--dur-base)',
                   deep
-                    ? 'bg-red-500 text-on-dark group-hover:bg-surface group-hover:text-blue-900'
+                    ? 'bg-red-500 text-on-dark group-hover:bg-surface group-hover:text-navy'
                     : 'bg-blue-900 text-on-dark group-hover:bg-red-500',
                 )}
               >
@@ -308,7 +305,7 @@ export function StepsBlock({ block, tone }: { block: StepsData; tone?: SectionTo
                 )}
               />
             </div>
-            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-blue-900')}>{step.title}</h3>
+            <h3 className={cn('text-h4', deep ? 'text-on-dark' : 'text-navy')}>{step.title}</h3>
             <p className={cn('text-small', deep ? 'text-on-dark-muted' : 'text-ink-muted')}>
               {step.text}
             </p>
@@ -346,7 +343,7 @@ export function FaqBlock({ block }: { block: FaqData }) {
             key={item.question}
             className="group rounded-xl border border-line bg-surface shadow-sm transition-shadow duration-(--dur-base) open:shadow-md"
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-5 font-semibold text-blue-900 marker:hidden md:p-6 hov:bg-blue-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-5 font-semibold text-navy marker:hidden md:p-6 hov:bg-blue-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue [&::-webkit-details-marker]:hidden">
               {item.question}
               <span className="grid size-8 shrink-0 place-items-center rounded-pill bg-blue-50 text-blue-700 transition-[transform,background-color,color] duration-(--dur-base) ease-out-expo group-open:rotate-180 group-open:bg-red-500 group-open:text-on-dark">
                 <Icon name="chevron-down" className="size-4" />
@@ -395,7 +392,7 @@ export function LinksBlock({ block }: { block: LinksData }) {
                 </span>
                 <span className="flex min-w-0 flex-col gap-1">
                   <span className="flex flex-wrap items-center gap-2">
-                    <span className="font-semibold text-blue-900">{link.label}</span>
+                    <span className="font-semibold text-navy">{link.label}</span>
                     {link.kind ? (
                       <span className="rounded-pill bg-blue-900 px-2 py-0.5 text-caption font-semibold text-on-dark">
                         {link.kind}
@@ -533,7 +530,7 @@ export function FeesBlock({ block }: { block: FeesData }) {
             <tbody>
               {block.rows.map((row) => (
                 <tr key={row.label} className="border-t border-line odd:bg-blue-50">
-                  <th scope="row" className="p-4 font-semibold text-blue-900 md:px-6">
+                  <th scope="row" className="p-4 font-semibold text-navy md:px-6">
                     {row.label}
                     {row.note ? (
                       <span className="block text-small font-normal text-ink-muted">

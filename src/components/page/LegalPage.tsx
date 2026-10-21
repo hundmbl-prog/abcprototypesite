@@ -42,7 +42,7 @@ export function LegalPage({
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
-                      className="block rounded-md px-2 py-1.5 text-small break-words hyphens-auto text-blue-900 hov:bg-surface foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                      className="block rounded-md px-2 py-1.5 text-small break-words hyphens-auto text-navy hov:bg-surface foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                     >
                       {section.title}
                     </a>
@@ -67,7 +67,7 @@ export function LegalPage({
               >
                 <h2
                   id={`${section.id}-titel`}
-                  className="mb-4 text-h3 break-words hyphens-auto text-blue-900"
+                  className="mb-4 text-h3 break-words hyphens-auto text-navy"
                 >
                   {section.title}
                 </h2>
@@ -85,7 +85,7 @@ export function LegalPage({
                         ))}
                       </ul>
                     ) : item.type === 'h3' ? (
-                      <h3 key={i} className="mt-2 text-h4 break-words hyphens-auto text-blue-900">
+                      <h3 key={i} className="mt-2 text-h4 break-words hyphens-auto text-navy">
                         {item.text}
                       </h3>
                     ) : (

@@ -1,5 +1,24 @@
 # Changelog
 
+## Warmer and lighter: warm surfaces, ABC Blue for elements, Navy for text only (2026-10-21)
+
+Requested on 21.10.2026: "wärmer, freundlicher, moderner" – the blue cast over the hero video goes, and of the two blues only the lighter ABC Blue is used for design elements; Navy stays for text.
+
+- **Light surfaces:** the cool blue wash, tint and lines are warm paper tones now – wash #F7F5F2, tint #EEEAE4, lines #E2DDD5 (`surface-2/3`, `line`, and the `blue-50/100/200/300` names that map to them). Shadows are tinted with Ink instead of Navy.
+- **Hero:** the shading over the video (and over every photo, `shade`) is warm dark Ink #242222 instead of Navy – no blue filter.
+- **Blue rule:** every `blue-400 … blue-950` token resolves to ABC Blue #1C4A83, so footer, subpage heroes, blue panels, status pills, section tone "navy", buttons and the active menu item are ABC Blue. Navy #123054 is used for text only (`text-navy`: headings, card titles, figures) and, tone-on-tone, for the brand mark on blue bands.
+- **Follow-ups so nothing is blue on blue:** footer links get a white chip with blue text on hover and a light divider line; the fact chips in the subpage hero are white with Navy text; the icon tile on the offer cards no longer changes colour on hover.
+- **Style guide:** labels and pairings follow the new rule ("Text auf Blau", Navy = headings and figures).
+- **Audit of every component after the remap** (6 readers, each finding checked by a second agent): 29 places fixed where a chip, ring, divider or panel had become the same colour as its background – the oral-exam cells and the time bar on the exam pages, the course-type icon tile, the fact dividers in spotlights, the tab trays, the exam-date filter panel, the map consent panel, the skip link, the hero photo ring, the editorial block, the selected filter chip, hover states – plus eight comments and style-guide labels that still said "Navy".
+- Unchanged: red accents and buttons, texts, structure, hero video, the morning's decisions.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK (42 static pages).
+- Playwright at 375 and 1280 px, 2 parallel browsers: home 48 passed, 4 skipped (desktop- or mobile-only); pages and styleguide 136 passed, including axe (WCAG 2.1 AA) on every page template. 768 and 1920 px were not run.
+- Checked in the browser at 375 and 1280 px: home, Kurse, Integrationskurse, telc, Kontakt – no console errors, no horizontal overflow.
+- Not uploaded to Netlify.
+
 ## Home page: less template, same design (2026-10-21)
 
 Requested on 21.10.2026: keep the home page as it is, but remove what makes it look generated.

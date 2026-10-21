@@ -47,10 +47,7 @@ export function SectionHeader({
         ) : null}
         <Heading
           id={id}
-          className={cn(
-            Heading === 'h1' ? 'text-h1' : 'text-h2',
-            tone === 'light' && 'text-blue-900',
-          )}
+          className={cn(Heading === 'h1' ? 'text-h1' : 'text-h2', tone === 'light' && 'text-navy')}
         >
           {title}
         </Heading>

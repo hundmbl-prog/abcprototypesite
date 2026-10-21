@@ -18,14 +18,17 @@
    * Light pink (approved 19.10.2026) = ABC Red mixed with white: wash #FAF2F3, tint #F4E3E5,
    * line #EBCDD0 – only for light backgrounds that relate to the red accents.
    * Navy and ABC Red are the two main colours (confirmed again 21.10.2026).
+   * Warm light shades (21.10.2026, "wärmer und freundlicher"): the cool blue wash/tint/lines are
+   * replaced by warm paper tones – wash #F7F5F2, tint #EEEAE4, lines #E2DDD5. Navy is used for
+   * text only; every other blue element uses ABC Blue.
    */
 
   /* Light surfaces */
   --color-surface: #ffffff;
-  --color-surface-2: #f4f6f9;
-  --color-surface-3: #e9edf3;
-  --color-line: #dce1ec;
-  --color-line-strong: #dce1ec;
+  --color-surface-2: #f7f5f2;
+  --color-surface-3: #eeeae4;
+  --color-line: #e2ddd5;
+  --color-line-strong: #e2ddd5;
   /* Form-control borders need ≥ 3:1 on white (WCAG 1.4.11): Text colour */
   --color-control: #484343;
 
@@ -41,18 +44,19 @@
   --color-red-strong: #990111;
   --color-red-soft: #faf2f3;
 
-  /* Name map: wash/tint/lines for light shades, ABC Blue for mid, Navy for dark (colour sheet) */
-  --color-blue-50: #f4f6f9;
-  --color-blue-100: #e9edf3;
-  --color-blue-200: #dce1ec;
-  --color-blue-300: #dce1ec;
+  /* Name map (21.10.2026): warm wash/tint/lines for the light shades; 400–950 are all ABC Blue.
+     Navy is reserved for text (text-navy) and for the brand mark on blue. */
+  --color-blue-50: #f7f5f2;
+  --color-blue-100: #eeeae4;
+  --color-blue-200: #e2ddd5;
+  --color-blue-300: #e2ddd5;
   --color-blue-400: #1c4a83;
   --color-blue-500: #1c4a83;
   --color-blue-600: #1c4a83;
   --color-blue-700: #1c4a83;
-  --color-blue-800: #123054;
-  --color-blue-900: #123054;
-  --color-blue-950: #123054;
+  --color-blue-800: #1c4a83;
+  --color-blue-900: #1c4a83;
+  --color-blue-950: #1c4a83;
   /* Light pink (red tints); on navy, accents use the Blue tint */
   --color-red-50: #faf2f3;
   --color-red-100: #f4e3e5;
@@ -66,8 +70,8 @@
 
   /* Text */
   --color-ink: #242222;
-  /* Overlays on photos use Navy */
-  --color-shade: #123054;
+  /* Overlays on photos and the hero video: warm dark (Ink), no blue cast */
+  --color-shade: #242222;
   --color-ink-muted: #484343;
   --color-on-dark: #ffffff;
   --color-on-dark-muted: #e9edf3;
@@ -131,19 +135,19 @@
   --radius-2xl: 2rem;
   --radius-pill: 9999px;
 
-  /* ---------- Shadows (navy-tinted) ---------- */
+  /* ---------- Shadows (warm, ink-tinted) ---------- */
   --shadow-*: initial;
-  --shadow-xs: 0 1px 2px rgb(18 48 84 / 0.06);
-  --shadow-sm: 0 1px 3px rgb(18 48 84 / 0.08), 0 1px 2px rgb(18 48 84 / 0.04);
-  --shadow-md: 0 4px 12px -2px rgb(18 48 84 / 0.1), 0 2px 4px -2px rgb(18 48 84 / 0.06);
-  --shadow-lg: 0 12px 32px -8px rgb(18 48 84 / 0.16), 0 4px 8px -4px rgb(18 48 84 / 0.06);
-  --shadow-xl: 0 24px 56px -12px rgb(18 48 84 / 0.22), 0 8px 16px -8px rgb(18 48 84 / 0.08);
+  --shadow-xs: 0 1px 2px rgb(36 34 34 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(36 34 34 / 0.08), 0 1px 2px rgb(36 34 34 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(36 34 34 / 0.1), 0 2px 4px -2px rgb(36 34 34 / 0.06);
+  --shadow-lg: 0 12px 32px -8px rgb(36 34 34 / 0.16), 0 4px 8px -4px rgb(36 34 34 / 0.06);
+  --shadow-xl: 0 24px 56px -12px rgb(36 34 34 / 0.22), 0 8px 16px -8px rgb(36 34 34 / 0.08);
   /* Layered floating shadow for glass panels and lifted cards */
   --shadow-float:
-    0 1px 1px rgb(18 48 84 / 0.04), 0 4px 8px -2px rgb(18 48 84 / 0.06),
-    0 16px 32px -8px rgb(18 48 84 / 0.12), 0 40px 80px -24px rgb(18 48 84 / 0.18);
+    0 1px 1px rgb(36 34 34 / 0.04), 0 4px 8px -2px rgb(36 34 34 / 0.06),
+    0 16px 32px -8px rgb(36 34 34 / 0.12), 0 40px 80px -24px rgb(36 34 34 / 0.18);
   /* Kept as a name for the main CTA; a plain shadow (no coloured glow) */
-  --shadow-glow-red: 0 4px 12px -2px rgb(18 48 84 / 0.18);
+  --shadow-glow-red: 0 4px 12px -2px rgb(36 34 34 / 0.18);
 
   /* ---------- Motion ---------- */
   --ease-*: initial;

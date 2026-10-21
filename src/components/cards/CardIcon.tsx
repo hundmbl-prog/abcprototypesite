@@ -24,10 +24,10 @@ export function CardIcon({
         href={card.href}
         className="group flex h-full flex-col gap-4 rounded-lg border border-line bg-surface p-6 transition-[border-color,box-shadow] duration-(--dur-slow) ease-out-expo md:p-7 hov:border-blue hov:shadow-md"
       >
-        <span className="grid size-12 place-items-center rounded-md bg-blue text-on-dark transition-colors duration-(--dur-slow) group-hover:bg-navy">
+        <span className="grid size-12 place-items-center rounded-md bg-blue text-on-dark">
           <Icon name={icon} className="size-6" />
         </span>
-        <Heading className="text-h4 text-blue-900">{card.title}</Heading>
+        <Heading className="text-h4 text-navy">{card.title}</Heading>
         <p className="text-small text-ink-muted">{card.description}</p>
         {facts.length ? (
           <ul className="flex flex-wrap gap-2">

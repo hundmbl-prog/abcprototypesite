@@ -19,9 +19,9 @@ const colorGroups: Array<{ title: string; note: string; tokens: Array<[string, s
   },
   {
     title: 'Blau – 20–30 %',
-    note: 'Navy für dunkle Abschnitte und Überschriften, Blau für Links und Primärbuttons.',
+    note: 'Navy nur für Überschriften und Text, ABC Blau für dunkle Abschnitte, Links und Primärbuttons.',
     tokens: [
-      ['navy', 'Dunkle Abschnitte, Überschriften'],
+      ['navy', 'Überschriften und Zahlen (nur Text)'],
       ['navy-2', 'Hover auf Navy'],
       ['blue', 'Primärbutton, Links, Fokus'],
       ['blue-strong', 'Hover auf Blau'],
@@ -43,8 +43,8 @@ const colorGroups: Array<{ title: string; note: string; tokens: Array<[string, s
     tokens: [
       ['ink', 'Fließtext auf hell'],
       ['ink-muted', 'Nebentext auf hell'],
-      ['on-dark', 'Text auf Navy und Rot'],
-      ['on-dark-muted', 'Nebentext auf Navy'],
+      ['on-dark', 'Text auf Blau und Rot'],
+      ['on-dark-muted', 'Nebentext auf Blau'],
       ['success', 'Erfolg, „Plätze frei“'],
       ['success-soft', 'Erfolgsflächen'],
     ],
@@ -60,11 +60,10 @@ const pairings: Pairing[] = [
   { fg: 'blue', bg: 'surface', use: 'Links und Text-Buttons' },
   { fg: 'on-dark', bg: 'blue', use: 'Primärbutton' },
   { fg: 'on-dark', bg: 'red', use: 'Haupt-CTA (einmal pro Abschnitt)' },
-  { fg: 'on-dark', bg: 'navy', use: 'Text auf Navy' },
-  { fg: 'on-dark-muted', bg: 'navy', use: 'Nebentext auf Navy' },
-  { fg: 'navy', bg: 'surface', use: 'Weißer Button auf Navy' },
+  { fg: 'on-dark', bg: 'blue', use: 'Text auf Blau' },
+  { fg: 'on-dark-muted', bg: 'blue', use: 'Nebentext auf Blau' },
+  { fg: 'navy', bg: 'surface', use: 'Weißer Button auf Blau' },
   { fg: 'navy', bg: 'blue-soft', use: 'Text auf Hellblau' },
-  { fg: 'on-dark', bg: 'navy-2', use: 'Navy-Button (Hover)' },
   { fg: 'red-strong', bg: 'surface', use: 'Weißer Button auf Rot, Pflichtfeld-Stern' },
   { fg: 'red-strong', bg: 'red-soft', use: 'Badge „Wenige Plätze“' },
   { fg: 'success', bg: 'success-soft', use: 'Badge „Plätze frei“' },
@@ -77,8 +76,8 @@ const pairings: Pairing[] = [
   },
   {
     fg: 'red',
-    bg: 'navy',
-    use: 'Roter Text/Icon auf Navy – nur als Button mit weißem Text',
+    bg: 'blue',
+    use: 'Roter Text/Icon auf Blau – nur als Button mit weißem Text',
     allowed: false,
   },
   {
@@ -147,7 +146,7 @@ export function ColorSection({ colors }: { colors: ColorTokens }) {
         aria-label="Farbverhältnis: etwa 65 Prozent helle Flächen, 27 Prozent Blau, 8 Prozent Rot"
       >
         <span className="w-[65%] bg-surface-3" />
-        <span className="w-[27%] bg-navy" />
+        <span className="w-[27%] bg-blue" />
         <span className="w-[8%] bg-red" />
       </div>
       {colorGroups.map((group) => (
@@ -270,7 +269,7 @@ export function PairingSection({ colors }: { colors: ColorTokens }) {
             </p>
           </li>
           <li className="flex flex-col gap-2 rounded-lg tone-navy p-5">
-            <p className="font-semibold">Navy</p>
+            <p className="font-semibold">ABC Blau</p>
             <p className="text-small text-on-dark-muted">
               Weißer Text, weißer Button mit Navy-Text oder roter Button, Ghost-Buttons mit weißem
               Rahmen.
@@ -360,13 +359,13 @@ export function SpacingSection() {
         <ul className="grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-7">
           {radii.map(([name, cls]) => (
             <li key={name} className="flex flex-col items-start gap-2">
-              <span className={cn('size-20 border-2 border-navy bg-surface-3', cls)} />
+              <span className={cn('size-20 border-2 border-blue bg-surface-3', cls)} />
               <span className="font-mono text-small text-ink-muted">{name}</span>
             </li>
           ))}
         </ul>
       </SgSub>
-      <SgSub title="Schatten" note="Leicht navy-getönt statt grau.">
+      <SgSub title="Schatten" note="Warm getönt statt grau.">
         <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5">
           {shadows.map(([name, cls]) => (
             <li key={name} className="flex flex-col gap-3">

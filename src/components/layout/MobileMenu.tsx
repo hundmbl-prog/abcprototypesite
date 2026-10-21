@@ -84,7 +84,7 @@ export function MobileMenu({
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="grid size-11 place-items-center rounded-pill border border-line text-blue-900 hov:bg-surface-3"
+              className="grid size-11 place-items-center rounded-pill border border-line text-navy hov:bg-surface-3"
             >
               <Icon name="close" label="Menü schließen" />
             </button>
@@ -110,7 +110,7 @@ export function MobileMenu({
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       onClick={() => setExpanded(isOpen ? null : index)}
-                      className="flex w-full items-center justify-between gap-4 py-4 text-left font-display text-h3 font-semibold text-blue-900"
+                      className="flex w-full items-center justify-between gap-4 py-4 text-left font-display text-h3 font-semibold text-navy"
                     >
                       {section.label}
                       <Icon

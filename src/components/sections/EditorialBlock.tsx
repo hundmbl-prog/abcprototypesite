@@ -15,7 +15,7 @@ export function EditorialBlock({
 }) {
   return (
     <figure
-      className={cn('rounded-none border-l-4 border-red bg-surface-2 p-8 md:p-12', className)}
+      className={cn('rounded-none border-l-4 border-red bg-surface-3 p-8 md:p-12', className)}
     >
       {kicker ? (
         <p className="mb-4 text-small font-semibold tracking-widest text-ink-muted uppercase">

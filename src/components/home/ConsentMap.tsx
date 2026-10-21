@@ -32,7 +32,7 @@ export function ConsentMap({
       className={cn(
         'relative flex h-full flex-col overflow-hidden',
         compact
-          ? 'min-h-64 bg-surface-2'
+          ? 'min-h-64 bg-surface'
           : 'min-h-96 rounded-2xl border border-line bg-surface-2 shadow-(--shadow-float)',
       )}
     >
@@ -46,7 +46,7 @@ export function ConsentMap({
         />
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-5 [background-image:radial-gradient(var(--color-line-strong)_1px,transparent_1px)] [background-size:var(--spacing-gutter)_var(--spacing-gutter)] p-8 text-center">
-          <span className="grid size-14 place-items-center rounded-pill bg-navy text-on-dark shadow-lg">
+          <span className="grid size-14 place-items-center rounded-pill bg-blue text-on-dark shadow-lg">
             <Icon name="location" className="size-6" />
           </span>
           <p className="max-w-prose text-small text-ink-muted">

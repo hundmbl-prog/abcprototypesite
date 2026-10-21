@@ -38,8 +38,8 @@ type Section =
 /**
  * Turns the page blocks into sections:
  * - a contact block followed by a CTA becomes one closing card (no repeated contact details),
- * - backgrounds strictly alternate white / Blue wash after the navy hero, including the
- *   closing section, so the colour order is the same on every page (navy footer follows).
+ * - backgrounds strictly alternate white / warm wash after the blue hero, including the
+ *   closing section, so the colour order is the same on every page (blue footer follows).
  */
 function toSections(blocks: PageBlock[]): Section[] {
   const sections: Section[] = []

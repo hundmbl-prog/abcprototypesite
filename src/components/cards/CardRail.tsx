@@ -106,7 +106,7 @@ export function CardRail({
               type="button"
               onClick={() => api?.scrollPrev(prefersReducedMotion())}
               disabled={!canPrev}
-              className="grid size-11 place-items-center rounded-pill border border-control text-navy transition-colors duration-(--dur-base) disabled:opacity-40 hov:bg-navy hov:text-on-dark"
+              className="grid size-11 place-items-center rounded-pill border border-control text-navy transition-colors duration-(--dur-base) disabled:opacity-40 hov:bg-blue hov:text-on-dark"
             >
               <Icon name="arrow-left" label="Vorherige Karte" />
             </button>
@@ -114,7 +114,7 @@ export function CardRail({
               type="button"
               onClick={() => api?.scrollNext(prefersReducedMotion())}
               disabled={!canNext}
-              className="grid size-11 place-items-center rounded-pill border border-control text-navy transition-colors duration-(--dur-base) disabled:opacity-40 hov:bg-navy hov:text-on-dark"
+              className="grid size-11 place-items-center rounded-pill border border-control text-navy transition-colors duration-(--dur-base) disabled:opacity-40 hov:bg-blue hov:text-on-dark"
             >
               <Icon name="arrow-right" label="Nächste Karte" />
             </button>

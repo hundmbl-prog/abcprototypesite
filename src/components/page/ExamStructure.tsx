@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 import type { ExamStructureBlock } from '@/content/types'
 
-const shades = ['bg-blue-900', 'bg-blue-600', 'bg-blue-400', 'bg-red-500']
+const shades = ['bg-blue', 'bg-blue/70', 'bg-blue/40', 'bg-red']
 
 /**
  * Exam structure: a time bar sized by each written part's minutes (hover a part to highlight it),
@@ -45,7 +45,7 @@ export function ExamStructureBody({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-8 lg:col-span-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <Heading className="inline-flex items-center gap-3 text-h4 text-blue-900">
+            <Heading className="inline-flex items-center gap-3 text-h4 text-navy">
               <span className="grid size-10 place-items-center rounded-pill bg-blue-900 text-on-dark">
                 <Icon name="pen" className="size-4" />
               </span>
@@ -77,11 +77,11 @@ export function ExamStructureBody({
                 onMouseLeave={() => setFocus(null)}
                 className={cn(
                   'flex flex-col gap-1.5 rounded-xl border p-4 transition-[border-color,box-shadow] duration-(--dur-base)',
-                  focus === i ? 'border-blue-300 shadow-md' : 'border-line',
+                  focus === i ? 'border-blue shadow-md' : 'border-line',
                 )}
               >
                 <span className="flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-2 font-semibold text-blue-900">
+                  <span className="inline-flex items-center gap-2 font-semibold text-navy">
                     <span
                       aria-hidden
                       className={cn('size-2.5 rounded-pill', shades[i % shades.length])}
@@ -105,20 +105,20 @@ export function ExamStructureBody({
             Mündliche Prüfung
           </Heading>
           <dl className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-blue p-3">
+            <div className="rounded-xl p-3 ring-1 ring-on-dark-muted">
               <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                 Dauer
               </dt>
               <dd className="font-semibold">ca. {block.oral.minutes} Min.</dd>
             </div>
-            <div className="rounded-xl bg-blue p-3">
+            <div className="rounded-xl p-3 ring-1 ring-on-dark-muted">
               <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                 Form
               </dt>
               <dd className="font-semibold">{block.oral.format}</dd>
             </div>
             {block.oral.preparation ? (
-              <div className="col-span-2 rounded-xl bg-blue p-3">
+              <div className="col-span-2 rounded-xl p-3 ring-1 ring-on-dark-muted">
                 <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
                   Vorbereitung
                 </dt>
@@ -128,9 +128,9 @@ export function ExamStructureBody({
           </dl>
           <p className="text-small text-on-dark-muted">{block.oral.text}</p>
         </div>
-        <ul className="grid gap-3 rounded-2xl bg-blue-50 p-6 ring-1 ring-blue-100 sm:grid-cols-2 lg:col-span-12">
+        <ul className="grid gap-3 rounded-2xl border border-line bg-surface p-6 sm:grid-cols-2 lg:col-span-12">
           {block.notes.map((note) => (
-            <li key={note} className="flex items-start gap-3 text-small font-medium text-blue-900">
+            <li key={note} className="flex items-start gap-3 text-small font-medium text-navy">
               <Icon name="info" className="mt-0.5 size-4 text-blue-600" />
               {note}
             </li>

@@ -108,9 +108,7 @@ export function CardClassic({
         </div>
         <div className="relative z-10 mx-4 -mt-10 flex flex-1 flex-col gap-3 rounded-xl bg-linear-to-b from-surface via-surface to-red-50 p-5 shadow-md ring-1 ring-line transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo group-hov:-translate-y-2 group-hov:shadow-(--shadow-float)">
           <CardMeta card={{ ...card, badge: undefined }} tagTone="solid" />
-          <Heading className="font-display text-h4 font-semibold text-blue-900">
-            {card.title}
-          </Heading>
+          <Heading className="font-display text-h4 font-semibold text-navy">{card.title}</Heading>
           <p className="line-clamp-2 text-small text-ink-muted">{card.description}</p>
           <RedButton label={label} />
         </div>
@@ -152,7 +150,7 @@ export function CardClassic({
         <CardTitle
           card={card}
           as={headingLevel}
-          className={cn(compact ? 'text-h4' : 'text-h3', !dark && 'text-blue-900')}
+          className={cn(compact ? 'text-h4' : 'text-h3', !dark && 'text-navy')}
         />
         <p className={cn('line-clamp-2', dark ? 'text-on-dark' : 'text-ink-muted')}>
           {card.description}

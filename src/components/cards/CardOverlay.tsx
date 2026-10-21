@@ -13,7 +13,7 @@ type CardOverlayProps = {
 }
 
 /**
- * Variant 2 – full-bleed photo with a navy gradient; text sits on the image.
+ * Variant 2 – full-bleed photo with a warm dark (shade) gradient; text sits on the image.
  * On desktop the description slides up on hover/focus; on touch devices it is always visible.
  */
 export function CardOverlay({

@@ -14,9 +14,9 @@ function HeroFacts({ facts }: { facts: NonNullable<PageHeroData['facts']> }) {
       {facts.map((fact) => (
         <div
           key={fact.label}
-          className="relative flex min-h-14 flex-col justify-center rounded-xl bg-blue py-2 pr-4 pl-14 ring-1 ring-blue transition-[background-color,transform] duration-(--dur-base) ease-out-expo hov:-translate-y-0.5 hov:ring-on-dark"
+          className="relative flex min-h-14 flex-col justify-center rounded-xl bg-surface py-2 pr-4 pl-14 text-navy transition-transform duration-(--dur-base) ease-out-expo hov:-translate-y-0.5"
         >
-          <dt className="text-caption font-semibold tracking-wide text-on-dark-muted uppercase">
+          <dt className="text-caption font-semibold tracking-wide text-ink-muted uppercase">
             <span className="absolute top-1/2 left-2.5 grid size-9 -translate-y-1/2 place-items-center rounded-lg bg-red-500 text-on-dark">
               <Icon name={fact.icon} className="size-4" />
             </span>
@@ -63,7 +63,7 @@ function HeroText({
 }
 
 /**
- * Hero for content pages on navy with the ABC house as brand element. Main pages (with a
+ * Hero for content pages on ABC Blue with the ABC house as brand element. Main pages (with a
  * photo) show it small beside the text with a fact badge; all other pages are text-only.
  */
 export function PageHero({
@@ -97,7 +97,7 @@ export function PageHero({
           <figure className="relative">
             <div
               data-hero-media
-              className="shadow-2xl overflow-hidden rounded-2xl ring-1 ring-blue"
+              className="shadow-2xl overflow-hidden rounded-2xl ring-1 ring-on-dark-muted"
             >
               <Image
                 src={image.src}
@@ -121,7 +121,7 @@ export function PageHero({
                   <span className="text-caption font-semibold tracking-wide text-red-600 uppercase">
                     {highlight.label}
                   </span>
-                  <span className="text-small font-semibold text-blue-900">{highlight.value}</span>
+                  <span className="text-small font-semibold text-navy">{highlight.value}</span>
                 </span>
               </figcaption>
             ) : null}

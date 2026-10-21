@@ -65,16 +65,16 @@ const sizes: Record<ButtonSize, string> = {
 const variants: Record<ButtonVariant, string> = {
   // blue → red on hover
   primary: 'rounded-md bg-blue text-on-dark shadow-sm hov:bg-red hov:shadow-md act:translate-y-px',
-  navy: 'rounded-md bg-navy text-on-dark shadow-sm hov:bg-red hov:shadow-md act:translate-y-px',
+  navy: 'rounded-md bg-blue text-on-dark shadow-sm hov:bg-red hov:shadow-md act:translate-y-px',
   // red → white with red text and ring (visible on white sections and on navy boxes alike)
   cta: 'rounded-md bg-red text-on-dark shadow-sm ring-2 ring-red hov:bg-surface hov:text-red hov:shadow-md act:translate-y-px',
   white: 'rounded-md bg-surface text-navy shadow-sm hov:bg-red hov:text-on-dark act:translate-y-px',
   'white-red': 'rounded-md bg-surface text-red-strong shadow-sm hov:bg-red-soft act:translate-y-px',
   outline:
-    'rounded-md border-2 border-navy text-navy hov:bg-navy hov:text-on-dark act:translate-y-px',
+    'rounded-md border-2 border-blue text-navy hov:bg-blue hov:text-on-dark act:translate-y-px',
   ghost:
     'rounded-md border-2 border-on-dark text-on-dark hov:bg-on-dark hov:text-navy act:translate-y-px',
-  pill: 'rounded-pill bg-navy pr-2 text-on-dark hov:bg-red act:translate-y-px',
+  pill: 'rounded-pill bg-blue pr-2 text-on-dark hov:bg-red act:translate-y-px',
   'pill-red':
     'rounded-pill bg-red-500 pr-1.5 text-on-dark shadow-sm ring-2 ring-red hov:bg-surface hov:text-red hov:shadow-md act:scale-95',
   link: 'min-h-0! px-0! text-blue after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-(--dur-slow) after:ease-out-expo before:absolute before:inset-x-0 before:-bottom-0.5 before:h-0.5 before:bg-current before:opacity-25 hov:text-blue-strong hov:after:scale-x-100 foc:after:scale-x-100',

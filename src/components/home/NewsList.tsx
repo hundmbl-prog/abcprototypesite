@@ -13,7 +13,7 @@ export function NewsList({ items }: { items: NewsItem[] }) {
             className="group flex h-full flex-col gap-3 rounded-lg border border-line bg-surface p-5 transition-[border-color,box-shadow] duration-(--dur-slow) ease-out-expo md:p-6 hov:border-blue hov:shadow-md"
           >
             <span className="text-small text-ink-muted">{item.category}</span>
-            <h3 className="text-h4 text-blue-900">{item.title}</h3>
+            <h3 className="text-h4 text-navy">{item.title}</h3>
             <span className="mt-auto inline-flex origin-left items-center gap-2 pt-2 text-small font-semibold text-blue transition-[color,transform] duration-(--dur-base) ease-out-expo group-hover:scale-105 group-hover:text-red">
               Weiterlesen
               <Icon

@@ -69,7 +69,7 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
         role="tablist"
         aria-labelledby={`${block.id}-titel`}
         onKeyDown={onKeyDown}
-        className="mb-8 flex max-w-full gap-1 overflow-x-auto rounded-2xl bg-blue-50 p-1.5 ring-1 ring-blue-100"
+        className="mb-8 flex max-w-full gap-1 overflow-x-auto rounded-2xl bg-surface-3 p-1.5 ring-1 ring-line"
       >
         {block.levels.map((l, i) => (
           <button
@@ -86,7 +86,7 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
             onClick={() => setActive(i)}
             className={cn(
               'relative min-h-11 shrink-0 rounded-xl px-5 text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-base) foc:outline-2 foc:outline-offset-2 foc:outline-blue',
-              i === active ? 'text-on-dark' : 'text-blue-900 hov:bg-surface',
+              i === active ? 'text-on-dark' : 'text-navy hov:bg-surface',
             )}
           >
             {i === active ? (
@@ -121,7 +121,7 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
             >
               <div className="grid grid-cols-1 gap-6 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-8 lg:grid-cols-12">
                 <div className="flex flex-col gap-3 lg:col-span-7">
-                  <h3 className="text-h3 text-blue-900">{exam.name}</h3>
+                  <h3 className="text-h3 text-navy">{exam.name}</h3>
                   {exam.about.map((text) => (
                     <p key={text} className="text-ink-muted">
                       {text}
@@ -148,7 +148,7 @@ export function ExamLevels({ block }: { block: ExamLevelsBlock }) {
                           />
                         </span>
                         <span className="flex flex-col">
-                          <span className="font-semibold text-blue-900">{link.label}</span>
+                          <span className="font-semibold text-navy">{link.label}</span>
                           {link.description ? (
                             <span className="text-small text-ink-muted">{link.description}</span>
                           ) : null}

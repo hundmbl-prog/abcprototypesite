@@ -28,7 +28,7 @@ export function CourseTypes({ block }: { block: CourseTypesBlock }) {
           >
             <header className="relative isolate flex flex-col gap-4 overflow-hidden bg-blue-900 p-6 text-on-dark md:p-8">
               <div className="flex items-start gap-4">
-                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-blue ring-1 ring-blue">
+                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-surface text-navy">
                   <Icon name={course.icon} className="size-6" />
                 </span>
                 <div className="flex flex-col gap-1">
@@ -67,7 +67,7 @@ export function CourseTypes({ block }: { block: CourseTypesBlock }) {
               </dl>
 
               <div className="rounded-xl bg-blue-50 p-5 ring-1 ring-blue-100 md:p-6">
-                <h4 className="mb-3 text-small font-semibold text-blue-900">Kursinhalte</h4>
+                <h4 className="mb-3 text-small font-semibold text-navy">Kursinhalte</h4>
                 <ul className="grid gap-2.5 md:grid-cols-2">
                   {course.contents.map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-small text-ink">
@@ -81,7 +81,7 @@ export function CourseTypes({ block }: { block: CourseTypesBlock }) {
               </div>
 
               <div className="flex flex-col gap-4">
-                <h4 className="text-small font-semibold text-blue-900">Kursaufbau</h4>
+                <h4 className="text-small font-semibold text-navy">Kursaufbau</h4>
                 {course.modulesIntro ? (
                   <p className="max-w-3xl text-small text-ink-muted">{course.modulesIntro}</p>
                 ) : null}
@@ -95,7 +95,7 @@ export function CourseTypes({ block }: { block: CourseTypesBlock }) {
                         <span className="rounded-pill bg-blue-900 px-2.5 py-0.5 text-caption font-semibold text-on-dark transition-colors group-hover:bg-red-500">
                           {m.badge}
                         </span>
-                        <span className="font-semibold text-blue-900">{m.level}</span>
+                        <span className="font-semibold text-navy">{m.level}</span>
                       </span>
                       <span className="text-small text-ink-muted">{m.text}</span>
                     </li>
@@ -137,7 +137,7 @@ export function Features({ block }: { block: FeaturesBlock }) {
             <span className="grid size-12 place-items-center rounded-pill bg-blue-600 text-on-dark transition-transform duration-(--dur-slow) ease-out-expo group-hover:scale-110">
               <Icon name={item.icon} className="size-5" />
             </span>
-            <h3 className="text-h4 text-blue-900">{item.title}</h3>
+            <h3 className="text-h4 text-navy">{item.title}</h3>
             <p className="text-small text-ink-muted">{item.text}</p>
           </li>
         ))}
@@ -189,7 +189,7 @@ function SpotlightBody({
               key={list.title}
               className="relative overflow-hidden rounded-xl bg-surface p-5 shadow-sm ring-1 ring-line"
             >
-              <h3 className="mb-3 text-small font-semibold text-blue-900">{list.title}</h3>
+              <h3 className="mb-3 text-small font-semibold text-navy">{list.title}</h3>
               <ul className="flex flex-col gap-2">
                 {list.items.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-small text-ink">
@@ -265,7 +265,7 @@ export function Spotlight({ block }: { block: SpotlightBlock }) {
   const facts = block.facts?.length ? (
     <dl
       className={cn(
-        'grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-blue-800 ring-1 ring-blue-800',
+        'grid grid-cols-1 gap-px overflow-hidden rounded-xl bg-on-dark-muted ring-1 ring-on-dark-muted',
         block.image ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-1',
       )}
     >

@@ -93,7 +93,7 @@ export function ExamDates({
             <Icon name="calendar" className="size-5" />
           </span>
           <div className="flex flex-col gap-1">
-            <p className="text-h4 font-semibold text-blue-900">Neue Termine folgen in Kürze</p>
+            <p className="text-h4 font-semibold text-navy">Neue Termine folgen in Kürze</p>
             <p className="max-w-prose text-ink-muted">{emptyText}</p>
           </div>
         </div>
@@ -119,7 +119,7 @@ export function ExamDates({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4 rounded-2xl bg-blue-50 p-4 ring-1 ring-blue-100 md:p-5">
+      <div className="flex flex-col gap-4 rounded-2xl bg-surface p-4 ring-1 ring-line md:p-5">
         <div
           role="group"
           aria-label="Nach Prüfung filtern"
@@ -194,7 +194,7 @@ export function ExamDates({
                     <th
                       role="rowheader"
                       scope="row"
-                      className="col-span-2 font-semibold text-blue-900 md:p-4"
+                      className="col-span-2 font-semibold text-navy md:p-4"
                     >
                       {exam?.name ?? d.examId}
                     </th>

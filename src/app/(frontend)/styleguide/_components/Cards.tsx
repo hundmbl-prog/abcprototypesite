@@ -177,7 +177,7 @@ export function LayoutSection() {
 
       <SgSub
         title="CTA-Banner"
-        note="Navy als Standard, Rot nur für kurze, dringende Hinweise, Hellblau als ruhige Variante."
+        note="ABC Blau als Standard, Rot nur für kurze, dringende Hinweise, Hellblau als ruhige Variante."
       >
         <div className="flex flex-col gap-6">
           <CtaBanner

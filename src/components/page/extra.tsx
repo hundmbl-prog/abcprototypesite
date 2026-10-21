@@ -35,10 +35,7 @@ export function FormSection({
         {block.points?.length ? (
           <ul className="flex flex-col gap-3">
             {block.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-3 text-small font-medium text-blue-900"
-              >
+              <li key={point} className="flex items-start gap-3 text-small font-medium text-navy">
                 <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-pill bg-blue-600 text-on-dark">
                   <Icon name="check" className="size-3.5" strokeWidth={2.5} />
                 </span>
@@ -75,7 +72,7 @@ export function Contacts({ block }: { block: ContactsBlock }) {
             <span className="grid size-11 place-items-center rounded-pill bg-blue-600 text-on-dark">
               <Icon name={item.icon} className="size-5" />
             </span>
-            <h3 className="text-h4 text-blue-900">{item.title}</h3>
+            <h3 className="text-h4 text-navy">{item.title}</h3>
             {item.text ? <p className="text-small text-ink-muted">{item.text}</p> : null}
             <div className="mt-auto flex flex-col gap-1.5 pt-1">
               {item.email ? (
@@ -150,7 +147,7 @@ export function Press({ block }: { block: PressBlock }) {
                 </span>
                 {item.date}
               </p>
-              <h3 className="text-h4 text-blue-900">{item.title}</h3>
+              <h3 className="text-h4 text-navy">{item.title}</h3>
             </article>
           </li>
         ))}

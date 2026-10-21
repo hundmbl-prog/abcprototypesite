@@ -45,7 +45,7 @@ export function TabsBlock({ block }: { block: TabsData }) {
         role="tablist"
         aria-labelledby={`${block.id}-titel`}
         onKeyDown={onKeyDown}
-        className="mb-8 inline-flex max-w-full flex-wrap gap-1 rounded-2xl bg-blue-50 p-1.5 ring-1 ring-blue-100"
+        className="mb-8 inline-flex max-w-full flex-wrap gap-1 rounded-2xl bg-surface-3 p-1.5 ring-1 ring-line"
       >
         {block.tabs.map((t, i) => (
           <button
@@ -62,7 +62,7 @@ export function TabsBlock({ block }: { block: TabsData }) {
             onClick={() => setActive(i)}
             className={cn(
               'relative min-h-11 rounded-xl px-5 text-small font-semibold transition-colors duration-(--dur-base) foc:outline-2 foc:outline-offset-2 foc:outline-blue',
-              i === active ? 'text-on-dark' : 'text-blue-900 hov:bg-surface',
+              i === active ? 'text-on-dark' : 'text-navy hov:bg-surface',
             )}
           >
             {i === active ? (
@@ -96,7 +96,7 @@ export function TabsBlock({ block }: { block: TabsData }) {
               className="grid grid-cols-1 gap-8 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-10 lg:grid-cols-12"
             >
               <div className="flex flex-col gap-4 lg:col-span-6">
-                <h3 className="text-h3 text-blue-900">{tab.heading}</h3>
+                <h3 className="text-h3 text-navy">{tab.heading}</h3>
                 <p className="text-lead text-ink-muted">{tab.text}</p>
               </div>
               {tab.items?.length ? (
@@ -104,7 +104,7 @@ export function TabsBlock({ block }: { block: TabsData }) {
                   {tab.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-3 rounded-xl bg-blue-50 p-3 text-small font-medium text-blue-900"
+                      className="flex items-start gap-3 rounded-xl bg-blue-50 p-3 text-small font-medium text-navy"
                     >
                       <Icon
                         name="check"

@@ -97,7 +97,7 @@
   --focus-ring: var(--color-navy);
 }
 @utility tone-navy {
-  @apply bg-navy text-on-dark;
+  @apply bg-blue text-on-dark;
   --focus-ring: var(--color-on-dark);
 }
 @utility tone-red {

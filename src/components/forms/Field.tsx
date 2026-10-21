@@ -63,7 +63,7 @@ export function Field({ id, label, required, hint, error, className, children }:
 
 const control =
   'w-full rounded-md border bg-surface px-4 text-body text-ink placeholder:text-ink-muted transition-[border-color,box-shadow] duration-(--dur-fast) ' +
-  'hov:border-navy foc:border-blue foc:outline-2 foc:outline-offset-0 foc:outline-blue ' +
+  'hov:border-blue foc:border-blue foc:outline-2 foc:outline-offset-0 foc:outline-blue ' +
   'disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-muted disabled:border-line-strong ' +
   'read-only:bg-surface-2'
 
@@ -167,7 +167,7 @@ function Choice({
             'peer size-6 appearance-none border-2 bg-surface transition-colors duration-(--dur-fast)',
             kind === 'checkbox' ? 'rounded-sm' : 'rounded-pill',
             invalid ? 'border-red-strong' : 'border-control',
-            'checked:border-blue checked:bg-blue disabled:bg-surface-2 hov:border-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue',
+            'checked:border-blue checked:bg-blue disabled:bg-surface-2 hov:border-blue foc:outline-2 foc:outline-offset-2 foc:outline-blue',
           )}
           {...rest}
         />
@@ -211,8 +211,8 @@ export function FileInput({
       className={cn(
         'block w-full cursor-pointer rounded-md border border-dashed bg-surface-2 p-3 text-small text-ink-muted',
         invalid ? 'border-red-strong' : 'border-control',
-        'disabled:cursor-not-allowed disabled:opacity-60 hov:border-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue',
-        'file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-navy file:px-4 file:py-2 file:text-small file:font-semibold file:text-on-dark',
+        'disabled:cursor-not-allowed disabled:opacity-60 hov:border-blue foc:outline-2 foc:outline-offset-2 foc:outline-blue',
+        'file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-4 file:py-2 file:text-small file:font-semibold file:text-on-dark',
         className,
       )}
       {...rest}

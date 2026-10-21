@@ -27,8 +27,8 @@ export function FilterChip({
         'inline-flex min-h-11 items-center gap-2 rounded-pill border px-4 text-small font-semibold transition-colors duration-(--dur-base)',
         'disabled:cursor-not-allowed disabled:opacity-50 foc:outline-2 foc:outline-offset-3 foc:outline-(--focus-ring)',
         selected
-          ? 'border-navy bg-navy text-on-dark hov:bg-navy-2'
-          : 'border-control bg-surface text-ink hov:border-navy hov:bg-surface-3',
+          ? 'border-blue bg-blue text-on-dark hov:border-red hov:bg-red'
+          : 'border-control bg-surface text-ink hov:border-blue hov:bg-surface-3',
         className,
       )}
       {...rest}

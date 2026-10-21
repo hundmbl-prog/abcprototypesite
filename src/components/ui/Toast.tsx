@@ -35,7 +35,7 @@ export function Toast({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 rounded-pill px-5 py-3 text-small font-semibold text-blue-900 glass-strong"
+            className="inline-flex items-center gap-2 rounded-pill px-5 py-3 text-small font-semibold text-navy glass-strong"
           >
             <span className="grid size-5 place-items-center rounded-pill bg-success text-on-dark">
               <Icon name="check" className="size-3" strokeWidth={3} />
