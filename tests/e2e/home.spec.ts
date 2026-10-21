@@ -133,7 +133,7 @@ test.describe('Offer cards and about', () => {
     const offsets = await page
       .locator('svg[data-draw] path, [data-thread] line')
       .evaluateAll((paths) => paths.map((p) => (p as SVGGeometryElement).style.strokeDashoffset))
-    expect(offsets).toHaveLength(6)
+    expect(offsets).toHaveLength(6) // 5 marker underlines + the offer thread
     expect(offsets.every((offset) => offset === '')).toBe(true)
   })
 

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { HouseMark } from '@/components/ui/HouseMark'
 import { TextLink } from '@/components/ui/TextLink'
 import type { HomePage } from '@/content'
 
@@ -16,15 +17,18 @@ export function AboutSection({ content }: { content: HomePage['about'] }) {
     >
       <div className="container-page flex flex-col gap-12 lg:gap-16">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-8">
-          <SectionHeader
-            id="ueber-uns-titel"
-            eyebrow={content.eyebrow}
-            title={content.title}
-            size="h1"
-            mark
-            reveal={false}
-            className="mb-0! md:mb-0! lg:col-span-7"
-          />
+          <div className="flex flex-col gap-6 lg:col-span-7">
+            <HouseMark variant="roof" stroke={4} className="w-14 text-blue" />
+            <SectionHeader
+              id="ueber-uns-titel"
+              eyebrow={content.eyebrow}
+              title={content.title}
+              size="h1"
+              mark
+              reveal={false}
+              className="mb-0! md:mb-0!"
+            />
+          </div>
           <div className="flex flex-col gap-6 lg:col-span-5">
             {content.paragraphs.map((text) => (
               <p key={text} className="max-w-prose text-lead text-ink-muted">

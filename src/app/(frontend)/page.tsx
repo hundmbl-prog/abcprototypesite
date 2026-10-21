@@ -6,6 +6,7 @@ import { NewsList } from '@/components/home/NewsList'
 import { PartnerMarquee } from '@/components/home/PartnerMarquee'
 import { WhySection } from '@/components/home/WhySection'
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { HouseMark } from '@/components/ui/HouseMark'
 import { TextLink } from '@/components/ui/TextLink'
 import { getHomePage } from '@/content'
 
@@ -27,8 +28,13 @@ export default async function HomePage() {
       <section
         id="angebote"
         aria-labelledby="angebote-titel"
-        className="bg-surface-2 py-section-lg"
+        className="relative isolate overflow-x-clip bg-surface-2 py-section-lg"
       >
+        {/* The logo house as a quiet line drawing in the empty corner; overflow-x-clip keeps the sticky frame working */}
+        <HouseMark
+          stroke={6}
+          className="absolute -right-40 bottom-0 -z-10 hidden w-[32rem] text-line md:block"
+        />
         <div className="container-page">
           <SectionHeader
             id="angebote-titel"

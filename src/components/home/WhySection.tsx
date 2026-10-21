@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { SectionHeader } from '@/components/sections/SectionHeader'
+import { HouseMark } from '@/components/ui/HouseMark'
 import type { HomePage } from '@/content'
 import { Counter } from './Counter'
 
@@ -12,8 +13,13 @@ export function WhySection({ content }: { content: HomePage['why'] }) {
     <section
       id="warum-abc"
       aria-labelledby="warum-titel"
-      className="bg-surface-2 py-section-lg lg:flex lg:min-h-svh lg:flex-col lg:justify-center"
+      className="relative isolate overflow-x-clip bg-surface-2 py-section-lg lg:flex lg:min-h-svh lg:flex-col lg:justify-center"
     >
+      {/* The logo house tone-on-tone on the paper, top right (desktop only) */}
+      <HouseMark
+        stroke={6}
+        className="absolute top-10 -right-12 -z-10 hidden w-[20rem] text-line lg:block"
+      />
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-x-8">
         <div className="order-last aspect-3/2 overflow-hidden rounded-xl lg:order-none lg:col-span-5 lg:aspect-4/5">
           <Image

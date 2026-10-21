@@ -121,8 +121,8 @@
   /* Home page: height one offer entry owns beside the sticky photo frame (lg only) */
   --spacing-stage: clamp(16rem, 45svh, 26rem);
   /* Marker underline under the last word of a heading: height and offset, em-relative */
-  --spacing-mark: 0.3em;
-  --spacing-mark-offset: 0.1em;
+  --spacing-mark: 0.36em;
+  --spacing-mark-offset: 0.16em;
 
   /* Content widths */
   --container-*: initial;

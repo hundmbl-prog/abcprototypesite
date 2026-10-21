@@ -13,13 +13,13 @@ export function Marked({ children }: { children: string }) {
         data-draw
         viewBox="0 0 100 10"
         preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 -bottom-mark-offset h-mark w-full text-blue"
+        className="pointer-events-none absolute inset-x-0 -bottom-mark-offset h-mark w-full overflow-visible text-blue"
       >
         <path
           d="M2 7 C 30 4.5, 60 9, 98 3"
           fill="none"
           stroke="currentColor"
-          strokeWidth={3}
+          strokeWidth={5}
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />

@@ -126,7 +126,7 @@ export function OfferIndex({ cards, className }: { cards: OfferCardData[]; class
         <svg
           data-thread
           focusable="false"
-          className="pointer-events-none absolute inset-0 h-full w-full text-blue"
+          className="pointer-events-none absolute inset-0 h-full w-full overflow-visible text-blue"
         >
           <line
             x1="50%"
@@ -135,7 +135,7 @@ export function OfferIndex({ cards, className }: { cards: OfferCardData[]; class
             y2="100%"
             pathLength={1}
             stroke="currentColor"
-            strokeWidth={3}
+            strokeWidth={4}
             strokeLinecap="round"
           />
         </svg>

@@ -1,5 +1,23 @@
 # Changelog
 
+## Home page: thicker marker, the logo house as line drawing (2026-10-21)
+
+Requested on 21.10.2026: the underline is liked – thicker and more striking; subtle decorative elements derived from the house of the logo, spread across the home page.
+
+- **Marker underline:** stroke 5 px instead of 3 px, a little taller and lower (`--spacing-mark` 0.36em, `--spacing-mark-offset` 0.16em). The thread beside the offers is 4 px, the same motif.
+- **HouseMark (new, `src/components/ui/HouseMark.tsx`):** the house from the logo redrawn as lines on the logo's own grid – roof chevron, gabled body, the three puzzle seams with their round tabs – in the current text colour, with a fixed stroke width in pixels. Two variants: the roof alone, or the whole outline.
+- **Three quiet placements:** in the empty bottom-right corner of the offers chapter a large house in the line colour on the paper (tone-on-tone, from tablet width); a small blue roof above "Über uns"; in "Warum ABC" the house tone-on-tone in the top-right corner (desktop only). Blue stays reserved for the hand strokes – underline, thread, the small roof. The hero, news and partners stay undecorated; the footer keeps the solid brand mark.
+- **Layout:** the two decorated sections clip horizontally with `overflow-x-clip` (not `overflow-hidden`, which would stop the sticky photo frame); the drawings sit at `-z-10` inside `isolate`, so they paint above the paper but below the content.
+- **ScrollReveal:** the dash length of a drawn underline is the real path length scaled to the rendered size, re-measured on refresh, and released once the line is drawn, so a later resize never leaves gaps.
+- **Review:** three reviewer agents (restraint, accessibility and motion, layout) checked the pass, each finding verified by a second agent: the Warum-ABC house lost its blue and its animation, the offers house moved out of the heading row, the roof got a tighter box, the thread's round caps are no longer clipped.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK (42 static pages).
+- Playwright home at 375, 768, 1280 and 1920 px: 104 passed, 12 skipped (desktop- or mobile-only), including axe. Pages and styleguide at 375 and 1280 px: 136 passed.
+- Checked in the browser at 375 and 1280 px: thicker underline, thread with round caps, the three house placements, sticky frame still working, no console errors, no horizontal overflow.
+- Not uploaded to Netlify.
+
 ## Home page: Großdruck – type instead of tiles, one blue thread (2026-10-21)
 
 Requested on 21.10.2026: no more rectangles and squares around the information, nicer or no icons, a few more faces, more air between sections, sections at viewport height, more colour and cheer, something that draws itself from top to bottom while scrolling, Apple-clean.
