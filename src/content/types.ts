@@ -62,6 +62,7 @@ export type SiteSettings = {
 export type HeroHighlight = { value: string; label: string }
 
 export type HeroContent = {
+  badge: string
   eyebrow: string
   title: string
   text: string
@@ -111,6 +112,7 @@ export type HomePage = {
     cta: NavLink
   }
   news: SectionIntro & { items: NewsItem[]; cta: NavLink }
+  why: SectionIntro & { stats: Stat[]; points: string[] }
   partners: SectionIntro & { items: Partner[] }
 }
 

@@ -1,84 +1,124 @@
 import { getImageProps } from 'next/image'
 import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/ui/Icon'
+import { Magnetic } from '@/components/motion/Magnetic'
 import type { HeroContent } from '@/content/types'
+import { HeroScroll } from './HeroScroll'
 import { HeroVideo } from './HeroVideo'
 
-/**
- * Home hero: bright classroom video (poster image under reduced motion). Headline, one
- * sentence and two text links sit directly on the video in white, over a soft navy
- * shading in the bottom-left corner only – no box, no button shapes.
- */
-export function HomeHero({ hero }: { hero: HeroContent }) {
-  const {
-    props: { srcSet, sizes, src, alt, width, height },
-  } = getImageProps({
+const HERO_ID = 'start'
+
+export function HomeHero({ hero, nextId }: { hero: HeroContent; nextId: string }) {
+  const words = hero.title.split(' ')
+  const { props: poster } = getImageProps({
     src: hero.image.src,
     alt: hero.image.alt,
     width: hero.image.width,
     height: hero.image.height,
     sizes: '100vw',
-    quality: 70,
+    quality: 75,
     priority: true,
   })
   return (
     <section
-      id="start"
+      id={HERO_ID}
       aria-labelledby="hero-titel"
-      className="relative isolate flex h-[70svh] min-h-[34rem] items-end overflow-hidden bg-navy md:h-[88svh]"
+      className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden bg-shade text-on-dark [--focus-ring:var(--color-on-dark)]"
     >
-      {/* Poster: shown until the video plays, and instead of it with reduced motion */}
-      {/* eslint-disable-next-line @next/next/no-img-element -- optimised via getImageProps */}
-      <img
-        src={src}
-        srcSet={srcSet}
-        sizes={sizes}
-        alt={alt}
-        width={width}
-        height={height}
-        fetchPriority="high"
-        className="absolute inset-0 -z-10 size-full object-cover"
-      />
-      <HeroVideo poster={src} />
-      {/* Soft navy shading only behind the text (bottom left); the rest of the video stays bright */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-linear-to-t from-navy/60 via-navy/15 to-transparent md:bg-linear-to-tr md:from-navy/55 md:via-navy/10 md:to-transparent"
-      />
+      <div data-hero-media className="absolute inset-0 -z-10 overflow-hidden will-change-transform">
+        <div className="relative size-full">
+          {/* Poster image: shown at once, until the video plays and instead of it with reduced motion */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- optimised via getImageProps */}
+          <img
+            src={poster.src}
+            srcSet={poster.srcSet}
+            sizes={poster.sizes}
+            alt={poster.alt}
+            width={poster.width}
+            height={poster.height}
+            fetchPriority="high"
+            className="absolute inset-0 size-full object-cover"
+          />
+          <HeroVideo poster={poster.src} />
+        </div>
+        {/* Light shading only where the text sits, so the video stays bright */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-t from-shade/60 via-shade/15 to-shade/0"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-r from-shade/45 via-shade/5 to-shade/0"
+        />
+      </div>
 
-      <div className="relative container-wide pb-12 text-on-dark md:pb-20">
-        <div className="max-w-[40rem] [text-shadow:0_1px_12px_rgb(20_50_90/0.35)]">
+      <div
+        data-hero-content
+        className="container-wide grid items-end gap-10 pt-36 pb-16 md:pb-20 lg:grid-cols-12 lg:gap-12"
+      >
+        <div className="flex flex-col gap-7 lg:col-span-7">
+          <p className="inline-flex animate-fade-up items-center gap-2 self-start rounded-pill px-4 py-2 text-small font-semibold glass-dark">
+            <span aria-hidden className="relative flex size-2">
+              <span className="absolute inline-flex size-full rounded-pill bg-success-soft opacity-75 motion-safe:animate-ping" />
+              <span className="relative inline-flex size-2 rounded-pill bg-success-soft" />
+            </span>
+            {hero.badge}
+          </p>
           <h1 id="hero-titel" className="text-display">
-            {hero.title}
-          </h1>
-          <p className="mt-5 max-w-prose text-lead">{hero.text}</p>
-          <p className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 text-lead font-semibold">
-            <Link
-              href={hero.primaryCta.href}
-              className="group inline-flex items-center gap-2 border-b-2 border-on-dark pb-1 hov:border-red-300"
-            >
-              {hero.primaryCta.label}
+            {words.map((word, index) => (
               <span
-                aria-hidden
-                className="transition-transform duration-(--dur-base) group-hover:translate-x-1"
+                key={`${word}-${index}`}
+                className="inline-block overflow-hidden pb-[0.08em] align-bottom"
               >
-                →
+                <span
+                  className="inline-block animate-word-in"
+                  style={{ animationDelay: `${120 + index * 80}ms` }}
+                >
+                  {word}
+                </span>
+                {index < words.length - 1 ? ' ' : null}
               </span>
-            </Link>
+            ))}
+          </h1>
+          <p className="max-w-prose text-lead text-on-dark">{hero.text}</p>
+          <div
+            className="flex animate-fade-up flex-wrap items-center gap-3"
+            style={{ animationDelay: `${320 + words.length * 80}ms` }}
+          >
+            <Magnetic>
+              <Button
+                href={hero.primaryCta.href}
+                variant="cta"
+                size="lg"
+                icon="arrow-right"
+                className="rounded-pill! shadow-(--shadow-glow-red)"
+              >
+                {hero.primaryCta.label}
+              </Button>
+            </Magnetic>
             <Link
               href={hero.secondaryCta.href}
-              className="group inline-flex items-center gap-2 pb-1 hov:underline"
+              className="group inline-flex min-h-11 items-center gap-2 px-2 text-lead font-semibold underline-offset-4 hov:underline"
             >
               {hero.secondaryCta.label}
-              <span
-                aria-hidden
-                className="transition-transform duration-(--dur-base) group-hover:translate-x-1"
-              >
-                →
-              </span>
+              <Icon
+                name="arrow-right"
+                className="size-4 transition-transform duration-(--dur-base) group-hover:translate-x-1"
+              />
             </Link>
-          </p>
+          </div>
         </div>
       </div>
+
+      <a
+        href={`#${nextId}`}
+        className="absolute bottom-6 left-1/2 hidden size-11 -translate-x-1/2 place-items-center rounded-pill glass-dark md:grid"
+      >
+        <Icon name="chevron-down" className="size-4 motion-safe:animate-bounce" />
+        <span className="sr-only">Weiter zu den Angeboten</span>
+      </a>
+      <HeroScroll targetId={HERO_ID} />
     </section>
   )
 }

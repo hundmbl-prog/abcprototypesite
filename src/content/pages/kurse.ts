@@ -12,6 +12,7 @@ import { telcLevels } from './telc'
 const courseCards: OfferCardData[] = [
   {
     id: 'b1-b2',
+    ctaLabel: 'Zum B1/B2-Kurs',
     title: 'B1 & B2 – Prüfung und Prüfungsvorbereitung',
     description:
       'Sicher in Alltag und Beruf – mit gezieltem Training und der telc Prüfung B1 oder B2 direkt bei uns.',
@@ -22,6 +23,7 @@ const courseCards: OfferCardData[] = [
   },
   {
     id: 'bsk',
+    ctaLabel: 'Zu den Berufssprachkursen',
     title: 'Berufssprachkurse (BSK)',
     description:
       'Deutsch für Arbeit und Ausbildung – gefördert nach der DeuFöV, unter bestimmten Voraussetzungen kostenlos.',
@@ -32,6 +34,7 @@ const courseCards: OfferCardData[] = [
   },
   {
     id: 'integrationskurse',
+    ctaLabel: 'Zu den Integrationskursen',
     title: 'Integrationskurse',
     description:
       'Sprachkurs und Orientierungskurs – allgemein, für junge Menschen oder mit Alphabetisierung.',
@@ -96,10 +99,6 @@ const requirements = (extra?: Partial<ColumnsBlock>): ColumnsBlock => ({
       ],
     },
   ],
-  note: {
-    title: 'Wichtig',
-    text: 'Vor Kursbeginn ermitteln wir Ihr Sprachniveau mit einem kostenlosen Einstufungstest – so starten Sie im passenden Kurs.',
-  },
   ...extra,
 })
 
@@ -226,8 +225,8 @@ export const kursePage: ContentPage = {
       CONTACT_EMAIL_COURSES,
     ),
     cta({
-      title: 'Ihr Einstieg beginnt mit einem Gespräch',
-      text: 'Vereinbaren Sie Ihren kostenlosen Einstufungstest – wir melden uns schnell zurück.',
+      title: 'Bereit für den ersten Schritt?',
+      text: 'Wir melden uns schnell mit einem Termin zurück.',
       primary: { label: 'Einstufungstest vereinbaren', href: '#kontakt' },
       secondary: { label: 'telc Prüfungen', href: '/pruefungen/telc' },
     }),
@@ -364,7 +363,7 @@ const b1b2Page: ContentPage = {
       CONTACT_EMAIL_COURSES,
     ),
     cta({
-      title: 'Prüfungstermin sichern',
+      title: 'Bereit für Ihre Prüfung?',
       text: 'Sehen Sie die nächsten telc Termine oder melden Sie sich direkt an.',
       primary: { label: 'Zur Anmeldung', href: '/pruefungen/telc#anmeldung' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },
@@ -476,7 +475,7 @@ const bskPage: ContentPage = {
       'bsk@abc-mainz.de',
     ),
     cta({
-      title: 'Förderung klären, Kurs finden',
+      title: 'Bereit für den nächsten Schritt im Beruf?',
       text: 'Lassen Sie sich kostenlos beraten – wir klären mit Ihnen die Förderung.',
       primary: { label: 'Beratung anfragen', href: '#kontakt' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },
@@ -531,7 +530,6 @@ const integrationPage: ContentPage = {
             '6 Sprachmodule à 100 UE (Basiskurs und Aufbaukurs)',
             'Orientierungskurs mit 100 UE',
             'Abschluss: DTZ und „Leben in Deutschland“',
-            'Kinderbeaufsichtigung vor Ort möglich',
             'Je nach Situation kostenlos oder mit Kostenbeitrag',
           ],
           modules: [
@@ -697,8 +695,8 @@ const integrationPage: ContentPage = {
       'integration@abc-mainz.de',
     ),
     cta({
-      title: 'Ihr Platz im nächsten Kurs',
-      text: 'Vereinbaren Sie Ihren kostenlosen Einstufungstest – neue Kurse starten regelmäßig.',
+      title: 'Bereit für Ihren Integrationskurs?',
+      text: 'Neue Kurse starten regelmäßig – wir finden Ihren Platz.',
       primary: { label: 'Einstufungstest vereinbaren', href: '#kontakt' },
       secondary: { label: 'Alle Kurse', href: '/kurse' },
     }),

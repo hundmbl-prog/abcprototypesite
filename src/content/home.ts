@@ -1,24 +1,28 @@
 /**
  * Home page content (Payload "pages" document with blocks in Step 5).
  * News and facts are taken from the current abc-mainz.de.
- * The figures "über 1.200 Menschen" and "mehr als 60 Kurse" are not confirmed yet – check before launch.
+ * Entries marked `placeholder: true` are invented and MUST be replaced before launch.
  */
 import { images } from './images'
 import { partners } from './partners'
+import { siteSettings } from './site'
 import type { HomePage } from './types'
+
+const yearsActive = new Date().getFullYear() - siteSettings.foundingYear
 
 export const homePage: HomePage = {
   hero: {
-    eyebrow: '',
-    title: 'Bildung, die Perspektiven schafft',
-    text: 'Sprachkurse, Prüfungen, Nachhilfe und soziale Projekte in Mainz und Bad Kreuznach.',
+    badge: 'Willkommen beim ABC e.V.',
+    eyebrow: 'Gemeinnützig in Mainz und Bad Kreuznach',
+    title: 'Bildung, die Menschen verbindet',
+    text: 'Kurse, Prüfungen, Nachhilfe und Projekte in Mainz und Bad Kreuznach.',
     image: images.heroPoster,
     primaryCta: { label: 'Kurs finden', href: '/kurse' },
     secondaryCta: { label: 'Beratung anfragen', href: '/ueber-uns/kontakt' },
   },
 
   offers: {
-    eyebrow: '',
+    eyebrow: 'Unsere Angebote',
     title: 'Für jeden Schritt das passende Angebot',
     cta: { label: 'Alle Angebote', href: '/kurse' },
     cards: [
@@ -27,12 +31,12 @@ export const homePage: HomePage = {
         ctaLabel: 'Zu den Sprachkursen',
         icon: 'book',
         title: 'Sprach- & Integrationskurse',
-        description: 'Deutsch von A1 bis C1 – mit Kinderbeaufsichtigung.',
+        description: 'Deutsch lernen von A1 bis C1.',
         href: '/kurse/integrationskurse',
         image: images.abcUnterricht,
         tag: 'Kurse',
         badge: 'plaetze-frei',
-        facts: { level: 'A1–C1', location: 'Mainz & Bad Kreuznach' },
+        facts: { level: 'A1–C1' },
       },
       {
         id: 'pruefungen',
@@ -90,19 +94,18 @@ export const homePage: HomePage = {
   },
 
   about: {
-    eyebrow: '',
-    title: 'Wer wir sind',
+    eyebrow: 'Über uns',
+    title: 'Aus der Community – für die Community',
     paragraphs: [
-      'Seit 1997 bringt unser gemeinnütziger Verein Bildung zu den Menschen in Mainz und Bad Kreuznach – gegründet von migrantischen Eltern, Studierenden und Hochschulabsolventen.',
-      'Heute lernen jedes Jahr über 1.200 Menschen in mehr als 60 Kursen und Prüfungen an unseren fünf Standorten.',
+      '1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen als gemeinnütziger Verein gegründet – für Bildung in den migrantischen Communitys.',
     ],
     image: images.team,
-    cta: { label: 'Mehr über den Verein', href: '/ueber-uns' },
+    cta: { label: 'Mehr über uns', href: '/ueber-uns' },
   },
 
   news: {
-    eyebrow: '',
-    title: 'Aktuelles',
+    eyebrow: 'News',
+    title: 'Aktuelles aus dem ABC',
     cta: { label: 'Alle News', href: '/news' },
     items: [
       {
@@ -168,9 +171,36 @@ export const homePage: HomePage = {
     ],
   },
 
+  why: {
+    eyebrow: 'Warum ABC',
+    title: 'Ein Ort zum Ankommen',
+    stats: [
+      { id: 'jahre', value: yearsActive, label: 'Jahre Erfahrung' },
+      { id: 'standorte', value: 5, label: 'Standorte' },
+      {
+        id: 'teilnehmende',
+        value: 1200,
+        suffix: '+',
+        label: 'Teilnehmende pro Jahr',
+        placeholder: true,
+      },
+      {
+        id: 'kurse',
+        value: 60,
+        suffix: '+',
+        label: 'Kurse und Prüfungen pro Jahr',
+        placeholder: true,
+      },
+    ],
+    points: [
+      'Kleine Gruppen mit erfahrenen Lehrkräften',
+      'Kinderbeaufsichtigung während der Integrationskurse',
+    ],
+  },
+
   partners: {
-    eyebrow: '',
-    title: 'Unsere Partner und Förderer',
+    eyebrow: 'Partner & Förderer',
+    title: 'Gemeinsam mehr erreichen',
     items: partners,
   },
 }

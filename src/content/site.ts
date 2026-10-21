@@ -11,7 +11,7 @@ export const siteSettings: SiteSettings = {
   claim: 'Bildung, die verbindet',
   foundingYear: 1997,
   footerAbout:
-    'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach – für Sprache, Ausbildung und Beruf.',
+    'Gemeinnütziger Bildungsträger in Mainz und Bad Kreuznach. Wir begleiten Menschen auf ihrem Weg in Sprache, Ausbildung und Beruf.',
   locations: [
     {
       id: 'mainz',
@@ -240,6 +240,7 @@ export const footerNavigation: Array<{ title: string; links: NavLink[] }> = [
     links: [
       { label: 'Kontakt', href: '/ueber-uns/kontakt' },
       { label: 'Formulare', href: '/formulare' },
+      { label: 'Beschwerdeformular', href: '/formulare#beschwerde' },
       { label: 'Mitgliedschaft', href: '/ueber-uns#mitgliedschaft' },
     ],
   },

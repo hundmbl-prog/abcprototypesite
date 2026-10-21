@@ -151,7 +151,7 @@ export function MobileMenu({
             </ul>
           </nav>
           <div className="container-page flex flex-col gap-4 border-t border-line bg-surface-2 py-8">
-            <Button href={cta.href} variant="primary" icon="arrow-right" onClick={onClose}>
+            <Button href={cta.href} variant="cta" icon="arrow-right" onClick={onClose}>
               {cta.label}
             </Button>
             {location ? (

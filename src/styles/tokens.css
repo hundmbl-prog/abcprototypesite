@@ -12,72 +12,73 @@
   --color-current: currentColor;
 
   /*
-   * Colour system (redesign 21.10.2026): bright and light. Real 50–900 scales.
-   * Primary blue #2563C9 (hover #1D4FA6) for buttons, links, highlights.
-   * Navy #14325A for headings and body text only – never large backgrounds.
-   * Brand red #C1121F sparingly: the one main call to action and small accents.
-   * Sections alternate white / light blue tint #EEF4FC (extra light #F7FAFE).
-   * Contrast (WCAG AA): white on blue-600 5.2:1, white on red-500 5.9:1,
-   * navy on white 12.6:1, ink-muted on white 7.1:1 and on blue-100 6.3:1.
+   * ABC brand palette (colour sheet, 19.10.2026) – no other colours are used.
+   * ABC Blue #1C4A83 · ABC Red #990111 · Navy #123054 · Ink #242222 · Text #484343
+   * Blue tint #E9EDF3 · Blue wash #F4F6F9 · Lines #DCE1EC · plus white.
+   * Light pink (approved 19.10.2026) = ABC Red mixed with white: wash #FAF2F3, tint #F4E3E5,
+   * line #EBCDD0 – only for light backgrounds that relate to the red accents.
+   * 21.10.2026: requested a little lighter and brighter – large blue areas use ABC Blue
+   * instead of navy, mid shades a lighter ABC blue (#2B5FA6), washes are brighter.
    */
 
   /* Light surfaces */
   --color-surface: #ffffff;
-  --color-surface-2: #f7fafe;
-  --color-surface-3: #eef4fc;
-  --color-line: #e1e8f2;
-  --color-line-strong: #c9d5e6;
-  /* Form-control borders: ≥ 3:1 on white (WCAG 1.4.11) */
-  --color-control: #6b7a90;
+  --color-surface-2: #f6f9fd;
+  --color-surface-3: #edf2fa;
+  --color-line: #dfe6f1;
+  --color-line-strong: #dfe6f1;
+  /* Form-control borders need ≥ 3:1 on white (WCAG 1.4.11): Text colour */
+  --color-control: #484343;
 
-  /* Semantic names */
-  --color-navy: #14325a;
-  --color-navy-2: #183f82;
-  --color-blue: #2563c9;
-  --color-blue-strong: #1d4fa6;
-  --color-blue-soft: #eef4fc;
-  --color-red: #c1121f;
-  --color-red-strong: #a10f1a;
-  --color-red-soft: #fdf3f4;
+  /* Blue */
+  --color-navy: #1c4a83;
+  --color-navy-2: #2b5fa6;
+  --color-blue: #2b5fa6;
+  --color-blue-strong: #1c4a83;
+  --color-blue-soft: #edf2fa;
 
-  /* Blue scale (600 = primary, 900 = navy text colour) */
-  --color-blue-50: #f7fafe;
-  --color-blue-100: #eef4fc;
-  --color-blue-200: #d6e4f8;
-  --color-blue-300: #b0cbf0;
-  --color-blue-400: #6f9be0;
-  --color-blue-500: #3f7ad6;
-  --color-blue-600: #2563c9;
-  --color-blue-700: #1d4fa6;
-  --color-blue-800: #183f82;
-  --color-blue-900: #14325a;
-  --color-blue-950: #0e2440;
+  /* Red */
+  --color-red: #990111;
+  --color-red-strong: #990111;
+  --color-red-soft: #faf2f3;
 
-  /* Red scale (500 = brand red) */
-  --color-red-50: #fdf3f4;
-  --color-red-100: #fbe4e6;
-  --color-red-200: #f5c2c6;
-  --color-red-300: #ec959c;
-  --color-red-400: #de5560;
-  --color-red-500: #c1121f;
-  --color-red-600: #a10f1a;
-  --color-red-700: #820c15;
-  --color-red-800: #640a10;
-
-  /* ABC colour sheet (19.10.2026), used in combination: ABC Blue for the closing band */
-  --color-abc-blue: #1c4a83;
-  --color-abc-navy: #123054;
+  /*
+   * Name map (lighter since 21.10.2026): brighter washes; mid shades a lighter ABC blue
+   * #2B5FA6; the dark shades (large blue areas, headings) are ABC Blue #1C4A83 instead of navy.
+   */
+  --color-blue-50: #f6f9fd;
+  --color-blue-100: #edf2fa;
+  --color-blue-200: #dfe6f1;
+  --color-blue-300: #dfe6f1;
+  --color-blue-400: #2b5fa6;
+  --color-blue-500: #2b5fa6;
+  --color-blue-600: #2b5fa6;
+  --color-blue-700: #2b5fa6;
+  --color-blue-800: #1c4a83;
+  --color-blue-900: #1c4a83;
+  --color-blue-950: #1c4a83;
+  /* Light pink (red tints); on navy, accents use the Blue tint */
+  --color-red-50: #faf2f3;
+  --color-red-100: #f4e3e5;
+  --color-red-200: #ebcdd0;
+  --color-red-300: #edf2fa;
+  --color-red-400: #990111;
+  --color-red-500: #990111;
+  --color-red-600: #990111;
+  --color-red-700: #990111;
+  --color-red-800: #990111;
 
   /* Text */
-  --color-ink: #14325a;
-  --color-shade: #14325a;
-  --color-ink-muted: #4b5a70;
+  --color-ink: #242222;
+  /* Overlays on photos use ABC Blue */
+  --color-shade: #1c4a83;
+  --color-ink-muted: #484343;
   --color-on-dark: #ffffff;
-  --color-on-dark-muted: #dce6f4;
+  --color-on-dark-muted: #edf2fa;
 
   /* Status */
-  --color-success: #1e7a46;
-  --color-success-soft: #e8f5ee;
+  --color-success: #1c4a83;
+  --color-success-soft: #e9edf3;
 
   /* ---------- Typography ---------- */
   --font-*: initial;
@@ -89,13 +90,13 @@
   --text-*: initial;
   --text-display: clamp(2.75rem, 1.961rem + 3.366vw, 6rem);
   --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.005em;
+  --text-display--letter-spacing: -0.02em;
   --text-h1: clamp(2.25rem, 1.825rem + 1.812vw, 4rem);
   --text-h1--line-height: 1.05;
-  --text-h1--letter-spacing: -0.005em;
+  --text-h1--letter-spacing: -0.015em;
   --text-h2: clamp(1.75rem, 1.507rem + 1.036vw, 2.75rem);
   --text-h2--line-height: 1.1;
-  --text-h2--letter-spacing: 0em;
+  --text-h2--letter-spacing: -0.01em;
   --text-h3: clamp(1.375rem, 1.254rem + 0.518vw, 1.875rem);
   --text-h3--line-height: 1.2;
   --text-h4: clamp(1.125rem, 1.064rem + 0.259vw, 1.375rem);
@@ -136,17 +137,17 @@
 
   /* ---------- Shadows (navy-tinted) ---------- */
   --shadow-*: initial;
-  --shadow-xs: 0 1px 2px rgb(20 50 90 / 0.06);
-  --shadow-sm: 0 1px 3px rgb(20 50 90 / 0.08), 0 1px 2px rgb(20 50 90 / 0.04);
-  --shadow-md: 0 4px 12px -2px rgb(20 50 90 / 0.1), 0 2px 4px -2px rgb(20 50 90 / 0.06);
-  --shadow-lg: 0 12px 32px -8px rgb(20 50 90 / 0.16), 0 4px 8px -4px rgb(20 50 90 / 0.06);
-  --shadow-xl: 0 24px 56px -12px rgb(20 50 90 / 0.22), 0 8px 16px -8px rgb(20 50 90 / 0.08);
+  --shadow-xs: 0 1px 2px rgb(18 48 84 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(18 48 84 / 0.08), 0 1px 2px rgb(18 48 84 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(18 48 84 / 0.1), 0 2px 4px -2px rgb(18 48 84 / 0.06);
+  --shadow-lg: 0 12px 32px -8px rgb(18 48 84 / 0.16), 0 4px 8px -4px rgb(18 48 84 / 0.06);
+  --shadow-xl: 0 24px 56px -12px rgb(18 48 84 / 0.22), 0 8px 16px -8px rgb(18 48 84 / 0.08);
   /* Layered floating shadow for glass panels and lifted cards */
   --shadow-float:
-    0 1px 1px rgb(20 50 90 / 0.04), 0 4px 8px -2px rgb(20 50 90 / 0.06),
-    0 16px 32px -8px rgb(20 50 90 / 0.12), 0 40px 80px -24px rgb(20 50 90 / 0.18);
+    0 1px 1px rgb(18 48 84 / 0.04), 0 4px 8px -2px rgb(18 48 84 / 0.06),
+    0 16px 32px -8px rgb(18 48 84 / 0.12), 0 40px 80px -24px rgb(18 48 84 / 0.18);
   /* Kept as a name for the main CTA; a plain shadow (no coloured glow) */
-  --shadow-glow-red: 0 4px 12px -2px rgb(20 50 90 / 0.18);
+  --shadow-glow-red: 0 4px 12px -2px rgb(18 48 84 / 0.18);
 
   /* ---------- Motion ---------- */
   --ease-*: initial;
@@ -154,10 +155,19 @@
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* Named animations (all switched off by the reduced-motion rule in globals.css) */
+  --animate-kenburns: kenburns 20s var(--ease-in-out-soft) infinite alternate;
   --animate-word-in: word-in 0.9s var(--ease-out-expo) both;
   --animate-marquee: marquee 40s linear infinite;
   --animate-fade-up: fade-up 0.9s var(--ease-out-expo) both;
 
+  @keyframes kenburns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+    }
+  }
   @keyframes word-in {
     from {
       transform: translateY(105%);
@@ -198,6 +208,7 @@
   --dur-slow: 400ms;
   --dur-slower: 700ms;
   --dur-reveal: 1200ms;
+  --dur-kenburns: 20s;
 
   /* Former glass surfaces are solid now (no transparency) */
   --glass-light: var(--color-surface);

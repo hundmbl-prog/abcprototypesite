@@ -64,11 +64,12 @@ export function CardIcon({
             ))}
           </ul>
         ) : null}
-        <span className="mt-auto flex items-center justify-between gap-3 pt-2 text-small font-semibold text-red-600">
+        <span className="mt-auto inline-flex items-center gap-2 pt-2 text-small font-semibold text-red-600 group-hover:underline">
           {card.ctaLabel ?? 'Mehr erfahren'}
-          <span className="grid size-10 place-items-center rounded-pill bg-red-50 text-red-600 transition-[background-color,color,transform] duration-(--dur-base) ease-out-expo group-hover:translate-x-1 group-hover:bg-red-500 group-hover:text-on-dark">
-            <Icon name="arrow-right" className="size-4" />
-          </span>
+          <Icon
+            name="arrow-right"
+            className="size-4 transition-transform duration-(--dur-base) group-hover:translate-x-1"
+          />
         </span>
       </Link>
     </article>

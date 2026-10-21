@@ -71,7 +71,7 @@ export function TabsBlock({ block }: { block: TabsData }) {
                 transition={
                   reduce ? { duration: 0 } : { type: 'spring', stiffness: 420, damping: 34 }
                 }
-                className="absolute inset-0 -z-0 rounded-md bg-blue"
+                className="absolute inset-0 -z-0 rounded-xl bg-blue-900 shadow-md"
               />
             ) : null}
             <span className="relative">{t.label}</span>
@@ -93,19 +93,22 @@ export function TabsBlock({ block }: { block: TabsData }) {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="grid grid-cols-1 gap-8 rounded-lg border border-line bg-surface p-6 md:p-10 lg:grid-cols-12"
+              className="grid grid-cols-1 gap-8 rounded-2xl border border-line bg-surface p-6 shadow-md md:p-10 lg:grid-cols-12"
             >
               <div className="flex flex-col gap-4 lg:col-span-6">
-                <h3 className="text-h3 text-navy">{tab.heading}</h3>
+                <h3 className="text-h3 text-blue-900">{tab.heading}</h3>
                 <p className="text-lead text-ink-muted">{tab.text}</p>
               </div>
               {tab.items?.length ? (
                 <ul className="grid content-start gap-3 sm:grid-cols-2 lg:col-span-6">
                   {tab.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-ink">
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 rounded-xl bg-blue-50 p-3 text-small font-medium text-blue-900"
+                    >
                       <Icon
                         name="check"
-                        className="mt-1 size-4 shrink-0 text-blue"
+                        className="mt-0.5 size-4 text-blue-600"
                         strokeWidth={2.5}
                       />
                       {item}

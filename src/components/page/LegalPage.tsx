@@ -16,22 +16,27 @@ export function LegalPage({
   if (!legal) return null
   return (
     <>
-      <section aria-labelledby="seiten-titel" className="bg-blue-100 pt-28 pb-12 md:pt-32 md:pb-14">
+      <section
+        aria-labelledby="seiten-titel"
+        className="tone-navy pt-36 pb-12 [--focus-ring:var(--color-on-dark)] md:pb-16"
+      >
         <div className="container-page flex flex-col gap-5">
           <Breadcrumbs items={crumbs} siteUrl={siteUrl} />
-          <h1 id="seiten-titel" className="text-h1 text-navy">
+          <h1 id="seiten-titel" className="text-h1">
             {page.hero.title}
           </h1>
           {legal.intro ? (
-            <p className="max-w-prose text-lead text-ink-muted">{legal.intro}</p>
+            <p className="max-w-2xl text-lead text-on-dark-muted">{legal.intro}</p>
           ) : null}
         </div>
       </section>
       <div className="bg-surface py-section-sm">
         <div className="container-page grid grid-cols-1 gap-10 lg:grid-cols-12">
           <nav aria-label="Inhaltsverzeichnis" className="lg:col-span-4">
-            <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-5 lg:sticky lg:top-28 lg:max-h-[calc(100svh-8rem)] lg:overflow-y-auto">
-              <p className="text-small font-semibold text-navy">Inhalt</p>
+            <div className="flex flex-col gap-3 rounded-2xl bg-blue-50 p-5 ring-1 ring-blue-100 lg:sticky lg:top-28 lg:max-h-[calc(100svh-8rem)] lg:overflow-y-auto">
+              <p className="text-caption font-semibold tracking-widest text-red-600 uppercase">
+                Inhalt
+              </p>
               <ol className="flex flex-col gap-1">
                 {legal.sections.map((section) => (
                   <li key={section.id}>

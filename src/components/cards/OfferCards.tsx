@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import { cn } from '@/lib/cn'
 import { BentoGrid } from './BentoGrid'
+import { CardClassic, type CardShade } from './CardClassic'
+import { CardHorizontal } from './CardHorizontal'
 import { CardIcon } from './CardIcon'
-import { PhotoTile } from './PhotoTile'
 import { CardOverlay } from './CardOverlay'
 import { CardRail } from './CardRail'
 import type { CardVariant, HeadingLevel, OfferCardData } from './types'
@@ -13,8 +13,14 @@ export function OfferCards({
   variant,
   label,
   headingLevel = 'h3',
+  shades,
+  simple = false,
   className,
 }: {
+  /** Classic variant only: photo with overlapping info box. */
+  simple?: boolean
+  /** Classic variant only: solid text-area colours, used in turn for each card. */
+  shades?: CardShade[]
   cards: OfferCardData[]
   variant: CardVariant
   /** Accessible name, used by the carousel variant. */
@@ -23,29 +29,6 @@ export function OfferCards({
   className?: string
 }) {
   switch (variant) {
-    case 'text':
-      // Photo-free offer list: title, one line and the card's own link text, divided by lines
-      return (
-        <ul className={cn('grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:grid-cols-3', className)}>
-          {cards.map((card) => (
-            <li key={card.id} className="min-w-0 border-t border-line">
-              <Link href={card.href} className="group flex h-full flex-col gap-2 py-7">
-                <HeadingTag
-                  level={headingLevel}
-                  className="text-h4 text-navy group-hover:text-blue"
-                >
-                  {card.title}
-                </HeadingTag>
-                <p className="text-ink-muted">{card.description}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-2 font-semibold text-blue group-hover:underline">
-                  {card.ctaLabel ?? 'Mehr erfahren'}
-                  <span aria-hidden>→</span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )
     case 'icon':
       return (
         <ul
@@ -68,6 +51,16 @@ export function OfferCards({
       return (
         <CardRail cards={cards} label={label} headingLevel={headingLevel} className={className} />
       )
+    case 'horizontal':
+      return (
+        <ul className={cn('flex flex-col gap-4', className)}>
+          {cards.map((card) => (
+            <li key={card.id} className="min-w-0">
+              <CardHorizontal card={card} headingLevel={headingLevel} />
+            </li>
+          ))}
+        </ul>
+      )
     case 'overlay':
       return (
         <ul className={cn('grid gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
@@ -79,50 +72,30 @@ export function OfferCards({
         </ul>
       )
     case 'classic':
-    case 'horizontal': {
-      // Link texts are only shown when every card has its own – never the same label six times
-      const labels = cards.map((c) => c.ctaLabel)
-      const showCta = labels.every(Boolean) && new Set(labels).size === labels.length
-      const row = variant === 'horizontal'
       return (
         <ul
           className={cn(
-            'grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2',
-            row
-              ? ''
+            'grid gap-6 md:grid-cols-2',
+            // 2 or 4 cards fill whole rows instead of leaving a gap
+            cards.length === 2
+              ? 'lg:max-w-5xl'
               : cards.length === 4
                 ? 'lg:grid-cols-4'
-                : cards.length === 2
-                  ? ''
-                  : 'lg:grid-cols-3',
+                : 'lg:grid-cols-3',
             className,
           )}
         >
-          {cards.map((card) => (
-            <li key={card.id} className="min-w-0">
-              <PhotoTile
+          {cards.map((card, i) => (
+            <li key={card.id} data-reveal className="min-w-0">
+              <CardClassic
                 card={card}
                 headingLevel={headingLevel}
-                showCta={showCta}
-                orientation={row ? 'row' : 'column'}
+                shade={shades?.[i % shades.length]}
+                simple={simple}
               />
             </li>
           ))}
         </ul>
       )
-    }
   }
-}
-
-function HeadingTag({
-  level,
-  className,
-  children,
-}: {
-  level: HeadingLevel
-  className?: string
-  children: React.ReactNode
-}) {
-  const Tag = level
-  return <Tag className={className}>{children}</Tag>
 }

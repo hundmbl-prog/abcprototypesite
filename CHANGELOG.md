@@ -1,5 +1,52 @@
 # Changelog
 
+## Back to the live design + video hero, fewer buttons, no repetition, lighter blue (2026-10-21)
+
+Decision from 21.10.2026: the redesign (251c97a) is not used. The live design (b3663a0) is kept, with these changes only. The redesign remains in the git history.
+
+**Hero**
+
+- The same frame as live, with the classroom video from abc-mainz.de instead of the photo (poster image underneath).
+  - The video loads only after the page has loaded, never with reduced motion, and pauses off-screen.
+- One button ("Kurs finden"). "Beratung anfragen" is now a text link.
+- The three stat boxes on the right are removed (their facts appear further down).
+
+**No repeated information on the same page**
+
+- Home:
+  - "1997" appears only once, in the About text: it was removed from the hero sentence, the milestones, the "Warum ABC" label, the points and the footer.
+  - "telc Hochschulkompetenzzentrum" appears only in the news.
+  - "Standorte" appears only once.
+  - The milestone boxes are removed.
+- The six offer cards have their own link texts instead of six times "Mehr erfahren". So do the three course cards on Kurse.
+- Über uns: "1997" appears only in the intro.
+- Kurse and Integrationskurse: the repeated "kostenloser Einstufungstest" note and the duplicate closing text are removed, and so is the duplicate childcare item.
+
+**Fewer buttons**
+
+- Section links (Alle Angebote, Mehr über uns, Alle News, section actions) and the secondary closing link are text links.
+- Card links are plain text with an arrow instead of red pills with a circle.
+- Each area keeps one main button.
+
+**Lighter blue, brighter page**
+
+- Large blue areas (heroes, footer, closing card, headings) use ABC Blue #1C4A83 instead of navy #123054.
+- The mid blue is lighter: #2B5FA6.
+- The light sections are brighter: #F6F9FD / #EDF2FA, lines #DFE6F1.
+
+**Also kept from the last days**
+
+- The large photos are served as 2400 px web copies (originals unchanged).
+- The Netlify settings are unchanged.
+
+**Checks**
+
+- lint 0 / tsc 0 / build OK.
+- Playwright: 376 tests at 4 widths – 368 passed, 8 skipped (desktop- or mobile-only), including axe and the new "1997 once" and video tests.
+  - The full run used 2 parallel browsers, because 4 overloaded image processing on this Mac. With 4, eight desktop tests on photo-heavy pages timed out; on their own they pass in 8 s.
+  - The tests answer hero-video requests with an empty response.
+- Not uploaded to Netlify (requested).
+
 ## Redesign – bright, warm, less template-like (2026-10-21)
 
 Brief from the management review: too dark, too much navy, looks AI-made because of repetition and template patterns.

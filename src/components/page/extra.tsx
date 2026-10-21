@@ -35,15 +35,20 @@ export function FormSection({
         {block.points?.length ? (
           <ul className="flex flex-col gap-3">
             {block.points.map((point) => (
-              <li key={point} className="flex items-start gap-2.5 text-ink">
-                <Icon name="check" className="mt-1 size-4 shrink-0 text-blue" strokeWidth={2.5} />
+              <li
+                key={point}
+                className="flex items-start gap-3 text-small font-medium text-blue-900"
+              >
+                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-pill bg-blue-600 text-on-dark">
+                  <Icon name="check" className="size-3.5" strokeWidth={2.5} />
+                </span>
                 {point}
               </li>
             ))}
           </ul>
         ) : null}
       </div>
-      <div className="rounded-lg border border-line bg-surface p-6 md:p-10 lg:col-span-8">
+      <div className="rounded-2xl border border-line bg-surface p-6 shadow-md md:p-10 lg:col-span-8">
         <SiteForm formId={block.formId} phone={phone} email={block.email ?? email} />
       </div>
     </div>
@@ -60,19 +65,23 @@ export function Contacts({ block }: { block: ContactsBlock }) {
         title={block.title}
         intro={block.intro}
       />
-      <ul className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {block.items.map((item) => (
-          <li key={item.title} className="flex flex-col gap-2 border-t border-line pt-5">
-            <h3 className="flex items-center gap-2.5 text-h4 text-navy">
-              <Icon name={item.icon} className="size-5 text-blue" />
-              {item.title}
-            </h3>
+          <li
+            key={item.title}
+            data-reveal
+            className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-sm transition-[transform,box-shadow] duration-(--dur-slow) ease-out-expo hov:-translate-y-1 hov:shadow-(--shadow-float)"
+          >
+            <span className="grid size-11 place-items-center rounded-pill bg-blue-600 text-on-dark">
+              <Icon name={item.icon} className="size-5" />
+            </span>
+            <h3 className="text-h4 text-blue-900">{item.title}</h3>
             {item.text ? <p className="text-small text-ink-muted">{item.text}</p> : null}
             <div className="mt-auto flex flex-col gap-1.5 pt-1">
               {item.email ? (
                 <a
                   href={`mailto:${item.email}`}
-                  className="inline-flex items-center gap-2 text-small font-semibold break-all text-blue underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                  className="inline-flex items-center gap-2 text-small font-semibold break-all text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                 >
                   <Icon name="mail" className="size-4 shrink-0" />
                   {item.email}
@@ -81,7 +90,7 @@ export function Contacts({ block }: { block: ContactsBlock }) {
               {item.phone ? (
                 <a
                   href={`tel:${item.phone.replace(/[^\d+]/g, '')}`}
-                  className="inline-flex items-center gap-2 text-small font-semibold text-blue underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                  className="inline-flex items-center gap-2 text-small font-semibold text-blue-700 underline-offset-4 hov:underline foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                 >
                   <Icon name="phone" className="size-4 shrink-0" />
                   {item.phone}
@@ -127,14 +136,21 @@ export function Press({ block }: { block: PressBlock }) {
         title={block.title}
         intro={block.intro}
       />
-      <ol className="flex flex-col divide-y divide-line border-y border-line">
+      <ol className="relative flex flex-col gap-4 border-l-2 border-blue-100 pl-6 md:pl-8">
         {block.items.map((item) => (
-          <li key={`${item.outlet}-${item.title}`}>
-            <article className="grid grid-cols-1 gap-1 py-5 md:grid-cols-[14rem_1fr] md:gap-6">
-              <p className="text-small text-ink-muted">
-                <span className="font-semibold text-navy">{item.outlet}</span> · {item.date}
+          <li key={`${item.outlet}-${item.title}`} data-reveal className="relative">
+            <span
+              aria-hidden
+              className="absolute top-6 -left-[33px] size-3.5 rounded-pill border-2 border-surface bg-red-500 md:-left-[41px]"
+            />
+            <article className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5 shadow-sm md:p-6">
+              <p className="flex flex-wrap items-center gap-2 text-caption font-semibold tracking-wide text-ink-muted uppercase">
+                <span className="rounded-pill bg-blue-900 px-2.5 py-0.5 text-on-dark normal-case">
+                  {item.outlet}
+                </span>
+                {item.date}
               </p>
-              <h3 className="text-h4 text-navy">{item.title}</h3>
+              <h3 className="text-h4 text-blue-900">{item.title}</h3>
             </article>
           </li>
         ))}
@@ -146,7 +162,7 @@ export function Press({ block }: { block: PressBlock }) {
 /** Body of a news article. */
 export function Article({ block }: { block: ArticleBlock }) {
   return (
-    <div className="mx-auto flex max-w-narrow flex-col gap-6">
+    <div className="max-w-3xl mx-auto flex flex-col gap-6">
       <SectionHeader
         id={`${block.id}-titel`}
         eyebrow={block.eyebrow}

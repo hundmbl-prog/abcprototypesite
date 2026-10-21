@@ -1,13 +1,10 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
-/**
- * Heading + optional intro, with an optional plain action (usually a text link) underneath.
- * Since the redesign there is no small label ("eyebrow") above the heading; the prop is
- * still accepted so content can keep it for later use.
- */
+/** Eyebrow + heading + intro text, with an optional action on the right. */
 export function SectionHeader({
   id,
+  eyebrow,
   title,
   intro,
   action,
@@ -28,32 +25,47 @@ export function SectionHeader({
 }) {
   return (
     <header
+      data-reveal
       className={cn(
-        'mb-10 flex max-w-narrow flex-col gap-4 md:mb-12',
-        align === 'center' && 'mx-auto items-center text-center',
+        'mb-10 flex flex-col gap-6 md:mb-14',
+        align === 'center'
+          ? 'items-center text-center'
+          : 'md:flex-row md:items-end md:justify-between',
         className,
       )}
     >
-      <Heading
-        id={id}
-        className={cn(
-          Heading === 'h1' ? 'text-h1' : Heading === 'h3' ? 'text-h3' : 'text-h2',
-          tone === 'light' ? 'text-navy' : 'text-on-dark',
-        )}
-      >
-        {title}
-      </Heading>
-      {intro ? (
-        <p
+      <div className={cn('flex max-w-narrow flex-col gap-4', align === 'center' && 'items-center')}>
+        {eyebrow ? (
+          <p
+            className={cn(
+              'inline-flex items-center gap-3 text-small font-semibold tracking-widest uppercase',
+              tone === 'dark' ? 'text-red-300' : 'text-red-600',
+            )}
+          >
+            {eyebrow}
+          </p>
+        ) : null}
+        <Heading
+          id={id}
           className={cn(
-            'max-w-prose text-lead',
-            tone === 'light' ? 'text-ink-muted' : 'text-on-dark-muted',
+            Heading === 'h1' ? 'text-h1' : 'text-h2',
+            tone === 'light' && 'text-blue-900',
           )}
         >
-          {intro}
-        </p>
-      ) : null}
-      {action ? <div>{action}</div> : null}
+          {title}
+        </Heading>
+        {intro ? (
+          <p
+            className={cn(
+              'max-w-prose text-lead',
+              tone === 'light' ? 'text-ink-muted' : 'text-on-dark-muted',
+            )}
+          >
+            {intro}
+          </p>
+        ) : null}
+      </div>
+      {action ? <div className="shrink-0">{action}</div> : null}
     </header>
   )
 }

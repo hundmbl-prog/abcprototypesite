@@ -87,25 +87,27 @@ export function ExamDates({
 
   if (upcoming.length === 0) {
     return (
-      <div className="flex flex-col items-start gap-6 rounded-lg border border-line bg-surface p-8 md:flex-row md:items-center md:justify-between md:p-10">
+      <div className="flex flex-col items-start gap-6 rounded-2xl border border-dashed border-blue-300 bg-surface p-8 md:flex-row md:items-center md:justify-between md:p-10">
         <div className="flex items-start gap-4">
-          <Icon name="calendar" className="mt-1 size-6 shrink-0 text-blue" />
+          <span className="grid size-12 shrink-0 place-items-center rounded-pill bg-blue-900 text-on-dark">
+            <Icon name="calendar" className="size-5" />
+          </span>
           <div className="flex flex-col gap-1">
-            <p className="text-h4 font-semibold text-navy">Neue Termine folgen in Kürze</p>
+            <p className="text-h4 font-semibold text-blue-900">Neue Termine folgen in Kürze</p>
             <p className="max-w-prose text-ink-muted">{emptyText}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-3">
           <a
             href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-blue px-5 text-small font-semibold text-on-dark transition-colors duration-(--dur-base) hov:bg-blue-strong foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-5 text-small font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="phone" className="size-4" />
             Anrufen
           </a>
           <a
             href={`mailto:${email}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-md border border-blue px-5 text-small font-semibold text-blue transition-colors duration-(--dur-base) hov:bg-blue-soft foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+            className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-surface px-5 text-small font-semibold text-red-700 ring-1 ring-red-200 transition-[background-color,transform] duration-(--dur-base) active:scale-95 hov:bg-red-50 foc:outline-2 foc:outline-offset-2 foc:outline-blue"
           >
             <Icon name="mail" className="size-4" />
             E-Mail
@@ -167,10 +169,7 @@ export function ExamDates({
         <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-md">
           <table role="table" className="w-full text-left text-small">
             <caption className="sr-only">Prüfungstermine</caption>
-            <thead
-              role="rowgroup"
-              className="sr-only border-b-2 border-blue-200 text-navy md:not-sr-only"
-            >
+            <thead role="rowgroup" className="sr-only bg-blue-900 text-on-dark md:not-sr-only">
               <tr role="row">
                 {['Prüfung', 'Datum', 'Ort', 'Anmeldeschluss', 'Freie Plätze', 'Anmeldung'].map(
                   (h) => (
@@ -230,7 +229,7 @@ export function ExamDates({
                         type="button"
                         disabled={!bookable}
                         onClick={() => select({ examId: d.examId, dateId: d.id })}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-md bg-blue px-4 font-semibold text-on-dark transition-colors duration-(--dur-base) disabled:cursor-not-allowed disabled:bg-surface-3 disabled:text-ink-muted hov:bg-blue-strong foc:outline-2 foc:outline-offset-2 foc:outline-blue"
+                        className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 font-semibold text-on-dark shadow-sm transition-[background-color,transform] duration-(--dur-base) active:scale-95 disabled:cursor-not-allowed disabled:bg-surface-3 disabled:text-ink-muted disabled:shadow-none hov:bg-navy foc:outline-2 foc:outline-offset-2 foc:outline-blue"
                       >
                         Anmelden
                         <span className="sr-only">

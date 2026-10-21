@@ -30,7 +30,7 @@ export function Logo({
         priority={variant === 'wordmark'}
         className={cn(
           'w-auto',
-          variant === 'full' ? 'h-16' : 'h-8 md:h-10',
+          variant === 'full' ? 'h-24' : 'h-8 md:h-10',
           white && 'brightness-0 invert',
         )}
       />

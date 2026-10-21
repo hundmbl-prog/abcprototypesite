@@ -59,20 +59,10 @@
   h2,
   h3,
   h4 {
-    @apply font-semibold text-balance;
+    @apply font-display font-semibold text-balance;
     /* Long German compounds (e.g. "Jugendintegrationskurs") must never overflow on 375 px */
     hyphens: auto;
     overflow-wrap: break-word;
-  }
-  /* Display font only for the big headings; Clash Display needs a little extra word space */
-  h1,
-  h2 {
-    @apply font-display;
-    word-spacing: 0.06em;
-  }
-  h3,
-  h4 {
-    @apply font-sans;
   }
 
   p {

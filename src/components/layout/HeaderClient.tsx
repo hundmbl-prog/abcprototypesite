@@ -129,7 +129,7 @@ export function HeaderClient({
                         className={cn(
                           'relative flex min-h-11 items-center rounded-pill text-small font-semibold whitespace-nowrap transition-colors duration-(--dur-fast)',
                           isOpen || isCurrent
-                            ? 'bg-blue-100 text-blue-700'
+                            ? 'bg-blue-900 text-on-dark [--focus-ring:var(--color-blue)]'
                             : 'text-ink hov:bg-surface-3',
                         )}
                       >
@@ -177,10 +177,10 @@ export function HeaderClient({
               <span>
                 <Button
                   href={cta.href}
-                  variant="primary"
+                  variant="cta"
                   size="sm"
                   icon="mail"
-                  className="max-sm:px-3"
+                  className="rounded-pill! shadow-(--shadow-glow-red) max-sm:px-3"
                 >
                   <span className="max-sm:sr-only">{cta.label}</span>
                 </Button>
@@ -191,7 +191,7 @@ export function HeaderClient({
                 aria-expanded={mobileOpen}
                 aria-haspopup="dialog"
                 onClick={() => setMobileOpen(true)}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-line bg-surface px-4 text-small font-semibold text-navy transition-colors duration-(--dur-base) xl:hidden hov:bg-surface-3"
+                className="inline-flex min-h-11 items-center gap-2 rounded-pill bg-red-500 px-4 text-small font-semibold text-on-dark transition-[background-color,transform] duration-(--dur-base) active:scale-95 xl:hidden hov:bg-navy"
               >
                 <span aria-hidden className="flex w-4 flex-col gap-1">
                   <span className="h-0.5 w-full rounded-pill bg-current" />

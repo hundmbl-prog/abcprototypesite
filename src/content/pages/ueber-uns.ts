@@ -18,7 +18,6 @@ export const ueberUnsPage: ContentPage = {
       'Gemeinnütziger Verein, 1997 von migrantischen Eltern, Studierenden und Hochschulabsolventen gegründet.',
     image: images.g03438,
     facts: [
-      { icon: 'calendar', label: 'Gegründet', value: '1997 in Mainz' },
       { icon: 'users', label: 'Rechtsform', value: 'gemeinnütziger Verein' },
       { icon: 'location', label: 'Standorte', value: 'Mainz & Bad Kreuznach' },
       { icon: 'award', label: 'Prüfungen', value: 'telc Prüfungszentrum' },
@@ -36,7 +35,6 @@ export const ueberUnsPage: ContentPage = {
         'Langjährige Erfahrung in Sprache und Integration, eine familiäre Atmosphäre – und telc Prüfungen direkt im Haus.',
       ],
       facts: [
-        { label: 'Erfahrung', value: 'seit 1997' },
         { label: 'Lehrkräfte', value: 'qualifiziert und erfahren' },
         { label: 'Lage', value: 'nah am Mainzer Hauptbahnhof' },
         { label: 'Prüfungen', value: 'telc direkt vor Ort' },

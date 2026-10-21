@@ -19,18 +19,16 @@ test.describe('Home page', () => {
     expect(problems).toEqual([])
   })
 
-  test('has its sections (hero, offers, about, news, partners), one h1 and heading order', async ({
+  test('has its six sections (no projects, no locations), one h1 and heading order', async ({
     page,
   }) => {
     await page.goto('/')
-    for (const id of ['start', 'angebote', 'ueber-uns', 'news']) {
+    for (const id of ['start', 'angebote', 'ueber-uns', 'news', 'warum-abc']) {
       await expect(page.locator(`#${id}`)).toHaveCount(1)
     }
-    for (const id of ['projekte', 'standorte', 'warum-abc']) {
-      await expect(page.locator(`#${id}`)).toHaveCount(0)
-    }
+    for (const id of ['projekte', 'standorte']) await expect(page.locator(`#${id}`)).toHaveCount(0)
     await expect(page.getByRole('navigation', { name: 'Schnellzugriff' })).toHaveCount(0)
-    const partners = page.getByRole('heading', { name: 'Unsere Partner und Förderer' })
+    const partners = page.getByRole('heading', { name: 'Gemeinsam mehr erreichen' })
     await page.locator('#partner-titel').evaluate((el) => el.scrollIntoView({ block: 'center' }))
     await expect(partners).toBeVisible()
     await expect(page.getByRole('img', { name: 'Logo Aktion Mensch' })).toHaveCount(1)
@@ -54,52 +52,54 @@ test.describe('Home page', () => {
     expect(overflow).toBeLessThanOrEqual(0)
   })
 
-  test('offers: 6 text tiles without photos, each one link with its own link text', async ({
-    page,
-  }) => {
+  test('offers show 6 numbered icon cards, each a single link', async ({ page }) => {
     await page.goto('/')
-    const links = page.locator('#angebote li a')
-    await expect(links).toHaveCount(6)
-    await expect(page.locator('#angebote img')).toHaveCount(0)
-    const labels = await links.evaluateAll((els) =>
-      els.map((el) => el.lastElementChild?.textContent?.trim() ?? ''),
-    )
-    expect(new Set(labels).size).toBe(6)
-  })
-
-  test('every fact appears once: "1997" at most once in the visible home page text', async ({
-    page,
-  }) => {
-    await page.goto('/')
-    const text = await page.locator('body').innerText()
-    expect(text.split('1997').length - 1).toBeLessThanOrEqual(1)
-    expect(text.split('Mehr erfahren').length - 1).toBe(0)
-  })
-
-  test('hero: muted looping video with poster, headline and two text links (no box)', async ({
-    page,
-  }) => {
-    await page.goto('/')
-    const video = page.locator('#start video')
-    await expect(video).toHaveAttribute('muted', '')
-    await expect(video).toHaveAttribute('playsinline', '')
-    await expect(video).toHaveAttribute('loop', '')
-    await expect(video).toHaveAttribute('poster', /.+/)
-    await expect(page.locator('#start h1')).toHaveText('Bildung, die Perspektiven schafft')
-    await expect(page.locator('#start a')).toHaveCount(2)
+    const cards = page.locator('#angebote article')
+    await expect(cards).toHaveCount(6)
+    for (const card of await cards.all()) await expect(card.locator('a[href]')).toHaveCount(1)
   })
 })
 
-test.describe('About', () => {
-  test('about section: photo, short text with the only "Seit 1997", one text link', async ({
+test.describe('Offer cards and about', () => {
+  test('offer cards use icons instead of photos', async ({ page }) => {
+    await page.goto('/')
+    const cards = page.locator('#angebote article')
+    await expect(cards.first().locator('a[href]')).toHaveCount(1)
+    await expect(page.locator('#angebote img')).toHaveCount(0)
+    await expect(cards.first().locator('svg').first()).toBeVisible()
+  })
+
+  test('about section: story and one text link, no milestone boxes', async ({ page }) => {
+    await page.goto('/')
+    const about = page.locator('#ueber-uns')
+    await expect(about.getByRole('heading', { level: 2 })).toHaveText(
+      'Aus der Community – für die Community',
+    )
+    await expect(about.locator('li')).toHaveCount(0)
+    await expect(about.getByRole('link', { name: /Mehr über uns/ })).toHaveAttribute(
+      'href',
+      '/ueber-uns',
+    )
+  })
+
+  test('no repeated facts: "1997" once, no "Mehr erfahren", no hero stat boxes', async ({
     page,
   }) => {
     await page.goto('/')
-    const about = page.locator('#ueber-uns')
-    await expect(about.getByRole('heading', { level: 2 })).toHaveText('Wer wir sind')
-    await expect(about).toContainText('Seit 1997')
-    await expect(about.getByRole('link')).toHaveCount(1)
-    await expect(about.getByRole('link')).toHaveAttribute('href', '/ueber-uns')
+    const text = await page.locator('main').innerText()
+    expect(text.split('1997').length - 1).toBe(1)
+    expect(text.split('Mehr erfahren').length - 1).toBe(0)
+    await expect(page.locator('footer')).not.toContainText('seit 1997')
+  })
+
+  test('hero shows the muted, looping classroom video over its poster', async ({ page }) => {
+    await page.goto('/')
+    const video = page.locator('#start video')
+    await expect(video).toHaveAttribute('muted', '')
+    await expect(video).toHaveAttribute('loop', '')
+    await expect(video).toHaveAttribute('playsinline', '')
+    await expect(video).toHaveAttribute('poster', /.+/)
+    await expect(page.locator('#start img')).toHaveCount(1)
   })
 })
 
@@ -147,7 +147,7 @@ test.describe('Header navigation', () => {
     )
     const nav = page.getByRole('navigation', { name: 'Hauptnavigation' })
     const current = nav.getByRole('link', { name: 'Projekte', exact: true }).locator('..')
-    await expect(current).toHaveClass(/bg-blue-100/)
+    await expect(current).toHaveClass(/bg-blue-900/)
   })
 
   test('footer shows both locations with address and opening hours', async ({ page }) => {
@@ -156,7 +156,7 @@ test.describe('Header navigation', () => {
     await expect(footer).toContainText('Rhabanusstr. 5, 55118 Mainz')
     await expect(footer).toContainText('Mo, Di, Mi, Fr: 9:00–16:00 Uhr')
     await expect(footer).toContainText('Mathildenstr. 3–7, 55543 Bad Kreuznach')
-    await expect(footer).not.toContainText('seit 1997')
+    await expect(footer.locator('img').first()).toHaveClass(/invert/)
   })
 
   test('submenu opens with keyboard and closes with Escape', async ({ page }, info) => {
@@ -215,7 +215,24 @@ test.describe('Compact news', () => {
   })
 })
 
-test.describe('Locations on the Kontakt page', () => {
+test.describe('Counters and locations on the Kontakt page', () => {
+  test('counters end at their target value', async ({ page }) => {
+    await page.goto('/')
+    const stats = page.locator('#warum-abc dd')
+    await stats.first().scrollIntoViewIfNeeded()
+    await expect(stats.nth(1)).toHaveText('5', { timeout: 5000 })
+  })
+
+  test('counters never stay at 0 after scrolling past quickly', async ({ page }) => {
+    await page.goto('/')
+    // Scroll only after hydration: the page-load scroll reset would otherwise move back to the top.
+    await page.waitForLoadState('networkidle')
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+    await page.waitForTimeout(2500)
+    const values = await page.locator('#warum-abc dd > span:first-child').allTextContents()
+    expect(values).toEqual(['29', '5', '1.200+', '60+'])
+  })
+
   test('map loads only after consent', async ({ page }) => {
     const osm: string[] = []
     page.on('request', (req) => {

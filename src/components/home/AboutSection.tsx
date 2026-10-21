@@ -1,30 +1,37 @@
 import Image from 'next/image'
+import { SectionHeader } from '@/components/sections/SectionHeader'
 import { TextLink } from '@/components/ui/TextLink'
 import type { HomePage } from '@/content'
 
-/** About: one real team photo beside a short text and one text link (the only place for "Seit 1997"). */
+/** About us: photo, founding story (the only place for "1997" on the home page) and one text link. */
 export function AboutSection({ content }: { content: HomePage['about'] }) {
   return (
-    <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-blue-100 py-section">
-      <div className="container-page grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
-        <div className="overflow-hidden rounded-lg lg:col-span-7">
-          <Image
-            src={content.image.src}
-            alt={content.image.alt}
-            width={content.image.width}
-            height={content.image.height}
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            placeholder={content.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={content.image.blurDataURL}
-            className="h-auto w-full"
-          />
+    <section id="ueber-uns" aria-labelledby="ueber-uns-titel" className="bg-surface py-section">
+      <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <div className="group relative lg:col-span-6">
+          <div data-reveal="image" className="aspect-16/10 overflow-hidden rounded-2xl shadow-md">
+            <Image
+              src={content.image.src}
+              alt={content.image.alt}
+              width={content.image.width}
+              height={content.image.height}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              placeholder={content.image.blurDataURL ? 'blur' : 'empty'}
+              blurDataURL={content.image.blurDataURL}
+              className="size-full object-cover transition-transform duration-(--dur-slower) ease-out-expo motion-safe:group-hover:scale-105"
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-5 lg:col-span-5">
-          <h2 id="ueber-uns-titel" className="text-h2 text-navy">
-            {content.title}
-          </h2>
+
+        <div className="flex flex-col gap-6 lg:col-span-6">
+          <SectionHeader
+            id="ueber-uns-titel"
+            eyebrow={content.eyebrow}
+            title={content.title}
+            className="mb-0! md:mb-0!"
+          />
           {content.paragraphs.map((text) => (
-            <p key={text} className="max-w-prose text-lead text-ink-muted">
+            <p key={text} className="text-lead text-ink-muted">
               {text}
             </p>
           ))}

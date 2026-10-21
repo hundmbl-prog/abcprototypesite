@@ -51,23 +51,18 @@ type CardClassicProps = {
   className?: string
 }
 
+/** Link text of a card (the whole card is the link) – plain red text with an arrow, no button shape. */
 function RedButton({ label }: { label: string }) {
   return (
     <span
       aria-hidden
-      className="mt-auto inline-flex min-h-10 items-center gap-2 self-start rounded-pill bg-red-500 py-1 pr-1 pl-4 text-small font-semibold text-on-dark shadow-sm transition-[background-color,box-shadow] duration-(--dur-base) group-hov:bg-navy group-hov:shadow-(--shadow-glow-red)"
+      className="mt-auto inline-flex items-center gap-2 self-start text-small font-semibold text-red-600 underline-offset-4 group-hov:underline"
     >
       {label}
-      <span className="relative grid size-8 place-items-center overflow-hidden rounded-pill bg-on-dark text-red">
-        <Icon
-          name="arrow-right"
-          className="size-4 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-8"
-        />
-        <Icon
-          name="arrow-right"
-          className="absolute size-4 -translate-x-8 transition-transform duration-(--dur-slow) ease-out-expo group-hov:translate-x-0"
-        />
-      </span>
+      <Icon
+        name="arrow-right"
+        className="size-4 transition-transform duration-(--dur-base) group-hov:translate-x-1"
+      />
     </span>
   )
 }
