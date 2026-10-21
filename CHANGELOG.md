@@ -1,5 +1,12 @@
 # Changelog
 
+## Home page: house roof ends freely (2026-10-21)
+
+Requested on 21.10.2026: the roof of the logo house should not end in a point.
+
+- **HouseMark:** the body has no slanted top edge any more; the walls hang free under the roof, as in the logo, so the roof ends in its own round caps instead of meeting a second line in a point. The vertical seam starts just below the roof.
+- **Checks:** lint 0 / build OK / Playwright home at four widths green; checked in the browser at 1280 px.
+
 ## Home page: brush-stroke underline (2026-10-21)
 
 Requested on 21.10.2026: the underlines as a brush stroke, a bit thicker.

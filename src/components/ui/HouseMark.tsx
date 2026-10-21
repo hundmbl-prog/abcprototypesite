@@ -2,9 +2,10 @@ import { cn } from '@/lib/cn'
 
 /* The ABC house redrawn as lines on the logo's 400 × 200 grid: roof, gabled body, three puzzle seams. */
 const ROOF = 'M14 128 L200 16 L386 128'
-const BODY = 'M58 110 L200 50 L342 110 V176 a14 14 0 0 1 -14 14 H72 a14 14 0 0 1 -14 -14 Z'
+/* Walls hang free under the roof (no slanted top edge), like the logo – the roof keeps its round ends */
+const BODY = 'M58 118 V176 a14 14 0 0 0 14 14 H328 a14 14 0 0 0 14 -14 V118'
 const SEAMS =
-  'M196 52 V84 a24 24 0 0 0 0 48 V190 M58 132 H96 a28 28 0 0 0 56 0 H196 M196 150 H234 a30 30 0 0 1 60 0 H342'
+  'M196 40 V84 a24 24 0 0 0 0 48 V190 M58 132 H96 a28 28 0 0 0 56 0 H196 M196 150 H234 a30 30 0 0 1 60 0 H342'
 
 /**
  * The house from the ABC logo as a stroke drawing in the current text colour – the quiet
